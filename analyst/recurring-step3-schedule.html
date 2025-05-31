@@ -30,10 +30,8 @@ const TransferFrequencyForm = () => {
                 type="date"
                 value={sendDate}
                 onChange={(e) => setSendDate(e.target.value)}
-                className="w-full px-4 py-4 border-2 border-gray-300 rounded-2xl text-base text-gray-700 bg-white transition-all focus:outline-none focus:ring-4 font-['Truist_Trio',system-ui,sans-serif]"
-              style={{'--tw-ring-color': 'rgba(102, 51, 153, 0.1)'}}
-              onFocus={(e) => e.target.style.borderColor = '#663399'}
-              onBlur={(e) => e.target.style.borderColor = '#d1d5db'}
+                className="w-full px-4 py-4 border-2 border-gray-300 rounded-2xl text-base text-gray-700 bg-white transition-all focus:outline-none focus:border-purple-600 focus:ring-4 focus:ring-purple-100"
+                style={{ fontFamily: 'system-ui, sans-serif' }}
                 required
               />
               <Calendar className="absolute right-4 top-4 h-5 w-5 text-gray-400 pointer-events-none" />
@@ -54,10 +52,8 @@ const TransferFrequencyForm = () => {
               type="date"
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
-              className="w-full px-4 py-4 border-2 border-gray-300 rounded-2xl text-base text-gray-700 bg-white transition-all focus:outline-none focus:ring-4 font-['Truist_Trio',system-ui,sans-serif]"
-            style={{'--tw-ring-color': 'rgba(102, 51, 153, 0.1)'}}
-            onFocus={(e) => e.target.style.borderColor = '#663399'}
-            onBlur={(e) => e.target.style.borderColor = '#d1d5db'}
+              className="w-full px-4 py-4 border-2 border-gray-300 rounded-2xl text-base text-gray-700 bg-white transition-all focus:outline-none focus:border-purple-600 focus:ring-4 focus:ring-purple-100"
+              style={{ fontFamily: 'system-ui, sans-serif' }}
               required
             />
             <Calendar className="absolute right-4 top-4 h-5 w-5 text-gray-400 pointer-events-none" />
@@ -76,10 +72,9 @@ const TransferFrequencyForm = () => {
                 value="continue"
                 checked={endOption === 'continue'}
                 onChange={(e) => setEndOption(e.target.value)}
-                className="h-4 w-4 border-gray-300" 
-                style={{accentColor: '#663399'}}
+                className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300"
               />
-              <span className="ml-3 text-sm text-gray-700 font-['Truist_Trio',system-ui,sans-serif]">Continue until canceled</span>
+              <span className="ml-3 text-sm text-gray-700">Continue until canceled</span>
             </label>
             
             <label className="flex items-center bg-white border border-gray-200 rounded-lg p-3 cursor-pointer transition-all hover:bg-gray-50">
@@ -89,10 +84,9 @@ const TransferFrequencyForm = () => {
                 value="specific"
                 checked={endOption === 'specific'}
                 onChange={(e) => setEndOption(e.target.value)}
-                className="h-4 w-4 border-gray-300"
-                style={{accentColor: '#663399'}}
+                className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300"
               />
-              <span className="ml-3 text-sm text-gray-700 font-['Truist_Trio',system-ui,sans-serif]">On specific date</span>
+              <span className="ml-3 text-sm text-gray-700">On specific date</span>
             </label>
             
             {endOption === 'specific' && (
@@ -101,10 +95,8 @@ const TransferFrequencyForm = () => {
                   type="date"
                   value={endDate}
                   onChange={(e) => setEndDate(e.target.value)}
-                  className="w-full px-4 py-4 border-2 border-gray-300 rounded-2xl text-base text-gray-700 bg-white transition-all focus:outline-none focus:ring-4 font-['Truist_Trio',system-ui,sans-serif]"
-                  style={{'--tw-ring-color': 'rgba(102, 51, 153, 0.1)'}}
-                  onFocus={(e) => e.target.style.borderColor = '#663399'}
-                  onBlur={(e) => e.target.style.borderColor = '#d1d5db'}
+                  className="w-full px-4 py-4 border-2 border-gray-300 rounded-2xl text-base text-gray-700 bg-white transition-all focus:outline-none focus:border-purple-600 focus:ring-4 focus:ring-purple-100"
+                  style={{ fontFamily: 'system-ui, sans-serif' }}
                   required
                 />
                 <Calendar className="absolute right-4 top-4 h-5 w-5 text-gray-400 pointer-events-none" />
@@ -117,7 +109,7 @@ const TransferFrequencyForm = () => {
   };
 
   return (
-    <div className="max-w-sm mx-auto bg-white min-h-screen font-['Truist_Trio',system-ui,sans-serif]">
+    <div className="max-w-sm mx-auto bg-white min-h-screen" style={{ fontFamily: 'system-ui, sans-serif' }}>
       {/* Main Title */}
       <h1 className="text-2xl font-bold text-gray-900 text-center py-5 px-4 mb-0">
         Schedule Recurring Payment
@@ -153,7 +145,7 @@ const TransferFrequencyForm = () => {
 
       {/* Header */}
       <div className="bg-white px-4 py-4 border-b border-gray-200 flex items-center gap-4">
-        <button className="hover:bg-gray-50 transition-colors" style={{color: '#663399'}}>
+        <button className="p-2 rounded-full hover:bg-gray-50 transition-colors" style={{color: '#663399'}}>
           <ChevronLeft size={24} />
         </button>
         <div className="flex-1">
@@ -186,10 +178,8 @@ const TransferFrequencyForm = () => {
             <select
               value={frequency}
               onChange={(e) => setFrequency(e.target.value)}
-              className="w-full px-4 py-4 border-2 border-gray-300 rounded-2xl text-base text-gray-700 bg-white transition-all focus:outline-none focus:ring-4 font-['Truist_Trio',system-ui,sans-serif] appearance-none cursor-pointer"
-              style={{'--tw-ring-color': 'rgba(102, 51, 153, 0.1)'}}
-              onFocus={(e) => e.target.style.borderColor = '#663399'}
-              onBlur={(e) => e.target.style.borderColor = '#d1d5db'}
+              className="w-full px-4 py-4 border-2 border-gray-300 rounded-2xl text-base text-gray-700 bg-white transition-all focus:outline-none focus:border-purple-600 focus:ring-4 focus:ring-purple-100 appearance-none cursor-pointer"
+              style={{ fontFamily: 'system-ui, sans-serif' }}
             >
               {frequencyOptions.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -226,7 +216,7 @@ const TransferFrequencyForm = () => {
         <div className="flex space-x-3 pt-4 mb-20">
           <button 
             className="flex-1 text-white py-4 px-6 rounded-full hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all text-base font-semibold"
-            style={{backgroundColor: '#663399', '--tw-ring-color': '#663399'}}
+            style={{backgroundColor: '#663399'}}
           >
             Continue
           </button>
