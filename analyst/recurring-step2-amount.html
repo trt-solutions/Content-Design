@@ -425,6 +425,14 @@
                     document.querySelector('.last-payment').onclick = () => setAmount(amount);
                 }
             }
+            
+            // FIXED: Connect the button to the function
+            document.getElementById('continueBtn').addEventListener('click', function() {
+                continueToStep3();
+            });
+            
+            // Auto-focus amount input
+            document.getElementById('amountInput').focus();
         });
         
         function updatePayeeSummary(recipient) {
@@ -503,9 +511,6 @@
             // Navigate to step 3
             window.location.href = 'recurring-step3-schedule.html';
         }
-        
-        // Auto-focus amount input
-        document.getElementById('amountInput').focus();
     </script>
 </body>
 </html>
