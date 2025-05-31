@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Truist Commercial Banking</title>
+    <title>Truist Commercial Banking - Role Selection</title>
     <style>
         * {
             margin: 0;
@@ -15,48 +15,39 @@
             font-family: 'Truist Trio', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
             line-height: 1.5;
             color: #1a1a1a;
-            background: #f8f9fa;
+            background: linear-gradient(135deg, #663399 0%, #4c1d95 100%);
             padding: 0;
             margin: 0;
             min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .container {
-            max-width: 375px;
+            max-width: 1200px;
             width: 100%;
-            margin: 0 auto;
-            background: white;
-            min-height: 100vh;
-            position: relative;
+            padding: 40px 20px;
+            text-align: center;
         }
         
         .header {
-            background: white;
-            padding: 16px;
-            border-bottom: 1px solid #e5e7eb;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        .header-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
+            margin-bottom: 60px;
         }
         
         .truist-logo {
             display: flex;
             align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
         }
         
         .truist-icon {
-            width: 28px;
-            height: 28px;
-            background: #663399;
-            border-radius: 4px;
-            margin-right: 10px;
+            width: 48px;
+            height: 48px;
+            background: white;
+            border-radius: 8px;
+            margin-right: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -65,503 +56,222 @@
         
         .truist-icon::before {
             content: '';
-            width: 10px;
-            height: 10px;
-            background: white;
+            width: 18px;
+            height: 18px;
+            background: #663399;
             transform: rotate(45deg);
             position: absolute;
-            border-radius: 1px;
+            border-radius: 2px;
         }
         
         .truist-icon::after {
             content: '';
-            width: 6px;
-            height: 6px;
-            background: #663399;
+            width: 10px;
+            height: 10px;
+            background: white;
             position: absolute;
             border-radius: 1px;
         }
         
         .truist-text {
-            font-size: 18px;
-            font-weight: 600;
-            color: #663399;
-            letter-spacing: 0.5px;
-        }
-        
-        .header-actions {
-            display: flex;
-            gap: 16px;
-            align-items: center;
-        }
-        
-        .notification-btn, .signoff-btn {
-            background: #f3f4f6;
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 20px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-            position: relative;
-        }
-        
-        .notification-btn:hover, .signoff-btn:hover {
-            background: #e5e7eb;
-        }
-        
-        .signoff-btn {
-            width: auto;
-            padding: 0 16px;
-            font-size: 14px;
-            font-weight: 500;
-            color: #374151;
-        }
-        
-        .notification-badge {
-            position: absolute;
-            top: -2px;
-            right: -2px;
-            background: #ef4444;
+            font-size: 32px;
+            font-weight: 700;
             color: white;
-            border-radius: 50%;
-            width: 18px;
-            height: 18px;
-            font-size: 10px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            letter-spacing: 1px;
         }
         
-        .greeting {
-            font-size: 24px;
-            font-weight: 600;
-            color: #1a1a1a;
-            margin-bottom: 4px;
-        }
-        
-        .role-context {
-            font-size: 14px;
-            color: #6b7280;
-            font-weight: 500;
-            cursor: pointer;
-            transition: color 0.2s ease;
-        }
-        
-        .role-context:hover {
-            color: #663399;
-            text-decoration: underline;
-        }
-        
-        .content {
-            padding: 24px 16px;
-        }
-        
-        .warning-banner {
-            background: #fef7f0;
-            border: 1px solid #fed7aa;
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 24px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .warning-icon {
-            background: #f97316;
+        .welcome-title {
+            font-size: 48px;
+            font-weight: 700;
             color: white;
-            border-radius: 50%;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            flex-shrink: 0;
+            margin-bottom: 16px;
         }
         
-        .warning-content {
-            flex: 1;
-        }
-        
-        .warning-text {
-            font-size: 14px;
-            color: #9a3412;
-            line-height: 1.4;
+        .welcome-subtitle {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.9);
             margin-bottom: 8px;
-            font-weight: 500;
         }
         
-        .warning-btn {
-            background: #ea580c;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        
-        .warning-btn:hover {
-            background: #dc2626;
-        }
-        
-        .warning-link {
-            color: #ea580c;
-            text-decoration: underline;
-            font-weight: 500;
-        }
-        
-        .quick-actions {
-            background: white;
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 24px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        
-        .actions-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 24px;
-        }
-        
-        .action-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-        }
-        
-        .action-item:hover {
-            transform: translateY(-2px);
-        }
-        
-        .action-icon {
-            width: 64px;
-            height: 64px;
-            background: #663399;
-            border-radius: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 12px;
-            color: white;
-            font-size: 24px;
-            transition: all 0.2s ease;
-        }
-        
-        .action-item:hover .action-icon {
-            background: #553288;
-            transform: scale(1.05);
-        }
-        
-        .action-label {
+        .welcome-description {
             font-size: 16px;
-            font-weight: 600;
-            color: #1a1a1a;
-            text-align: center;
-            margin-bottom: 4px;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 600px;
+            margin: 0 auto;
         }
         
-        .action-sublabel {
-            font-size: 12px;
-            color: #6b7280;
-            text-align: center;
-            line-height: 1.3;
-            font-weight: 500;
+        .role-selection {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 32px;
+            max-width: 1100px;
+            margin: 0 auto;
         }
         
-        .menu-section {
+        .role-card {
             background: white;
-            border-radius: 16px;
-            margin-bottom: 24px;
-            overflow: hidden;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        
-        .recurrence-summary {
-            background: white;
-            border-radius: 16px;
-            margin-bottom: 24px;
-            overflow: hidden;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        
-        .recurrence-header {
-            padding: 20px 24px 16px 24px;
-            border-bottom: 1px solid #f3f4f6;
-        }
-        
-        .recurrence-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #1a1a1a;
-            margin-bottom: 4px;
-        }
-        
-        .recurrence-subtitle {
-            font-size: 14px;
-            color: #6b7280;
-        }
-        
-        .timeline-list {
-            padding: 0;
-        }
-        
-        .timeline-item {
-            display: flex;
-            align-items: center;
-            padding: 16px 24px;
-            border-bottom: 1px solid #f9fafb;
-            cursor: pointer;
-            transition: all 0.2s ease;
+            border-radius: 20px;
+            padding: 40px 32px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             position: relative;
+            overflow: hidden;
         }
         
-        .timeline-item:hover {
-            background: #faf8ff;
-            transform: translateY(-1px);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-        
-        .timeline-item:hover .timeline-actions {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .timeline-actions {
+        .role-card::before {
+            content: '';
             position: absolute;
-            right: 24px;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            gap: 8px;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.2s ease;
-            background: white;
-            padding: 4px;
-            border-radius: 6px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            transition: all 0.3s ease;
         }
         
-        .action-btn {
-            padding: 4px 8px;
-            font-size: 11px;
-            border: 1px solid #d1d5db;
-            border-radius: 4px;
-            background: white;
-            color: #374151;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        
-        .action-btn:hover {
-            background: #f3f4f6;
-        }
-        
-        .action-btn.resolve {
-            background: #ef4444;
-            color: white;
-            border-color: #ef4444;
-        }
-        
-        .timeline-pattern.overdue {
-            color: #ef4444;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-        
-        .timeline-indicator {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            margin-right: 16px;
-            flex-shrink: 0;
-        }
-        
-        .timeline-indicator.upcoming {
-            background: #3b82f6;
-        }
-        
-        .timeline-indicator.completed {
+        .role-card.analyst::before {
             background: #10b981;
         }
         
-        .timeline-indicator.overdue {
-            background: #ef4444;
+        .role-card.manager::before {
+            background: #3b82f6;
         }
         
-        .timeline-content {
-            flex: 1;
+        .role-card.compliance::before {
+            background: #f59e0b;
         }
         
-        .timeline-vendor {
-            font-size: 15px;
-            font-weight: 600;
+        .role-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+        }
+        
+        .role-card:hover::before {
+            height: 8px;
+        }
+        
+        .role-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 36px;
+            transition: all 0.3s ease;
+        }
+        
+        .role-card.analyst .role-icon {
+            background: #dcfce7;
+            color: #059669;
+        }
+        
+        .role-card.manager .role-icon {
+            background: #dbeafe;
+            color: #2563eb;
+        }
+        
+        .role-card.compliance .role-icon {
+            background: #fef3c7;
+            color: #d97706;
+        }
+        
+        .role-card:hover .role-icon {
+            transform: scale(1.1);
+        }
+        
+        .role-title {
+            font-size: 24px;
+            font-weight: 700;
             color: #1a1a1a;
-            margin-bottom: 2px;
+            margin-bottom: 12px;
         }
         
-        .timeline-schedule {
-            font-size: 13px;
+        .role-description {
+            font-size: 16px;
             color: #6b7280;
-            margin-bottom: 4px;
+            margin-bottom: 24px;
+            line-height: 1.6;
         }
         
-        .timeline-pattern {
-            font-size: 12px;
-            color: #9ca3af;
-            font-weight: 500;
+        .role-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 32px;
         }
         
-        .timeline-amount {
+        .role-features li {
             font-size: 14px;
-            font-weight: 600;
-            color: #663399;
-            text-align: right;
-        }
-        
-        .menu-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 24px;
-            border-bottom: 1px solid #f3f4f6;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-        }
-        
-        .menu-item-content {
-            flex: 1;
-        }
-        
-        .menu-item:last-child {
-            border-bottom: none;
-        }
-        
-        .menu-item:hover {
-            background: #faf8ff;
-        }
-        
-        .menu-label {
-            font-size: 16px;
-            font-weight: 500;
-            color: #1a1a1a;
-            margin-bottom: 2px;
-        }
-        
-        .menu-sublabel {
-            font-size: 13px;
-            color: #6b7280;
-            font-weight: 400;
-            line-height: 1.3;
-        }
-        
-        .audit-emphasis {
-            font-weight: 600;
-            color: #663399;
-        }
-        
-        .menu-arrow {
-            color: #9ca3af;
-            font-size: 16px;
-        }
-        
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 375px;
-            background: white;
-            border-top: 1px solid #e5e7eb;
-            padding: 12px 0 8px 0;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-        }
-        
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            padding: 8px 12px;
-            border-radius: 12px;
-        }
-        
-        .nav-item.active {
-            background: #faf8ff;
-        }
-        
-        .nav-icon {
-            font-size: 20px;
-            margin-bottom: 4px;
-            color: #6b7280;
-        }
-        
-        .nav-item.active .nav-icon {
-            color: #663399;
-        }
-        
-        .nav-label {
-            font-size: 11px;
-            color: #6b7280;
-            font-weight: 500;
-        }
-        
-        .nav-item.active .nav-label {
-            color: #663399;
-        }
-        
-        .pay-transfer-badge {
+            color: #374151;
+            margin-bottom: 8px;
+            padding-left: 20px;
             position: relative;
         }
         
-        .pay-transfer-badge::after {
-            content: '';
+        .role-features li::before {
+            content: '✓';
             position: absolute;
-            top: -2px;
-            right: -2px;
-            width: 8px;
-            height: 8px;
-            background: #ef4444;
-            border-radius: 50%;
+            left: 0;
+            font-weight: 600;
         }
         
-        .bank-info {
-            text-align: center;
-            padding: 16px;
-            color: #6b7280;
-            font-size: 12px;
-            margin-bottom: 80px;
+        .role-card.analyst .role-features li::before {
+            color: #059669;
         }
         
-        @media (max-width: 640px) {
-            .greeting {
-                font-size: 20px;
+        .role-card.manager .role-features li::before {
+            color: #2563eb;
+        }
+        
+        .role-card.compliance .role-features li::before {
+            color: #d97706;
+        }
+        
+        .role-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #663399;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .role-button:hover {
+            background: #553288;
+            transform: translateX(4px);
+        }
+        
+        .footer {
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+        }
+        
+        @media (max-width: 768px) {
+            .welcome-title {
+                font-size: 36px;
             }
             
-            .actions-grid {
-                gap: 16px;
+            .welcome-subtitle {
+                font-size: 18px;
             }
             
-            .action-icon {
-                width: 56px;
-                height: 56px;
-                border-radius: 28px;
-                font-size: 20px;
+            .role-selection {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            
+            .role-card {
+                padding: 32px 24px;
             }
         }
     </style>
@@ -569,102 +279,72 @@
 <body>
     <div class="container">
         <div class="header">
-            <div class="header-top">
-                <div class="truist-logo">
-                    <div class="truist-icon"></div>
-                    <div class="truist-text">Truist</div>
-                </div>
-                <div class="header-actions">
-                    <button class="notification-btn" title="General notifications: payment failures, bulk completions, system updates">
-                        🔔
-                        <span class="notification-badge">3</span>
-                    </button>
-                    <button class="signoff-btn">Sign off</button>
-                </div>
+            <div class="truist-logo">
+                <div class="truist-icon"></div>
+                <div class="truist-text">Truist</div>
             </div>
-            <div class="greeting">Good morning, Sarah</div>
-                    <div class="role-context" title="View role permissions and team entitlements">AP Manager • Finance Team</div>
+            <h1 class="welcome-title">Commercial Banking</h1>
+            <p class="welcome-subtitle">Choose Your Role to Continue</p>
+            <p class="welcome-description">
+                Select your role to access the appropriate dashboard and workflow designed for your responsibilities in the accounts payable process.
+            </p>
         </div>
         
-        <div class="content">
-            <div class="warning-banner">
-                <div class="warning-icon">⚠️</div>
-                <div class="warning-content">
-                    <div class="warning-text">3 pending approvals may require your action.</div>
-                    <button class="warning-btn">Review Pending Approvals</button>
-                </div>
-            </div>
+        <div class="role-selection">
+            <a href="analyst/dashboard.html" class="role-card analyst">
+                <div class="role-icon">💸</div>
+                <h2 class="role-title">AP Analyst</h2>
+                <p class="role-description">
+                    Create and manage payments for vendors, contractors, and service providers.
+                </p>
+                <ul class="role-features">
+                    <li>Create one-time and recurring payments</li>
+                    <li>Process batch payments efficiently</li>
+                    <li>Track payment status and history</li>
+                    <li>Manage vendor profiles and details</li>
+                </ul>
+                <span class="role-button">
+                    Access Dashboard →
+                </span>
+            </a>
             
-            <div class="quick-actions">
-                <div class="actions-grid">
-                    <div class="action-item" onclick="location.href='step1-recurring-payment.html'">
-                        <div class="action-icon">💸</div>
-                        <div class="action-label">Pay</div>
-                        <div class="action-sublabel">One time</div>
-                    </div>
-                    <div class="action-item" onclick="location.href='step1-recurring-payment.html'">
-                        <div class="action-icon">🔄</div>
-                        <div class="action-label">Schedule</div>
-                        <div class="action-sublabel">Recurring payments<br><span style="color: #10b981; font-weight: 600; font-size: 11px;">8 scheduled this week</span></div>
-                    </div>
-                    <div class="action-item">
-                        <div class="action-icon">📋</div>
-                        <div class="action-label">Batch</div>
-                        <div class="action-sublabel">Multiple payments</div>
-                    </div>
-                </div>
-            </div>
+            <a href="manager/dashboard.html" class="role-card manager">
+                <div class="role-icon">✅</div>
+                <h2 class="role-title">AP Manager</h2>
+                <p class="role-description">
+                    Review and approve payments with full oversight of team activities.
+                </p>
+                <ul class="role-features">
+                    <li>Approve or reject pending payments</li>
+                    <li>Monitor team performance metrics</li>
+                    <li>Access comprehensive audit trails</li>
+                    <li>Manage approval workflows and policies</li>
+                </ul>
+                <span class="role-button">
+                    Access Dashboard →
+                </span>
+            </a>
             
-            <div class="menu-section">
-                <div class="menu-item">
-                    <div class="menu-item-content">
-                        <div class="menu-label">View</div>
-                        <div class="menu-sublabel">All payment statuses, history, and audit trails</div>
-                    </div>
-                    <div class="menu-arrow">›</div>
-                </div>
-                <div class="menu-item">
-                    <div class="menu-item-content">
-                        <div class="menu-label">Manage</div>
-                        <div class="menu-sublabel">Vendor profiles and payment methods</div>
-                    </div>
-                    <div class="menu-arrow">›</div>
-                </div>
-                <div class="menu-item">
-                    <div class="menu-item-content">
-                        <div class="menu-label">Learn</div>
-                        <div class="menu-sublabel">More about access, payments, and profiles</div>
-                    </div>
-                    <div class="menu-arrow">›</div>
-                </div>
-            </div>
-            
-            <div class="bank-info">
-                Truist Bank, N.A. Member FDIC.
-            </div>
+            <a href="compliance/dashboard.html" class="role-card compliance">
+                <div class="role-icon">🔍</div>
+                <h2 class="role-title">Compliance Officer</h2>
+                <p class="role-description">
+                    Monitor risk patterns and ensure regulatory compliance across all transactions.
+                </p>
+                <ul class="role-features">
+                    <li>Monitor risk patterns and anomalies</li>
+                    <li>Generate compliance reports</li>
+                    <li>Audit transaction histories</li>
+                    <li>Manage regulatory requirements</li>
+                </ul>
+                <span class="role-button">
+                    Access Dashboard →
+                </span>
+            </a>
         </div>
         
-        <div class="bottom-nav">
-            <div class="nav-item active">
-                <div class="nav-icon">🏠</div>
-                <div class="nav-label">Dashboard</div>
-            </div>
-            <div class="nav-item">
-                <div class="nav-icon">💸</div>
-                <div class="nav-label">Payments</div>
-            </div>
-            <div class="nav-item">
-                <div class="nav-icon pay-transfer-badge">✅</div>
-                <div class="nav-label">Approvals</div>
-            </div>
-            <div class="nav-item">
-                <div class="nav-icon">📊</div>
-                <div class="nav-label">Reports</div>
-            </div>
-            <div class="nav-item">
-                <div class="nav-icon">⚙️</div>
-                <div class="nav-label">Settings</div>
-            </div>
+        <div class="footer">
+            <p>Truist Bank, N.A. Member FDIC. • Commercial Banking Platform Demo</p>
         </div>
     </div>
 </body>
