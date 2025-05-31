@@ -340,6 +340,8 @@
             padding: 16px 24px;
             border-bottom: 1px solid #f9fafb;
             position: relative;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
         }
         
         .approval-item:hover {
@@ -626,7 +628,7 @@
                 </div>
                 
                 <div class="queue-content" id="queueContent">
-                    <div class="approval-item">
+                    <div class="approval-item" onclick="location.href='approver-review-payment.html'">
                         <div class="approval-priority high"></div>
                         <div class="approval-content">
                             <div class="approval-vendor">Downtown Property</div>
@@ -634,14 +636,14 @@
                             <div class="approval-urgency urgent">Expires in 4 hours</div>
                         </div>
                         <div class="approval-amount">$8,500</div>
-                        <div class="approval-actions">
-                            <button class="action-btn approve-btn">Approve</button>
-                            <button class="action-btn reject-btn">Reject</button>
-                            <button class="action-btn review-btn">Review</button>
+                        <div class="approval-actions" onclick="event.stopPropagation()">
+                            <button class="action-btn approve-btn" onclick="quickApprove('Downtown Property')">Approve</button>
+                            <button class="action-btn reject-btn" onclick="quickReject('Downtown Property')">Reject</button>
+                            <button class="action-btn review-btn" onclick="location.href='approver-review-payment.html'">Review</button>
                         </div>
                     </div>
                     
-                    <div class="approval-item">
+                    <div class="approval-item" onclick="location.href='approver-review-payment.html'">
                         <div class="approval-priority high"></div>
                         <div class="approval-content">
                             <div class="approval-vendor">Metro Insurance</div>
@@ -649,14 +651,14 @@
                             <div class="approval-urgency urgent">Expires in 6 hours</div>
                         </div>
                         <div class="approval-amount">$12,750</div>
-                        <div class="approval-actions">
-                            <button class="action-btn approve-btn">Approve</button>
-                            <button class="action-btn reject-btn">Reject</button>
-                            <button class="action-btn review-btn">Review</button>
+                        <div class="approval-actions" onclick="event.stopPropagation()">
+                            <button class="action-btn approve-btn" onclick="quickApprove('Metro Insurance')">Approve</button>
+                            <button class="action-btn reject-btn" onclick="quickReject('Metro Insurance')">Reject</button>
+                            <button class="action-btn review-btn" onclick="location.href='approver-review-payment.html'">Review</button>
                         </div>
                     </div>
                     
-                    <div class="approval-item">
+                    <div class="approval-item" onclick="location.href='approver-review-payment.html'">
                         <div class="approval-priority medium"></div>
                         <div class="approval-content">
                             <div class="approval-vendor">Acme Corp Software</div>
@@ -664,14 +666,14 @@
                             <div class="approval-urgency normal">Due in 2 days</div>
                         </div>
                         <div class="approval-amount">$2,400</div>
-                        <div class="approval-actions">
-                            <button class="action-btn approve-btn">Approve</button>
-                            <button class="action-btn reject-btn">Reject</button>
-                            <button class="action-btn review-btn">Review</button>
+                        <div class="approval-actions" onclick="event.stopPropagation()">
+                            <button class="action-btn approve-btn" onclick="quickApprove('Acme Corp Software')">Approve</button>
+                            <button class="action-btn reject-btn" onclick="quickReject('Acme Corp Software')">Reject</button>
+                            <button class="action-btn review-btn" onclick="location.href='approver-review-payment.html'">Review</button>
                         </div>
                     </div>
                     
-                    <div class="approval-item">
+                    <div class="approval-item" onclick="location.href='approver-review-payment.html'">
                         <div class="approval-priority normal"></div>
                         <div class="approval-content">
                             <div class="approval-vendor">Office Supply Co</div>
@@ -679,14 +681,14 @@
                             <div class="approval-urgency normal">Due in 5 days</div>
                         </div>
                         <div class="approval-amount">$875</div>
-                        <div class="approval-actions">
-                            <button class="action-btn approve-btn">Approve</button>
-                            <button class="action-btn reject-btn">Reject</button>
-                            <button class="action-btn review-btn">Review</button>
+                        <div class="approval-actions" onclick="event.stopPropagation()">
+                            <button class="action-btn approve-btn" onclick="quickApprove('Office Supply Co')">Approve</button>
+                            <button class="action-btn reject-btn" onclick="quickReject('Office Supply Co')">Reject</button>
+                            <button class="action-btn review-btn" onclick="location.href='approver-review-payment.html'">Review</button>
                         </div>
                     </div>
                     
-                    <div class="approval-item">
+                    <div class="approval-item" onclick="location.href='approver-review-payment.html'">
                         <div class="approval-priority normal"></div>
                         <div class="approval-content">
                             <div class="approval-vendor">TechFlow LLC</div>
@@ -694,14 +696,14 @@
                             <div class="approval-urgency normal">Due in 7 days</div>
                         </div>
                         <div class="approval-amount">$3,200</div>
-                        <div class="approval-actions">
-                            <button class="action-btn approve-btn">Approve</button>
-                            <button class="action-btn reject-btn">Reject</button>
-                            <button class="action-btn review-btn">Review</button>
+                        <div class="approval-actions" onclick="event.stopPropagation()">
+                            <button class="action-btn approve-btn" onclick="quickApprove('TechFlow LLC')">Approve</button>
+                            <button class="action-btn reject-btn" onclick="quickReject('TechFlow LLC')">Reject</button>
+                            <button class="action-btn review-btn" onclick="location.href='approver-review-payment.html'">Review</button>
                         </div>
                     </div>
                     
-                    <div class="approval-item">
+                    <div class="approval-item" onclick="location.href='approver-review-payment.html'">
                         <div class="approval-priority normal"></div>
                         <div class="approval-content">
                             <div class="approval-vendor">Global Tech Solutions</div>
@@ -709,14 +711,14 @@
                             <div class="approval-urgency normal">Due in 10 days</div>
                         </div>
                         <div class="approval-amount">$4,800</div>
-                        <div class="approval-actions">
-                            <button class="action-btn approve-btn">Approve</button>
-                            <button class="action-btn reject-btn">Reject</button>
-                            <button class="action-btn review-btn">Review</button>
+                        <div class="approval-actions" onclick="event.stopPropagation()">
+                            <button class="action-btn approve-btn" onclick="quickApprove('Global Tech Solutions')">Approve</button>
+                            <button class="action-btn reject-btn" onclick="quickReject('Global Tech Solutions')">Reject</button>
+                            <button class="action-btn review-btn" onclick="location.href='approver-review-payment.html'">Review</button>
                         </div>
                     </div>
                     
-                    <div class="approval-item">
+                    <div class="approval-item" onclick="location.href='approver-review-payment.html'">
                         <div class="approval-priority normal"></div>
                         <div class="approval-content">
                             <div class="approval-vendor">City Utilities</div>
@@ -724,10 +726,10 @@
                             <div class="approval-urgency normal">Due in 12 days</div>
                         </div>
                         <div class="approval-amount">$1,650</div>
-                        <div class="approval-actions">
-                            <button class="action-btn approve-btn">Approve</button>
-                            <button class="action-btn reject-btn">Reject</button>
-                            <button class="action-btn review-btn">Review</button>
+                        <div class="approval-actions" onclick="event.stopPropagation()">
+                            <button class="action-btn approve-btn" onclick="quickApprove('City Utilities')">Approve</button>
+                            <button class="action-btn reject-btn" onclick="quickReject('City Utilities')">Reject</button>
+                            <button class="action-btn review-btn" onclick="location.href='approver-review-payment.html'">Review</button>
                         </div>
                     </div>
                 </div>
@@ -797,6 +799,20 @@
             } else {
                 queueContent.classList.add('collapsed');
                 queueToggle.classList.remove('expanded');
+            }
+        }
+        
+        function quickApprove(vendor) {
+            console.log('Quick approving:', vendor);
+            alert(`${vendor} payment approved! Moving to next in queue...`);
+            // In real app: update payment status and refresh dashboard
+        }
+        
+        function quickReject(vendor) {
+            console.log('Quick rejecting:', vendor);
+            if (confirm(`Are you sure you want to reject the ${vendor} payment?`)) {
+                alert(`${vendor} payment rejected. Submitter will be notified.`);
+                // In real app: update payment status and refresh dashboard
             }
         }
         
