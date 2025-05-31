@@ -95,7 +95,7 @@
             align-items: center;
         }
         
-        .notification-btn, .help-btn, .role-btn {
+        .notification-btn, .signoff-btn, .role-btn {
             background: #f3f4f6;
             border: none;
             width: 40px;
@@ -109,7 +109,7 @@
             position: relative;
         }
         
-        .role-btn {
+        .role-btn, .signoff-btn {
             width: auto;
             padding: 0 12px;
             font-size: 12px;
@@ -117,7 +117,14 @@
             color: #663399;
         }
         
-        .notification-btn:hover, .help-btn:hover, .role-btn:hover {
+        .signoff-btn {
+            color: #374151;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 0 16px;
+        }
+        
+        .notification-btn:hover, .signoff-btn:hover, .role-btn:hover {
             background: #e5e7eb;
         }
         
@@ -480,7 +487,7 @@
                         🔔
                         <span class="notification-badge">2</span>
                     </button>
-                    <button class="help-btn" title="Help and tutorials">❓</button>
+                    <button class="signoff-btn">Sign off</button>
                     <button class="role-btn" onclick="location.href='../index.html'">Switch Role</button>
                 </div>
             </div>
