@@ -405,34 +405,49 @@
                 <textarea class="memo-input" id="memoInput" placeholder="Add a note about this payment (optional)"></textarea>
             </div>
             
-            <button class="continue-btn" id="continueBtn">
+            <button class="continue-btn" id="continueBtn" onclick="continueToStep3()">
                 Setup Frequency
             </button>
         </div>
     </div>
     
     <script>
+        function continueToStep3() {
+            console.log('Button clicked!'); // Debug log
+            
+            const amount = document.getElementById('amountInput').value;
+            const memo = document.getElementById('memoInput').value;
+            
+            console.log('Amount:', amount, 'Memo:', memo); // Debug log
+            
+            // Store payment details
+            const paymentData = {
+                amount: amount,
+                memo: memo
+            };
+            
+            sessionStorage.setItem('paymentData', JSON.stringify(paymentData));
+            console.log('Data stored:', paymentData); // Debug log
+            
+            // Navigate to step 3
+            window.location.href = 'recurring-step3-schedule.html';
+        }
+        
         // Load selected recipient data
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('Page loaded!'); // Debug log
+            
             const recipient = JSON.parse(sessionStorage.getItem('selectedRecipient') || '{}');
             
             if (recipient.name) {
                 updatePayeeSummary(recipient);
-                // Set suggested amount from last payment
-                if (recipient.lastAmount) {
-                    const amount = recipient.lastAmount.replace(', '').replace(',', '');
-                    document.querySelector('.last-payment').textContent = `Last: ${recipient.lastAmount}`;
-                    document.querySelector('.last-payment').onclick = () => setAmount(amount);
-                }
             }
-            
-            // ✅ FIXED: Connect button to function
-            document.getElementById('continueBtn').addEventListener('click', function() {
-                continueToStep3();
-            });
             
             // Auto-focus amount input
             document.getElementById('amountInput').focus();
+            
+            // Initial form validation
+            validateForm();
         });
         
         function updatePayeeSummary(recipient) {
@@ -494,22 +509,6 @@
             } else {
                 continueBtn.disabled = true;
             }
-        }
-        
-        function continueToStep3() {
-            const amount = document.getElementById('amountInput').value;
-            const memo = document.getElementById('memoInput').value;
-            
-            // Store payment details
-            const paymentData = {
-                amount: amount,
-                memo: memo
-            };
-            
-            sessionStorage.setItem('paymentData', JSON.stringify(paymentData));
-            
-            // Navigate to step 3
-            window.location.href = 'recurring-step3-schedule.html';
         }
     </script>
 </body>
