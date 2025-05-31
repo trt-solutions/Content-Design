@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule Recurring Payment</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Truist Trio', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.5;
+            color: #1a1a1a;
+            background: #f8f9fa;
+            padding: 0;
+            margin: 0;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 375px;
+            width: 100%;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            padding: 0;
+        }
+        
+        .main-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a1a1a;
+            text-align: center;
+            padding: 20px 16px 0 16px;
+            margin-bottom: 0;
+        }
+        
+        .step-progress {
+            background: #f8f9fa;
+            padding: 16px;
+            text-align: center;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .step-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .step-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        
+        .step-dot.active {
+            background: #663399;
+            color: white;
+        }
+        
+        .step-dot.completed {
+            background: #10b981;
+            color: white;
+        }
+        
+        .step-dot.inactive {
+            background: #e5e7eb;
+            color: #9ca3af;
+        }
+        
+        .step-connector {
+            width: 32px;
+            height: 2px;
+            background: #e5e7eb;
+        }
+        
+        .step-connector.completed {
+            background: #10b981;
+        }
+        
+        .step-text {
+            font-size: 13px;
+            color: #6b7280;
+            font-weight: 500;
+        }
+        
+        .header {
+            background: white;
+            padding: 16px;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .back-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #663399;
+            padding: 8px;
+            border-radius: 50%;
+            transition: background-color 0.2s ease;
+        }
+        
+        .back-btn:hover {
+            background: #faf8ff;
+        }
+        
+        .header-content {
+            flex: 1;
+        }
+        
+        .title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+        
+        .content {
+            padding: 24px 16px;
+        }
+        
+        .payee-summary {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .payee-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 24px;
+            background: #663399;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        
+        .payee-info {
+            flex: 1;
+        }
+        
+        .payee-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 2px;
+        }
+        
+        .payee-detail {
+            font-size: 14px;
+            color: #6b7280;
+        }
+        
+        .amount-section {
+            margin-bottom: 32px;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+        
+        .section-subtitle {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 20px;
+            transition: opacity 0.3s ease;
+        }
+        
+        .section-subtitle.hidden {
+            opacity: 0;
+            height: 0;
+            margin-bottom: 0;
+            overflow: hidden;
+        }
+        
+        .amount-input-container {
+            position: relative;
+            margin-bottom: 16px;
+        }
+        
+        .currency-symbol {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+            font-weight: 400;
+            color: #374151;
+            z-index: 2;
+        }
+        
+        .amount-input {
+            width: 100%;
+            padding: 20px 20px 20px 50px;
+            border: 2px solid #d1d5db;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 400;
+            color: #374151;
+            background: white;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+        
+        .amount-input:focus {
+            outline: none;
+            border-color: #663399;
+            box-shadow: 0 0 0 3px rgba(102, 51, 153, 0.1);
+        }
+        
+        .amount-input::placeholder {
+            color: #9ca3af;
+        }
+        
+        .amount-suggestions {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+        
+        .amount-suggestion {
+            background: #f3f4f6;
+            border: 1px solid #d1d5db;
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        
+        .amount-suggestion:hover {
+            background: #e5e7eb;
+        }
+        
+        .amount-suggestion.last-payment {
+            background: #fef3c7;
+            border-color: #fbbf24;
+            color: #92400e;
+        }
+        
+        .amount-suggestion.last-payment:hover {
+            background: #fde68a;
+        }
+        
+        .memo-section {
+            margin-bottom: 32px;
+        }
+        
+        .memo-input {
+            width: 100%;
+            padding: 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 12px;
+            font-size: 16px;
+            color: #374151;
+            background: white;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .memo-input:focus {
+            outline: none;
+            border-color: #663399;
+            box-shadow: 0 0 0 3px rgba(102, 51, 153, 0.1);
+        }
+        
+        .memo-input::placeholder {
+            color: #9ca3af;
+        }
+        
+        .memo-hint {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 12px;
+            transition: opacity 0.3s ease;
+        }
+        
+        .memo-hint.hidden {
+            opacity: 0;
+            height: 0;
+            margin-bottom: 0;
+            overflow: hidden;
+        }
+        
+        .continue-btn {
+            width: 100%;
+            background: #663399;
+            color: white;
+            border: none;
+            padding: 16px 24px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            margin-bottom: 80px;
+        }
+        
+        .continue-btn:hover {
+            background: #553288;
+        }
+        
+        .continue-btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+        
+        @media (max-width: 640px) {
+            .title {
+                font-size: 18px;
+            }
+            
+            .amount-input {
+                font-size: 16px;
+                padding: 18px 18px 18px 45px;
+            }
+            
+            .currency-symbol {
+                font-size: 16px;
+                left: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="main-title">Schedule Recurring Payment</h1>
+        
+        <div class="step-progress">
+            <div class="step-visual">
+                <div class="step-dot completed">✓</div>
+                <div class="step-connector completed"></div>
+                <div class="step-dot active">2</div>
+                <div class="step-connector"></div>
+                <div class="step-dot inactive">3</div>
+                <div class="step-connector"></div>
+                <div class="step-dot inactive">4</div>
+                <div class="step-connector"></div>
+                <div class="step-dot inactive">5</div>
+            </div>
+            <div class="step-text">Step 2 of 5 • Enter amount</div>
+        </div>
+        
+        <div class="header">
+            <button class="back-btn" onclick="history.back()">‹</button>
+            <div class="header-content">
+                <h2 class="title">How much will you pay?</h2>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="payee-summary" id="payeeSummary">
+                <div class="payee-avatar">DP</div>
+                <div class="payee-info">
+                    <div class="payee-name">Downtown Property</div>
+                    <div class="payee-detail">Office Rent • Truist ****2341</div>
+                </div>
+            </div>
+            
+            <div class="amount-section">
+                <div class="amount-input-container">
+                    <span class="currency-symbol">$</span>
+                    <input type="text" class="amount-input" id="amountInput" placeholder="Enter the amount for each recurring payment" inputmode="decimal">
+                </div>
+            </div>
+            
+            <div class="memo-section">
+                <textarea class="memo-input" id="memoInput" placeholder="Add a note about this payment (optional)"></textarea>
+            </div>
+            
+            <button class="continue-btn" id="continueBtn">
+                Setup Frequency
+            </button>
+        </div>
+    </div>
+    
+    <script>
+        // Load selected recipient data
+        document.addEventListener('DOMContentLoaded', function() {
+            const recipient = JSON.parse(sessionStorage.getItem('selectedRecipient') || '{}');
+            
+            if (recipient.name) {
+                updatePayeeSummary(recipient);
+                // Set suggested amount from last payment
+                if (recipient.lastAmount) {
+                    const amount = recipient.lastAmount.replace(', '').replace(',', '');
+                    document.querySelector('.last-payment').textContent = `Last: ${recipient.lastAmount}`;
+                    document.querySelector('.last-payment').onclick = () => setAmount(amount);
+                }
+            }
+        });
+        
+        function updatePayeeSummary(recipient) {
+            const avatar = document.querySelector('.payee-avatar');
+            const name = document.querySelector('.payee-name');
+            const detail = document.querySelector('.payee-detail');
+            
+            // Set initials
+            const initials = recipient.name.split(' ').map(word => word[0]).join('');
+            avatar.textContent = initials;
+            
+            name.textContent = recipient.name;
+            detail.textContent = `${recipient.type} • ${recipient.bank}`;
+        }
+        
+        function setAmount(amount) {
+            const input = document.getElementById('amountInput');
+            const numericAmount = parseFloat(amount);
+            input.value = numericAmount.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            input.focus();
+            validateForm();
+        }
+        
+        // Format amount input with commas
+        document.getElementById('amountInput').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/[^\d.]/g, '');
+            
+            // Handle decimal places
+            const parts = value.split('.');
+            if (parts.length > 2) {
+                value = parts[0] + '.' + parts.slice(1).join('');
+            }
+            if (parts[1] && parts[1].length > 2) {
+                value = parts[0] + '.' + parts[1].slice(0, 2);
+            }
+            
+            // Format with commas
+            if (value && !isNaN(value)) {
+                const numericValue = parseFloat(value);
+                if (!isNaN(numericValue)) {
+                    e.target.value = numericValue.toLocaleString('en-US', {
+                        minimumFractionDigits: value.includes('.') ? (parts[1] ? parts[1].length : 1) : 0,
+                        maximumFractionDigits: 2
+                    });
+                }
+            }
+            
+            validateForm();
+        });
+        
+        function validateForm() {
+            const amountInput = document.getElementById('amountInput');
+            const continueBtn = document.getElementById('continueBtn');
+            
+            const amount = parseFloat(amountInput.value.replace(/[^\d.]/g, ''));
+            
+            if (amount && amount > 0) {
+                continueBtn.disabled = false;
+            } else {
+                continueBtn.disabled = true;
+            }
+        }
+        
+        function continueToStep3() {
+            const amount = document.getElementById('amountInput').value;
+            const memo = document.getElementById('memoInput').value;
+            
+            // Store payment details
+            const paymentData = {
+                amount: amount,
+                memo: memo
+            };
+            
+            sessionStorage.setItem('paymentData', JSON.stringify(paymentData));
+            
+            // Navigate to step 3
+            window.location.href = 'recurring-step3-schedule.html';
+        }
+        
+        // Auto-focus amount input
+        document.getElementById('amountInput').focus();
+    </script>
+</body>
+</html>
