@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simplified Payment Frequency Design</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.5;
+            color: #1a1a1a;
+            background: #f8f9fa;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            padding: 32px;
+        }
+        
+        .header {
+            margin-bottom: 32px;
+        }
+        
+        .title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            color: #1a1a1a;
+            font-weight: 500;
+        }
+        
+        .form-section {
+            margin-bottom: 32px;
+        }
+        
+        .field-label {
+            display: block;
+            font-size: 16px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 16px;
+        }
+        
+        .required {
+            color: #ef4444;
+        }
+        
+        .frequency-dropdown {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            color: #374151;
+            background: white;
+            cursor: pointer;
+            transition: border-color 0.2s ease;
+            margin-bottom: 24px;
+        }
+        
+        .frequency-dropdown:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .conditional-fields {
+            margin-top: 24px;
+            padding: 20px;
+            background: #f8faff;
+            border: 1px solid #e0e7ff;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .conditional-fields.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                max-height: 0;
+                padding-top: 0;
+                padding-bottom: 0;
+            }
+            to {
+                opacity: 1;
+                max-height: 300px;
+                padding-top: 20px;
+                padding-bottom: 20px;
+            }
+        }
+        
+        .field-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        
+        .field-group {
+            margin-bottom: 16px;
+        }
+        
+        .field-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 6px;
+        }
+        
+        .date-input, .dropdown {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            color: #374151;
+            background: white;
+            transition: border-color 0.2s ease;
+        }
+        
+        .date-input:focus, .dropdown:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .ending-options {
+            margin-bottom: 16px;
+        }
+        
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .radio-option input[type="radio"] {
+            width: 16px;
+            height: 16px;
+            accent-color: #3b82f6;
+        }
+        
+        .radio-option label {
+            font-size: 14px;
+            color: #374151;
+            cursor: pointer;
+            margin: 0;
+        }
+        
+        .end-date-field {
+            margin-left: 24px;
+            margin-top: 12px;
+            display: none;
+        }
+        
+        .twice-month-fields {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 12px;
+            align-items: end;
+            margin-bottom: 16px;
+        }
+        
+        .twice-month-fields .connector {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            color: #6b7280;
+            padding-bottom: 12px;
+        }
+        
+        .number-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            color: #374151;
+            background: white;
+            transition: border-color 0.2s ease;
+        }
+        
+        .number-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .hint-text {
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 4px;
+        }
+        
+        .notice {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 32px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .notice-icon {
+            margin-right: 12px;
+            margin-top: 2px;
+            font-size: 16px;
+        }
+        
+        .notice-text {
+            font-size: 14px;
+            color: #7f1d1d;
+            line-height: 1.4;
+        }
+        
+        .actions {
+            display: flex;
+            gap: 16px;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 32px;
+        }
+        
+        .help-link {
+            color: #3b82f6;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        
+        .help-link:hover {
+            color: #2563eb;
+            text-decoration: underline;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+        }
+        
+        .btn-primary {
+            background: #3b82f6;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #2563eb;
+        }
+        
+        .btn-secondary {
+            background: #f3f4f6;
+            color: #374151;
+            border: 1px solid #d1d5db;
+        }
+        
+        .btn-secondary:hover {
+            background: #e5e7eb;
+        }
+        
+        @media (max-width: 640px) {
+            .container {
+                padding: 24px 16px;
+            }
+            
+            .frequency-options {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+            
+            .field-row {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            .twice-month-fields {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            .twice-month-fields .connector {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">Schedule Payment Frequency</h1>
+            <p class="subtitle">How often should this payment be sent?</p>
+        </div>
+        
+        <div class="form-section">
+            <label class="field-label">Frequency <span class="required">*</span></label>
+            <select class="frequency-dropdown" id="frequencySelect" required>
+                <option value="">Select frequency...</option>
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="biweekly">Biweekly</option>
+                <option value="monthly">Monthly</option>
+                <option value="quarterly">Quarterly</option>
+                <option value="custom">Custom</option>
+            </select>
+            
+            <!-- Daily Pattern -->
+            <div id="dailyFields" class="conditional-fields">
+                <div class="field-group">
+                    <label>Send on <span class="required">*</span></label>
+                    <input type="date" class="date-input" id="sendOnDate" required>
+                </div>
+            </div>
+            
+            <!-- Standard Recurring Pattern -->
+            <div id="recurringFields" class="conditional-fields">
+                <div class="field-row">
+                    <div class="field-group">
+                        <label>Starting <span class="required">*</span></label>
+                        <input type="date" class="date-input" id="startingDate" required>
+                    </div>
+                </div>
+                
+                <div class="field-group">
+                    <label>Ending <span class="required">*</span></label>
+                    <div class="ending-options">
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="continueOption" name="endingType" value="continue" checked>
+                                <label for="continueOption">Continue until canceled</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="specificDateOption" name="endingType" value="date">
+                                <label for="specificDateOption">On specific date</label>
+                            </div>
+                        </div>
+                        <div id="endDateField" class="end-date-field">
+                            <input type="date" class="date-input" id="endingDate">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Custom Pattern -->
+            <div id="customFields" class="conditional-fields">
+                <div class="field-row">
+                    <div class="field-group">
+                        <label>Starting <span class="required">*</span></label>
+                        <input type="date" class="date-input" id="customStartDate" required>
+                    </div>
+                </div>
+                
+                <div class="field-group">
+                    <label>Ending <span class="required">*</span></label>
+                    <div class="ending-options">
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="customContinueOption" name="customEndingType" value="continue" checked>
+                                <label for="customContinueOption">Continue until canceled</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="customSpecificDateOption" name="customEndingType" value="date">
+                                <label for="customSpecificDateOption">On specific date</label>
+                            </div>
+                        </div>
+                        <div id="customEndDateField" class="end-date-field">
+                            <input type="date" class="date-input" id="customEndingDate">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="notice" id="customNotice" style="display: none;">
+            <span class="notice-icon">📌</span>
+            <div class="notice-text">
+                <strong>Custom frequency requires Truist approval and may delay processing by 2–3 business days.</strong> We'll notify you once approved.
+            </div>
+        </div>
+        
+        <div class="actions">
+            <button class="btn btn-secondary">Cancel</button>
+            <button class="btn btn-primary">Continue</button>
+        </div>
+    </div>
+    
+    <script>
+        const frequencySelect = document.getElementById('frequencySelect');
+        const dailyFields = document.getElementById('dailyFields');
+        const recurringFields = document.getElementById('recurringFields');
+        const customFields = document.getElementById('customFields');
+        const customNotice = document.getElementById('customNotice');
+        const endDateField = document.getElementById('endDateField');
+        const customEndDateField = document.getElementById('customEndDateField');
+        
+        // Handle frequency selection
+        frequencySelect.addEventListener('change', function() {
+            // Hide all conditional fields first
+            dailyFields.classList.remove('show');
+            recurringFields.classList.remove('show');
+            customFields.classList.remove('show');
+            customNotice.style.display = 'none';
+            
+            // Show appropriate fields based on selection
+            const frequency = this.value;
+            
+            if (frequency === 'daily') {
+                dailyFields.classList.add('show');
+            } else if (frequency === 'custom') {
+                customFields.classList.add('show');
+                customNotice.style.display = 'flex';
+            } else if (frequency && frequency !== '') {
+                recurringFields.classList.add('show');
+            }
+        });
+        
+        // Handle ending type changes for regular recurring
+        document.addEventListener('change', function(e) {
+            if (e.target.name === 'endingType') {
+                endDateField.style.display = e.target.value === 'date' ? 'block' : 'none';
+            }
+            
+            if (e.target.name === 'customEndingType') {
+                customEndDateField.style.display = e.target.value === 'date' ? 'block' : 'none';
+            }
+        });
+    </script>
+</body>
+</html>
