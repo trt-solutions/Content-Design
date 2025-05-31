@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Truist Commercial Banking - AP Manager</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Truist Trio', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.5;
+            color: #1a1a1a;
+            background: #f8f9fa;
+            padding: 0;
+            margin: 0;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 375px;
+            width: 100%;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        .header {
+            background: white;
+            padding: 16px;
+            border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .truist-logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .truist-icon {
+            width: 28px;
+            height: 28px;
+            background: #663399;
+            border-radius: 4px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .truist-icon::before {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background: white;
+            transform: rotate(45deg);
+            position: absolute;
+            border-radius: 1px;
+        }
+        
+        .truist-icon::after {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: #663399;
+            position: absolute;
+            border-radius: 1px;
+        }
+        
+        .truist-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: #663399;
+            letter-spacing: 0.5px;
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+        
+        .notification-btn, .signoff-btn, .role-btn {
+            background: #f3f4f6;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        
+        .notification-btn:hover, .signoff-btn:hover, .role-btn:hover {
+            background: #e5e7eb;
+        }
+        
+        .signoff-btn, .role-btn {
+            width: auto;
+            padding: 0 16px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+        }
+        
+        .role-btn {
+            font-size: 12px;
+            font-weight: 600;
+            color: #663399;
+            padding: 0 12px;
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            background: #ef4444;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 10px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .greeting {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+        
+        .role-context {
+            font-size: 14px;
+            color: #6b7280;
+            font-weight: 500;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        
+        .role-context:hover {
+            color: #663399;
+            text-decoration: underline;
+        }
+        
+        .content {
+            padding: 24px 16px;
+        }
+        
+        .urgent-banner {
+            background: #fef2f2;
+            border: 1px solid #fca5a5;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .urgent-icon {
+            background: #ef4444;
+            color: white;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        
+        .urgent-content {
+            flex: 1;
+        }
+        
+        .urgent-text {
+            font-size: 14px;
+            color: #991b1b;
+            line-height: 1.4;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .urgent-subtext {
+            font-size: 12px;
+            color: #b91c1c;
+        }
+        
+        .quick-actions {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .actions-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        
+        .action-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .action-item:hover {
+            transform: translateY(-2px);
+        }
+        
+        .action-icon {
+            width: 64px;
+            height: 64px;
+            background: #663399;
+            border-radius: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            color: white;
+            font-size: 24px;
+            transition: all 0.2s ease;
+        }
+        
+        .action-item:hover .action-icon {
+            background: #553288;
+            transform: scale(1.05);
+        }
+        
+        .action-label {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a1a;
+            text-align: center;
+            margin-bottom: 4px;
+        }
+        
+        .action-sublabel {
+            font-size: 12px;
+            color: #6b7280;
+            text-align: center;
+            line-height: 1.3;
+            font-weight: 500;
+        }
+        
+        .approval-queue {
+            background: white;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .queue-header {
+            padding: 20px 24px 16px 24px;
+            border-bottom: 1px solid #f3f4f6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        
+        .queue-header:hover {
+            background: #faf8ff;
+        }
+        
+        .queue-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+        
+        .queue-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .queue-count {
+            background: #ef4444;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .queue-toggle {
+            color: #6b7280;
+            font-size: 16px;
+            font-weight: 600;
+            transition: transform 0.2s ease;
+        }
+        
+        .queue-toggle.expanded {
+            transform: rotate(180deg);
+        }
+        
+        .queue-content {
+            max-height: 1000px;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .queue-content.collapsed {
+            max-height: 0;
+        }
+        
+        .approval-item {
+            display: flex;
+            align-items: center;
+            padding: 16px 24px;
+            border-bottom: 1px solid #f9fafb;
+            position: relative;
+        }
+        
+        .approval-item:hover {
+            background: #faf8ff;
+        }
+        
+        .approval-item:hover .approval-actions {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .approval-priority {
+            width: 4px;
+            height: 40px;
+            border-radius: 2px;
+            margin-right: 16px;
+            flex-shrink: 0;
+        }
+        
+        .approval-priority.high {
+            background: #ef4444;
+        }
+        
+        .approval-priority.medium {
+            background: #f59e0b;
+        }
+        
+        .approval-priority.normal {
+            background: #10b981;
+        }
+        
+        .approval-content {
+            flex: 1;
+        }
+        
+        .approval-vendor {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 2px;
+        }
+        
+        .approval-detail {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 4px;
+        }
+        
+        .approval-urgency {
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .approval-urgency.urgent {
+            color: #dc2626;
+        }
+        
+        .approval-urgency.normal {
+            color: #059669;
+        }
+        
+        .approval-amount {
+            font-size: 14px;
+            font-weight: 600;
+            color: #663399;
+            text-align: right;
+            margin-right: 16px;
+        }
+        
+        .approval-actions {
+            position: absolute;
+            right: 24px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            gap: 8px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            background: white;
+            padding: 4px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .action-btn {
+            padding: 6px 12px;
+            font-size: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 600;
+        }
+        
+        .approve-btn {
+            background: #10b981;
+            color: white;
+        }
+        
+        .reject-btn {
+            background: #ef4444;
+            color: white;
+        }
+        
+        .review-btn {
+            background: #f3f4f6;
+            color: #374151;
+        }
+        
+        .menu-section {
+            background: white;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            border-bottom: 1px solid #f3f4f6;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        
+        .menu-item-content {
+            flex: 1;
+        }
+        
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+        
+        .menu-item:hover {
+            background: #faf8ff;
+        }
+        
+        .menu-label {
+            font-size: 16px;
+            font-weight: 500;
+            color: #1a1a1a;
+            margin-bottom: 2px;
+        }
+        
+        .menu-sublabel {
+            font-size: 13px;
+            color: #6b7280;
+            font-weight: 400;
+            line-height: 1.3;
+        }
+        
+        .menu-arrow {
+            color: #9ca3af;
+            font-size: 16px;
+        }
+        
+        .bank-info {
+            text-align: center;
+            padding: 16px;
+            color: #6b7280;
+            font-size: 12px;
+            margin-bottom: 80px;
+        }
+        
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 375px;
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            padding: 12px 0 8px 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            padding: 8px 12px;
+            border-radius: 12px;
+        }
+        
+        .nav-item.active {
+            background: #faf8ff;
+        }
+        
+        .nav-icon {
+            font-size: 20px;
+            margin-bottom: 4px;
+            color: #6b7280;
+        }
+        
+        .nav-item.active .nav-icon {
+            color: #663399;
+        }
+        
+        .nav-label {
+            font-size: 11px;
+            color: #6b7280;
+            font-weight: 500;
+        }
+        
+        .nav-item.active .nav-label {
+            color: #663399;
+        }
+        
+        .approval-badge {
+            position: relative;
+        }
+        
+        .approval-badge::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 8px;
+            height: 8px;
+            background: #ef4444;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-top">
+                <div class="truist-logo">
+                    <div class="truist-icon"></div>
+                    <div class="truist-text">Truist</div>
+                </div>
+                <div class="header-actions">
+                    <button class="notification-btn" title="Approval deadlines and team updates">
+                        🔔
+                        <span class="notification-badge">7</span>
+                    </button>
+                    <button class="signoff-btn">Sign off</button>
+                    <button class="role-btn" onclick="location.href='../index.html'">Switch Role</button>
+                </div>
+            </div>
+            <div class="greeting">Good morning, Sarah</div>
+            <div class="role-context" title="View team permissions and delegation settings">AP Manager • Finance Team</div>
+        </div>
+        
+        <div class="content">
+            <div class="urgent-banner">
+                <div class="urgent-icon">⏰</div>
+                <div class="urgent-content">
+                    <div class="urgent-text">2 high-priority approvals expire today</div>
+                    <div class="urgent-subtext">Downtown Property and Metro Insurance</div>
+                </div>
+            </div>
+            
+            <div class="quick-actions">
+                <div class="actions-grid">
+                    <div class="action-item" onclick="location.href='approval-queue.html'">
+                        <div class="action-icon">✅</div>
+                        <div class="action-label">Approve</div>
+                        <div class="action-sublabel">Pending payments<br><span style="color: #ef4444; font-weight: 600; font-size: 11px;">7 need approval</span></div>
+                    </div>
+                    <div class="action-item" onclick="location.href='payment-history.html'">
+                        <div class="action-icon">📊</div>
+                        <div class="action-label">View</div>
+                        <div class="action-sublabel">Payment history</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="approval-queue">
+                <div class="queue-header" onclick="toggleQueue()">
+                    <h2 class="queue-title">Approval Queue</h2>
+                    <div class="queue-controls">
+                        <span class="queue-count">7</span>
+                        <span class="queue-toggle" id="queueToggle">▼</span>
+                    </div>
+                </div>
+                
+                <div class="queue-content" id="queueContent">
+                    <div class="approval-item">
+                        <div class="approval-priority high"></div>
+                        <div class="approval-content">
+                            <div class="approval-vendor">Downtown Property</div>
+                            <div class="approval-detail">Office Rent • Submitted by Alex K. • Due: Today</div>
+                            <div class="approval-urgency urgent">Expires in 4 hours</div>
+                        </div>
+                        <div class="approval-amount">$8,500</div>
+                        <div class="approval-actions">
+                            <button class="action-btn approve-btn">Approve</button>
+                            <button class="action-btn reject-btn">Reject</button>
+                            <button class="action-btn review-btn">Review</button>
+                        </div>
+                    </div>
+                    
+                    <div class="approval-item">
+                        <div class="approval-priority high"></div>
+                        <div class="approval-content">
+                            <div class="approval-vendor">Metro Insurance</div>
+                            <div class="approval-detail">Business Insurance • Submitted by Lisa M. • Due: Today</div>
+                            <div class="approval-urgency urgent">Expires in 6 hours</div>
+                        </div>
+                        <div class="approval-amount">$12,750</div>
+                        <div class="approval-actions">
+                            <button class="action-btn approve-btn">Approve</button>
+                            <button class="action-btn reject-btn">Reject</button>
+                            <button class="action-btn review-btn">Review</button>
+                        </div>
+                    </div>
+                    
+                    <div class="approval-item">
+                        <div class="approval-priority medium"></div>
+                        <div class="approval-content">
+                            <div class="approval-vendor">Acme Corp Software</div>
+                            <div class="approval-detail">SaaS Subscription • Submitted by Alex K. • Due: Feb 1</div>
+                            <div class="approval-urgency normal">Due in 2 days</div>
+                        </div>
+                        <div class="approval-amount">$2,400</div>
+                        <div class="approval-actions">
+                            <button class="action-btn approve-btn">Approve</button>
+                            <button class="action-btn reject-btn">Reject</button>
+                            <button class="action-btn review-btn">Review</button>
+                        </div>
+                    </div>
+                    
+                    <div class="approval-item">
+                        <div class="approval-priority normal"></div>
+                        <div class="approval-content">
+                            <div class="approval-vendor">Office Supply Co</div>
+                            <div class="approval-detail">Monthly Supplies • Submitted by Jordan T. • Due: Feb 5</div>
+                            <div class="approval-urgency normal">Due in 5 days</div>
+                        </div>
+                        <div class="approval-amount">$875</div>
+                        <div class="approval-actions">
+                            <button class="action-btn approve-btn">Approve</button>
+                            <button class="action-btn reject-btn">Reject</button>
+                            <button class="action-btn review-btn">Review</button>
+                        </div>
+                    </div>
+                    
+                    <div class="approval-item">
+                        <div class="approval-priority normal"></div>
+                        <div class="approval-content">
+                            <div class="approval-vendor">TechFlow LLC</div>
+                            <div class="approval-detail">Consulting Services • Submitted by Maria S. • Due: Feb 7</div>
+                            <div class="approval-urgency normal">Due in 7 days</div>
+                        </div>
+                        <div class="approval-amount">$3,200</div>
+                        <div class="approval-actions">
+                            <button class="action-btn approve-btn">Approve</button>
+                            <button class="action-btn reject-btn">Reject</button>
+                            <button class="action-btn review-btn">Review</button>
+                        </div>
+                    </div>
+                    
+                    <div class="approval-item">
+                        <div class="approval-priority normal"></div>
+                        <div class="approval-content">
+                            <div class="approval-vendor">Global Tech Solutions</div>
+                            <div class="approval-detail">Software License • Submitted by Alex K. • Due: Feb 10</div>
+                            <div class="approval-urgency normal">Due in 10 days</div>
+                        </div>
+                        <div class="approval-amount">$4,800</div>
+                        <div class="approval-actions">
+                            <button class="action-btn approve-btn">Approve</button>
+                            <button class="action-btn reject-btn">Reject</button>
+                            <button class="action-btn review-btn">Review</button>
+                        </div>
+                    </div>
+                    
+                    <div class="approval-item">
+                        <div class="approval-priority normal"></div>
+                        <div class="approval-content">
+                            <div class="approval-vendor">City Utilities</div>
+                            <div class="approval-detail">Monthly Utilities • Submitted by Jordan T. • Due: Feb 12</div>
+                            <div class="approval-urgency normal">Due in 12 days</div>
+                        </div>
+                        <div class="approval-amount">$1,650</div>
+                        <div class="approval-actions">
+                            <button class="action-btn approve-btn">Approve</button>
+                            <button class="action-btn reject-btn">Reject</button>
+                            <button class="action-btn review-btn">Review</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="menu-section">
+                <div class="menu-item" onclick="location.href='payment-history.html'">
+                    <div class="menu-item-content">
+                        <div class="menu-label">View</div>
+                        <div class="menu-sublabel">All payment statuses, history, and audit trails</div>
+                    </div>
+                    <div class="menu-arrow">›</div>
+                </div>
+                <div class="menu-item" onclick="location.href='team-management.html'">
+                    <div class="menu-item-content">
+                        <div class="menu-label">Manage</div>
+                        <div class="menu-sublabel">Team permissions and approval workflows</div>
+                    </div>
+                    <div class="menu-arrow">›</div>
+                </div>
+                <div class="menu-item" onclick="location.href='help-guides.html'">
+                    <div class="menu-item-content">
+                        <div class="menu-label">Learn</div>
+                        <div class="menu-sublabel">More about approvals, policies, and compliance</div>
+                    </div>
+                    <div class="menu-arrow">›</div>
+                </div>
+            </div>
+            
+            <div class="bank-info">
+                Truist Bank, N.A. Member FDIC.
+            </div>
+        </div>
+        
+        <div class="bottom-nav">
+            <div class="nav-item active">
+                <div class="nav-icon">🏠</div>
+                <div class="nav-label">Dashboard</div>
+            </div>
+            <div class="nav-item" onclick="location.href='payment-history.html'">
+                <div class="nav-icon">💸</div>
+                <div class="nav-label">Payments</div>
+            </div>
+            <div class="nav-item" onclick="location.href='approval-queue.html'">
+                <div class="nav-icon approval-badge">✅</div>
+                <div class="nav-label">Approvals</div>
+            </div>
+            <div class="nav-item" onclick="location.href='reports.html'">
+                <div class="nav-icon">📊</div>
+                <div class="nav-label">Reports</div>
+            </div>
+            <div class="nav-item" onclick="location.href='team-management.html'">
+                <div class="nav-icon">⚙️</div>
+                <div class="nav-label">Settings</div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function toggleQueue() {
+            const queueContent = document.getElementById('queueContent');
+            const queueToggle = document.getElementById('queueToggle');
+            
+            if (queueContent.classList.contains('collapsed')) {
+                queueContent.classList.remove('collapsed');
+                queueToggle.classList.add('expanded');
+            } else {
+                queueContent.classList.add('collapsed');
+                queueToggle.classList.remove('expanded');
+            }
+        }
+        
+        // Start with queue expanded by default
+        document.addEventListener('DOMContentLoaded', function() {
+            const queueToggle = document.getElementById('queueToggle');
+            queueToggle.classList.add('expanded');
+        });
+    </script>
+</body>
+</html>
