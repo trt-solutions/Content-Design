@@ -1,0 +1,242 @@
+import React, { useState } from 'react';
+import { Calendar, AlertCircle, ChevronLeft } from 'lucide-react';
+
+const TransferFrequencyForm = () => {
+  const [frequency, setFrequency] = useState('daily');
+  const [endOption, setEndOption] = useState('continue');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [sendDate, setSendDate] = useState('');
+
+  const frequencyOptions = [
+    { value: 'daily', label: 'Daily' },
+    { value: 'weekly', label: 'Weekly' },
+    { value: 'biweekly', label: 'Every 2 weeks' },
+    { value: 'monthly', label: 'Monthly' },
+    { value: 'quarterly', label: 'Quarterly' },
+    { value: 'custom', label: 'Custom' }
+  ];
+
+  const renderFrequencySpecificFields = () => {
+    if (frequency === 'daily') {
+      return (
+        <div className="space-y-4">
+          <div className="flex flex-col">
+            <label className="text-sm font-medium text-gray-700 mb-2">
+              Send on <span className="text-red-500">*</span>
+            </label>
+            <div className="relative">
+              <input
+                type="date"
+                value={sendDate}
+                onChange={(e) => setSendDate(e.target.value)}
+                className="w-full px-4 py-4 border-2 border-gray-300 rounded-2xl text-base text-gray-700 bg-white transition-all focus:outline-none focus:ring-4 font-['Truist_Trio',system-ui,sans-serif]"
+              style={{'--tw-ring-color': 'rgba(102, 51, 153, 0.1)'}}
+              onFocus={(e) => e.target.style.borderColor = '#663399'}
+              onBlur={(e) => e.target.style.borderColor = '#d1d5db'}
+                required
+              />
+              <Calendar className="absolute right-4 top-4 h-5 w-5 text-gray-400 pointer-events-none" />
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className="space-y-4">
+        <div className="flex flex-col">
+          <label className="text-sm font-medium text-gray-700 mb-2">
+            Starting <span className="text-red-500">*</span>
+          </label>
+          <div className="relative">
+            <input
+              type="date"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+              className="w-full px-4 py-4 border-2 border-gray-300 rounded-2xl text-base text-gray-700 bg-white transition-all focus:outline-none focus:ring-4 font-['Truist_Trio',system-ui,sans-serif]"
+            style={{'--tw-ring-color': 'rgba(102, 51, 153, 0.1)'}}
+            onFocus={(e) => e.target.style.borderColor = '#663399'}
+            onBlur={(e) => e.target.style.borderColor = '#d1d5db'}
+              required
+            />
+            <Calendar className="absolute right-4 top-4 h-5 w-5 text-gray-400 pointer-events-none" />
+          </div>
+        </div>
+
+        <div className="flex flex-col">
+          <label className="text-sm font-medium text-gray-700 mb-2">
+            Ending <span className="text-red-500">*</span>
+          </label>
+          <div className="space-y-3">
+            <label className="flex items-center bg-white border border-gray-200 rounded-lg p-3 cursor-pointer transition-all hover:bg-gray-50">
+              <input
+                type="radio"
+                name="endOption"
+                value="continue"
+                checked={endOption === 'continue'}
+                onChange={(e) => setEndOption(e.target.value)}
+                className="h-4 w-4 border-gray-300" 
+                style={{accentColor: '#663399'}}
+              />
+              <span className="ml-3 text-sm text-gray-700 font-['Truist_Trio',system-ui,sans-serif]">Continue until canceled</span>
+            </label>
+            
+            <label className="flex items-center bg-white border border-gray-200 rounded-lg p-3 cursor-pointer transition-all hover:bg-gray-50">
+              <input
+                type="radio"
+                name="endOption"
+                value="specific"
+                checked={endOption === 'specific'}
+                onChange={(e) => setEndOption(e.target.value)}
+                className="h-4 w-4 border-gray-300"
+                style={{accentColor: '#663399'}}
+              />
+              <span className="ml-3 text-sm text-gray-700 font-['Truist_Trio',system-ui,sans-serif]">On specific date</span>
+            </label>
+            
+            {endOption === 'specific' && (
+              <div className="ml-6 relative">
+                <input
+                  type="date"
+                  value={endDate}
+                  onChange={(e) => setEndDate(e.target.value)}
+                  className="w-full px-4 py-4 border-2 border-gray-300 rounded-2xl text-base text-gray-700 bg-white transition-all focus:outline-none focus:ring-4 font-['Truist_Trio',system-ui,sans-serif]"
+                  style={{'--tw-ring-color': 'rgba(102, 51, 153, 0.1)'}}
+                  onFocus={(e) => e.target.style.borderColor = '#663399'}
+                  onBlur={(e) => e.target.style.borderColor = '#d1d5db'}
+                  required
+                />
+                <Calendar className="absolute right-4 top-4 h-5 w-5 text-gray-400 pointer-events-none" />
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <div className="max-w-sm mx-auto bg-white min-h-screen font-['Truist_Trio',system-ui,sans-serif]">
+      {/* Main Title */}
+      <h1 className="text-2xl font-bold text-gray-900 text-center py-5 px-4 mb-0">
+        Schedule Recurring Payment
+      </h1>
+
+      {/* Step Progress */}
+      <div className="bg-gray-50 px-4 py-4 text-center border-b border-gray-200">
+        <div className="flex items-center justify-center gap-2 mb-2">
+          <div className="w-6 h-6 rounded-full bg-green-500 text-white flex items-center justify-center text-xs font-semibold">
+            ✓
+          </div>
+          <div className="w-8 h-0.5 bg-green-500"></div>
+          <div className="w-6 h-6 rounded-full bg-green-500 text-white flex items-center justify-center text-xs font-semibold">
+            ✓
+          </div>
+          <div className="w-8 h-0.5 bg-green-500"></div>
+          <div className="w-6 h-6 rounded-full text-white flex items-center justify-center text-xs font-semibold" style={{backgroundColor: '#663399'}}>
+            3
+          </div>
+          <div className="w-8 h-0.5 bg-gray-300"></div>
+          <div className="w-6 h-6 rounded-full bg-gray-300 text-gray-500 flex items-center justify-center text-xs font-semibold">
+            4
+          </div>
+          <div className="w-8 h-0.5 bg-gray-300"></div>
+          <div className="w-6 h-6 rounded-full bg-gray-300 text-gray-500 flex items-center justify-center text-xs font-semibold">
+            5
+          </div>
+        </div>
+        <div className="text-sm text-gray-600 font-medium">
+          Step 3 of 5 • Setup frequency
+        </div>
+      </div>
+
+      {/* Header */}
+      <div className="bg-white px-4 py-4 border-b border-gray-200 flex items-center gap-4">
+        <button className="hover:bg-gray-50 transition-colors" style={{color: '#663399'}}>
+          <ChevronLeft size={24} />
+        </button>
+        <div className="flex-1">
+          <h2 className="text-xl font-semibold text-gray-900">
+            How often would you like to transfer?
+          </h2>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="px-4 py-6">
+        {/* Payee Summary */}
+        <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6 flex items-center gap-3">
+          <div className="w-12 h-12 rounded-full text-white flex items-center justify-center font-semibold text-lg flex-shrink-0" style={{backgroundColor: '#663399'}}>
+            DP
+          </div>
+          <div className="flex-1">
+            <div className="font-semibold text-gray-900 mb-0.5">
+              Downtown Property
+            </div>
+            <div className="text-sm text-gray-600">
+              Office Rent • Truist ****2341
+            </div>
+          </div>
+        </div>
+
+        {/* Frequency Selection */}
+        <div className="mb-8">
+          <div className="relative">
+            <select
+              value={frequency}
+              onChange={(e) => setFrequency(e.target.value)}
+              className="w-full px-4 py-4 border-2 border-gray-300 rounded-2xl text-base text-gray-700 bg-white transition-all focus:outline-none focus:ring-4 font-['Truist_Trio',system-ui,sans-serif] appearance-none cursor-pointer"
+              style={{'--tw-ring-color': 'rgba(102, 51, 153, 0.1)'}}
+              onFocus={(e) => e.target.style.borderColor = '#663399'}
+              onBlur={(e) => e.target.style.borderColor = '#d1d5db'}
+            >
+              {frequencyOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+            <div className="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
+              <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        {/* Frequency-specific fields */}
+        <div className="mb-8">
+          {renderFrequencySpecificFields()}
+        </div>
+
+        {/* Custom frequency disclaimer */}
+        {frequency === 'custom' && (
+          <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-8">
+            <div className="flex items-start">
+              <AlertCircle className="h-5 w-5 text-blue-500 mt-0.5 mr-3 flex-shrink-0" />
+              <div className="text-sm text-blue-800">
+                <span className="font-medium">📌 Custom frequency requires Truist approval and may delay processing by 2–3 business days. We'll notify you once approved.</span>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Action Buttons */}
+        <div className="flex space-x-3 pt-4 mb-20">
+          <button 
+            className="flex-1 text-white py-4 px-6 rounded-full hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all text-base font-semibold"
+            style={{backgroundColor: '#663399', '--tw-ring-color': '#663399'}}
+          >
+            Continue
+          </button>
+          <button className="flex-1 bg-gray-200 text-gray-800 py-4 px-6 rounded-full hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors text-base font-semibold">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default TransferFrequencyForm;
