@@ -94,29 +94,23 @@
             letter-spacing: -0.5px;
         }
         
-        .subtitle {
-            font-size: 16px;
-            color: #1a1a1a;
-            font-weight: 500;
-        }
-        
         .search-section {
-            margin-bottom: 32px;
+            margin-bottom: 24px;
         }
         
         .search-container {
             position: relative;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
         
         .search-input {
             width: 100%;
-            padding: 14px 16px 14px 48px;
-            border: 2px solid #d1d5db;
-            border-radius: 6px;
+            padding: 12px 16px 12px 44px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
             font-size: 16px;
             color: #374151;
-            background: white;
+            background: #f9fafb;
             transition: all 0.2s ease;
             font-family: inherit;
         }
@@ -124,39 +118,69 @@
         .search-input:focus {
             outline: none;
             border-color: #663399;
+            background: white;
             box-shadow: 0 0 0 3px rgba(102, 51, 153, 0.1);
         }
         
         .search-icon {
             position: absolute;
-            left: 16px;
+            left: 14px;
             top: 50%;
             transform: translateY(-50%);
-            color: #6b7280;
-            font-size: 20px;
+            color: #9ca3af;
+            font-size: 16px;
         }
         
-        .filter-row {
+        .filter-toggle {
             display: flex;
-            gap: 12px;
-            align-items: center;
+            justify-content: center;
+            margin-top: 8px;
+        }
+        
+        .filter-btn {
+            background: none;
+            border: none;
+            color: #663399;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+        
+        .filter-btn:hover {
+            background: #faf8ff;
+        }
+        
+        .filter-options {
+            display: none;
+            gap: 8px;
+            margin-top: 12px;
             flex-wrap: wrap;
         }
         
-        .filter-select {
-            padding: 8px 12px;
+        .filter-options.show {
+            display: flex;
+        }
+        
+        .filter-chip {
+            padding: 6px 12px;
             border: 1px solid #d1d5db;
-            border-radius: 4px;
-            font-size: 14px;
+            border-radius: 16px;
+            font-size: 13px;
             color: #374151;
             background: white;
             cursor: pointer;
             transition: all 0.2s ease;
+            font-weight: 500;
         }
         
-        .filter-select:focus {
-            outline: none;
+        .filter-chip:hover,
+        .filter-chip.active {
             border-color: #663399;
+            background: #faf8ff;
+            color: #663399;
         }
         
         .results-section {
@@ -168,8 +192,6 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 16px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid #e5e7eb;
         }
         
         .results-count {
@@ -178,20 +200,19 @@
         }
         
         .add-new-btn {
-            padding: 8px 16px;
-            background: #f8f9fa;
-            border: 1px solid #d1d5db;
-            border-radius: 4px;
-            font-size: 14px;
-            color: #663399;
+            padding: 6px 12px;
+            background: #663399;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            color: white;
             cursor: pointer;
             transition: all 0.2s ease;
             font-weight: 500;
         }
         
         .add-new-btn:hover {
-            background: #faf8ff;
-            border-color: #663399;
+            background: #553288;
         }
         
         .payee-list {
@@ -312,12 +333,6 @@
             font-weight: 500;
         }
         
-        .payee-tags {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        
         .tag {
             background: #f3f4f6;
             color: #374151;
@@ -360,6 +375,9 @@
             transition: all 0.2s ease;
             border: 2px solid transparent;
             font-family: inherit;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
         }
         
         .btn-secondary {
@@ -391,19 +409,9 @@
         }
         
         @media (max-width: 640px) {
-            .container {
-                padding: 24px 16px;
-                margin: 10px;
-            }
-            
             .payee-details {
                 grid-template-columns: 1fr;
                 gap: 12px;
-            }
-            
-            .filter-row {
-                flex-direction: column;
-                align-items: stretch;
             }
             
             .actions {
@@ -426,55 +434,42 @@
                 <div class="truist-text">Truist</div>
             </div>
             <div class="step-indicator">Step 1 of 4</div>
-            <h1 class="title">Send a Payment</h1>
-            <p class="subtitle">Who would you like to pay?</p>
+            <h1 class="title">Who would you like to pay?</h1>
         </div>
         
         <div class="search-section">
             <div class="search-container">
                 <span class="search-icon">🔍</span>
-                <input type="text" class="search-input" placeholder="Search by vendor name, ID, or account number" id="payeeSearch">
+                <input type="text" class="search-input" placeholder="Search vendors" id="payeeSearch">
             </div>
-            <div class="filter-row">
-                <select class="filter-select">
-                    <option>All vendors</option>
-                    <option>Frequent payees</option>
-                    <option>Recently added</option>
-                    <option>Verified only</option>
-                </select>
-                <select class="filter-select">
-                    <option>All categories</option>
-                    <option>Software/SaaS</option>
-                    <option>Office/Utilities</option>
-                    <option>Contractors</option>
-                    <option>Suppliers</option>
-                </select>
-                <select class="filter-select">
-                    <option>All payment methods</option>
-                    <option>ACH only</option>
-                    <option>Wire only</option>
-                    <option>Check only</option>
-                </select>
+            <div class="filter-toggle">
+                <button class="filter-btn" id="filterToggleBtn">Filter</button>
+            </div>
+            <div class="filter-options" id="filterOptions">
+                <div class="filter-chip active" data-filter="all">All</div>
+                <div class="filter-chip" data-filter="frequent">Frequent</div>
+                <div class="filter-chip" data-filter="verified">Verified</div>
+                <div class="filter-chip" data-filter="recent">Recent</div>
             </div>
         </div>
         
         <div class="results-section">
             <div class="results-header">
-                <span class="results-count">47 vendors found</span>
-                <button class="add-new-btn">+ Add New Vendor</button>
+                <span class="results-count">4 vendors</span>
+                <button class="add-new-btn">+ Add New</button>
             </div>
             
             <div class="payee-list">
                 <div class="payee-item selected" data-payee="acme-corp">
                     <div class="payee-header">
                         <div class="payee-basic-info">
-                            <div class="payee-name">Acme Corporation</div>
+                            <div class="payee-name">Acme Corp</div>
                             <div class="payee-quick-tags">
                                 <span class="tag quick">Frequent</span>
                                 <span class="tag verified-quick">Verified</span>
                             </div>
                         </div>
-                        <button class="expand-btn" onclick="toggleDetails(this)">▼</button>
+                        <button class="expand-btn">▼</button>
                     </div>
                     <div class="payee-details">
                         <div class="detail-item">
@@ -507,12 +502,12 @@
                 <div class="payee-item" data-payee="office-solutions">
                     <div class="payee-header">
                         <div class="payee-basic-info">
-                            <div class="payee-name">Metro Office Solutions</div>
+                            <div class="payee-name">Metro Office</div>
                             <div class="payee-quick-tags">
                                 <span class="tag verified-quick">Verified</span>
                             </div>
                         </div>
-                        <button class="expand-btn" onclick="toggleDetails(this)">▼</button>
+                        <button class="expand-btn">▼</button>
                     </div>
                     <div class="payee-details">
                         <div class="detail-item">
@@ -545,12 +540,12 @@
                 <div class="payee-item" data-payee="tech-consulting">
                     <div class="payee-header">
                         <div class="payee-basic-info">
-                            <div class="payee-name">TechFlow Consulting LLC</div>
+                            <div class="payee-name">TechFlow LLC</div>
                             <div class="payee-quick-tags">
                                 <span class="tag verified-quick">Verified</span>
                             </div>
                         </div>
-                        <button class="expand-btn" onclick="toggleDetails(this)">▼</button>
+                        <button class="expand-btn">▼</button>
                     </div>
                     <div class="payee-details">
                         <div class="detail-item">
@@ -583,13 +578,13 @@
                 <div class="payee-item" data-payee="property-mgmt">
                     <div class="payee-header">
                         <div class="payee-basic-info">
-                            <div class="payee-name">Downtown Property Management</div>
+                            <div class="payee-name">Downtown Property</div>
                             <div class="payee-quick-tags">
                                 <span class="tag quick">Frequent</span>
                                 <span class="tag verified-quick">Verified</span>
                             </div>
                         </div>
-                        <button class="expand-btn" onclick="toggleDetails(this)">▼</button>
+                        <button class="expand-btn">▼</button>
                     </div>
                     <div class="payee-details">
                         <div class="detail-item">
@@ -623,65 +618,119 @@
         
         <div class="actions">
             <button class="btn btn-secondary">Cancel</button>
-            <button class="btn btn-primary" id="continueBtn">Continue</button>
+            <a href="step2-payment-frequency.html" class="btn btn-primary" id="continueBtn">Continue</a>
         </div>
     </div>
     
     <script>
-        const payeeItems = document.querySelectorAll('.payee-item');
-        const continueBtn = document.getElementById('continueBtn');
-        const searchInput = document.getElementById('payeeSearch');
-        
-        // Toggle details function
-        function toggleDetails(button) {
-            const payeeItem = button.closest('.payee-item');
-            const details = payeeItem.querySelector('.payee-details');
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get all elements
+            const filterToggleBtn = document.getElementById('filterToggleBtn');
+            const filterOptions = document.getElementById('filterOptions');
+            const filterChips = document.querySelectorAll('.filter-chip');
+            const expandBtns = document.querySelectorAll('.expand-btn');
+            const payeeItems = document.querySelectorAll('.payee-item');
+            const searchInput = document.getElementById('payeeSearch');
+            const continueBtn = document.getElementById('continueBtn');
             
-            if (details.classList.contains('show')) {
-                details.classList.remove('show');
-                button.classList.remove('expanded');
-            } else {
-                details.classList.add('show');
-                button.classList.add('expanded');
-            }
-        }
-        
-        // Handle payee selection
-        payeeItems.forEach(item => {
-            item.addEventListener('click', function(e) {
-                // Don't trigger selection if clicking the expand button
-                if (e.target.classList.contains('expand-btn')) {
-                    return;
-                }
+            // Debug logs
+            console.log('Filter button found:', !!filterToggleBtn);
+            console.log('Filter options found:', !!filterOptions);
+            console.log('Expand buttons found:', expandBtns.length);
+            
+            // Filter toggle functionality
+            filterToggleBtn.addEventListener('click', function() {
+                console.log('Filter button clicked!');
+                filterOptions.classList.toggle('show');
+                console.log('Filter options visible:', filterOptions.classList.contains('show'));
+            });
+            
+            // Expand button functionality
+            expandBtns.forEach(function(btn) {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    console.log('Expand button clicked!');
+                    
+                    const payeeItem = this.closest('.payee-item');
+                    const details = payeeItem.querySelector('.payee-details');
+                    
+                    if (details.classList.contains('show')) {
+                        details.classList.remove('show');
+                        this.classList.remove('expanded');
+                    } else {
+                        details.classList.add('show');
+                        this.classList.add('expanded');
+                    }
+                });
+            });
+            
+            // Filter chip functionality
+            filterChips.forEach(function(chip) {
+                chip.addEventListener('click', function() {
+                    console.log('Filter chip clicked:', this.dataset.filter);
+                    
+                    // Remove active from all chips
+                    filterChips.forEach(function(c) {
+                        c.classList.remove('active');
+                    });
+                    
+                    // Add active to clicked chip
+                    this.classList.add('active');
+                    
+                    const filter = this.dataset.filter;
+                    
+                    // Filter payees
+                    payeeItems.forEach(function(item) {
+                        const hasFrequent = item.querySelector('.tag.quick');
+                        const hasVerified = item.querySelector('.tag.verified-quick');
+                        
+                        let show = true;
+                        
+                        if (filter === 'frequent' && !hasFrequent) {
+                            show = false;
+                        } else if (filter === 'verified' && !hasVerified) {
+                            show = false;
+                        }
+                        
+                        item.style.display = show ? 'block' : 'none';
+                    });
+                });
+            });
+            
+            // Payee selection
+            payeeItems.forEach(function(item) {
+                item.addEventListener('click', function(e) {
+                    // Don't select if clicking buttons
+                    if (e.target.classList.contains('expand-btn') || 
+                        e.target.classList.contains('filter-btn')) {
+                        return;
+                    }
+                    
+                    // Remove selected from all
+                    payeeItems.forEach(function(i) {
+                        i.classList.remove('selected');
+                    });
+                    
+                    // Add selected to this item
+                    this.classList.add('selected');
+                });
+            });
+            
+            // Search functionality
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
                 
-                // Remove selected class from all items
-                payeeItems.forEach(i => i.classList.remove('selected'));
-                // Add selected class to clicked item
-                this.classList.add('selected');
-                // Enable continue button
-                continueBtn.disabled = false;
+                payeeItems.forEach(function(item) {
+                    const payeeName = item.querySelector('.payee-name').textContent.toLowerCase();
+                    
+                    if (payeeName.includes(searchTerm)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
             });
         });
-        
-        // Handle search
-        searchInput.addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase();
-            payeeItems.forEach(item => {
-                const payeeName = item.querySelector('.payee-name').textContent.toLowerCase();
-                
-                if (payeeName.includes(searchTerm)) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        });
-        
-        // Initially enable continue button if a payee is selected
-        const selectedPayee = document.querySelector('.payee-item.selected');
-        if (selectedPayee) {
-            continueBtn.disabled = false;
-        }
     </script>
 </body>
 </html>
