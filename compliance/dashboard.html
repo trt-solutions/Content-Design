@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Truist Commercial Banking - Compliance Officer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Truist Trio', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.5;
+            color: #1a1a1a;
+            background: #f8f9fa;
+            padding: 0;
+            margin: 0;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 375px;
+            width: 100%;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        .header {
+            background: white;
+            padding: 16px;
+            border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .truist-logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .truist-icon {
+            width: 28px;
+            height: 28px;
+            background: #663399;
+            border-radius: 4px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .truist-icon::before {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background: white;
+            transform: rotate(45deg);
+            position: absolute;
+            border-radius: 1px;
+        }
+        
+        .truist-icon::after {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: #663399;
+            position: absolute;
+            border-radius: 1px;
+        }
+        
+        .truist-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: #663399;
+            letter-spacing: 0.5px;
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+        
+        .notification-btn, .export-btn, .signoff-btn, .role-btn {
+            background: #f3f4f6;
+            border: none;
+            height: 40px;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        
+        .notification-btn {
+            width: 40px;
+        }
+        
+        .export-btn, .signoff-btn, .role-btn {
+            padding: 0 16px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+        }
+        
+        .role-btn {
+            font-size: 12px;
+            font-weight: 600;
+            color: #663399;
+            padding: 0 12px;
+        }
+        
+        .notification-btn:hover, .export-btn:hover, .signoff-btn:hover, .role-btn:hover {
+            background: #e5e7eb;
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            background: #f59e0b;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 10px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .greeting {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+        
+        .role-context {
+            font-size: 14px;
+            color: #6b7280;
+            font-weight: 500;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        
+        .role-context:hover {
+            color: #663399;
+            text-decoration: underline;
+        }
+        
+        .content {
+            padding: 24px 16px;
+        }
+        
+        .compliance-alerts {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .alert-icon {
+            background: #f59e0b;
+            color: white;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        
+        .alert-content {
+            flex: 1;
+        }
+        
+        .alert-text {
+            font-size: 14px;
+            color: #92400e;
+            line-height: 1.4;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .alert-subtext {
+            font-size: 12px;
+            color: #b45309;
+        }
+        
+        .quick-actions {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .actions-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 24px;
+        }
+        
+        .action-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .action-item:hover {
+            transform: translateY(-2px);
+        }
+        
+        .action-icon {
+            width: 64px;
+            height: 64px;
+            background: #663399;
+            border-radius: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            color: white;
+            font-size: 24px;
+            transition: all 0.2s ease;
+        }
+        
+        .action-item:hover .action-icon {
+            background: #553288;
+            transform: scale(1.05);
+        }
+        
+        .action-label {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a1a;
+            text-align: center;
+            margin-bottom: 4px;
+        }
+        
+        .action-sublabel {
+            font-size: 12px;
+            color: #6b7280;
+            text-align: center;
+            line-height: 1.3;
+            font-weight: 500;
+        }
+        
+        .risk-monitoring {
+            background: white;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .risk-header {
+            padding: 20px 24px 16px 24px;
+            border-bottom: 1px solid #f3f4f6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        
+        .risk-header:hover {
+            background: #fef7f0;
+        }
+        
+        .risk-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+        
+        .risk-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .risk-count {
+            background: #f59e0b;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .risk-toggle {
+            color: #6b7280;
+            font-size: 16px;
+            font-weight: 600;
+            transition: transform 0.2s ease;
+        }
+        
+        .risk-toggle.expanded {
+            transform: rotate(180deg);
+        }
+        
+        .risk-content {
+            max-height: 1000px;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .risk-content.collapsed {
+            max-height: 0;
+        }
+        
+        .risk-item {
+            display: flex;
+            align-items: center;
+            padding: 16px 24px;
+            border-bottom: 1px solid #f9fafb;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .risk-item:hover {
+            background: #fef7f0;
+        }
+        
+        .risk-severity {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 16px;
+            flex-shrink: 0;
+        }
+        
+        .risk-severity.high {
+            background: #ef4444;
+        }
+        
+        .risk-severity.medium {
+            background: #f59e0b;
+        }
+        
+        .risk-severity.low {
+            background: #10b981;
+        }
+        
+        .risk-item-content {
+            flex: 1;
+        }
+        
+        .risk-description {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 2px;
+        }
+        
+        .risk-detail {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 4px;
+        }
+        
+        .risk-category {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 2px 6px;
+            border-radius: 8px;
+        }
+        
+        .risk-category.policy {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .risk-category.threshold {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .risk-category.pattern {
+            background: #ede9fe;
+            color: #6b21a8;
+        }
+        
+        .menu-section {
+            background: white;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            border-bottom: 1px solid #f3f4f6;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        
+        .menu-item-content {
+            flex: 1;
+        }
+        
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+        
+        .menu-item:hover {
+            background: #faf8ff;
+        }
+        
+        .menu-label {
+            font-size: 16px;
+            font-weight: 500;
+            color: #1a1a1a;
+            margin-bottom: 2px;
+        }
+        
+        .menu-sublabel {
+            font-size: 13px;
+            color: #6b7280;
+            font-weight: 400;
+            line-height: 1.3;
+        }
+        
+        .menu-arrow {
+            color: #9ca3af;
+            font-size: 16px;
+        }
+        
+        .bank-info {
+            text-align: center;
+            padding: 16px;
+            color: #6b7280;
+            font-size: 12px;
+            margin-bottom: 80px;
+        }
+        
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 375px;
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            padding: 12px 0 8px 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            padding: 8px 12px;
+            border-radius: 12px;
+        }
+        
+        .nav-item.active {
+            background: #faf8ff;
+        }
+        
+        .nav-icon {
+            font-size: 20px;
+            margin-bottom: 4px;
+            color: #6b7280;
+        }
+        
+        .nav-item.active .nav-icon {
+            color: #663399;
+        }
+        
+        .nav-label {
+            font-size: 11px;
+            color: #6b7280;
+            font-weight: 500;
+        }
+        
+        .nav-item.active .nav-label {
+            color: #663399;
+        }
+        
+        .audit-badge {
+            position: relative;
+        }
+        
+        .audit-badge::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 8px;
+            height: 8px;
+            background: #f59e0b;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-top">
+                <div class="truist-logo">
+                    <div class="truist-icon"></div>
+                    <div class="truist-text">Truist</div>
+                </div>
+                <div class="header-actions">
+                    <button class="notification-btn" title="Compliance alerts and audit deadlines">
+                        🔔
+                        <span class="notification-badge">7</span>
+                    </button>
+                    <button class="export-btn">Export</button>
+                    <button class="signoff-btn">Sign off</button>
+                    <button class="role-btn" onclick="location.href='../index.html'">Switch Role</button>
+                </div>
+            </div>
+            <div class="greeting">Good morning, Marcus</div>
+            <div class="role-context" title="View audit permissions and regulatory requirements">Compliance Officer • Risk Management</div>
+        </div>
+        
+        <div class="content">
+            <div class="compliance-alerts">
+                <div class="alert-icon">🚨</div>
+                <div class="alert-content">
+                    <div class="alert-text">3 policy exceptions require review before EOD</div>
+                    <div class="alert-subtext">Downtown Property, Metro Insurance, TechFlow LLC</div>
+                </div>
+            </div>
+            
+            <div class="quick-actions">
+                <div class="actions-grid">
+                    <div class="action-item" onclick="location.href='risk-monitoring.html'">
+                        <div class="action-icon">🔍</div>
+                        <div class="action-label">Monitor</div>
+                        <div class="action-sublabel">Risk patterns<br><span style="color: #f59e0b; font-weight: 600; font-size: 11px;">7 alerts active</span></div>
+                    </div>
+                    <div class="action-item" onclick="location.href='compliance-reports.html'">
+                        <div class="action-icon">📊</div>
+                        <div class="action-label">View</div>
+                        <div class="action-sublabel">Compliance reports</div>
+                    </div>
+                    <div class="action-item" onclick="location.href='transaction-audit.html'">
+                        <div class="action-icon">📋</div>
+                        <div class="action-label">Audit</div>
+                        <div class="action-sublabel">Transactions</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="risk-monitoring">
+                <div class="risk-header" onclick="toggleRisk()">
+                    <h2 class="risk-title">Risk Monitoring</h2>
+                    <div class="risk-controls">
+                        <span class="risk-count">7</span>
+                        <span class="risk-toggle" id="riskToggle">▼</span>
+                    </div>
+                </div>
+                
+                <div class="risk-content" id="riskContent">
+                    <div class="risk-item">
+                        <div class="risk-severity high"></div>
+                        <div class="risk-item-content">
+                            <div class="risk-description">Unusual payment pattern detected</div>
+                            <div class="risk-detail">Downtown Property • $8,500 • 3x normal frequency</div>
+                            <span class="risk-category pattern">Pattern Alert</span>
+                        </div>
+                    </div>
+                    
+                    <div class="risk-item">
+                        <div class="risk-severity high"></div>
+                        <div class="risk-item-content">
+                            <div class="risk-description">High-value payment pending dual approval</div>
+                            <div class="risk-detail">TechFlow LLC • $75,000 • Single approval received</div>
+                            <span class="risk-category threshold">Threshold</span>
+                        </div>
+                    </div>
+                    
+                    <div class="risk-item">
+                        <div class="risk-severity medium"></div>
+                        <div class="risk-item-content">
+                            <div class="risk-description">Custom recurrence requires documentation</div>
+                            <div class="risk-detail">Metro Insurance • Bi-annual schedule • Missing justification</div>
+                            <span class="risk-category policy">Policy</span>
+                        </div>
+                    </div>
+                    
+                    <div class="risk-item">
+                        <div class="risk-severity medium"></div>
+                        <div class="risk-item-content">
+                            <div class="risk-description">Payment frequency above threshold</div>
+                            <div class="risk-detail">Acme Corp • 15 payments this month • 50% increase</div>
+                            <span class="risk-category pattern">Pattern Alert</span>
+                        </div>
+                    </div>
+                    
+                    <div class="risk-item">
+                        <div class="risk-severity low"></div>
+                        <div class="risk-item-content">
+                            <div class="risk-description">New vendor requires verification</div>
+                            <div class="risk-detail">Global Supplies Inc • First payment • $3,200</div>
+                            <span class="risk-category policy">Policy</span>
+                        </div>
+                    </div>
+                    
+                    <div class="risk-item">
+                        <div class="risk-severity low"></div>
+                        <div class="risk-item-content">
+                            <div class="risk-description">Late approval notification</div>
+                            <div class="risk-detail">Office Supply Co • Approved 2 hours past deadline</div>
+                            <span class="risk-category threshold">Threshold</span>
+                        </div>
+                    </div>
+                    
+                    <div class="risk-item">
+                        <div class="risk-severity low"></div>
+                        <div class="risk-item-content">
+                            <div class="risk-description">Weekend payment scheduling</div>
+                            <div class="risk-detail">City Utilities • Scheduled for Saturday processing</div>
+                            <span class="risk-category pattern">Pattern Alert</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="menu-section">
+                <div class="menu-item" onclick="location.href='compliance-reports.html'">
+                    <div class="menu-item-content">
+                        <div class="menu-label">View</div>
+                        <div class="menu-sublabel">All transactions, audit trails, and compliance reports</div>
+                    </div>
+                    <div class="menu-arrow">›</div>
+                </div>
+                <div class="menu-item" onclick="location.href='risk-policies.html'">
+                    <div class="menu-item-content">
+                        <div class="menu-label">Manage</div>
+                        <div class="menu-sublabel">Risk policies and monitoring thresholds</div>
+                    </div>
+                    <div class="menu-arrow">›</div>
+                </div>
+                <div class="menu-item" onclick="location.href='compliance-help.html'">
+                    <div class="menu-item-content">
+                        <div class="menu-label">Learn</div>
+                        <div class="menu-sublabel">More about compliance, regulations, and risk management</div>
+                    </div>
+                    <div class="menu-arrow">›</div>
+                </div>
+            </div>
+            
+            <div class="bank-info">
+                Truist Bank, N.A. Member FDIC.
+            </div>
+        </div>
+        
+        <div class="bottom-nav">
+            <div class="nav-item active">
+                <div class="nav-icon">🏠</div>
+                <div class="nav-label">Dashboard</div>
+            </div>
+            <div class="nav-item" onclick="location.href='risk-monitoring.html'">
+                <div class="nav-icon">🔍</div>
+                <div class="nav-label">Monitor</div>
+            </div>
+            <div class="nav-item" onclick="location.href='transaction-audit.html'">
+                <div class="nav-icon audit-badge">📋</div>
+                <div class="nav-label">Audit</div>
+            </div>
+            <div class="nav-item" onclick="location.href='compliance-reports.html'">
+                <div class="nav-icon">📊</div>
+                <div class="nav-label">Reports</div>
+            </div>
+            <div class="nav-item" onclick="location.href='risk-policies.html'">
+                <div class="nav-icon">⚙️</div>
+                <div class="nav-label">Settings</div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function toggleRisk() {
+            const riskContent = document.getElementById('riskContent');
+            const riskToggle = document.getElementById('riskToggle');
+            
+            if (riskContent.classList.contains('collapsed')) {
+                riskContent.classList.remove('collapsed');
+                riskToggle.classList.add('expanded');
+            } else {
+                riskContent.classList.add('collapsed');
+                riskToggle.classList.remove('expanded');
+            }
+        }
+        
+        // Start with risk monitoring expanded by default
+        document.addEventListener('DOMContentLoaded', function() {
+            const riskToggle = document.getElementById('riskToggle');
+            riskToggle.classList.add('expanded');
+        });
+    </script>
+</body>
+</html>
