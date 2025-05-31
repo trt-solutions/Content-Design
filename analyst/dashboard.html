@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Truist Commercial Banking - AP Analyst</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Truist Trio', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.5;
+            color: #1a1a1a;
+            background: #f8f9fa;
+            padding: 0;
+            margin: 0;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 375px;
+            width: 100%;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        .header {
+            background: white;
+            padding: 16px;
+            border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .truist-logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .truist-icon {
+            width: 28px;
+            height: 28px;
+            background: #663399;
+            border-radius: 4px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .truist-icon::before {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background: white;
+            transform: rotate(45deg);
+            position: absolute;
+            border-radius: 1px;
+        }
+        
+        .truist-icon::after {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: #663399;
+            position: absolute;
+            border-radius: 1px;
+        }
+        
+        .truist-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: #663399;
+            letter-spacing: 0.5px;
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+        
+        .notification-btn, .help-btn, .role-btn {
+            background: #f3f4f6;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        
+        .role-btn {
+            width: auto;
+            padding: 0 12px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #663399;
+        }
+        
+        .notification-btn:hover, .help-btn:hover, .role-btn:hover {
+            background: #e5e7eb;
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            background: #10b981;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 10px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .greeting {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+        
+        .role-context {
+            font-size: 14px;
+            color: #6b7280;
+            font-weight: 500;
+        }
+        
+        .content {
+            padding: 24px 16px;
+        }
+        
+        .status-banner {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .status-icon {
+            background: #0ea5e9;
+            color: white;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        
+        .status-content {
+            flex: 1;
+        }
+        
+        .status-text {
+            font-size: 14px;
+            color: #075985;
+            line-height: 1.4;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .status-subtext {
+            font-size: 12px;
+            color: #0369a1;
+        }
+        
+        .quick-actions {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .actions-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 24px;
+        }
+        
+        .action-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .action-item:hover {
+            transform: translateY(-2px);
+        }
+        
+        .action-icon {
+            width: 64px;
+            height: 64px;
+            background: #663399;
+            border-radius: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            color: white;
+            font-size: 24px;
+            transition: all 0.2s ease;
+        }
+        
+        .action-item:hover .action-icon {
+            background: #553288;
+            transform: scale(1.05);
+        }
+        
+        .action-label {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a1a;
+            text-align: center;
+            margin-bottom: 4px;
+        }
+        
+        .action-sublabel {
+            font-size: 12px;
+            color: #6b7280;
+            text-align: center;
+            line-height: 1.3;
+            font-weight: 500;
+        }
+        
+        .my-payments {
+            background: white;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .payments-header {
+            padding: 20px 24px 16px 24px;
+            border-bottom: 1px solid #f3f4f6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .payments-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+        
+        .view-all-btn {
+            background: none;
+            border: none;
+            color: #663399;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .payment-item {
+            display: flex;
+            align-items: center;
+            padding: 16px 24px;
+            border-bottom: 1px solid #f9fafb;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .payment-item:hover {
+            background: #faf8ff;
+        }
+        
+        .payment-status {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 16px;
+            flex-shrink: 0;
+        }
+        
+        .payment-status.pending {
+            background: #f59e0b;
+        }
+        
+        .payment-status.scheduled {
+            background: #3b82f6;
+        }
+        
+        .payment-status.approved {
+            background: #10b981;
+        }
+        
+        .payment-content {
+            flex: 1;
+        }
+        
+        .payment-vendor {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 2px;
+        }
+        
+        .payment-detail {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 4px;
+        }
+        
+        .payment-status-text {
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .payment-status-text.pending {
+            color: #92400e;
+        }
+        
+        .payment-status-text.scheduled {
+            color: #1e40af;
+        }
+        
+        .payment-status-text.approved {
+            color: #065f46;
+        }
+        
+        .payment-amount {
+            font-size: 14px;
+            font-weight: 600;
+            color: #663399;
+            text-align: right;
+        }
+        
+        .menu-section {
+            background: white;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            border-bottom: 1px solid #f3f4f6;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        
+        .menu-item-content {
+            flex: 1;
+        }
+        
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+        
+        .menu-item:hover {
+            background: #faf8ff;
+        }
+        
+        .menu-label {
+            font-size: 16px;
+            font-weight: 500;
+            color: #1a1a1a;
+            margin-bottom: 2px;
+        }
+        
+        .menu-sublabel {
+            font-size: 13px;
+            color: #6b7280;
+            font-weight: 400;
+            line-height: 1.3;
+        }
+        
+        .menu-arrow {
+            color: #9ca3af;
+            font-size: 16px;
+        }
+        
+        .bank-info {
+            text-align: center;
+            padding: 16px;
+            color: #6b7280;
+            font-size: 12px;
+            margin-bottom: 80px;
+        }
+        
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 375px;
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            padding: 12px 0 8px 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            padding: 8px 12px;
+            border-radius: 12px;
+        }
+        
+        .nav-item.active {
+            background: #faf8ff;
+        }
+        
+        .nav-icon {
+            font-size: 20px;
+            margin-bottom: 4px;
+            color: #6b7280;
+        }
+        
+        .nav-item.active .nav-icon {
+            color: #663399;
+        }
+        
+        .nav-label {
+            font-size: 11px;
+            color: #6b7280;
+            font-weight: 500;
+        }
+        
+        .nav-item.active .nav-label {
+            color: #663399;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-top">
+                <div class="truist-logo">
+                    <div class="truist-icon"></div>
+                    <div class="truist-text">Truist</div>
+                </div>
+                <div class="header-actions">
+                    <button class="notification-btn" title="Payment status updates and reminders">
+                        🔔
+                        <span class="notification-badge">2</span>
+                    </button>
+                    <button class="help-btn" title="Help and tutorials">❓</button>
+                    <button class="role-btn" onclick="location.href='../index.html'">Switch Role</button>
+                </div>
+            </div>
+            <div class="greeting">Good morning, Alex</div>
+            <div class="role-context">AP Analyst • Accounts Payable</div>
+        </div>
+        
+        <div class="content">
+            <div class="status-banner">
+                <div class="status-icon">✅</div>
+                <div class="status-content">
+                    <div class="status-text">2 payments approved today</div>
+                    <div class="status-subtext">Acme Corp and Office Supply Co scheduled</div>
+                </div>
+            </div>
+            
+            <div class="quick-actions">
+                <div class="actions-grid">
+                    <div class="action-item" onclick="location.href='payment-onetime.html'">
+                        <div class="action-icon">💸</div>
+                        <div class="action-label">Pay</div>
+                        <div class="action-sublabel">One time</div>
+                    </div>
+                    <div class="action-item" onclick="location.href='payment-recurring.html'">
+                        <div class="action-icon">🔄</div>
+                        <div class="action-label">Schedule</div>
+                        <div class="action-sublabel">Recurring payments<br><span style="color: #10b981; font-weight: 600; font-size: 11px;">8 scheduled this week</span></div>
+                    </div>
+                    <div class="action-item" onclick="location.href='payment-batch.html'">
+                        <div class="action-icon">📋</div>
+                        <div class="action-label">Batch</div>
+                        <div class="action-sublabel">Multiple payments</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="my-payments">
+                <div class="payments-header">
+                    <h2 class="payments-title">My Recent Payments</h2>
+                    <button class="view-all-btn" onclick="location.href='payment-history.html'">View all</button>
+                </div>
+                
+                <div class="payment-item">
+                    <div class="payment-status pending"></div>
+                    <div class="payment-content">
+                        <div class="payment-vendor">Downtown Property</div>
+                        <div class="payment-detail">Office Rent • Due: Jan 31</div>
+                        <div class="payment-status-text pending">Pending manager approval</div>
+                    </div>
+                    <div class="payment-amount">$8,500</div>
+                </div>
+                
+                <div class="payment-item">
+                    <div class="payment-status scheduled"></div>
+                    <div class="payment-content">
+                        <div class="payment-vendor">Acme Corp Software</div>
+                        <div class="payment-detail">SaaS Subscription • Recurring monthly</div>
+                        <div class="payment-status-text scheduled">Scheduled for Feb 1</div>
+                    </div>
+                    <div class="payment-amount">$2,400</div>
+                </div>
+                
+                <div class="payment-item">
+                    <div class="payment-status approved"></div>
+                    <div class="payment-content">
+                        <div class="payment-vendor">Office Supply Co</div>
+                        <div class="payment-detail">Office Supplies • One-time</div>
+                        <div class="payment-status-text approved">Sent yesterday</div>
+                    </div>
+                    <div class="payment-amount">$425</div>
+                </div>
+            </div>
+            
+            <div class="menu-section">
+                <div class="menu-item" onclick="location.href='payment-history.html'">
+                    <div class="menu-item-content">
+                        <div class="menu-label">View</div>
+                        <div class="menu-sublabel">All payment statuses and history</div>
+                    </div>
+                    <div class="menu-arrow">›</div>
+                </div>
+                <div class="menu-item" onclick="location.href='vendor-management.html'">
+                    <div class="menu-item-content">
+                        <div class="menu-label">Manage</div>
+                        <div class="menu-sublabel">Vendor profiles and payment methods</div>
+                    </div>
+                    <div class="menu-arrow">›</div>
+                </div>
+                <div class="menu-item" onclick="location.href='help-guides.html'">
+                    <div class="menu-item-content">
+                        <div class="menu-label">Learn</div>
+                        <div class="menu-sublabel">More about payments and vendors</div>
+                    </div>
+                    <div class="menu-arrow">›</div>
+                </div>
+            </div>
+            
+            <div class="bank-info">
+                Truist Bank, N.A. Member FDIC.
+            </div>
+        </div>
+        
+        <div class="bottom-nav">
+            <div class="nav-item active">
+                <div class="nav-icon">🏠</div>
+                <div class="nav-label">Dashboard</div>
+            </div>
+            <div class="nav-item" onclick="location.href='payment-history.html'">
+                <div class="nav-icon">💸</div>
+                <div class="nav-label">My Payments</div>
+            </div>
+            <div class="nav-item" onclick="location.href='payment-history.html'">
+                <div class="nav-icon">📊</div>
+                <div class="nav-label">History</div>
+            </div>
+            <div class="nav-item" onclick="location.href='help-guides.html'">
+                <div class="nav-icon">❓</div>
+                <div class="nav-label">Help
