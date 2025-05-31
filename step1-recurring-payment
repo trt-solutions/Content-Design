@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule Recurring Payment - Step 1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Truist Trio', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.5;
+            color: #1a1a1a;
+            background: #f8f9fa;
+            padding: 0;
+            margin: 0;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 375px;
+            width: 100%;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            padding: 0;
+        }
+        
+        .step-progress {
+            background: #f8f9fa;
+            padding: 16px;
+            text-align: center;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .step-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .step-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        
+        .step-dot.active {
+            background: #663399;
+            color: white;
+        }
+        
+        .step-dot.inactive {
+            background: #e5e7eb;
+            color: #9ca3af;
+        }
+        
+        .step-connector {
+            width: 32px;
+            height: 2px;
+            background: #e5e7eb;
+        }
+        
+        .step-text {
+            font-size: 13px;
+            color: #6b7280;
+            font-weight: 500;
+        }
+        
+        .header {
+            background: white;
+            padding: 16px;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .back-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #663399;
+            padding: 8px;
+            border-radius: 50%;
+            transition: background-color 0.2s ease;
+        }
+        
+        .back-btn:hover {
+            background: #faf8ff;
+        }
+        
+        .header-content {
+            flex: 1;
+        }
+        
+        .title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+        
+        .content {
+            padding: 24px 16px;
+        }
+        
+        .workflow-banner {
+            background: #faf8ff;
+            border: 1px solid #e5d9f2;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .workflow-icon {
+            background: #663399;
+            color: white;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        
+        .workflow-content {
+            flex: 1;
+        }
+        
+        .workflow-title {
+            font-size: 14px;
+            color: #663399;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        
+        .workflow-text {
+            font-size: 13px;
+            color: #6b7280;
+            line-height: 1.4;
+        }
+        
+        .search-section {
+            margin-bottom: 32px;
+        }
+        
+        .search-container {
+            position: relative;
+            margin-bottom: 12px;
+        }
+        
+        .add-payee-btn {
+            background: none;
+            border: none;
+            color: #663399;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-left: auto;
+            width: fit-content;
+        }
+        
+        .add-payee-btn:hover {
+            background: #faf8ff;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 16px 16px 16px 48px;
+            border: 1px solid #d1d5db;
+            border-radius: 20px;
+            font-size: 16px;
+            color: #374151;
+            background: #f9fafb;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: #663399;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(102, 51, 153, 0.1);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            font-size: 18px;
+        }
+        
+        .scan-btn {
+            background: none;
+            border: none;
+            color: #663399;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: auto;
+            width: fit-content;
+        }
+        
+        .scan-btn:hover {
+            background: #faf8ff;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 16px;
+        }
+        
+        .recipients-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+        
+        .recipient-item {
+            display: flex;
+            align-items: center;
+            padding: 16px 0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid #f3f4f6;
+            position: relative;
+        }
+        
+        .recipient-item:hover {
+            background: #faf8ff;
+            margin: 0 -16px;
+            padding: 16px;
+            border-radius: 12px;
+            border-bottom: 1px solid transparent;
+        }
+        
+        .recipient-item:hover .select-btn {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .select-btn {
+            position: absolute;
+            right: 80px;
+            background: #663399;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+        }
+        
+        .select-btn:hover {
+            background: #553288;
+        }
+        
+        .recipient-item:last-child {
+            border-bottom: none;
+        }
+        
+        .recipient-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 24px;
+            background: #663399;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            margin-right: 16px;
+            position: relative;
+        }
+        
+        .recipient-avatar.verified::after {
+            content: '⚡';
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            background: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+        
+        .recipient-info {
+            flex: 1;
+        }
+        
+        .recipient-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 2px;
+        }
+        
+        .recipient-detail {
+            font-size: 14px;
+            color: #6b7280;
+        }
+        
+        .recipient-frequency {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #dcfce7;
+            color: #166534;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: help;
+            transition: all 0.2s ease;
+        }
+        
+        .recipient-frequency:hover {
+            background: #bbf7d0;
+        }
+        
+        .recipient-frequency.monthly {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        
+        .recipient-frequency.monthly:hover {
+            background: #bfdbfe;
+        }
+        
+        .recipient-frequency.weekly {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .recipient-frequency.weekly:hover {
+            background: #fde68a;
+        }
+        
+        .frequency-tooltip {
+            position: absolute;
+            bottom: 100%;
+            right: 0;
+            background: #1f2937;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            z-index: 10;
+            margin-bottom: 4px;
+        }
+        
+        .frequency-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            right: 12px;
+            border: 4px solid transparent;
+            border-top-color: #1f2937;
+        }
+        
+        .recipient-frequency:hover .frequency-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .all-recipients-section {
+            margin-top: 32px;
+        }
+        
+        .all-recipients-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+        
+        .recipient-item-all {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        
+        .recipient-item-all:hover {
+            background: #faf8ff;
+            margin: 0 -16px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border-bottom: 1px solid transparent;
+        }
+        
+        .recipient-item-all:last-child {
+            border-bottom: none;
+        }
+        
+        .recipient-avatar-small {
+            width: 40px;
+            height: 40px;
+            border-radius: 20px;
+            background: #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
+            font-weight: 600;
+            font-size: 14px;
+            margin-right: 12px;
+        }
+        
+        .access-contacts-btn {
+            width: 100%;
+            background: white;
+            color: #663399;
+            border: 2px solid #663399;
+            padding: 16px 24px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 32px;
+            font-family: inherit;
+        }
+        
+        .access-contacts-btn:hover {
+            background: #663399;
+            color: white;
+        }
+        
+        @media (max-width: 640px) {
+            .title {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="step-progress">
+            <div class="step-visual">
+                <div class="step-dot active">1</div>
+                <div class="step-connector"></div>
+                <div class="step-dot inactive">2</div>
+                <div class="step-connector"></div>
+                <div class="step-dot inactive">3</div>
+                <div class="step-connector"></div>
+                <div class="step-dot inactive">4</div>
+                <div class="step-connector"></div>
+                <div class="step-dot inactive">5</div>
+            </div>
+            <div class="step-text">Step 1 of 5 • Select payee</div>
+        </div>
+        
+        <div class="header">
+            <button class="back-btn" onclick="history.back()">‹</button>
+            <div class="header-content">
+                <h1 class="title">Who do you want to pay?</h1>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="search-section">
+                <div class="search-container">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" class="search-input" placeholder="Search payees" id="payeeSearch">
+                </div>
+                <button class="add-payee-btn">
+                    + New payee
+                </button>
+            </div>
+            
+            <div class="recent-section">
+                <h2 class="section-title">Frequent payees</h2>
+                <div class="recipients-list">
+                    <div class="recipient-item" onclick="selectRecipient('downtown')">
+                        <div class="recipient-avatar verified">DP</div>
+                        <div class="recipient-info">
+                            <div class="recipient-name">Downtown Property</div>
+                            <div class="recipient-detail">Office Rent • Last paid: $8,500</div>
+                        </div>
+                        <button class="select-btn" onclick="event.stopPropagation(); selectRecipient('downtown')">Select</button>
+                        <div class="recipient-frequency">
+                            Monthly
+                            <div class="frequency-tooltip">This vendor is typically paid monthly. You can keep or change the frequency in the next step.</div>
+                        </div>
+                    </div>
+                    <div class="recipient-item" onclick="selectRecipient('acme')">
+                        <div class="recipient-avatar verified">AC</div>
+                        <div class="recipient-info">
+                            <div class="recipient-name">Acme Corp Software</div>
+                            <div class="recipient-detail">SaaS Subscription • Last paid: $2,400</div>
+                        </div>
+                        <button class="select-btn" onclick="event.stopPropagation(); selectRecipient('acme')">Select</button>
+                        <div class="recipient-frequency monthly">
+                            Monthly
+                            <div class="frequency-tooltip">This vendor is typically paid monthly. You can keep or change the frequency in the next step.</div>
+                        </div>
+                    </div>
+                    <div class="recipient-item" onclick="selectRecipient('techflow')">
+                        <div class="recipient-avatar">TF</div>
+                        <div class="recipient-info">
+                            <div class="recipient-name">TechFlow LLC</div>
+                            <div class="recipient-detail">Consulting Services • Last paid: $1,250</div>
+                        </div>
+                        <button class="select-btn" onclick="event.stopPropagation(); selectRecipient('techflow')">Select</button>
+                        <div class="recipient-frequency weekly">
+                            Biweekly
+                            <div class="frequency-tooltip">This vendor is typically paid biweekly. You can keep or change the frequency in the next step.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="all-recipients-section">
+                <h2 class="section-title">All payees</h2>
+                <div class="all-recipients-list">
+                    <div class="recipient-item-all" onclick="selectRecipient('downtown')">
+                        <div class="recipient-avatar-small">DP</div>
+                        <div class="recipient-info">
+                            <div class="recipient-name">Downtown Property</div>
+                            <div class="recipient-detail">Truist ****2341 • Office Rent</div>
+                        </div>
+                    </div>
+                    <div class="recipient-item-all" onclick="selectRecipient('acme')">
+                        <div class="recipient-avatar-small">AC</div>
+                        <div class="recipient-info">
+                            <div class="recipient-name">Acme Corp</div>
+                            <div class="recipient-detail">Wells Fargo ****9876 • Software/SaaS</div>
+                        </div>
+                    </div>
+                    <div class="recipient-item-all" onclick="selectRecipient('metro')">
+                        <div class="recipient-avatar-small">MO</div>
+                        <div class="recipient-info">
+                            <div class="recipient-name">Metro Office</div>
+                            <div class="recipient-detail">Bank of America ****4521 • Office Supplies</div>
+                        </div>
+                    </div>
+                    <div class="recipient-item-all" onclick="selectRecipient('techflow')">
+                        <div class="recipient-avatar-small">TF</div>
+                        <div class="recipient-info">
+                            <div class="recipient-name">TechFlow LLC</div>
+                            <div class="recipient-detail">Chase ****7832 • Consulting Services</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="access-contacts-btn">More payees</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Store selected recipient for next steps
+        function selectRecipient(recipientId) {
+            // Store in sessionStorage for demo purposes
+            const recipients = {
+                'downtown': { name: 'Downtown Property', type: 'Office rent', bank: 'Truist ****2341', lastAmount: '$8,500' },
+                'acme': { name: 'Acme Corp Software', type: 'SaaS subscription', bank: 'Wells Fargo ****9876', lastAmount: '$2,400' },
+                'metro': { name: 'Metro Office', type: 'Office supplies', bank: 'Bank of America ****4521', lastAmount: '$875' },
+                'techflow': { name: 'TechFlow LLC', type: 'Consulting services', bank: 'Chase ****7832', lastAmount: '$1,250' }
+            };
+            
+            sessionStorage.setItem('selectedRecipient', JSON.stringify(recipients[recipientId]));
+            sessionStorage.setItem('paymentType', 'recurring');
+            
+            // Navigate to next step
+            window.location.href = 'step2-enter-amount.html';
+        }
+        
+        // Search functionality
+        document.getElementById('payeeSearch').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const allItems = document.querySelectorAll('.recipient-item, .recipient-item-all');
+            
+            allItems.forEach(item => {
+                const name = item.querySelector('.recipient-name').textContent.toLowerCase();
+                const detail = item.querySelector('.recipient-detail').textContent.toLowerCase();
+                
+                if (name.includes(searchTerm) || detail.includes(searchTerm)) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
