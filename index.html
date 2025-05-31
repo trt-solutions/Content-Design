@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simplified Payment Frequency Design</title>
+    <title>Truist Payment Setup - Step 1</title>
     <style>
         * {
             margin: 0;
@@ -12,31 +12,86 @@
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            font-family: 'Truist Trio', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
             line-height: 1.5;
             color: #1a1a1a;
             background: #f8f9fa;
-            padding: 20px;
+            padding: 0;
+            margin: 0;
+            min-height: 100vh;
         }
         
         .container {
-            max-width: 600px;
+            max-width: 375px;
+            width: 100%;
             margin: 0 auto;
             background: white;
-            border-radius: 12px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-            padding: 32px;
+            min-height: 100vh;
+            padding: 20px 16px;
+            box-sizing: border-box;
         }
         
         .header {
             margin-bottom: 32px;
         }
         
+        .truist-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        
+        .truist-icon {
+            width: 32px;
+            height: 32px;
+            background: #663399;
+            border-radius: 4px;
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .truist-icon::before {
+            content: '';
+            width: 12px;
+            height: 12px;
+            background: white;
+            transform: rotate(45deg);
+            position: absolute;
+            border-radius: 1px;
+        }
+        
+        .truist-icon::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: #663399;
+            position: absolute;
+            border-radius: 1px;
+        }
+        
+        .truist-text {
+            font-size: 20px;
+            font-weight: 600;
+            color: #663399;
+            letter-spacing: 0.5px;
+        }
+        
+        .step-indicator {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
         .title {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: 600;
             color: #1a1a1a;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
         }
         
         .subtitle {
@@ -45,201 +100,245 @@
             font-weight: 500;
         }
         
-        .form-section {
+        .search-section {
             margin-bottom: 32px;
         }
         
-        .field-label {
-            display: block;
-            font-size: 16px;
-            font-weight: 600;
-            color: #374151;
+        .search-container {
+            position: relative;
             margin-bottom: 16px;
         }
         
-        .required {
-            color: #ef4444;
-        }
-        
-        .frequency-dropdown {
+        .search-input {
             width: 100%;
-            padding: 12px 16px;
+            padding: 14px 16px 14px 48px;
             border: 2px solid #d1d5db;
             border-radius: 6px;
+            font-size: 16px;
+            color: #374151;
+            background: white;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: #663399;
+            box-shadow: 0 0 0 3px rgba(102, 51, 153, 0.1);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7280;
+            font-size: 20px;
+        }
+        
+        .filter-row {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .filter-select {
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
             font-size: 14px;
             color: #374151;
             background: white;
             cursor: pointer;
-            transition: border-color 0.2s ease;
-            margin-bottom: 24px;
+            transition: all 0.2s ease;
         }
         
-        .frequency-dropdown:focus {
+        .filter-select:focus {
             outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            border-color: #663399;
         }
         
-        .conditional-fields {
-            margin-top: 24px;
-            padding: 20px;
-            background: #f8faff;
-            border: 1px solid #e0e7ff;
+        .results-section {
+            margin-bottom: 32px;
+        }
+        
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .results-count {
+            font-size: 14px;
+            color: #6b7280;
+        }
+        
+        .add-new-btn {
+            padding: 8px 16px;
+            background: #f8f9fa;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #663399;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+        
+        .add-new-btn:hover {
+            background: #faf8ff;
+            border-color: #663399;
+        }
+        
+        .payee-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .payee-item {
+            border: 2px solid #e5e7eb;
             border-radius: 8px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: white;
+        }
+        
+        .payee-item:hover {
+            border-color: #663399;
+            background: #faf8ff;
+        }
+        
+        .payee-item.selected {
+            border-color: #663399;
+            background: #faf8ff;
+            box-shadow: 0 0 0 1px #663399;
+        }
+        
+        .payee-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0;
+        }
+        
+        .payee-basic-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+        }
+        
+        .payee-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+        
+        .payee-quick-tags {
+            display: flex;
+            gap: 6px;
+        }
+        
+        .expand-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #6b7280;
+            font-size: 18px;
+            padding: 4px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+        
+        .expand-btn:hover {
+            background: #f3f4f6;
+            color: #663399;
+        }
+        
+        .expand-btn.expanded {
+            transform: rotate(180deg);
+            color: #663399;
+        }
+        
+        .payee-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #e5e7eb;
             display: none;
         }
         
-        .conditional-fields.show {
-            display: block;
+        .payee-details.show {
+            display: grid;
             animation: slideDown 0.3s ease;
         }
         
         @keyframes slideDown {
             from {
                 opacity: 0;
-                max-height: 0;
-                padding-top: 0;
-                padding-bottom: 0;
+                margin-top: 0;
             }
             to {
                 opacity: 1;
-                max-height: 300px;
-                padding-top: 20px;
-                padding-bottom: 20px;
+                margin-top: 16px;
             }
         }
         
-        .field-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin-bottom: 16px;
-        }
-        
-        .field-group {
-            margin-bottom: 16px;
-        }
-        
-        .field-group label {
-            display: block;
-            font-size: 14px;
-            font-weight: 500;
-            color: #374151;
-            margin-bottom: 6px;
-        }
-        
-        .date-input, .dropdown {
-            width: 100%;
-            padding: 12px 16px;
-            border: 2px solid #d1d5db;
-            border-radius: 6px;
-            font-size: 14px;
-            color: #374151;
-            background: white;
-            transition: border-color 0.2s ease;
-        }
-        
-        .date-input:focus, .dropdown:focus {
-            outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-        }
-        
-        .ending-options {
-            margin-bottom: 16px;
-        }
-        
-        .radio-group {
+        .detail-item {
             display: flex;
             flex-direction: column;
-            gap: 12px;
         }
         
-        .radio-option {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .radio-option input[type="radio"] {
-            width: 16px;
-            height: 16px;
-            accent-color: #3b82f6;
-        }
-        
-        .radio-option label {
-            font-size: 14px;
-            color: #374151;
-            cursor: pointer;
-            margin: 0;
-        }
-        
-        .end-date-field {
-            margin-left: 24px;
-            margin-top: 12px;
-            display: none;
-        }
-        
-        .twice-month-fields {
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            gap: 12px;
-            align-items: end;
-            margin-bottom: 16px;
-        }
-        
-        .twice-month-fields .connector {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 500;
-            color: #6b7280;
-            padding-bottom: 12px;
-        }
-        
-        .number-input {
-            width: 100%;
-            padding: 12px 16px;
-            border: 2px solid #d1d5db;
-            border-radius: 6px;
-            font-size: 14px;
-            color: #374151;
-            background: white;
-            transition: border-color 0.2s ease;
-        }
-        
-        .number-input:focus {
-            outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-        }
-        
-        .hint-text {
+        .detail-label {
             font-size: 12px;
             color: #6b7280;
-            margin-top: 4px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
         }
         
-        .notice {
-            background: #fef2f2;
-            border: 1px solid #fecaca;
-            border-radius: 8px;
-            padding: 16px;
-            margin-bottom: 32px;
-            display: flex;
-            align-items: flex-start;
-        }
-        
-        .notice-icon {
-            margin-right: 12px;
-            margin-top: 2px;
-            font-size: 16px;
-        }
-        
-        .notice-text {
+        .detail-value {
             font-size: 14px;
-            color: #7f1d1d;
-            line-height: 1.4;
+            color: #374151;
+            font-weight: 500;
+        }
+        
+        .payee-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .tag {
+            background: #f3f4f6;
+            color: #374151;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .tag.quick {
+            background: #dcfce7;
+            color: #166534;
+            font-size: 11px;
+            padding: 2px 6px;
+        }
+        
+        .tag.verified-quick {
+            background: #dbeafe;
+            color: #1e40af;
+            font-size: 11px;
+            padding: 2px 6px;
         }
         
         .actions {
@@ -247,74 +346,74 @@
             gap: 16px;
             justify-content: flex-end;
             align-items: center;
-            margin-top: 32px;
-        }
-        
-        .help-link {
-            color: #3b82f6;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: color 0.2s ease;
-        }
-        
-        .help-link:hover {
-            color: #2563eb;
-            text-decoration: underline;
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 1px solid #e5e7eb;
         }
         
         .btn {
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 500;
+            padding: 14px 32px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
-            border: none;
-        }
-        
-        .btn-primary {
-            background: #3b82f6;
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            background: #2563eb;
+            border: 2px solid transparent;
+            font-family: inherit;
         }
         
         .btn-secondary {
-            background: #f3f4f6;
+            background: white;
             color: #374151;
-            border: 1px solid #d1d5db;
+            border-color: #d1d5db;
         }
         
         .btn-secondary:hover {
-            background: #e5e7eb;
+            background: #f9fafb;
+            border-color: #9ca3af;
+        }
+        
+        .btn-primary {
+            background: #663399;
+            color: white;
+            border-color: #663399;
+        }
+        
+        .btn-primary:hover {
+            background: #553288;
+            border-color: #553288;
+        }
+        
+        .btn-primary:disabled {
+            background: #d1d5db;
+            border-color: #d1d5db;
+            cursor: not-allowed;
         }
         
         @media (max-width: 640px) {
             .container {
                 padding: 24px 16px;
+                margin: 10px;
             }
             
-            .frequency-options {
-                grid-template-columns: 1fr 1fr;
-                gap: 8px;
-            }
-            
-            .field-row {
+            .payee-details {
                 grid-template-columns: 1fr;
                 gap: 12px;
             }
             
-            .twice-month-fields {
-                grid-template-columns: 1fr;
+            .filter-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .actions {
+                flex-direction: column-reverse;
                 gap: 12px;
             }
             
-            .twice-month-fields .connector {
-                display: none;
+            .btn {
+                width: 100%;
+                padding: 16px;
             }
         }
     </style>
@@ -322,142 +421,267 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1 class="title">Schedule Payment Frequency</h1>
-            <p class="subtitle">How often should this payment be sent?</p>
+            <div class="truist-logo">
+                <div class="truist-icon"></div>
+                <div class="truist-text">Truist</div>
+            </div>
+            <div class="step-indicator">Step 1 of 4</div>
+            <h1 class="title">Send a Payment</h1>
+            <p class="subtitle">Who would you like to pay?</p>
         </div>
         
-        <div class="form-section">
-            <label class="field-label">Frequency <span class="required">*</span></label>
-            <select class="frequency-dropdown" id="frequencySelect" required>
-                <option value="">Select frequency...</option>
-                <option value="daily">Daily</option>
-                <option value="weekly">Weekly</option>
-                <option value="biweekly">Biweekly</option>
-                <option value="monthly">Monthly</option>
-                <option value="quarterly">Quarterly</option>
-                <option value="custom">Custom</option>
-            </select>
-            
-            <!-- Daily Pattern -->
-            <div id="dailyFields" class="conditional-fields">
-                <div class="field-group">
-                    <label>Send on <span class="required">*</span></label>
-                    <input type="date" class="date-input" id="sendOnDate" required>
-                </div>
+        <div class="search-section">
+            <div class="search-container">
+                <span class="search-icon">🔍</span>
+                <input type="text" class="search-input" placeholder="Search by vendor name, ID, or account number" id="payeeSearch">
             </div>
-            
-            <!-- Standard Recurring Pattern -->
-            <div id="recurringFields" class="conditional-fields">
-                <div class="field-row">
-                    <div class="field-group">
-                        <label>Starting <span class="required">*</span></label>
-                        <input type="date" class="date-input" id="startingDate" required>
-                    </div>
-                </div>
-                
-                <div class="field-group">
-                    <label>Ending <span class="required">*</span></label>
-                    <div class="ending-options">
-                        <div class="radio-group">
-                            <div class="radio-option">
-                                <input type="radio" id="continueOption" name="endingType" value="continue" checked>
-                                <label for="continueOption">Continue until canceled</label>
-                            </div>
-                            <div class="radio-option">
-                                <input type="radio" id="specificDateOption" name="endingType" value="date">
-                                <label for="specificDateOption">On specific date</label>
-                            </div>
-                        </div>
-                        <div id="endDateField" class="end-date-field">
-                            <input type="date" class="date-input" id="endingDate">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Custom Pattern -->
-            <div id="customFields" class="conditional-fields">
-                <div class="field-row">
-                    <div class="field-group">
-                        <label>Starting <span class="required">*</span></label>
-                        <input type="date" class="date-input" id="customStartDate" required>
-                    </div>
-                </div>
-                
-                <div class="field-group">
-                    <label>Ending <span class="required">*</span></label>
-                    <div class="ending-options">
-                        <div class="radio-group">
-                            <div class="radio-option">
-                                <input type="radio" id="customContinueOption" name="customEndingType" value="continue" checked>
-                                <label for="customContinueOption">Continue until canceled</label>
-                            </div>
-                            <div class="radio-option">
-                                <input type="radio" id="customSpecificDateOption" name="customEndingType" value="date">
-                                <label for="customSpecificDateOption">On specific date</label>
-                            </div>
-                        </div>
-                        <div id="customEndDateField" class="end-date-field">
-                            <input type="date" class="date-input" id="customEndingDate">
-                        </div>
-                    </div>
-                </div>
+            <div class="filter-row">
+                <select class="filter-select">
+                    <option>All vendors</option>
+                    <option>Frequent payees</option>
+                    <option>Recently added</option>
+                    <option>Verified only</option>
+                </select>
+                <select class="filter-select">
+                    <option>All categories</option>
+                    <option>Software/SaaS</option>
+                    <option>Office/Utilities</option>
+                    <option>Contractors</option>
+                    <option>Suppliers</option>
+                </select>
+                <select class="filter-select">
+                    <option>All payment methods</option>
+                    <option>ACH only</option>
+                    <option>Wire only</option>
+                    <option>Check only</option>
+                </select>
             </div>
         </div>
         
-        <div class="notice" id="customNotice" style="display: none;">
-            <span class="notice-icon">📌</span>
-            <div class="notice-text">
-                <strong>Custom frequency requires Truist approval and may delay processing by 2–3 business days.</strong> We'll notify you once approved.
+        <div class="results-section">
+            <div class="results-header">
+                <span class="results-count">47 vendors found</span>
+                <button class="add-new-btn">+ Add New Vendor</button>
+            </div>
+            
+            <div class="payee-list">
+                <div class="payee-item selected" data-payee="acme-corp">
+                    <div class="payee-header">
+                        <div class="payee-basic-info">
+                            <div class="payee-name">Acme Corporation</div>
+                            <div class="payee-quick-tags">
+                                <span class="tag quick">Frequent</span>
+                                <span class="tag verified-quick">Verified</span>
+                            </div>
+                        </div>
+                        <button class="expand-btn" onclick="toggleDetails(this)">▼</button>
+                    </div>
+                    <div class="payee-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Vendor ID</span>
+                            <span class="detail-value">VENDOR-10234</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Account Number</span>
+                            <span class="detail-value">****9876</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Bank</span>
+                            <span class="detail-value">Wells Fargo</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Payment Method</span>
+                            <span class="detail-value">ACH</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Last Payment</span>
+                            <span class="detail-value">March 15, 2025</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Category</span>
+                            <span class="detail-value">Software/SaaS</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="payee-item" data-payee="office-solutions">
+                    <div class="payee-header">
+                        <div class="payee-basic-info">
+                            <div class="payee-name">Metro Office Solutions</div>
+                            <div class="payee-quick-tags">
+                                <span class="tag verified-quick">Verified</span>
+                            </div>
+                        </div>
+                        <button class="expand-btn" onclick="toggleDetails(this)">▼</button>
+                    </div>
+                    <div class="payee-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Vendor ID</span>
+                            <span class="detail-value">VENDOR-10891</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Account Number</span>
+                            <span class="detail-value">****4521</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Bank</span>
+                            <span class="detail-value">Bank of America</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Payment Method</span>
+                            <span class="detail-value">ACH</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Last Payment</span>
+                            <span class="detail-value">February 28, 2025</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Category</span>
+                            <span class="detail-value">Office/Utilities</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="payee-item" data-payee="tech-consulting">
+                    <div class="payee-header">
+                        <div class="payee-basic-info">
+                            <div class="payee-name">TechFlow Consulting LLC</div>
+                            <div class="payee-quick-tags">
+                                <span class="tag verified-quick">Verified</span>
+                            </div>
+                        </div>
+                        <button class="expand-btn" onclick="toggleDetails(this)">▼</button>
+                    </div>
+                    <div class="payee-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Vendor ID</span>
+                            <span class="detail-value">VENDOR-11203</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Account Number</span>
+                            <span class="detail-value">****7832</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Bank</span>
+                            <span class="detail-value">Chase</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Payment Method</span>
+                            <span class="detail-value">Wire</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Last Payment</span>
+                            <span class="detail-value">March 1, 2025</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Category</span>
+                            <span class="detail-value">Contractors</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="payee-item" data-payee="property-mgmt">
+                    <div class="payee-header">
+                        <div class="payee-basic-info">
+                            <div class="payee-name">Downtown Property Management</div>
+                            <div class="payee-quick-tags">
+                                <span class="tag quick">Frequent</span>
+                                <span class="tag verified-quick">Verified</span>
+                            </div>
+                        </div>
+                        <button class="expand-btn" onclick="toggleDetails(this)">▼</button>
+                    </div>
+                    <div class="payee-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Vendor ID</span>
+                            <span class="detail-value">VENDOR-10045</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Account Number</span>
+                            <span class="detail-value">****2341</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Bank</span>
+                            <span class="detail-value">Truist</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Payment Method</span>
+                            <span class="detail-value">ACH</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Last Payment</span>
+                            <span class="detail-value">March 1, 2025</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Category</span>
+                            <span class="detail-value">Office/Utilities</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         
         <div class="actions">
             <button class="btn btn-secondary">Cancel</button>
-            <button class="btn btn-primary">Continue</button>
+            <button class="btn btn-primary" id="continueBtn">Continue</button>
         </div>
     </div>
     
     <script>
-        const frequencySelect = document.getElementById('frequencySelect');
-        const dailyFields = document.getElementById('dailyFields');
-        const recurringFields = document.getElementById('recurringFields');
-        const customFields = document.getElementById('customFields');
-        const customNotice = document.getElementById('customNotice');
-        const endDateField = document.getElementById('endDateField');
-        const customEndDateField = document.getElementById('customEndDateField');
+        const payeeItems = document.querySelectorAll('.payee-item');
+        const continueBtn = document.getElementById('continueBtn');
+        const searchInput = document.getElementById('payeeSearch');
         
-        // Handle frequency selection
-        frequencySelect.addEventListener('change', function() {
-            // Hide all conditional fields first
-            dailyFields.classList.remove('show');
-            recurringFields.classList.remove('show');
-            customFields.classList.remove('show');
-            customNotice.style.display = 'none';
+        // Toggle details function
+        function toggleDetails(button) {
+            const payeeItem = button.closest('.payee-item');
+            const details = payeeItem.querySelector('.payee-details');
             
-            // Show appropriate fields based on selection
-            const frequency = this.value;
-            
-            if (frequency === 'daily') {
-                dailyFields.classList.add('show');
-            } else if (frequency === 'custom') {
-                customFields.classList.add('show');
-                customNotice.style.display = 'flex';
-            } else if (frequency && frequency !== '') {
-                recurringFields.classList.add('show');
+            if (details.classList.contains('show')) {
+                details.classList.remove('show');
+                button.classList.remove('expanded');
+            } else {
+                details.classList.add('show');
+                button.classList.add('expanded');
             }
+        }
+        
+        // Handle payee selection
+        payeeItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                // Don't trigger selection if clicking the expand button
+                if (e.target.classList.contains('expand-btn')) {
+                    return;
+                }
+                
+                // Remove selected class from all items
+                payeeItems.forEach(i => i.classList.remove('selected'));
+                // Add selected class to clicked item
+                this.classList.add('selected');
+                // Enable continue button
+                continueBtn.disabled = false;
+            });
         });
         
-        // Handle ending type changes for regular recurring
-        document.addEventListener('change', function(e) {
-            if (e.target.name === 'endingType') {
-                endDateField.style.display = e.target.value === 'date' ? 'block' : 'none';
-            }
-            
-            if (e.target.name === 'customEndingType') {
-                customEndDateField.style.display = e.target.value === 'date' ? 'block' : 'none';
-            }
+        // Handle search
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            payeeItems.forEach(item => {
+                const payeeName = item.querySelector('.payee-name').textContent.toLowerCase();
+                
+                if (payeeName.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
         });
+        
+        // Initially enable continue button if a payee is selected
+        const selectedPayee = document.querySelector('.payee-item.selected');
+        if (selectedPayee) {
+            continueBtn.disabled = false;
+        }
     </script>
 </body>
 </html>
