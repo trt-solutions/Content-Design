@@ -700,4 +700,417 @@
   }
 }
 
-<span class="comment
+<span class="comment">/* Desktop and up */</span>
+@media (min-width: 1024px) {
+  .<span class="property">grid</span> {
+    <span class="property">grid-template-columns</span>: <span class="value">repeat(3, 1fr)</span>;
+    <span class="property">gap</span>: <span class="value">var(--space-xl)</span>;
+  }
+}
+                </div>
+            </section>
+
+            <section id="accessibility" class="section">
+                <h2>Accessibility Implementation</h2>
+                <p>WCAG AA compliant design ensuring inclusive user experience for all users.</p>
+                
+                <h3>Key Features</h3>
+                <ul style="margin: var(--space-md) 0; padding-left: var(--space-lg);">
+                    <li>High contrast ratios (4.5:1 minimum)</li>
+                    <li>Keyboard navigation support</li>
+                    <li>Screen reader compatibility</li>
+                    <li>Multi-modal status indicators</li>
+                    <li>Focus management and visible focus states</li>
+                    <li>Semantic HTML structure</li>
+                </ul>
+
+                <h3>Accessibility Implementation Code</h3>
+                <div class="code-block">
+<button class="copy-button" onclick="copyCode(this)">Copy</button>
+<span class="comment">/* Focus states for keyboard navigation */</span>
+:<span class="keyword">focus-visible</span> {
+  <span class="property">outline</span>: <span class="value">2px solid var(--truist-purple)</span>;
+  <span class="property">outline-offset</span>: <span class="value">2px</span>;
+  <span class="property">border-radius</span>: <span class="value">var(--radius-sm)</span>;
+}
+
+<span class="comment">/* High contrast mode support */</span>
+@media (<span class="keyword">prefers-contrast: high</span>) {
+  :root {
+    <span class="property">--border-light</span>: <span class="value">#000000</span>;
+    <span class="property">--text-secondary</span>: <span class="value">#000000</span>;
+  }
+}
+
+<span class="comment">/* Reduced motion for accessibility */</span>
+@media (<span class="keyword">prefers-reduced-motion: reduce</span>) {
+  * {
+    <span class="property">animation-duration</span>: <span class="value">0.01ms !important</span>;
+    <span class="property">animation-iteration-count</span>: <span class="value">1 !important</span>;
+    <span class="property">transition-duration</span>: <span class="value">0.01ms !important</span>;
+  }
+}
+                </div>
+
+                <h3>ARIA Implementation</h3>
+                <div class="code-block">
+<button class="copy-button" onclick="copyCode(this)">Copy</button>
+<span class="comment">&lt;!-- Dashboard card with proper ARIA labels --&gt;</span>
+&lt;<span class="keyword">div</span> <span class="property">class</span>=<span class="string">"card"</span> <span class="property">role</span>=<span class="string">"region"</span> <span class="property">aria-labelledby</span>=<span class="string">"card-title-1"</span>&gt;
+  &lt;<span class="keyword">h3</span> <span class="property">id</span>=<span class="string">"card-title-1"</span>&gt;Pending Invoices&lt;/<span class="keyword">h3</span>&gt;
+  &lt;<span class="keyword">div</span> <span class="property">class</span>=<span class="string">"metric"</span> <span class="property">aria-describedby</span>=<span class="string">"metric-desc-1"</span>&gt;
+    &lt;<span class="keyword">span</span> <span class="property">class</span>=<span class="string">"number"</span>&gt;24&lt;/<span class="keyword">span</span>&gt;
+    &lt;<span class="keyword">span</span> <span class="property">id</span>=<span class="string">"metric-desc-1"</span> <span class="property">class</span>=<span class="string">"sr-only"</span>&gt;
+      24 invoices pending review
+    &lt;/<span class="keyword">span</span>&gt;
+  &lt;/<span class="keyword">div</span>&gt;
+&lt;/<span class="keyword">div</span>&gt;
+
+<span class="comment">&lt;!-- Button with proper accessibility --&gt;</span>
+&lt;<span class="keyword">button</span> <span class="property">class</span>=<span class="string">"btn-primary"</span> 
+        <span class="property">aria-describedby</span>=<span class="string">"approve-help"</span>
+        <span class="property">onclick</span>=<span class="string">"approveInvoice()"</span>&gt;
+  Approve Invoice
+&lt;/<span class="keyword">button</span>&gt;
+&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"approve-help"</span> <span class="property">class</span>=<span class="string">"sr-only"</span>&gt;
+  This will approve the selected invoice for payment
+&lt;/<span class="keyword">div</span>&gt;
+                </div>
+            </section>
+
+            <section id="performance" class="section">
+                <h2>Performance Optimization</h2>
+                <p>Optimized for speed and efficiency with modern web performance best practices.</p>
+                
+                <h3>Optimization Techniques</h3>
+                <ul style="margin: var(--space-md) 0; padding-left: var(--space-lg);">
+                    <li>CSS custom properties for efficient styling</li>
+                    <li>Minified and compressed assets</li>
+                    <li>Lazy loading for non-critical content</li>
+                    <li>Optimized images and icons</li>
+                    <li>Critical CSS inlining</li>
+                    <li>Progressive enhancement approach</li>
+                </ul>
+
+                <h3>Performance Monitoring</h3>
+                <div class="code-block">
+<button class="copy-button" onclick="copyCode(this)">Copy</button>
+<span class="comment">// Performance measurement script</span>
+<span class="keyword">function</span> <span class="property">measurePerformance</span>() {
+  <span class="keyword">if</span> (<span class="string">'performance'</span> <span class="keyword">in</span> window) {
+    <span class="keyword">const</span> <span class="property">timing</span> = performance.timing;
+    <span class="keyword">const</span> <span class="property">loadTime</span> = timing.loadEventEnd - timing.navigationStart;
+    
+    console.log(<span class="string">'Page load time:'</span>, loadTime + <span class="string">'ms'</span>);
+    
+    <span class="comment">// Report to analytics</span>
+    <span class="keyword">if</span> (loadTime > <span class="value">2000</span>) {
+      console.warn(<span class="string">'Page load time exceeds target'</span>);
+    }
+  }
+}
+
+<span class="comment">// Core Web Vitals monitoring</span>
+<span class="keyword">function</span> <span class="property">measureWebVitals</span>() {
+  <span class="keyword">new</span> PerformanceObserver((list) => {
+    <span class="keyword">for</span> (<span class="keyword">const</span> entry <span class="keyword">of</span> list.getEntries()) {
+      console.log(entry.name, entry.value);
+    }
+  }).observe({entryTypes: [<span class="string">'largest-contentful-paint'</span>]});
+}
+
+window.addEventListener(<span class="string">'load'</span>, measurePerformance);
+                </div>
+
+                <h3>Lazy Loading Implementation</h3>
+                <div class="code-block">
+<button class="copy-button" onclick="copyCode(this)">Copy</button>
+<span class="comment">// Intersection Observer for lazy loading</span>
+<span class="keyword">const</span> <span class="property">lazyLoadObserver</span> = <span class="keyword">new</span> IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    <span class="keyword">if</span> (entry.isIntersecting) {
+      <span class="keyword">const</span> element = entry.target;
+      <span class="keyword">const</span> src = element.dataset.src;
+      
+      <span class="keyword">if</span> (src) {
+        element.src = src;
+        element.classList.remove(<span class="string">'lazy'</span>);
+        lazyLoadObserver.unobserve(element);
+      }
+    }
+  });
+});
+
+<span class="comment">// Observe all lazy images</span>
+document.querySelectorAll(<span class="string">'img[data-src]'</span>).forEach(img => {
+  lazyLoadObserver.observe(img);
+});
+                </div>
+            </section>
+
+            <section id="testing" class="section">
+                <h2>Testing Strategy</h2>
+                <p>Comprehensive testing approach ensuring quality and reliability.</p>
+                
+                <h3>Testing Areas</h3>
+                <ul style="margin: var(--space-md) 0; padding-left: var(--space-lg);">
+                    <li><strong>Unit Testing:</strong> Component-level functionality</li>
+                    <li><strong>Integration Testing:</strong> End-to-end user workflows</li>
+                    <li><strong>Accessibility Testing:</strong> WCAG compliance verification</li>
+                    <li><strong>Performance Testing:</strong> Load time optimization</li>
+                    <li><strong>Cross-browser Testing:</strong> Compatibility across modern browsers</li>
+                    <li><strong>Mobile Testing:</strong> Responsive design validation</li>
+                </ul>
+
+                <h3>Testing Checklist</h3>
+                <ul class="checklist">
+                    <li>Component renders correctly across browsers</li>
+                    <li>Keyboard navigation works properly</li>
+                    <li>Screen reader announces content correctly</li>
+                    <li>Color contrast meets WCAG standards</li>
+                    <li>Mobile responsiveness validated</li>
+                    <li>Performance targets met</li>
+                    <li>Error states handled gracefully</li>
+                    <li>Form validation works properly</li>
+                </ul>
+
+                <h3>Automated Testing Example</h3>
+                <div class="code-block">
+<button class="copy-button" onclick="copyCode(this)">Copy</button>
+<span class="comment">// Jest test example for button component</span>
+describe(<span class="string">'Button Component'</span>, () => {
+  test(<span class="string">'renders with correct text'</span>, () => {
+    <span class="keyword">const</span> button = document.createElement(<span class="string">'button'</span>);
+    button.className = <span class="string">'btn-primary'</span>;
+    button.textContent = <span class="string">'Click me'</span>;
+    
+    expect(button.textContent).toBe(<span class="string">'Click me'</span>);
+    expect(button.classList.contains(<span class="string">'btn-primary'</span>)).toBe(<span class="value">true</span>);
+  });
+  
+  test(<span class="string">'handles click events'</span>, () => {
+    <span class="keyword">const</span> mockClick = jest.fn();
+    <span class="keyword">const</span> button = document.createElement(<span class="string">'button'</span>);
+    button.addEventListener(<span class="string">'click'</span>, mockClick);
+    
+    button.click();
+    expect(mockClick).toHaveBeenCalled();
+  });
+});
+
+<span class="comment">// Accessibility testing with axe-core</span>
+<span class="keyword">import</span> { axe } <span class="keyword">from</span> <span class="string">'jest-axe'</span>;
+
+test(<span class="string">'dashboard should be accessible'</span>, <span class="keyword">async</span> () => {
+  <span class="keyword">const</span> results = <span class="keyword">await</span> axe(document.body);
+  expect(results).toHaveNoViolations();
+});
+                </div>
+            </section>
+
+            <section id="deployment" class="section">
+                <h2>Deployment Guidelines</h2>
+                <p>Production-ready deployment with enterprise-grade standards.</p>
+                
+                <h3>Deployment Checklist</h3>
+                <ul class="checklist">
+                    <li>Code quality validation passed</li>
+                    <li>Performance testing completed</li>
+                    <li>Accessibility audit passed</li>
+                    <li>Security scan completed</li>
+                    <li>Cross-browser compatibility verified</li>
+                    <li>Mobile responsiveness tested</li>
+                    <li>Error handling implemented</li>
+                    <li>Analytics tracking configured</li>
+                    <li>SSL certificate installed</li>
+                    <li>CDN configuration optimized</li>
+                </ul>
+
+                <h3>Production Configuration</h3>
+                <div class="code-block">
+<button class="copy-button" onclick="copyCode(this)">Copy</button>
+<span class="comment">// Environment configuration</span>
+<span class="keyword">const</span> <span class="property">config</span> = {
+  <span class="property">environment</span>: <span class="string">'production'</span>,
+  <span class="property">apiBaseUrl</span>: <span class="string">'https://api.truist.com'</span>,
+  <span class="property">enableAnalytics</span>: <span class="value">true</span>,
+  <span class="property">debugMode</span>: <span class="value">false</span>,
+  <span class="property">cacheTimeout</span>: <span class="value">300000</span>, <span class="comment">// 5 minutes</span>
+  <span class="property">retryAttempts</span>: <span class="value">3</span>,
+  <span class="property">enableServiceWorker</span>: <span class="value">true</span>
+};
+
+<span class="comment">// Error boundary for production</span>
+window.addEventListener(<span class="string">'error'</span>, (<span class="property">event</span>) => {
+  console.error(<span class="string">'Global error:'</span>, event.error);
+  <span class="comment">// Report to monitoring service</span>
+  <span class="keyword">if</span> (config.enableAnalytics) {
+    reportError(event.error);
+  }
+});
+
+<span class="comment">// Service Worker registration</span>
+<span class="keyword">if</span> (<span class="string">'serviceWorker'</span> <span class="keyword">in</span> navigator && config.enableServiceWorker) {
+  navigator.serviceWorker.register(<span class="string">'/sw.js'</span>)
+    .then(registration => console.log(<span class="string">'SW registered'</span>, registration))
+    .catch(error => console.log(<span class="string">'SW registration failed'</span>, error));
+}
+                </div>
+
+                <h3>Build Process</h3>
+                <div class="code-block">
+<button class="copy-button" onclick="copyCode(this)">Copy</button>
+<span class="comment"># Build script for production deployment</span>
+<span class="keyword">#!/bin/bash</span>
+
+<span class="comment"># Install dependencies</span>
+npm install
+
+<span class="comment"># Run tests</span>
+npm run test
+npm run test:accessibility
+npm run test:performance
+
+<span class="comment"># Build production assets</span>
+npm run build:css
+npm run build:js
+npm run optimize:images
+
+<span class="comment"># Minify HTML, CSS, JS</span>
+npm run minify
+
+<span class="comment"># Generate service worker</span>
+npm run build:sw
+
+<span class="comment"># Deploy to production</span>
+npm run deploy:prod
+                </div>
+
+                <h3>Monitoring & Analytics</h3>
+                <div class="code-block">
+<button class="copy-button" onclick="copyCode(this)">Copy</button>
+<span class="comment">// Production monitoring setup</span>
+<span class="keyword">class</span> <span class="property">ProductionMonitor</span> {
+  <span class="keyword">constructor</span>() {
+    <span class="keyword">this</span>.setupErrorTracking();
+    <span class="keyword">this</span>.setupPerformanceTracking();
+    <span class="keyword">this</span>.setupUserAnalytics();
+  }
+  
+  <span class="property">setupErrorTracking</span>() {
+    window.addEventListener(<span class="string">'unhandledrejection'</span>, event => {
+      <span class="keyword">this</span>.reportError(<span class="string">'Unhandled Promise Rejection'</span>, event.reason);
+    });
+  }
+  
+  <span class="property">setupPerformanceTracking</span>() {
+    <span class="keyword">new</span> PerformanceObserver(list => {
+      <span class="keyword">for</span> (<span class="keyword">const</span> entry <span class="keyword">of</span> list.getEntries()) {
+        <span class="keyword">this</span>.reportMetric(entry.name, entry.value);
+      }
+    }).observe({entryTypes: [<span class="string">'navigation'</span>, <span class="string">'paint'</span>]});
+  }
+  
+  <span class="property">reportError</span>(type, error) {
+    <span class="comment">// Send to monitoring service</span>
+    fetch(<span class="string">'/api/errors'</span>, {
+      method: <span class="string">'POST'</span>,
+      body: JSON.stringify({ type, error: error.toString() })
+    });
+  }
+}
+
+<span class="keyword">new</span> ProductionMonitor();
+                </div>
+
+                <div class="info-box">
+                    <h4>Ready for Enterprise Deployment</h4>
+                    <p>This comprehensive implementation guide provides all necessary technical specifications for developing, testing, and deploying the Truist Commercial Banking platform while maintaining enterprise-grade quality standards.</p>
+                    
+                    <div style="margin-top: var(--space-md);">
+                        <strong>Next Steps:</strong> Begin development with the provided component specifications, follow the testing strategy, and use the deployment checklist to ensure a successful production launch.
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Copy code functionality
+        function copyCode(button) {
+            const codeBlock = button.parentElement;
+            const code = codeBlock.textContent.replace('Copy', '').trim();
+            
+            navigator.clipboard.writeText(code).then(() => {
+                button.textContent = 'Copied!';
+                button.style.background = 'var(--status-success)';
+                
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                    button.style.background = 'rgba(255,255,255,0.1)';
+                }, 2000);
+            });
+        }
+
+        // Smooth scrolling for sidebar navigation
+        document.querySelectorAll('.sidebar-nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links
+                document.querySelectorAll('.sidebar-nav a').forEach(l => l.classList.remove('active'));
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                // Smooth scroll to target
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Update active navigation on scroll
+        function updateActiveNavigation() {
+            const sections = document.querySelectorAll('.section');
+            const navLinks = document.querySelectorAll('.sidebar-nav a');
+            
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (window.scrollY >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Throttled scroll event listener
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            if (scrollTimeout) {
+                clearTimeout(scrollTimeout);
+            }
+            scrollTimeout = setTimeout(updateActiveNavigation, 50);
+        });
+
+        // Initialize active navigation on page load
+        document.addEventListener('DOMContentLoaded', updateActiveNavigation);
+    </script>
+</body>
+</html>
