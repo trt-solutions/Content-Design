@@ -585,6 +585,7 @@
     </div>
     
     <script>
+        // In-memory storage for payment actions (since sessionStorage is not available)
         let currentAction = '';
         let pendingVendor = '';
         let pendingComments = '';
@@ -657,8 +658,8 @@
                 action: 'approved'
             };
             
-            // Store in sessionStorage to pass to dashboard
-            sessionStorage.setItem('lastPaymentAction', JSON.stringify(approvalData));
+            // Store in window object to pass to dashboard
+            window.parent.paymentActionData = approvalData;
             
             // In real app: send approval to backend
             // Redirect back to dashboard
@@ -683,8 +684,8 @@
                 action: 'changes_requested'
             };
             
-            // Store in sessionStorage to pass to dashboard
-            sessionStorage.setItem('lastPaymentAction', JSON.stringify(changeRequestData));
+            // Store in window object to pass to dashboard
+            window.parent.paymentActionData = changeRequestData;
             
             // In real app: send change request to backend
             // Redirect back to dashboard
@@ -715,8 +716,8 @@
                 action: 'rejected'
             };
             
-            // Store in sessionStorage to pass to dashboard
-            sessionStorage.setItem('lastPaymentAction', JSON.stringify(rejectionData));
+            // Store in window object to pass to dashboard
+            window.parent.paymentActionData = rejectionData;
             
             // In real app: send rejection to backend
             // Redirect back to dashboard immediately
