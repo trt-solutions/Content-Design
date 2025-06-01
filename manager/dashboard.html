@@ -910,7 +910,7 @@
                 </div>
                 
                 <div class="queue-content" id="queueContent">
-                    <div class="approval-item" onclick="location.href='approver-review-payment.html'">
+                    <div class="approval-item" onclick="location.href='approver-review-payment.html'">>
                         <div class="approval-priority high"></div>
                         <div class="approval-content">
                             <div class="approval-vendor">Downtown Property</div>
@@ -1238,6 +1238,15 @@
                 hideRejectionPopover();
             }
         });
+        
+        // Prevent any accidental navigation during rejection process
+        function preventNavigation(e) {
+            if (document.getElementById('rejectionOverlay').classList.contains('active')) {
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            }
+        }
         
         // Start with queue expanded by default
         document.addEventListener('DOMContentLoaded', function() {
