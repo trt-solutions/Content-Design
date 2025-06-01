@@ -736,6 +736,77 @@
             cursor: not-allowed;
         }
         
+        /* Success Banner Styles */
+        .success-banner {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+        
+        .success-banner.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .success-icon {
+            background: #10b981;
+            color: white;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        
+        .success-content {
+            flex: 1;
+        }
+        
+        .success-text {
+            font-size: 14px;
+            color: #166534;
+            line-height: 1.4;
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+        
+        .success-subtext {
+            font-size: 12px;
+            color: #166534;
+            opacity: 0.8;
+        }
+        
+        .success-close {
+            background: none;
+            border: none;
+            color: #166534;
+            cursor: pointer;
+            font-size: 18px;
+            padding: 4px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+        }
+        
+        .success-close:hover {
+            background: #dcfce7;
+        }
+        
+        @keyframes fadeOut {
+            from { opacity: 1; transform: translateX(0); }
+            to { opacity: 0; transform: translateX(-100%); }
+        }
+        
         /* Form Validation Styles */
         .form-validation-message {
             background: #fef2f2;
@@ -797,6 +868,15 @@
         </div>
         
         <div class="content">
+            <div id="successBanner" class="success-banner" style="display: none;">
+                <div class="success-icon">✓</div>
+                <div class="success-content">
+                    <div class="success-text" id="successText">Payment action completed</div>
+                    <div class="success-subtext" id="successSubtext">The submitter will be notified</div>
+                </div>
+                <button class="success-close" onclick="hideSuccessBanner()">×</button>
+            </div>
+            
             <div class="urgent-banner">
                 <div class="urgent-icon">⏰</div>
                 <div class="urgent-content">
@@ -1146,7 +1226,104 @@
         document.addEventListener('DOMContentLoaded', function() {
             const queueToggle = document.getElementById('queueToggle');
             queueToggle.classList.add('expanded');
+            
+            // Check for payment action results
+            checkForPaymentActionResult();
         });
+        
+        function checkForPaymentActionResult() {
+            const actionData = sessionStorage.getItem('lastPaymentAction');
+            if (actionData) {
+                const data = JSON.parse(actionData);
+                showSuccessBanner(data);
+                
+                // Clear the stored data
+                sessionStorage.removeItem('lastPaymentAction');
+                
+                // Remove the processed item from queue (simulate)
+                removeFromQueue(data.vendor);
+            }
+        }
+        
+        function showSuccessBanner(data) {
+            const banner = document.getElementById('successBanner');
+            const successText = document.getElementById('successText');
+            const successSubtext = document.getElementById('successSubtext');
+            
+            let message = '';
+            let submessage = '';
+            
+            switch(data.action) {
+                case 'approved':
+                    message = `Payment to ${data.vendor} approved`;
+                    submessage = 'Payment processed successfully';
+                    break;
+                case 'rejected':
+                    message = `Payment to ${data.vendor} rejected`;
+                    submessage = `Reason: ${data.reason}`;
+                    break;
+                case 'changes_requested':
+                    message = `Changes requested for ${data.vendor}`;
+                    submessage = `Feedback: ${data.reason}`;
+                    break;
+            }
+            
+            successText.textContent = message;
+            successSubtext.textContent = submessage;
+            
+            banner.style.display = 'flex';
+            setTimeout(() => {
+                banner.classList.add('show');
+            }, 100);
+            
+            // Auto-hide after 8 seconds
+            setTimeout(() => {
+                hideSuccessBanner();
+            }, 8000);
+        }
+        
+        function hideSuccessBanner() {
+            const banner = document.getElementById('successBanner');
+            banner.classList.remove('show');
+            setTimeout(() => {
+                banner.style.display = 'none';
+            }, 300);
+        }
+        
+        function removeFromQueue(vendorName) {
+            // Find and remove the approval item from the queue
+            const approvalItems = document.querySelectorAll('.approval-item');
+            approvalItems.forEach(item => {
+                const vendor = item.querySelector('.approval-vendor');
+                if (vendor && vendor.textContent === vendorName) {
+                    item.style.animation = 'fadeOut 0.3s ease';
+                    setTimeout(() => {
+                        item.remove();
+                        updateQueueCount();
+                    }, 300);
+                }
+            });
+        }
+        
+        function updateQueueCount() {
+            const remainingItems = document.querySelectorAll('.approval-item').length;
+            const queueCount = document.querySelector('.queue-count');
+            const actionCount = document.querySelector('.action-sublabel span');
+            
+            if (queueCount) {
+                queueCount.textContent = remainingItems;
+            }
+            
+            if (actionCount) {
+                actionCount.textContent = `${remainingItems} need approval`;
+            }
+            
+            // Update notification badge
+            const notificationBadge = document.querySelector('.notification-badge');
+            if (notificationBadge) {
+                notificationBadge.textContent = remainingItems;
+            }
+        }
     </script>
 </body>
 </html>
