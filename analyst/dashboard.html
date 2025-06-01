@@ -316,10 +316,16 @@
             border-bottom: 1px solid #f9fafb;
             cursor: pointer;
             transition: all 0.2s ease;
+            position: relative;
         }
         
         .payment-item:hover {
             background: #faf8ff;
+        }
+        
+        .payment-item:hover .payment-actions {
+            opacity: 1;
+            visibility: visible;
         }
         
         .payment-item:last-child {
@@ -376,11 +382,46 @@
             color: #1a1a1a;
         }
         
+        .payment-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: absolute;
+            right: 24px;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            background: white;
+            padding: 4px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
         .payment-amount {
             font-size: 14px;
             font-weight: 700;
             color: #663399;
             text-align: right;
+        }
+        
+        .view-payment-btn {
+            background: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            color: #1a1a1a;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+        
+        .view-payment-btn:hover {
+            background: #e5e7eb;
+            border-color: #d1d5db;
         }
         
         .menu-section {
@@ -581,6 +622,9 @@
                         <div class="payment-status-text pending">Pending manager approval</div>
                     </div>
                     <div class="payment-amount">$8,500</div>
+                    <div class="payment-actions" onclick="event.stopPropagation()">
+                        <button class="view-payment-btn" onclick="location.href='payment-details.html?id=1'">View</button>
+                    </div>
                 </div>
                 
                 <div class="payment-item">
@@ -596,6 +640,9 @@
                         <div class="payment-status-text scheduled">Scheduled for Feb 1</div>
                     </div>
                     <div class="payment-amount">$2,400</div>
+                    <div class="payment-actions" onclick="event.stopPropagation()">
+                        <button class="view-payment-btn" onclick="location.href='payment-details.html?id=2'">View</button>
+                    </div>
                 </div>
                 
                 <div class="payment-item">
@@ -610,6 +657,9 @@
                         <div class="payment-status-text approved">Sent yesterday</div>
                     </div>
                     <div class="payment-amount">$425</div>
+                    <div class="payment-actions" onclick="event.stopPropagation()">
+                        <button class="view-payment-btn" onclick="location.href='payment-details.html?id=3'">View</button>
+                    </div>
                 </div>
             </div>
             
