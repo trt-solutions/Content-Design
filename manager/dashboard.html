@@ -892,7 +892,7 @@
                         <div class="action-label">Approve</div>
                         <div class="action-sublabel">Pending payments<br><span style="color: #ef4444; font-weight: 600; font-size: 11px;">7 need approval</span></div>
                     </div>
-                    <div class="action-item" onclick="location.href='payment-history.html'">
+                    <div class="action-item" onclick="scrollToPaymentHistory()">
                         <div class="action-icon">📊</div>
                         <div class="action-label">View</div>
                         <div class="action-sublabel">Payment history</div>
@@ -1004,21 +1004,21 @@
             </div>
             
             <div class="menu-section">
-                <div class="menu-item" onclick="location.href='payment-history.html'">
+                <div class="menu-item" onclick="showComingSoon('Payment History')">
                     <div class="menu-item-content">
                         <div class="menu-label">View</div>
                         <div class="menu-sublabel">All payment statuses, history, and audit trails</div>
                     </div>
                     <div class="menu-arrow">›</div>
                 </div>
-                <div class="menu-item" onclick="location.href='team-management.html'">
+                <div class="menu-item" onclick="showComingSoon('Team Management')">
                     <div class="menu-item-content">
                         <div class="menu-label">Manage</div>
                         <div class="menu-sublabel">Team permissions and approval workflows</div>
                     </div>
                     <div class="menu-arrow">›</div>
                 </div>
-                <div class="menu-item" onclick="location.href='help-guides.html'">
+                <div class="menu-item" onclick="showComingSoon('Help & Guides')">
                     <div class="menu-item-content">
                         <div class="menu-label">Learn</div>
                         <div class="menu-sublabel">More about approvals, policies, and compliance</div>
@@ -1037,19 +1037,19 @@
                 <div class="nav-icon">🏠</div>
                 <div class="nav-label">Dashboard</div>
             </div>
-            <div class="nav-item" onclick="location.href='payment-history.html'">
+            <div class="nav-item" onclick="showComingSoon('Payments')">
                 <div class="nav-icon">💸</div>
                 <div class="nav-label">Payments</div>
             </div>
-            <div class="nav-item" onclick="location.href='approval-queue.html'">
+            <div class="nav-item" onclick="scrollToApprovalQueue()">
                 <div class="nav-icon approval-badge">✅</div>
                 <div class="nav-label">Approvals</div>
             </div>
-            <div class="nav-item" onclick="location.href='reports.html'">
+            <div class="nav-item" onclick="showComingSoon('Reports')">
                 <div class="nav-icon">📊</div>
                 <div class="nav-label">Reports</div>
             </div>
-            <div class="nav-item" onclick="location.href='team-management.html'">
+            <div class="nav-item" onclick="showComingSoon('Settings')">
                 <div class="nav-icon">⚙️</div>
                 <div class="nav-label">Settings</div>
             </div>
@@ -1117,6 +1117,15 @@
                     approvalQueue.style.boxShadow = '0 1px 3px rgba(0,0,0,0.1)';
                 }, 2000);
             }
+        }
+        
+        function showComingSoon(feature) {
+            alert(`${feature} feature coming soon! This is a demo of the AP Manager dashboard.`);
+        }
+        
+        function scrollToPaymentHistory() {
+            // Since we don't have a payment history section, show a message
+            alert('Payment history feature coming soon! For now, you can view payment details in the approval queue.');
         }
         
         function toggleQueue() {
