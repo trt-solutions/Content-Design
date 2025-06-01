@@ -772,14 +772,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="content-hotspot" id="hotspot-5" onclick="showContentTooltip(5)" style="top: 15px; right: -30px; display: none; z-index: 200;">5</div>
             </div>
             
-            <div class="custom-warning hidden" id="customWarning">
+            <div class="custom-warning hidden" id="customWarning" style="position: relative;">
                 <div class="warning-icon">⚠️</div>
                 <div class="warning-text">
                     Need a custom schedule? Allow 2–3 extra days for approval and processing.
                 </div>
+                <div class="content-hotspot" id="hotspot-5" onclick="showContentTooltip(5)" style="top: 15px; right: -30px; display: none; z-index: 200;">5</div>
             </div>
             
             <button class="continue-btn" id="continueBtn" onclick="continueToStep4()">
@@ -1103,8 +1103,8 @@
                 window.demoFrequencyData = frequencyData;
             }
             
-            // In a real app, this would navigate to the next step
-            alert('Demo complete! This would navigate to the approvers setup page.');
+            // Navigate to the approvers page
+            window.location.href = 'analyst/recurring-step4-approvers.html';
         }
         
         document.addEventListener('DOMContentLoaded', function() {
