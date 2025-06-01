@@ -137,6 +137,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
         
         .notification-icon {
@@ -171,6 +178,13 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .status-banner:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.15);
         }
         
         .status-icon {
@@ -205,6 +219,45 @@
             font-weight: 500;
         }
         
+        .workflow-indicator {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .workflow-steps {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+        }
+        
+        .workflow-step {
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .workflow-step.active {
+            color: #3b82f6;
+        }
+        
+        .workflow-step.completed {
+            color: #16a34a;
+        }
+        
+        .workflow-step:not(:last-child)::after {
+            content: '→';
+            margin-left: 8px;
+            color: #9ca3af;
+        }
+        
         .quick-actions {
             background: white;
             border-radius: 16px;
@@ -226,10 +279,20 @@
             cursor: pointer;
             transition: transform 0.2s ease;
             text-decoration: none;
+            position: relative;
         }
         
         .action-item:hover {
             transform: translateY(-2px);
+        }
+        
+        .action-item.demo-highlight {
+            animation: highlight-glow 3s infinite;
+        }
+        
+        @keyframes highlight-glow {
+            0%, 100% { box-shadow: 0 0 0 rgba(102, 51, 153, 0); }
+            50% { box-shadow: 0 0 20px rgba(102, 51, 153, 0.3); }
         }
         
         .action-icon {
@@ -307,6 +370,11 @@
             font-weight: 600;
             cursor: pointer;
             font-family: inherit;
+            transition: color 0.2s ease;
+        }
+        
+        .view-all-btn:hover {
+            color: #553288;
         }
         
         .payment-item {
@@ -332,6 +400,11 @@
             border-bottom: none;
         }
         
+        .payment-item.demo-payment {
+            border-left: 4px solid #3b82f6;
+            background: #fafafa;
+        }
+        
         .payment-status {
             width: 24px;
             height: 24px;
@@ -348,6 +421,12 @@
         
         .payment-status.pending {
             background: #f59e0b;
+            animation: pulse-status 2s infinite;
+        }
+        
+        @keyframes pulse-status {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
         }
         
         .payment-status.scheduled {
@@ -406,7 +485,7 @@
             text-align: right;
         }
         
-        .view-payment-btn {
+        .view-payment-btn, .workflow-btn {
             background: #f3f4f6;
             border: 1px solid #e5e7eb;
             color: #1a1a1a;
@@ -417,6 +496,17 @@
             cursor: pointer;
             transition: all 0.2s ease;
             font-family: inherit;
+        }
+        
+        .workflow-btn {
+            background: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+        
+        .workflow-btn:hover {
+            background: #2563eb;
+            border-color: #2563eb;
         }
         
         .view-payment-btn:hover {
@@ -530,9 +620,167 @@
         .nav-item.active .nav-label {
             color: #663399;
         }
+
+        /* Demo Mode Styles */
+        .demo-mode-banner {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 101;
+        }
+
+        /* Hotspot and Tour Styles */
+        .hotspot-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1000;
+            display: none;
+            backdrop-filter: blur(2px);
+        }
+
+        .hotspot-highlight {
+            position: relative;
+            z-index: 1001;
+            animation: hotspot-pulse 2s infinite;
+        }
+
+        @keyframes hotspot-pulse {
+            0%, 100% { 
+                box-shadow: 0 0 0 0 rgba(102, 51, 153, 0.4);
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 0 0 15px rgba(102, 51, 153, 0);
+                transform: scale(1.02);
+            }
+        }
+
+        .tour-tooltip {
+            position: absolute;
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            max-width: 280px;
+            z-index: 1002;
+            border: 2px solid #663399;
+            display: none;
+        }
+
+        .tour-tooltip::before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border: 10px solid transparent;
+            border-top-color: #663399;
+            bottom: -22px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .tour-tooltip::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border: 8px solid transparent;
+            border-top-color: white;
+            bottom: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .tour-header {
+            font-size: 16px;
+            font-weight: 700;
+            color: #663399;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tour-content {
+            font-size: 14px;
+            color: #1a1a1a;
+            line-height: 1.4;
+            margin-bottom: 16px;
+        }
+
+        .tour-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        .tour-btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            border: none;
+        }
+
+        .tour-btn.primary {
+            background: #663399;
+            color: white;
+        }
+
+        .tour-btn.primary:hover {
+            background: #553288;
+        }
+
+        .tour-btn.secondary {
+            background: #f3f4f6;
+            color: #1a1a1a;
+        }
+
+        .tour-btn.secondary:hover {
+            background: #e5e7eb;
+        }
+
+        .demo-indicator {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ef4444;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 10px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: demo-bounce 1.5s infinite;
+            border: 2px solid white;
+        }
+
+        @keyframes demo-bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
     </style>
 </head>
 <body>
+    <div class="demo-mode-banner">
+        🎬 DEMO MODE: End-to-End AP Workflow Preview
+    </div>
+    
     <div class="container">
         <div class="header">
             <div class="header-top">
@@ -546,10 +794,10 @@
                             <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/>
                             <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
                         </svg>
-                        <span class="notification-badge">2</span>
+                        <span class="notification-badge">3</span>
                     </button>
                     <button class="signoff-btn">Sign off</button>
-                    <button class="role-btn" onclick="location.href='../index.html'">Switch Role</button>
+                    <button class="role-btn" onclick="switchRole()">Switch Role</button>
                 </div>
             </div>
             <div class="greeting">Good morning, Alex</div>
@@ -557,11 +805,20 @@
         </div>
         
         <div class="content">
-            <div class="status-banner">
+            <div class="workflow-indicator">
+                <div class="workflow-steps">
+                    <div class="workflow-step active">1. Create Payment</div>
+                    <div class="workflow-step">2. Manager Review</div>
+                    <div class="workflow-step">3. Compliance Check</div>
+                    <div class="workflow-step">4. Payment Sent</div>
+                </div>
+            </div>
+            
+            <div class="status-banner" onclick="showWorkflowDetails()">
                 <div class="status-icon">✓</div>
                 <div class="status-content">
                     <div class="status-text">2 payments approved today</div>
-                    <div class="status-subtext">Acme Corp and Office Supply Co scheduled</div>
+                    <div class="status-subtext">Acme Corp and Office Supply Co scheduled • Click to see workflow</div>
                 </div>
             </div>
             
@@ -577,7 +834,7 @@
                         <div class="action-label">Pay</div>
                         <div class="action-sublabel">One time</div>
                     </a>
-                    <a href="recurring-step1-payee.html" class="action-item">
+                    <a href="recurring-step1-payee.html" class="action-item demo-highlight" id="schedule-action">
                         <div class="action-icon">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c2.39 0 4.68.94 6.36 2.64"/>
@@ -585,7 +842,8 @@
                             </svg>
                         </div>
                         <div class="action-label">Schedule</div>
-                        <div class="action-sublabel">Recurring payments<br><span class="highlight-text">8 scheduled this week</span></div>
+                        <div class="action-sublabel">Recurring payments<br><span style="color: #ef4444; font-weight: 700;">⚡ Demo Ready</span></div>
+                        <div class="demo-indicator">!</div>
                     </a>
                     <a href="payment-batch.html" class="action-item">
                         <div class="action-icon">
@@ -609,7 +867,7 @@
                     <button class="view-all-btn" onclick="location.href='payment-history.html'">View all</button>
                 </div>
                 
-                <div class="payment-item">
+                <div class="payment-item demo-payment">
                     <div class="payment-status pending">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;">
                             <circle cx="12" cy="12" r="10"/>
@@ -619,10 +877,11 @@
                     <div class="payment-content">
                         <div class="payment-vendor">Downtown Property</div>
                         <div class="payment-detail">Office Rent • Due: Jan 31</div>
-                        <div class="payment-status-text pending">Pending manager approval</div>
+                        <div class="payment-status-text pending">⚡ Demo Payment - Pending manager approval</div>
                     </div>
                     <div class="payment-amount">$8,500</div>
                     <div class="payment-actions" onclick="event.stopPropagation()">
+                        <button class="workflow-btn" onclick="showManagerView()">Track →</button>
                         <button class="view-payment-btn" onclick="location.href='payment-details.html?id=1'">View</button>
                     </div>
                 </div>
@@ -641,7 +900,7 @@
                     </div>
                     <div class="payment-amount">$2,400</div>
                     <div class="payment-actions" onclick="event.stopPropagation()">
-                        <button class="view-payment-btn" onclick="location.href='payment-details.html?id=2'">View</button>
+                        <button class="view-payment-btn">View</button>
                     </div>
                 </div>
                 
@@ -658,7 +917,7 @@
                     </div>
                     <div class="payment-amount">$425</div>
                     <div class="payment-actions" onclick="event.stopPropagation()">
-                        <button class="view-payment-btn" onclick="location.href='payment-details.html?id=3'">View</button>
+                        <button class="view-payment-btn">View</button>
                     </div>
                 </div>
             </div>
@@ -725,5 +984,93 @@
             </div>
         </div>
     </div>
+
+    <!-- Hotspot Overlay -->
+    <div class="hotspot-overlay" id="hotspot-overlay"></div>
+
+    <!-- Tour Tooltip -->
+    <div class="tour-tooltip" id="tour-tooltip">
+        <div class="tour-header">
+            <span>🎯</span>
+            <span>Recurring Payment Demo</span>
+        </div>
+        <div class="tour-content">
+            Click <strong>Schedule</strong> to experience our redesigned recurring payment workflow with improved content and enterprise features.
+        </div>
+        <div class="tour-actions">
+            <button class="tour-btn secondary" onclick="closeTour()">Maybe Later</button>
+            <button class="tour-btn primary" onclick="startScheduleDemo()">Start Demo</button>
+        </div>
+    </div>
+
+    <script>
+        // Auto-start tour when page loads
+        window.addEventListener('load', function() {
+            setTimeout(showScheduleTour, 1000);
+        });
+
+        function showScheduleTour() {
+            const overlay = document.getElementById('hotspot-overlay');
+            const tooltip = document.getElementById('tour-tooltip');
+            const scheduleAction = document.getElementById('schedule-action');
+            
+            // Show overlay
+            overlay.style.display = 'block';
+            
+            // Add hotspot highlight
+            scheduleAction.classList.add('hotspot-highlight');
+            
+            // Position and show tooltip
+            const rect = scheduleAction.getBoundingClientRect();
+            tooltip.style.left = `${rect.left + (rect.width / 2) - 140}px`;
+            tooltip.style.top = `${rect.top - 120}px`;
+            tooltip.style.display = 'block';
+        }
+
+        function closeTour() {
+            const overlay = document.getElementById('hotspot-overlay');
+            const tooltip = document.getElementById('tour-tooltip');
+            const scheduleAction = document.getElementById('schedule-action');
+            
+            overlay.style.display = 'none';
+            tooltip.style.display = 'none';
+            scheduleAction.classList.remove('hotspot-highlight');
+        }
+
+        function startScheduleDemo() {
+            closeTour();
+            // Navigate to recurring payment flow
+            window.location.href = 'recurring-step1-payee.html';
+        }
+
+        // Demo workflow simulation
+        function startDemoPayment() {
+            alert('🎬 DEMO: Starting payment creation workflow...\n\nNext: Payment goes to AP Manager for approval');
+        }
+
+        function showManagerView() {
+            alert('🎬 DEMO: Switching to AP Manager view...\n\nManager will see this payment in their approval queue');
+        }
+
+        function showWorkflowDetails() {
+            alert('🎬 DEMO: Workflow Status\n\n1. ✅ Payment Created (Alex - AP Analyst)\n2. ⏳ Pending Manager Approval\n3. ⏳ Compliance Review\n4. ⏳ Payment Processing');
+        }
+
+        function switchRole() {
+            const roles = ['AP Analyst', 'AP Manager', 'Compliance Officer'];
+            const currentRole = 'AP Analyst';
+            alert('🎬 DEMO: Role Switching\n\nAvailable roles:\n• AP Analyst (current)\n• AP Manager\n• Compliance Officer\n\nClick to switch between roles in full demo');
+        }
+
+        // Simulate real-time updates
+        let notificationCount = 3;
+        setInterval(() => {
+            // Update notification badge occasionally
+            if (Math.random() > 0.98) {
+                notificationCount++;
+                document.querySelector('.notification-badge').textContent = notificationCount;
+            }
+        }, 1000);
+    </script>
 </body>
 </html>
