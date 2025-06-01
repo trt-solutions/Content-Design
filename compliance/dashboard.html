@@ -450,15 +450,44 @@
             position: relative;
         }
         
-        .audit-badge::after {
-            content: '';
+        .risk-item:hover .risk-actions {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .risk-actions {
             position: absolute;
-            top: -2px;
-            right: -2px;
-            width: 8px;
-            height: 8px;
-            background: #f59e0b;
-            border-radius: 50%;
+            right: 24px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            gap: 8px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            background: white;
+            padding: 4px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .action-btn {
+            padding: 6px 12px;
+            font-size: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 600;
+        }
+        
+        .review-btn {
+            background: #f3f4f6;
+            color: #374151;
+        }
+        
+        .review-btn:hover {
+            background: #e5e7eb;
         }
         
         /* Success Banner Styles */
@@ -584,6 +613,9 @@
                             <div class="risk-detail">Downtown Property • $8,500 • 3x normal frequency</div>
                             <div class="risk-category pattern">Pattern Alert</div>
                         </div>
+                        <div class="risk-actions" onclick="event.stopPropagation()">
+                            <button class="action-btn review-btn" onclick="goToRiskReview('Unusual payment pattern detected', 'Downtown Property', 'Pattern Alert')">Review</button>
+                        </div>
                     </div>
                     
                     <div class="risk-item" onclick="goToRiskReview('High-value payment pending dual approval', 'TechFlow LLC', 'Threshold')">
@@ -592,6 +624,9 @@
                             <div class="risk-description">High-value payment pending dual approval</div>
                             <div class="risk-detail">TechFlow LLC • $75,000 • Single approval received</div>
                             <div class="risk-category threshold">Threshold</div>
+                        </div>
+                        <div class="risk-actions" onclick="event.stopPropagation()">
+                            <button class="action-btn review-btn" onclick="goToRiskReview('High-value payment pending dual approval', 'TechFlow LLC', 'Threshold')">Review</button>
                         </div>
                     </div>
                     
@@ -602,6 +637,9 @@
                             <div class="risk-detail">Metro Insurance • Bi-annual schedule • Missing justification</div>
                             <div class="risk-category policy">Policy</div>
                         </div>
+                        <div class="risk-actions" onclick="event.stopPropagation()">
+                            <button class="action-btn review-btn" onclick="goToRiskReview('Custom recurrence requires documentation', 'Metro Insurance', 'Policy')">Review</button>
+                        </div>
                     </div>
                     
                     <div class="risk-item" onclick="goToRiskReview('Payment frequency above threshold', 'Acme Corp', 'Pattern Alert')">
@@ -610,6 +648,9 @@
                             <div class="risk-description">Payment frequency above threshold</div>
                             <div class="risk-detail">Acme Corp • 15 payments this month • 50% increase</div>
                             <div class="risk-category pattern">Pattern Alert</div>
+                        </div>
+                        <div class="risk-actions" onclick="event.stopPropagation()">
+                            <button class="action-btn review-btn" onclick="goToRiskReview('Payment frequency above threshold', 'Acme Corp', 'Pattern Alert')">Review</button>
                         </div>
                     </div>
                     
@@ -620,6 +661,9 @@
                             <div class="risk-detail">Global Supplies Inc • First payment • $3,200</div>
                             <div class="risk-category policy">Policy</div>
                         </div>
+                        <div class="risk-actions" onclick="event.stopPropagation()">
+                            <button class="action-btn review-btn" onclick="goToRiskReview('New vendor requires verification', 'Global Supplies Inc', 'Policy')">Review</button>
+                        </div>
                     </div>
                     
                     <div class="risk-item" onclick="goToRiskReview('Late approval notification', 'Office Supply Co', 'Threshold')">
@@ -629,6 +673,9 @@
                             <div class="risk-detail">Office Supply Co • Approved 2 hours past deadline</div>
                             <div class="risk-category threshold">Threshold</div>
                         </div>
+                        <div class="risk-actions" onclick="event.stopPropagation()">
+                            <button class="action-btn review-btn" onclick="goToRiskReview('Late approval notification', 'Office Supply Co', 'Threshold')">Review</button>
+                        </div>
                     </div>
                     
                     <div class="risk-item" onclick="goToRiskReview('Weekend payment scheduling', 'City Utilities', 'Pattern Alert')">
@@ -637,6 +684,9 @@
                             <div class="risk-description">Weekend payment scheduling</div>
                             <div class="risk-detail">City Utilities • Scheduled for Saturday processing</div>
                             <div class="risk-category pattern">Pattern Alert</div>
+                        </div>
+                        <div class="risk-actions" onclick="event.stopPropagation()">
+                            <button class="action-btn review-btn" onclick="goToRiskReview('Weekend payment scheduling', 'City Utilities', 'Pattern Alert')">Review</button>
                         </div>
                     </div>
                 </div>
