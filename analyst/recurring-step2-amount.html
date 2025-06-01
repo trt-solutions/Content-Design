@@ -275,6 +275,18 @@
         .amount-suggestion.last-payment:hover {
             background: #fde68a;
         }
+
+        .amount-suggestion.demo-highlight {
+            background: #663399;
+            color: white;
+            border-color: #663399;
+            animation: suggestion-pulse 2s infinite;
+        }
+
+        @keyframes suggestion-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
         
         .memo-section {
             margin-bottom: 32px;
@@ -341,6 +353,148 @@
             background: #9ca3af;
             cursor: not-allowed;
         }
+
+        /* Hotspot and Tour Styles */
+        .hotspot-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1000;
+            display: none;
+            backdrop-filter: blur(2px);
+        }
+
+        .hotspot-highlight {
+            position: relative;
+            z-index: 1001;
+            animation: hotspot-pulse 2s infinite;
+        }
+
+        @keyframes hotspot-pulse {
+            0%, 100% { 
+                box-shadow: 0 0 0 0 rgba(102, 51, 153, 0.4);
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 0 0 15px rgba(102, 51, 153, 0);
+                transform: scale(1.02);
+            }
+        }
+
+        .tour-tooltip {
+            position: absolute;
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            max-width: 280px;
+            z-index: 1002;
+            border: 2px solid #663399;
+            display: none;
+        }
+
+        .tour-tooltip::before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border: 10px solid transparent;
+            border-bottom-color: #663399;
+            top: -22px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .tour-tooltip::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border: 8px solid transparent;
+            border-bottom-color: white;
+            top: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .tour-header {
+            font-size: 16px;
+            font-weight: 700;
+            color: #663399;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tour-content {
+            font-size: 14px;
+            color: #1a1a1a;
+            line-height: 1.4;
+            margin-bottom: 16px;
+        }
+
+        .tour-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        .tour-btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            border: none;
+        }
+
+        .tour-btn.primary {
+            background: #663399;
+            color: white;
+        }
+
+        .tour-btn.primary:hover {
+            background: #553288;
+        }
+
+        .tour-btn.secondary {
+            background: #f3f4f6;
+            color: #1a1a1a;
+        }
+
+        .tour-btn.secondary:hover {
+            background: #e5e7eb;
+        }
+
+        .demo-indicator {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ef4444;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 10px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: demo-bounce 1.5s infinite;
+            border: 2px solid white;
+            z-index: 10;
+        }
+
+        @keyframes demo-bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
         
         @media (max-width: 640px) {
             .title {
@@ -395,9 +549,16 @@
             </div>
             
             <div class="amount-section">
-                <div class="amount-input-container">
+                <div class="amount-input-container" id="amount-input-container">
                     <span class="currency-symbol">$</span>
-                    <input type="text" class="amount-input" id="amountInput" placeholder="Enter the amount for each recurring payment" inputmode="decimal">
+                    <input type="text" class="amount-input" id="amountInput" placeholder="Enter the amount" inputmode="decimal">
+                    <div class="demo-indicator">!</div>
+                </div>
+
+                <div class="amount-suggestions" id="amount-suggestions" style="display: none;">
+                    <button class="amount-suggestion demo-highlight" onclick="setAmount('8500')">$8,500</button>
+                    <button class="amount-suggestion" onclick="setAmount('8000')">$8,000</button>
+                    <button class="amount-suggestion" onclick="setAmount('9000')">$9,000</button>
                 </div>
             </div>
             
@@ -410,8 +571,76 @@
             </button>
         </div>
     </div>
+
+    <!-- Hotspot Overlay -->
+    <div class="hotspot-overlay" id="hotspot-overlay"></div>
+
+    <!-- Tour Tooltip -->
+    <div class="tour-tooltip" id="tour-tooltip">
+        <div class="tour-header">
+            <span>💰</span>
+            <span>Enter recurring payment amount</span>
+        </div>
+        <div class="tour-content">
+            Enter <strong>8500</strong> for the monthly rent payment. You can type the amount or tap the button.
+        </div>
+        <div class="tour-actions">
+            <button class="tour-btn secondary" onclick="closeTour()">Skip</button>
+            <button class="tour-btn primary" onclick="enterDemoAmount()">Enter 8500</button>
+        </div>
+    </div>
     
     <script>
+        // Auto-start tour when page loads
+        window.addEventListener('load', function() {
+            setTimeout(showAmountTour, 800);
+        });
+
+        function showAmountTour() {
+            const overlay = document.getElementById('hotspot-overlay');
+            const tooltip = document.getElementById('tour-tooltip');
+            const amountContainer = document.getElementById('amount-input-container');
+            const suggestions = document.getElementById('amount-suggestions');
+            
+            // Show overlay
+            overlay.style.display = 'block';
+            
+            // Add hotspot highlight
+            amountContainer.classList.add('hotspot-highlight');
+            
+            // Show suggestions
+            suggestions.style.display = 'flex';
+            
+            // Position and show tooltip
+            const rect = amountContainer.getBoundingClientRect();
+            tooltip.style.left = `${rect.left + (rect.width / 2) - 140}px`;
+            tooltip.style.top = `${rect.bottom + 20}px`;
+            tooltip.style.display = 'block';
+
+            // Scroll to amount input if needed
+            amountContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function closeTour() {
+            const overlay = document.getElementById('hotspot-overlay');
+            const tooltip = document.getElementById('tour-tooltip');
+            const amountContainer = document.getElementById('amount-input-container');
+            
+            overlay.style.display = 'none';
+            tooltip.style.display = 'none';
+            amountContainer.classList.remove('hotspot-highlight');
+        }
+
+        function enterDemoAmount() {
+            closeTour();
+            setAmount('8500');
+            
+            // Focus on memo after entering amount
+            setTimeout(() => {
+                document.getElementById('memoInput').focus();
+            }, 500);
+        }
+
         function continueToStep3() {
             console.log('Button clicked!'); // Debug log
             
@@ -420,31 +649,34 @@
             
             console.log('Amount:', amount, 'Memo:', memo); // Debug log
             
-            // Store payment details
-            const paymentData = {
+            // For demo purposes, we'll simulate storing data
+            // In a real app, this would use sessionStorage
+            window.demoPaymentData = {
                 amount: amount,
-                memo: memo
+                memo: memo,
+                payee: 'Downtown Property',
+                type: 'Office rent'
             };
             
-            sessionStorage.setItem('paymentData', JSON.stringify(paymentData));
-            console.log('Data stored:', paymentData); // Debug log
+            console.log('Demo data stored:', window.demoPaymentData); // Debug log
             
             // Navigate to step 3
-            window.location.href = 'recurring-step3-schedule.html';
+            alert('🎬 DEMO: Payment amount saved!\n\nAmount: ' + amount + '\nMemo: ' + (memo || 'None') + '\n\nNext: Choose payment frequency');
+            // window.location.href = 'recurring-step3-schedule.html';
         }
         
         // Load selected recipient data
         document.addEventListener('DOMContentLoaded', function() {
             console.log('Page loaded!'); // Debug log
             
-            const recipient = JSON.parse(sessionStorage.getItem('selectedRecipient') || '{}');
+            // For demo purposes, use default Downtown Property data
+            const recipient = {
+                name: 'Downtown Property',
+                type: 'Office rent',
+                bank: 'Truist ****2341'
+            };
             
-            if (recipient.name) {
-                updatePayeeSummary(recipient);
-            }
-            
-            // Auto-focus amount input
-            document.getElementById('amountInput').focus();
+            updatePayeeSummary(recipient);
             
             // Initial form validation
             validateForm();
@@ -469,6 +701,11 @@
             input.value = numericAmount.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
             input.focus();
             validateForm();
+
+            // Remove highlight from suggestions after selection
+            document.querySelectorAll('.amount-suggestion').forEach(btn => {
+                btn.classList.remove('demo-highlight');
+            });
         }
         
         // Format amount input with commas
