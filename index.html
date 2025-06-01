@@ -774,25 +774,14 @@
         
         // Direct navigation to actual dashboards
         function navigateToRole(role) {
-            // In a real application, these would be actual page URLs
-            // For this prototype, we'll simulate the navigation
-            
+            // Navigate to the correct folder structure
             if (role === 'analyst') {
-                // Navigate to AP Analyst Dashboard (this would be a separate HTML file)
-                window.location.href = 'analyst-dashboard.html';
+                window.location.href = 'analyst/dashboard.html';
             } else if (role === 'manager') {
-                // Navigate to AP Manager Dashboard  
-                window.location.href = 'manager-dashboard.html';
+                window.location.href = 'manager/dashboard.html';
             } else if (role === 'compliance') {
-                // Navigate to Compliance Officer Dashboard
-                window.location.href = 'compliance-dashboard.html';
+                window.location.href = 'compliance/dashboard.html';
             }
-            
-            // If the files don't exist yet, show a brief message
-            // This setTimeout allows the navigation attempt first
-            setTimeout(() => {
-                console.log(`Attempting to navigate to ${role} dashboard`);
-            }, 100);
         }
         
         // Add subtle interactions to hotspots
