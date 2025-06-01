@@ -1,660 +1,4 @@
-</div>
-
-                <h3>Button Components</h3>
-                <div class="component-demo">
-                    <div class="demo-title">Interactive Button Examples</div>
-                    <div class="demo-preview">
-                        <button class="btn-demo btn-primary">Primary Button</button>
-                        <button class="btn-demo btn-secondary">Secondary Button</button>
-                        <button class="btn-demo btn-primary" disabled style="opacity: 0.5;">Disabled Button</button>
-                    </div>
-                </div>
-
-                <div class="code-block" data-language="CSS">
-<button class="copy-button" onclick="copyCode(this)">Copy</button>
-<span class="comment">/* Primary Button */</span>
-.<span class="property">btn-primary</span> {
-  <span class="property">background-color</span>: <span class="value">var(--truist-purple)</span>;
-  <span class="property">color</span>: <span class="value">white</span>;
-  <span class="property">border</span>: <span class="value">none</span>;
-  <span class="property">padding</span>: <span class="value">var(--space-sm) var(--space-lg)</span>;
-  <span class="property">border-radius</span>: <span class="value">var(--radius-md)</span>;
-  <span class="property">font-weight</span>: <span class="value">500</span>;
-  <span class="property">cursor</span>: <span class="value">pointer</span>;
-  <span class="property">transition</span>: <span class="value">background-color 150ms ease</span>;
-}
-
-.<span class="property">btn-primary</span>:<span class="keyword">hover</span> {
-  <span class="property">background-color</span>: <span class="value">var(--truist-purple-hover)</span>;
-  <span class="property">transform</span>: <span class="value">translateY(-1px)</span>;
-}
-
-.<span class="property">btn-primary</span>:<span class="keyword">focus</span> {
-  <span class="property">outline</span>: <span class="value">2px solid var(--truist-purple)</span>;
-  <span class="property">outline-offset</span>: <span class="value">2px</span>;
-}
-                </div>
-
-                <h3>JavaScript Component Architecture</h3>
-                <div class="code-block" data-language="JavaScript">
-<button class="copy-button" onclick="copyCode(this)">Copy</button>
-<span class="comment">// Main Application Object</span>
-<span class="keyword">const</span> TruistCommercialBanking = {
-  <span class="comment">// Initialize the application</span>
-  <span class="function">init</span>() {
-    <span class="keyword">this</span>.<span class="function">bindEvents</span>();
-    <span class="keyword">this</span>.<span class="function">initializeRoleSelection</span>();
-    <span class="keyword">this</span>.<span class="function">setupResponsiveHandlers</span>();
-  },
-
-  <span class="comment">// Event binding</span>
-  <span class="function">bindEvents</span>() {
-    document.<span class="function">addEventListener</span>(<span class="string">'DOMContentLoaded'</span>, () => {
-      <span class="keyword">this</span>.<span class="function">init</span>();
-    });
-  },
-
-  <span class="comment">// Role selection functionality</span>
-  <span class="function">navigateToRole</span>(role) {
-    <span class="keyword">const</span> roleUrls = {
-      <span class="string">'analyst'</span>: <span class="string">'./analyst/dashboard.html'</span>,
-      <span class="string">'manager'</span>: <span class="string">'./manager/dashboard.html'</span>,
-      <span class="string">'compliance'</span>: <span class="string">'./compliance/dashboard.html'</span>
-    };
-    
-    <span class="keyword">if</span> (roleUrls[role]) {
-      window.location.href = roleUrls[role];
-    }
-  }
-};
-                </div>
-            </section>
-
-            <section id="responsive-design" class="section">
-                <h2>Responsive Design Implementation</h2>
-                
-                <h3>Mobile-First CSS Grid</h3>
-                <div class="code-block" data-language="CSS">
-<button class="copy-button" onclick="copyCode(this)">Copy</button>
-<span class="comment">/* Container */</span>
-.<span class="property">container</span> {
-  <span class="property">width</span>: <span class="value">100%</span>;
-  <span class="property">max-width</span>: <span class="value">1200px</span>;
-  <span class="property">margin</span>: <span class="value">0 auto</span>;
-  <span class="property">padding</span>: <span class="value">0 var(--space-md)</span>;
-}
-
-<span class="comment">/* Grid System */</span>
-.<span class="property">grid</span> {
-  <span class="property">display</span>: <span class="value">grid</span>;
-  <span class="property">gap</span>: <span class="value">var(--space-lg)</span>;
-}
-
-.<span class="property">grid-cols-1</span> { <span class="property">grid-template-columns</span>: <span class="value">1fr</span>; }
-
-<span class="comment">/* Tablet Breakpoint */</span>
-<span class="keyword">@media</span> (min-width: 768px) {
-  .<span class="property">container</span> { <span class="property">padding</span>: <span class="value">0 var(--space-xl)</span>; }
-  .<span class="property">grid-cols-2</span> { <span class="property">grid-template-columns</span>: <span class="value">repeat(2, 1fr)</span>; }
-}
-
-<span class="comment">/* Desktop Breakpoint */</span>
-<span class="keyword">@media</span> (min-width: 1024px) {
-  .<span class="property">grid-cols-3</span> { <span class="property">grid-template-columns</span>: <span class="value">repeat(3, 1fr)</span>; }
-}
-                </div>
-
-                <h3>Responsive Breakpoints</h3>
-                <div class="performance-metrics">
-                    <div class="metric-card">
-                        <div class="metric-number">320px</div>
-                        <div class="metric-label">Mobile Minimum</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-number">768px</div>
-                        <div class="metric-label">Tablet Breakpoint</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-number">1024px</div>
-                        <div class="metric-label">Desktop Breakpoint</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-number">1440px</div>
-                        <div class="metric-label">Large Desktop</div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="accessibility" class="section">
-                <h2>Accessibility Implementation</h2>
-                
-                <h3>ARIA Labels & Semantic HTML</h3>
-                <div class="code-block" data-language="HTML">
-<button class="copy-button" onclick="copyCode(this)">Copy</button>
-<span class="comment">&lt;!-- Navigation with proper ARIA --&gt;</span>
-&lt;<span class="keyword">nav</span> <span class="property">aria-label</span>=<span class="string">"Main navigation"</span> <span class="property">role</span>=<span class="string">"navigation"</span>&gt;
-  &lt;<span class="keyword">ul</span> <span class="property">role</span>=<span class="string">"menubar"</span>&gt;
-    &lt;<span class="keyword">li</span> <span class="property">role</span>=<span class="string">"none"</span>&gt;
-      &lt;<span class="keyword">a</span> <span class="property">href</span>=<span class="string">"/dashboard"</span> <span class="property">role</span>=<span class="string">"menuitem"</span> <span class="property">aria-current</span>=<span class="string">"page"</span>&gt;Dashboard&lt;/<span class="keyword">a</span>&gt;
-    &lt;/<span class="keyword">li</span>&gt;
-  &lt;/<span class="keyword">ul</span>&gt;
-&lt;/<span class="keyword">nav</span>&gt;
-
-<span class="comment">&lt;!-- Status indicators with accessibility --&gt;</span>
-&lt;<span class="keyword">div</span> <span class="property">class</span>=<span class="string">"status-indicator status-pending"</span> 
-     <span class="property">role</span>=<span class="string">"status"</span> 
-     <span class="property">aria-label</span>=<span class="string">"Payment status: Pending approval"</span>&gt;
-  &lt;<span class="keyword">span</span> <span class="property">class</span>=<span class="string">"status-icon"</span> <span class="property">aria-hidden</span>=<span class="string">"true"</span>&gt;⏰&lt;/<span class="keyword">span</span>&gt;
-  &lt;<span class="keyword">span</span> <span class="property">class</span>=<span class="string">"status-text"</span>&gt;Pending&lt;/<span class="keyword">span</span>&gt;
-&lt;/<span class="keyword">div</span>&gt;
-                </div>
-
-                <h3>Focus Management</h3>
-                <div class="code-block" data-language="CSS">
-<button class="copy-button" onclick="copyCode(this)">Copy</button>
-<span class="comment">/* Focus indicators */</span>
-*:<span class="keyword">focus</span> {
-  <span class="property">outline</span>: <span class="value">2px solid var(--truist-purple)</span>;
-  <span class="property">outline-offset</span>: <span class="value">2px</span>;
-  <span class="property">border-radius</span>: <span class="value">var(--radius-sm)</span>;
-}
-
-<span class="comment">/* Skip to content link */</span>
-.<span class="property">skip-link</span> {
-  <span class="property">position</span>: <span class="value">absolute</span>;
-  <span class="property">top</span>: <span class="value">-40px</span>;
-  <span class="property">left</span>: <span class="value">6px</span>;
-  <span class="property">background</span>: <span class="value">var(--truist-purple)</span>;
-  <span class="property">color</span>: <span class="value">white</span>;
-  <span class="property">padding</span>: <span class="value">8px</span>;
-  <span class="property">text-decoration</span>: <span class="value">none</span>;
-  <span class="property">border-radius</span>: <span class="value">var(--radius-sm)</span>;
-  <span class="property">z-index</span>: <span class="value">1000</span>;
-}
-
-.<span class="property">skip-link</span>:<span class="keyword">focus</span> {
-  <span class="property">top</span>: <span class="value">6px</span>;
-}
-
-<span class="comment">/* Reduced motion support */</span>
-<span class="keyword">@media</span> (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    <span class="property">animation-duration</span>: <span class="value">0.01ms</span> <span class="keyword">!important</span>;
-    <span class="property">transition-duration</span>: <span class="value">0.01ms</span> <span class="keyword">!important</span>;
-  }
-}
-                </div>
-            </section>
-
-            <section id="performance" class="section">
-                <h2>Performance Optimization</h2>
-                
-                <h3>CSS Optimization</h3>
-                <div class="code-block" data-language="CSS">
-<button class="copy-button" onclick="copyCode(this)">Copy</button>
-<span class="comment">/* Critical CSS - inline in head */</span>
-.<span class="property">critical-above-fold</span> {
-  <span class="comment">/* Only styles needed for above-the-fold content */</span>
-}
-
-<span class="comment">/* Optimize for paint performance */</span>
-.<span class="property">will-change</span> {
-  <span class="property">will-change</span>: <span class="value">transform</span>;
-}
-
-.<span class="property">hardware-accelerated</span> {
-  <span class="property">transform</span>: <span class="value">translateZ(0)</span>;
-  <span class="property">backface-visibility</span>: <span class="value">hidden</span>;
-}
-
-<span class="comment">/* Efficient animations */</span>
-<span class="keyword">@keyframes</span> fadeIn {
-  <span class="keyword">from</span> { 
-    <span class="property">opacity</span>: <span class="value">0</span>; 
-    <span class="property">transform</span>: <span class="value">translate3d(0, 10px, 0)</span>; 
-  }
-  <span class="keyword">to</span> { 
-    <span class="property">opacity</span>: <span class="value">1</span>; 
-    <span class="property">transform</span>: <span class="value">translate3d(0, 0, 0)</span>; 
-  }
-}
-                </div>
-
-                <h3>JavaScript Performance</h3>
-                <div class="code-block" data-language="JavaScript">
-<button class="copy-button" onclick="copyCode(this)">Copy</button>
-<span class="comment">// Debounced search function</span>
-<span class="keyword">const</span> <span class="function">debounce</span> = (func, wait) => {
-  <span class="keyword">let</span> timeout;
-  <span class="keyword">return function</span> <span class="function">executedFunction</span>(...args) {
-    <span class="keyword">const</span> later = () => {
-      <span class="function">clearTimeout</span>(timeout);
-      <span class="function">func</span>(...args);
-    };
-    <span class="function">clearTimeout</span>(timeout);
-    timeout = <span class="function">setTimeout</span>(later, wait);
-  };
-};
-
-<span class="comment">// Intersection Observer for lazy loading</span>
-<span class="keyword">const</span> <span class="function">observeElements</span> = () => {
-  <span class="keyword">const</span> observer = <span class="keyword">new</span> <span class="function">IntersectionObserver</span>((entries) => {
-    entries.<span class="function">forEach</span>(entry => {
-      <span class="keyword">if</span> (entry.isIntersecting) {
-        entry.target.classList.<span class="function">add</span>(<span class="string">'visible'</span>);
-        observer.<span class="function">unobserve</span>(entry.target);
-      }
-    });
-  });
-
-  document.<span class="function">querySelectorAll</span>(<span class="string">'.lazy-load'</span>).<span class="function">forEach</span>(el => {
-    observer.<span class="function">observe</span>(el);
-  });
-};
-                </div>
-            </section>
-
-            <section id="testing" class="section">
-                <h2>Testing Strategy</h2>
-                
-                <div class="testing-grid">
-                    <div class="testing-card">
-                        <div class="testing-title">Unit Testing</div>
-                        <div class="testing-description">Component-level testing with Jest and React Testing Library</div>
-                        <ul class="testing-checklist">
-                            <li><span class="testing-check">✓</span>Button component functionality</li>
-                            <li><span class="testing-check">✓</span>Status indicator behavior</li>
-                            <li><span class="testing-check">✓</span>Form validation logic</li>
-                            <li><span class="testing-check">✓</span>Utility function testing</li>
-                        </ul>
-                    </div>
-
-                    <div class="testing-card">
-                        <div class="testing-title">Integration Testing</div>
-                        <div class="testing-description">End-to-end user workflow validation</div>
-                        <ul class="testing-checklist">
-                            <li><span class="testing-check">✓</span>Payment processing flow</li>
-                            <li><span class="testing-check">✓</span>Role-based navigation</li>
-                            <li><span class="testing-check">✓</span>API integration points</li>
-                            <li><span class="testing-check">✓</span>Cross-browser compatibility</li>
-                        </ul>
-                    </div>
-
-                    <div class="testing-card">
-                        <div class="testing-title">Accessibility Testing</div>
-                        <div class="testing-description">WCAG AA compliance verification</div>
-                        <ul class="testing-checklist">
-                            <li><span class="testing-check">✓</span>Automated axe-core testing</li>
-                            <li><span class="testing-check">✓</span>Screen reader compatibility</li>
-                            <li><span class="testing-check">✓</span>Keyboard navigation flow</li>
-                            <li><span class="testing-check">✓</span>Color contrast validation</li>
-                        </ul>
-                    </div>
-
-                    <div class="testing-card">
-                        <div class="testing-title">Performance Testing</div>
-                        <div class="testing-description">Load time and efficiency optimization</div>
-                        <ul class="testing-checklist">
-                            <li><span class="testing-check">✓</span>Lighthouse performance audit</li>
-                            <li><span class="testing-check">✓</span>Core Web Vitals measurement</li>
-                            <li><span class="testing-check">✓</span>Mobile performance testing</li>
-                            <li><span class="testing-check">✓</span>Load testing with 1000+ users</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <h3>Performance Monitoring</h3>
-                <div class="code-block" data-language="JavaScript">
-<button class="copy-button" onclick="copyCode(this)">Copy</button>
-<span class="comment">// Performance monitoring</span>
-<span class="keyword">const</span> <span class="function">measurePerformance</span> = () => {
-  <span class="comment">// First Contentful Paint</span>
-  <span class="keyword">const</span> fcp = performance.<span class="function">getEntriesByName</span>(<span class="string">'first-contentful-paint'</span>)[0];
-  console.<span class="function">log</span>(<span class="string">'First Contentful Paint:'</span>, fcp?.startTime);
-
-  <span class="comment">// Largest Contentful Paint</span>
-  <span class="keyword">const</span> observer = <span class="keyword">new</span> <span class="function">PerformanceObserver</span>((list) => {
-    <span class="keyword">const</span> entries = list.<span class="function">getEntries</span>();
-    <span class="keyword">const</span> lcp = entries[entries.length - 1];
-    console.<span class="function">log</span>(<span class="string">'Largest Contentful Paint:'</span>, lcp.startTime);
-  });
-  observer.<span class="function">observe</span>({ entryTypes: [<span class="string">'largest-contentful-paint'</span>] });
-};
-                </div>
-            </section>
-
-            <section id="deployment" class="section">
-                <h2>Deployment Guidelines</h2>
-                
-                <div class="deployment-checklist">
-                    <div class="checklist-section">
-                        <h4>Pre-Deployment Validation</h4>
-                        <div class="checklist-grid">
-                            <div class="checklist-item completed" onclick="toggleCheck(this)">
-                                <div class="checklist-checkbox">✓</div>
-                                <div class="checklist-text">All components pass unit tests (>90% coverage)</div>
-                            </div>
-                            <div class="checklist-item completed" onclick="toggleCheck(this)">
-                                <div class="checklist-checkbox">✓</div>
-                                <div class="checklist-text">Integration tests verify critical user flows</div>
-                            </div>
-                            <div class="checklist-item completed" onclick="toggleCheck(this)">
-                                <div class="checklist-checkbox">✓</div>
-                                <div class="checklist-text">Accessibility audit passes WCAG AA standards</div>
-                            </div>
-                            <div class="checklist-item completed" onclick="toggleCheck(this)">
-                                <div class="checklist-checkbox">✓</div>
-                                <div class="checklist-text">Performance testing shows <2s load times</div>
-                            </div>
-                            <div class="checklist-item" onclick="toggleCheck(this)">
-                                <div class="checklist-checkbox"></div>
-                                <div class="checklist-text">Cross-browser testing completed</div>
-                            </div>
-                            <div class="checklist-item" onclick="toggleCheck(this)">
-                                <div class="checklist-checkbox"></div>
-                                <div class="checklist-text">Mobile responsiveness verified on multiple devices</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="checklist-section">
-                        <h4>Production Deployment Steps</h4>
-                        <div class="checklist-grid">
-                            <div class="checklist-item" onclick="toggleCheck(this)">
-                                <div class="checklist-checkbox"></div>
-                                <div class="checklist-text">Environment configuration setup</div>
-                            </div>
-                            <div class="checklist-item" onclick="toggleCheck(this)">
-                                <div class="checklist-checkbox"></div>
-                                <div class="checklist-text">Minify and compress assets</div>
-                            </div>
-                            <div class="checklist-item" onclick="toggleCheck(this)">
-                                <div class="checklist-checkbox"></div>
-                                <div class="checklist-text">Configure CDN for static assets</div>
-                            </div>
-                            <div class="checklist-item" onclick="toggleCheck(this)">
-                                <div class="checklist-checkbox"></div>
-                                <div class="checklist-text">Set up monitoring and analytics</div>
-                            </div>
-                            <div class="checklist-item" onclick="toggleCheck(this)">
-                                <div class="checklist-checkbox"></div>
-                                <div class="checklist-text">Security scan passes (no critical vulnerabilities)</div>
-                            </div>
-                            <div class="checklist-item" onclick="toggleCheck(this)">
-                                <div class="checklist-checkbox"></div>
-                                <div class="checklist-text">Rollback plan prepared and tested</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <h3>Environment Configuration</h3>
-                <div class="code-block" data-language="JavaScript">
-<button class="copy-button" onclick="copyCode(this)">Copy</button>
-<span class="comment">// Environment-specific configuration</span>
-<span class="keyword">const</span> config = {
-  development: {
-    <span class="property">apiUrl</span>: <span class="string">'http://localhost:3000/api'</span>,
-    <span class="property">debug</span>: <span class="keyword">true</span>,
-    <span class="property">analytics</span>: <span class="keyword">false</span>
-  },
-  staging: {
-    <span class="property">apiUrl</span>: <span class="string">'https://staging-api.truist.com'</span>,
-    <span class="property">debug</span>: <span class="keyword">false</span>,
-    <span class="property">analytics</span>: <span class="keyword">true</span>
-  },
-  production: {
-    <span class="property">apiUrl</span>: <span class="string">'https://api.truist.com'</span>,
-    <span class="property">debug</span>: <span class="keyword">false</span>,
-    <span class="property">analytics</span>: <span class="keyword">true</span>
-  }
-};
-
-<span class="keyword">const</span> currentConfig = config[process.env.NODE_ENV] || config.development;
-                </div>
-
-                <h3>Build Optimization Checklist</h3>
-                <div class="performance-metrics">
-                    <div class="metric-card">
-                        <div class="metric-number">Gzip</div>
-                        <div class="metric-label">Compression Enabled</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-number">CDN</div>
-                        <div class="metric-label">Asset Distribution</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-number">WebP</div>
-                        <div class="metric-label">Image Optimization</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-number">Cache</div>
-                        <div class="metric-label">Browser Caching</div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="section">
-                <h2>Maintenance & Best Practices</h2>
-                
-                <h3>Code Standards</h3>
-                <div class="api-example">
-                    <div class="demo-title">Development Workflow</div>
-                    <div class="testing-grid">
-                        <div class="testing-card">
-                            <div class="testing-title">Code Quality</div>
-                            <div class="testing-description">Automated linting and formatting</div>
-                            <ul class="testing-checklist">
-                                <li><span class="testing-check">✓</span>ESLint configuration</li>
-                                <li><span class="testing-check">✓</span>Prettier formatting</li>
-                                <li><span class="testing-check">✓</span>Pre-commit hooks</li>
-                                <li><span class="testing-check">✓</span>TypeScript type checking</li>
-                            </ul>
-                        </div>
-
-                        <div class="testing-card">
-                            <div class="testing-title">Documentation</div>
-                            <div class="testing-description">Comprehensive code documentation</div>
-                            <ul class="testing-checklist">
-                                <li><span class="testing-check">✓</span>JSDoc comments</li>
-                                <li><span class="testing-check">✓</span>Component prop types</li>
-                                <li><span class="testing-check">✓</span>API documentation</li>
-                                <li><span class="testing-check">✓</span>README instructions</li>
-                            </ul>
-                        </div>
-
-                        <div class="testing-card">
-                            <div class="testing-title">Version Control</div>
-                            <div class="testing-description">Git workflow and branching strategy</div>
-                            <ul class="testing-checklist">
-                                <li><span class="testing-check">✓</span>Feature branch workflow</li>
-                                <li><span class="testing-check">✓</span>Pull request reviews</li>
-                                <li><span class="testing-check">✓</span>Semantic commit messages</li>
-                                <li><span class="testing-check">✓</span>Release tagging</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div style="margin-top: var(--space-lg); padding: var(--space-lg); background: var(--truist-purple-light); border-radius: var(--radius-md); border-left: 4px solid var(--truist-purple);">
-                    <h4 style="color: var(--truist-purple); margin-bottom: var(--space-md);">Ready for Implementation</h4>
-                    <p>This comprehensive implementation guide provides all necessary technical specifications for developing, testing, and deploying the Truist Commercial Banking platform while maintaining enterprise-grade quality standards.</p>
-                    
-                    <div style="margin-top: var(--space-md);">
-                        <strong>Next Steps:</strong> Begin development with the provided component specifications and follow the testing strategy to ensure a successful deployment.
-                    </div>
-                </div>
-            </section>
-        </main>
-    </div>
-
-    <script>
-        // Smooth scrolling for sidebar navigation
-        document.querySelectorAll('.sidebar-nav a').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href').substring(1);
-                const targetElement = document.getElementById(targetId);
-                
-                if (targetElement) {
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Highlight active section in sidebar
-        const sections = document.querySelectorAll('.section');
-        const navLinks = document.querySelectorAll('.sidebar-nav a');
-
-        function highlightActiveSection() {
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop - 200;
-                if (scrollY >= sectionTop) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            navLinks.forEach(link => {
-                link.style.background = '';
-                link.style.color = '';
-                if (link.getAttribute('href') === `#${current}`) {
-                    link.style.background = 'var(--truist-purple-light)';
-                    link.style.color = 'var(--truist-purple)';
-                }
-            });
-        }
-
-        window.addEventListener('scroll', highlightActiveSection);
-        highlightActiveSection();
-
-        // Copy code functionality
-        function copyCode(button) {
-            const codeBlock = button.parentElement;
-            const code = codeBlock.textContent.replace('Copy', '').trim();
-            
-            navigator.clipboard.writeText(code).then(() => {
-                button.textContent = 'Copied!';
-                button.style.background = 'var(--status-success)';
-                
-                setTimeout(() => {
-                    button.textContent = 'Copy';
-                    button.style.background = 'rgba(255,255,255,0.1)';
-                }, 2000);
-            });
-        }
-
-        // Toggle checklist items
-        function toggleCheck(item) {
-            item.classList.toggle('completed');
-            const checkbox = item.querySelector('.checklist-checkbox');
-            
-            if (item.classList.contains('completed')) {
-                checkbox.textContent = '✓';
-            } else {
-                checkbox.textContent = '';
-            }
-        }
-
-        // Animate elements on scroll
-        const observeElements = () => {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.animation = 'slideInUp 0.6s ease-out';
-                        observer.unobserve(entry.target);
-                    }
-                });
-            });
-
-            document.querySelectorAll('.tech-card, .testing-card, .metric-card').forEach(card => {
-                observer.observe(card);
-            });
-        };
-
-        // Add hover effects to interactive elements
-        document.querySelectorAll('.tech-card, .testing-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-4px)';
-            });
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0)';
-            });
-        });
-
-        // Button demo interactions
-        document.querySelectorAll('.btn-demo').forEach(button => {
-            button.addEventListener('click', function() {
-                this.style.transform = 'scale(0.98)';
-                setTimeout(() => {
-                    this.style.transform = 'scale(1)';
-                }, 150);
-            });
-        });
-
-        // Add CSS animations
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideInUp {
-                from {
-                    opacity: 0;
-                    transform: translateY(30px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-            
-            .tech-card, .testing-card, .metric-card {
-                transition: all 0.3s ease;
-            }
-            
-            .btn-demo {
-                transition: all 0.15s ease;
-            }
-            
-            .checklist-item {
-                transition: all 0.2s ease;
-            }
-        `;
-        document.head.appendChild(style);
-
-        // Initialize animations
-        observeElements();
-
-        // Syntax highlighting enhancement
-        document.querySelectorAll('.code-block').forEach(block => {
-            block.addEventListener('mouseenter', function() {
-                this.style.boxShadow = '0 8px 32px rgba(0,0,0,0.15)';
-            });
-            block.addEventListener('mouseleave', function() {
-                this.style.boxShadow = 'var(--shadow-sm)';
-            });
-        });
-
-        // Progress tracking for deployment checklist
-        function updateProgress() {
-            const totalItems = document.querySelectorAll('.checklist-item').length;
-            const completedItems = document.querySelectorAll('.checklist-item.completed').length;
-            const progress = Math.round((completedItems / totalItems) * 100);
-            
-            // Could add a progress bar here
-            console.log(`Deployment Progress: ${progress}%`);
-        }
-
-        // Initialize deployment progress tracking
-        document.querySelectorAll('.checklist-item').forEach(item => {
-            item.addEventListener('click', updateProgress);
-        });
-
-        updateProgress(); // Initial calculation
-    </script>
-</body>
-</html><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -753,12 +97,12 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: var(--space-xl) var(--space-lg);
-            display: grid;
-            grid-template-columns: 250px 1fr;
+            display: flex;
             gap: var(--space-2xl);
         }
 
         .sidebar {
+            flex: 0 0 250px;
             background: white;
             border-radius: var(--radius-lg);
             padding: var(--space-lg);
@@ -793,13 +137,15 @@
             font-size: 0.9rem;
         }
 
-        .sidebar-nav a:hover {
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
             background: var(--truist-purple-light);
             color: var(--truist-purple);
             text-decoration: none;
         }
 
         .content {
+            flex: 1;
             background: white;
             border-radius: var(--radius-lg);
             padding: var(--space-2xl);
@@ -808,6 +154,7 @@
 
         .section {
             margin-bottom: var(--space-2xl);
+            scroll-margin-top: 140px;
         }
 
         .section h2 {
@@ -826,11 +173,36 @@
             font-weight: 600;
         }
 
-        .section h4 {
-            font-size: 1.1rem;
-            color: var(--text-primary);
-            margin: var(--space-md) 0 var(--space-sm);
-            font-weight: 500;
+        .performance-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-md);
+            margin: var(--space-lg) 0;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, var(--truist-purple) 0%, #8B5A96 100%);
+            color: white;
+            padding: var(--space-lg);
+            border-radius: var(--radius-lg);
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .metric-number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: var(--space-xs);
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
         }
 
         .tech-stack {
@@ -912,57 +284,6 @@
             border-radius: var(--radius-sm);
         }
 
-        .code-block {
-            background: #1a1a1a;
-            color: #e2e8f0;
-            border-radius: var(--radius-md);
-            padding: var(--space-lg);
-            margin: var(--space-md) 0;
-            overflow-x: auto;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            border: 1px solid var(--border-light);
-            position: relative;
-        }
-
-        .code-block::before {
-            content: attr(data-language);
-            position: absolute;
-            top: 8px;
-            right: 12px;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            background: rgba(255,255,255,0.1);
-            padding: 2px 6px;
-            border-radius: 4px;
-        }
-
-        .code-block .keyword {
-            color: #60a5fa;
-        }
-
-        .code-block .string {
-            color: #34d399;
-        }
-
-        .code-block .comment {
-            color: #9ca3af;
-            font-style: italic;
-        }
-
-        .code-block .property {
-            color: #fbbf24;
-        }
-
-        .code-block .value {
-            color: #34d399;
-        }
-
-        .code-block .function {
-            color: #c084fc;
-        }
-
         .file-structure {
             background: var(--bg-muted);
             border-radius: var(--radius-lg);
@@ -989,231 +310,45 @@
             font-style: italic;
         }
 
-        .component-demo {
-            background: var(--bg-secondary);
-            border-radius: var(--radius-lg);
-            padding: var(--space-xl);
-            margin: var(--space-lg) 0;
-            border: 1px solid var(--border-light);
-        }
-
-        .demo-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: var(--space-md);
-            color: var(--truist-purple);
-        }
-
-        .demo-preview {
-            background: white;
+        .code-block {
+            background: #1a1a1a;
+            color: #e2e8f0;
             border-radius: var(--radius-md);
             padding: var(--space-lg);
-            margin-bottom: var(--space-lg);
+            margin: var(--space-md) 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
             border: 1px solid var(--border-light);
+            position: relative;
         }
 
-        .btn-demo {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-xs);
-            padding: var(--space-sm) var(--space-lg);
-            border-radius: var(--radius-md);
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.15s ease;
-            font-size: 0.9rem;
-            margin-right: var(--space-md);
-            margin-bottom: var(--space-sm);
-            text-decoration: none;
+        .code-block .keyword {
+            color: #60a5fa;
         }
 
-        .btn-primary {
-            background: var(--truist-purple);
-            color: white;
-            border: none;
+        .code-block .string {
+            color: #34d399;
         }
 
-        .btn-primary:hover {
-            background: var(--truist-purple-hover);
-            transform: translateY(-1px);
+        .code-block .comment {
+            color: #9ca3af;
+            font-style: italic;
         }
 
-        .btn-secondary {
-            background: white;
-            color: var(--text-primary);
-            border: 1px solid var(--border-medium);
+        .code-block .property {
+            color: #fbbf24;
         }
 
-        .btn-secondary:hover {
-            background: var(--bg-secondary);
-            border-color: var(--truist-purple);
-        }
-
-        .testing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: var(--space-lg);
-            margin: var(--space-lg) 0;
-        }
-
-        .testing-card {
-            background: white;
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius-md);
-            padding: var(--space-lg);
-            box-shadow: var(--shadow-sm);
-            transition: all 0.3s ease;
-        }
-
-        .testing-card:hover {
-            border-color: var(--truist-purple);
-            box-shadow: var(--shadow-md);
-        }
-
-        .testing-title {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--truist-purple);
-            margin-bottom: var(--space-sm);
-        }
-
-        .testing-description {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            line-height: 1.6;
-            margin-bottom: var(--space-md);
-        }
-
-        .testing-checklist {
-            list-style: none;
-            margin: 0;
-        }
-
-        .testing-checklist li {
-            display: flex;
-            align-items: flex-start;
-            gap: var(--space-sm);
-            padding: var(--space-xs) 0;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-        }
-
-        .testing-check {
-            color: var(--status-success);
-            font-weight: bold;
-            margin-top: 2px;
-        }
-
-        .performance-metrics {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: var(--space-md);
-            margin: var(--space-lg) 0;
-        }
-
-        .metric-card {
-            background: linear-gradient(135deg, var(--truist-purple) 0%, #8B5A96 100%);
-            color: white;
-            padding: var(--space-lg);
-            border-radius: var(--radius-lg);
-            text-align: center;
-            box-shadow: var(--shadow-md);
-            transition: transform 0.3s ease;
-        }
-
-        .metric-card:hover {
-            transform: translateY(-4px);
-        }
-
-        .metric-number {
-            font-size: 2rem;
-            font-weight: bold;
-            margin-bottom: var(--space-xs);
-        }
-
-        .metric-label {
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-
-        .deployment-checklist {
-            background: var(--bg-primary);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius-lg);
-            padding: var(--space-lg);
-            margin: var(--space-lg) 0;
-        }
-
-        .checklist-section {
-            margin-bottom: var(--space-lg);
-        }
-
-        .checklist-section h4 {
-            color: var(--truist-purple);
-            margin-bottom: var(--space-md);
-            font-size: 1rem;
-        }
-
-        .checklist-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: var(--space-md);
-        }
-
-        .checklist-item {
-            display: flex;
-            align-items: flex-start;
-            gap: var(--space-sm);
-            padding: var(--space-sm);
-            background: var(--bg-secondary);
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .checklist-item:hover {
-            background: var(--truist-purple-light);
-        }
-
-        .checklist-item.completed {
-            background: rgba(22, 163, 74, 0.1);
-        }
-
-        .checklist-checkbox {
-            width: 18px;
-            height: 18px;
-            border: 2px solid var(--border-medium);
-            border-radius: 3px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-
-        .checklist-item.completed .checklist-checkbox {
-            background: var(--status-success);
-            border-color: var(--status-success);
-            color: white;
-        }
-
-        .checklist-text {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-        }
-
-        .api-example {
-            background: var(--bg-secondary);
-            border-radius: var(--radius-lg);
-            padding: var(--space-xl);
-            margin: var(--space-lg) 0;
-            border: 1px solid var(--border-light);
+        .code-block .value {
+            color: #34d399;
         }
 
         .copy-button {
             position: absolute;
             top: 12px;
-            right: 60px;
+            right: 12px;
             background: rgba(255,255,255,0.1);
             color: white;
             border: none;
@@ -1233,19 +368,70 @@
             background: rgba(255,255,255,0.2);
         }
 
+        .checklist {
+            list-style: none;
+            margin: var(--space-md) 0;
+            padding: 0;
+        }
+
+        .checklist li {
+            padding: var(--space-sm) 0;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .checklist li::before {
+            content: '✅';
+            font-size: 1.2rem;
+        }
+
+        .info-box {
+            margin-top: var(--space-lg);
+            padding: var(--space-lg);
+            background: var(--truist-purple-light);
+            border-radius: var(--radius-md);
+            border-left: 4px solid var(--truist-purple);
+        }
+
+        .info-box h4 {
+            color: var(--truist-purple);
+            margin-bottom: var(--space-md);
+        }
+
+        .info-box strong {
+            color: var(--truist-purple);
+        }
+
         @media (max-width: 768px) {
             .container {
-                grid-template-columns: 1fr;
+                flex-direction: column;
                 padding: var(--space-lg) var(--space-md);
             }
 
             .sidebar {
+                flex: none;
+                background: var(--truist-purple);
+                color: white;
+                margin-bottom: var(--space-lg);
                 position: static;
-                order: 2;
+            }
+
+            .sidebar h3 {
+                color: white;
+            }
+
+            .sidebar-nav a {
+                color: rgba(255,255,255,0.9);
+            }
+
+            .sidebar-nav a:hover,
+            .sidebar-nav a.active {
+                background: rgba(255,255,255,0.1);
+                color: white;
             }
 
             .content {
-                order: 1;
                 padding: var(--space-lg);
             }
 
@@ -1254,10 +440,6 @@
             }
 
             .tech-stack {
-                grid-template-columns: 1fr;
-            }
-
-            .testing-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -1411,7 +593,7 @@
                 <h2>Component Specifications</h2>
                 
                 <h3>CSS Design Tokens</h3>
-                <div class="code-block" data-language="CSS">
+                <div class="code-block">
 <button class="copy-button" onclick="copyCode(this)">Copy</button>
 <span class="comment">/* Design Tokens - CSS Custom Properties */</span>
 :root {
@@ -1438,3 +620,84 @@
   <span class="property">--space-lg</span>: <span class="value">1.5rem</span>;  <span class="comment">/* 24px */</span>
   <span class="property">--space-xl</span>: <span class="value">2rem</span>;    <span class="comment">/* 32px */</span>
 }
+                </div>
+
+                <h3>Button Components</h3>
+                <div class="code-block">
+<button class="copy-button" onclick="copyCode(this)">Copy</button>
+<span class="comment">/* Primary Button */</span>
+.<span class="property">btn-primary</span> {
+  <span class="property">background-color</span>: <span class="value">var(--truist-purple)</span>;
+  <span class="property">color</span>: <span class="value">white</span>;
+  <span class="property">border</span>: <span class="value">none</span>;
+  <span class="property">padding</span>: <span class="value">var(--space-sm) var(--space-lg)</span>;
+  <span class="property">border-radius</span>: <span class="value">var(--radius-md)</span>;
+  <span class="property">font-weight</span>: <span class="value">500</span>;
+  <span class="property">cursor</span>: <span class="value">pointer</span>;
+  <span class="property">transition</span>: <span class="value">background-color 150ms ease</span>;
+}
+
+.<span class="property">btn-primary</span>:<span class="keyword">hover</span> {
+  <span class="property">background-color</span>: <span class="value">var(--truist-purple-hover)</span>;
+  <span class="property">transform</span>: <span class="value">translateY(-1px)</span>;
+}
+                </div>
+
+                <h3>Dashboard Layout</h3>
+                <div class="code-block">
+<button class="copy-button" onclick="copyCode(this)">Copy</button>
+<span class="comment">/* Dashboard Grid Layout */</span>
+.<span class="property">dashboard-grid</span> {
+  <span class="property">display</span>: <span class="value">grid</span>;
+  <span class="property">grid-template-columns</span>: <span class="value">repeat(auto-fit, minmax(300px, 1fr))</span>;
+  <span class="property">gap</span>: <span class="value">var(--space-lg)</span>;
+  <span class="property">padding</span>: <span class="value">var(--space-lg)</span>;
+}
+
+<span class="comment">/* Card Component */</span>
+.<span class="property">card</span> {
+  <span class="property">background</span>: <span class="value">white</span>;
+  <span class="property">border-radius</span>: <span class="value">var(--radius-lg)</span>;
+  <span class="property">padding</span>: <span class="value">var(--space-lg)</span>;
+  <span class="property">box-shadow</span>: <span class="value">var(--shadow-sm)</span>;
+  <span class="property">border</span>: <span class="value">1px solid var(--border-light)</span>;
+  <span class="property">transition</span>: <span class="value">all 0.3s ease</span>;
+}
+
+.<span class="property">card</span>:<span class="keyword">hover</span> {
+  <span class="property">transform</span>: <span class="value">translateY(-2px)</span>;
+  <span class="property">box-shadow</span>: <span class="value">var(--shadow-md)</span>;
+}
+                </div>
+            </section>
+
+            <section id="responsive-design" class="section">
+                <h2>Responsive Design Implementation</h2>
+                <p>Mobile-first approach with progressive enhancement for larger screens.</p>
+                
+                <h3>Breakpoint Strategy</h3>
+                <ul style="margin: var(--space-md) 0; padding-left: var(--space-lg);">
+                    <li><strong>Mobile:</strong> 320px - 767px (base styles)</li>
+                    <li><strong>Tablet:</strong> 768px - 1023px (enhanced layouts)</li>
+                    <li><strong>Desktop:</strong> 1024px+ (full features)</li>
+                </ul>
+
+                <h3>Responsive Grid Example</h3>
+                <div class="code-block">
+<button class="copy-button" onclick="copyCode(this)">Copy</button>
+<span class="comment">/* Mobile-first responsive grid */</span>
+.<span class="property">grid</span> {
+  <span class="property">display</span>: <span class="value">grid</span>;
+  <span class="property">grid-template-columns</span>: <span class="value">1fr</span>; <span class="comment">/* Mobile: single column */</span>
+  <span class="property">gap</span>: <span class="value">var(--space-md)</span>;
+}
+
+<span class="comment">/* Tablet and up */</span>
+@media (min-width: 768px) {
+  .<span class="property">grid</span> {
+    <span class="property">grid-template-columns</span>: <span class="value">repeat(2, 1fr)</span>;
+    <span class="property">gap</span>: <span class="value">var(--space-lg)</span>;
+  }
+}
+
+<span class="comment
