@@ -170,9 +170,9 @@ Status communication through **color + icons + text** ensuring accessibility:
 
 For questions about this design challenge solution or collaboration opportunities:
 
-**Portfolio**: [Your Portfolio URL]  
-**LinkedIn**: [Your LinkedIn]  
-**Email**: [Your Email]
+**Portfolio**: [https://www.notion.so/Home-1fb0add27431807e833ed854109b42bd]  
+**LinkedIn**: [https://www.linkedin.com/in/neelathiagarajan/]  
+**Email**: [neela.thiagarajan1@gmail.com]
 
 ---
 
