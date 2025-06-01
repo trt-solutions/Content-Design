@@ -735,6 +735,44 @@
             background: #fca5a5;
             cursor: not-allowed;
         }
+        
+        /* Form Validation Styles */
+        .form-validation-message {
+            background: #fef2f2;
+            border: 1px solid #fca5a5;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #991b1b;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+        
+        .form-validation-message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .validation-icon {
+            color: #ef4444;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        
+        .rejection-textarea.error {
+            border-color: #ef4444;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+        }
+        
+        .rejection-textarea.error:focus {
+            border-color: #ef4444;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+        }
     </style>
 </head>
 <body>
@@ -966,6 +1004,11 @@
             </div>
             
             <div class="rejection-body">
+                <div id="validationMessage" class="form-validation-message">
+                    <div class="validation-icon">⚠️</div>
+                    <div>What's the reason for rejecting this payment?</div>
+                </div>
+                
                 <div class="rejection-form-group">
                     <label class="rejection-label" for="rejectionComments">
                         Reason for rejection<span class="required">*</span>
@@ -1020,14 +1063,17 @@
             const vendorElement = document.getElementById('rejectionVendor');
             const commentsTextarea = document.getElementById('rejectionComments');
             const confirmBtn = document.getElementById('confirmRejectBtn');
+            const validationMessage = document.getElementById('validationMessage');
             
             // Set vendor name and store for later use
             vendorElement.textContent = vendor;
             overlay.dataset.vendor = vendor;
             
-            // Clear previous comments and reset button state
+            // Clear previous comments and reset states
             commentsTextarea.value = '';
+            commentsTextarea.classList.remove('error');
             confirmBtn.disabled = true;
+            validationMessage.classList.remove('show');
             
             // Show the popover
             overlay.classList.add('active');
@@ -1037,9 +1083,15 @@
                 commentsTextarea.focus();
             }, 300);
             
-            // Listen for input to enable/disable confirm button
+            // Listen for input to enable/disable confirm button and hide validation
             commentsTextarea.oninput = function() {
-                confirmBtn.disabled = this.value.trim().length === 0;
+                const hasText = this.value.trim().length > 0;
+                confirmBtn.disabled = !hasText;
+                
+                if (hasText) {
+                    this.classList.remove('error');
+                    validationMessage.classList.remove('show');
+                }
             };
         }
         
@@ -1051,10 +1103,15 @@
         function confirmRejection() {
             const overlay = document.getElementById('rejectionOverlay');
             const vendor = overlay.dataset.vendor;
-            const comments = document.getElementById('rejectionComments').value.trim();
+            const commentsTextarea = document.getElementById('rejectionComments');
+            const comments = commentsTextarea.value.trim();
+            const validationMessage = document.getElementById('validationMessage');
             
             if (!comments) {
-                alert('Please provide a reason for rejection.');
+                // Show validation message and highlight textarea
+                commentsTextarea.classList.add('error');
+                validationMessage.classList.add('show');
+                commentsTextarea.focus();
                 return;
             }
             
