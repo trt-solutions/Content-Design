@@ -718,12 +718,21 @@
             const demoButtons = document.querySelectorAll('.demo-button');
             demoButtons.forEach(button => {
                 button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    this.style.transform = 'scale(0.98)';
-                    setTimeout(() => {
-                        this.style.transform = 'scale(1)';
-                        alert('🚀 Interactive prototype would launch here!\n\nThis demo shows the complete design system and user experience framework.');
-                    }, 150);
+                    // Only prevent default and show alert for buttons without href or with href="#"
+                    if (!this.href || this.href.endsWith('#')) {
+                        e.preventDefault();
+                        this.style.transform = 'scale(0.98)';
+                        setTimeout(() => {
+                            this.style.transform = 'scale(1)';
+                            alert('🚀 Interactive prototype would launch here!\n\nThis demo shows the complete design system and user experience framework.');
+                        }, 150);
+                    } else {
+                        // For buttons with real URLs, just add the press effect without preventing navigation
+                        this.style.transform = 'scale(0.98)';
+                        setTimeout(() => {
+                            this.style.transform = 'scale(1)';
+                        }, 150);
+                    }
                 });
             });
         });
