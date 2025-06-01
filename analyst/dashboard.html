@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Truist Commercial Banking - AP Analyst</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23663399' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='3' width='18' height='18' rx='2' ry='2'/%3E%3Cpath d='M9 9h6v6H9z'/%3E%3C/svg%3E">
     <style>
         * {
             margin: 0;
@@ -12,7 +13,7 @@
         }
         
         body {
-            font-family: 'Truist Trio', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            font-family: 'Truist Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
             line-height: 1.5;
             color: #1a1a1a;
             background: #f8f9fa;
@@ -65,48 +66,42 @@
         
         .truist-icon::before {
             content: '';
-            width: 10px;
-            height: 10px;
+            width: 12px;
+            height: 12px;
             background: white;
-            transform: rotate(45deg);
             position: absolute;
-            border-radius: 1px;
-        }
-        
-        .truist-icon::after {
-            content: '';
-            width: 6px;
-            height: 6px;
-            background: #663399;
-            position: absolute;
-            border-radius: 1px;
         }
         
         .truist-text {
             font-size: 18px;
-            font-weight: 600;
+            font-weight: 700;
             color: #663399;
             letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
         
         .header-actions {
             display: flex;
-            gap: 16px;
+            gap: 12px;
             align-items: center;
         }
         
         .notification-btn, .signoff-btn, .role-btn {
             background: #f3f4f6;
             border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 20px;
+            height: 36px;
+            border-radius: 8px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.2s ease;
             position: relative;
+            font-family: inherit;
+        }
+        
+        .notification-btn {
+            width: 36px;
         }
         
         .role-btn, .signoff-btn {
@@ -118,7 +113,7 @@
         }
         
         .signoff-btn {
-            color: #374151;
+            color: #1a1a1a;
             font-size: 14px;
             font-weight: 500;
             padding: 0 16px;
@@ -130,30 +125,36 @@
         
         .notification-badge {
             position: absolute;
-            top: -2px;
-            right: -2px;
-            background: #10b981;
+            top: -4px;
+            right: -4px;
+            background: #663399;
             color: white;
             border-radius: 50%;
             width: 18px;
             height: 18px;
             font-size: 10px;
-            font-weight: 600;
+            font-weight: 700;
             display: flex;
             align-items: center;
             justify-content: center;
         }
         
+        .notification-icon {
+            width: 18px;
+            height: 18px;
+            color: #4a5568;
+        }
+        
         .greeting {
             font-size: 24px;
-            font-weight: 600;
+            font-weight: 700;
             color: #1a1a1a;
             margin-bottom: 4px;
         }
         
         .role-context {
             font-size: 14px;
-            color: #6b7280;
+            color: #4a5568;
             font-weight: 500;
         }
         
@@ -162,8 +163,8 @@
         }
         
         .status-banner {
-            background: #f0f9ff;
-            border: 1px solid #bae6fd;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
             border-radius: 12px;
             padding: 16px;
             margin-bottom: 24px;
@@ -173,7 +174,7 @@
         }
         
         .status-icon {
-            background: #0ea5e9;
+            background: #16a34a;
             color: white;
             border-radius: 50%;
             width: 32px;
@@ -181,8 +182,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 16px;
+            font-size: 14px;
             flex-shrink: 0;
+            font-weight: 700;
         }
         
         .status-content {
@@ -191,15 +193,16 @@
         
         .status-text {
             font-size: 14px;
-            color: #075985;
+            color: #1a1a1a;
             line-height: 1.4;
             margin-bottom: 8px;
-            font-weight: 500;
+            font-weight: 600;
         }
         
         .status-subtext {
             font-size: 12px;
-            color: #0369a1;
+            color: #4a5568;
+            font-weight: 500;
         }
         
         .quick-actions {
@@ -207,7 +210,7 @@
             border-radius: 16px;
             padding: 24px;
             margin-bottom: 24px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
         
         .actions-grid {
@@ -222,6 +225,7 @@
             align-items: center;
             cursor: pointer;
             transition: transform 0.2s ease;
+            text-decoration: none;
         }
         
         .action-item:hover {
@@ -232,14 +236,18 @@
             width: 64px;
             height: 64px;
             background: #663399;
-            border-radius: 32px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 12px;
             color: white;
-            font-size: 24px;
             transition: all 0.2s ease;
+        }
+        
+        .action-icon svg {
+            width: 28px;
+            height: 28px;
         }
         
         .action-item:hover .action-icon {
@@ -249,7 +257,7 @@
         
         .action-label {
             font-size: 16px;
-            font-weight: 600;
+            font-weight: 700;
             color: #1a1a1a;
             text-align: center;
             margin-bottom: 4px;
@@ -257,10 +265,16 @@
         
         .action-sublabel {
             font-size: 12px;
-            color: #6b7280;
+            color: #4a5568;
             text-align: center;
             line-height: 1.3;
             font-weight: 500;
+        }
+        
+        .highlight-text {
+            color: #663399;
+            font-weight: 700;
+            font-size: 11px;
         }
         
         .my-payments {
@@ -268,7 +282,7 @@
             border-radius: 16px;
             margin-bottom: 24px;
             overflow: hidden;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
         
         .payments-header {
@@ -281,7 +295,7 @@
         
         .payments-title {
             font-size: 18px;
-            font-weight: 600;
+            font-weight: 700;
             color: #1a1a1a;
         }
         
@@ -292,6 +306,7 @@
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
+            font-family: inherit;
         }
         
         .payment-item {
@@ -307,12 +322,22 @@
             background: #faf8ff;
         }
         
+        .payment-item:last-child {
+            border-bottom: none;
+        }
+        
         .payment-status {
-            width: 12px;
-            height: 12px;
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
             margin-right: 16px;
             flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            color: white;
         }
         
         .payment-status.pending {
@@ -324,7 +349,7 @@
         }
         
         .payment-status.approved {
-            background: #10b981;
+            background: #16a34a;
         }
         
         .payment-content {
@@ -333,37 +358,27 @@
         
         .payment-vendor {
             font-size: 15px;
-            font-weight: 600;
+            font-weight: 700;
             color: #1a1a1a;
             margin-bottom: 2px;
         }
         
         .payment-detail {
             font-size: 13px;
-            color: #6b7280;
+            color: #4a5568;
             margin-bottom: 4px;
+            font-weight: 500;
         }
         
         .payment-status-text {
             font-size: 12px;
-            font-weight: 500;
-        }
-        
-        .payment-status-text.pending {
-            color: #92400e;
-        }
-        
-        .payment-status-text.scheduled {
-            color: #1e40af;
-        }
-        
-        .payment-status-text.approved {
-            color: #065f46;
+            font-weight: 600;
+            color: #1a1a1a;
         }
         
         .payment-amount {
             font-size: 14px;
-            font-weight: 600;
+            font-weight: 700;
             color: #663399;
             text-align: right;
         }
@@ -373,7 +388,7 @@
             border-radius: 16px;
             margin-bottom: 24px;
             overflow: hidden;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
         
         .menu-item {
@@ -400,15 +415,15 @@
         
         .menu-label {
             font-size: 16px;
-            font-weight: 500;
+            font-weight: 600;
             color: #1a1a1a;
             margin-bottom: 2px;
         }
         
         .menu-sublabel {
             font-size: 13px;
-            color: #6b7280;
-            font-weight: 400;
+            color: #4a5568;
+            font-weight: 500;
             line-height: 1.3;
         }
         
@@ -420,9 +435,10 @@
         .bank-info {
             text-align: center;
             padding: 16px;
-            color: #6b7280;
+            color: #4a5568;
             font-size: 12px;
             margin-bottom: 80px;
+            font-weight: 500;
         }
         
         .bottom-nav {
@@ -454,9 +470,10 @@
         }
         
         .nav-icon {
-            font-size: 20px;
+            width: 20px;
+            height: 20px;
             margin-bottom: 4px;
-            color: #6b7280;
+            color: #4a5568;
         }
         
         .nav-item.active .nav-icon {
@@ -465,8 +482,8 @@
         
         .nav-label {
             font-size: 11px;
-            color: #6b7280;
-            font-weight: 500;
+            color: #4a5568;
+            font-weight: 600;
         }
         
         .nav-item.active .nav-label {
@@ -484,7 +501,10 @@
                 </div>
                 <div class="header-actions">
                     <button class="notification-btn" title="Payment status updates and reminders">
-                        🔔
+                        <svg class="notification-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                        </svg>
                         <span class="notification-badge">2</span>
                     </button>
                     <button class="signoff-btn">Sign off</button>
@@ -497,7 +517,7 @@
         
         <div class="content">
             <div class="status-banner">
-                <div class="status-icon">✅</div>
+                <div class="status-icon">✓</div>
                 <div class="status-content">
                     <div class="status-text">2 payments approved today</div>
                     <div class="status-subtext">Acme Corp and Office Supply Co scheduled</div>
@@ -506,21 +526,39 @@
             
             <div class="quick-actions">
                 <div class="actions-grid">
-                    <div class="action-item" onclick="location.href='payment-onetime.html'">
-                        <div class="action-icon">💸</div>
+                    <a href="payment-onetime.html" class="action-item">
+                        <div class="action-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M12 6v6l4 2"/>
+                            </svg>
+                        </div>
                         <div class="action-label">Pay</div>
                         <div class="action-sublabel">One time</div>
-                    </div>
-                    <div class="action-item" onclick="location.href='recurring-step1-payee.html'">
-                        <div class="action-icon">🔄</div>
+                    </a>
+                    <a href="recurring-step1-payee.html" class="action-item">
+                        <div class="action-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c2.39 0 4.68.94 6.36 2.64"/>
+                                <path d="M21 2v6h-6"/>
+                            </svg>
+                        </div>
                         <div class="action-label">Schedule</div>
-                        <div class="action-sublabel">Recurring payments<br><span style="color: #10b981; font-weight: 600; font-size: 11px;">8 scheduled this week</span></div>
-                    </div>
-                    <div class="action-item" onclick="location.href='payment-batch.html'">
-                        <div class="action-icon">📋</div>
+                        <div class="action-sublabel">Recurring payments<br><span class="highlight-text">8 scheduled this week</span></div>
+                    </a>
+                    <a href="payment-batch.html" class="action-item">
+                        <div class="action-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14,2 14,8 20,8"/>
+                                <line x1="16" y1="13" x2="8" y2="13"/>
+                                <line x1="16" y1="17" x2="8" y2="17"/>
+                                <polyline points="10,9 9,9 8,9"/>
+                            </svg>
+                        </div>
                         <div class="action-label">Batch</div>
                         <div class="action-sublabel">Multiple payments</div>
-                    </div>
+                    </a>
                 </div>
             </div>
             
@@ -531,7 +569,12 @@
                 </div>
                 
                 <div class="payment-item">
-                    <div class="payment-status pending"></div>
+                    <div class="payment-status pending">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;">
+                            <circle cx="12" cy="12" r="10"/>
+                            <polyline points="12,6 12,12 16,14"/>
+                        </svg>
+                    </div>
                     <div class="payment-content">
                         <div class="payment-vendor">Downtown Property</div>
                         <div class="payment-detail">Office Rent • Due: Jan 31</div>
@@ -541,7 +584,12 @@
                 </div>
                 
                 <div class="payment-item">
-                    <div class="payment-status scheduled"></div>
+                    <div class="payment-status scheduled">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;">
+                            <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c2.39 0 4.68.94 6.36 2.64"/>
+                            <path d="M21 2v6h-6"/>
+                        </svg>
+                    </div>
                     <div class="payment-content">
                         <div class="payment-vendor">Acme Corp Software</div>
                         <div class="payment-detail">SaaS Subscription • Recurring monthly</div>
@@ -551,7 +599,11 @@
                 </div>
                 
                 <div class="payment-item">
-                    <div class="payment-status approved"></div>
+                    <div class="payment-status approved">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;">
+                            <polyline points="20,6 9,17 4,12"/>
+                        </svg>
+                    </div>
                     <div class="payment-content">
                         <div class="payment-vendor">Office Supply Co</div>
                         <div class="payment-detail">Office Supplies • One-time</div>
@@ -592,17 +644,36 @@
         
         <div class="bottom-nav">
             <div class="nav-item active">
-                <div class="nav-icon">🏠</div>
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    <polyline points="9,22 9,12 15,12 15,22"/>
+                </svg>
                 <div class="nav-label">Dashboard</div>
             </div>
             <div class="nav-item" onclick="location.href='payment-history.html'">
-                <div class="nav-icon">💸</div>
-                <div class="nav-label">My Payments</div>
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 6v6l4 2"/>
+                </svg>
+                <div class="nav-label">Payments</div>
             </div>
             <div class="nav-item" onclick="location.href='payment-history.html'">
-                <div class="nav-icon">📊</div>
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 3v5h5"/>
+                    <path d="M21 21v-5h-5"/>
+                    <path d="M4 15l4-4 6 6 6-6"/>
+                </svg>
                 <div class="nav-label">History</div>
             </div>
             <div class="nav-item" onclick="location.href='help-guides.html'">
-                <div class="nav-icon">❓</div>
-                <div class="nav-label">Help
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                    <path d="M12 17h.01"/>
+                </svg>
+                <div class="nav-label">Help</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
