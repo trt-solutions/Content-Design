@@ -1103,10 +1103,10 @@
             </div>
             
             <div class="rejection-actions">
-                <button class="rejection-btn rejection-btn-cancel" onclick="hideRejectionPopover()">
+                <button type="button" class="rejection-btn rejection-btn-cancel" onclick="hideRejectionPopover()">
                     Cancel
                 </button>
-                <button class="rejection-btn rejection-btn-confirm" id="confirmRejectBtn" onclick="confirmRejection()">
+                <button type="button" class="rejection-btn rejection-btn-confirm" id="confirmRejectBtn">
                     Reject Payment
                 </button>
             </div>
@@ -1152,7 +1152,10 @@
         
         function quickReject(vendor) {
             console.log('Quick rejecting:', vendor);
+            // Stop any event propagation
+            event.stopPropagation();
             showRejectionPopover(vendor);
+            return false;
         }
         
         function showRejectionPopover(vendor) {
@@ -1252,6 +1255,17 @@
         document.addEventListener('DOMContentLoaded', function() {
             const queueToggle = document.getElementById('queueToggle');
             queueToggle.classList.add('expanded');
+            
+            // Bind rejection button event listener
+            const confirmRejectBtn = document.getElementById('confirmRejectBtn');
+            if (confirmRejectBtn) {
+                confirmRejectBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    confirmRejection();
+                    return false;
+                });
+            }
             
             // Check for payment action results
             checkForPaymentActionResult();
