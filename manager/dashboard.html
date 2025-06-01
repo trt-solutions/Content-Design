@@ -810,10 +810,8 @@
         
         function quickReject(vendor) {
             console.log('Quick rejecting:', vendor);
-            if (confirm(`Are you sure you want to reject the ${vendor} payment?`)) {
-                alert(`${vendor} payment rejected. Submitter will be notified.`);
-                // In real app: update payment status and refresh dashboard
-            }
+            // Navigate to review page with rejection action
+            location.href = 'approver-review-payment.html?action=reject&vendor=' + encodeURIComponent(vendor);
         }
         
         // Start with queue expanded by default
