@@ -356,6 +356,13 @@
             pointer-events: none;
         }
         
+        @media (max-width: 768px) {
+            .tour-spotlight {
+                border-width: 2px;
+                border-radius: 8px;
+            }
+        }
+        
         .tour-tooltip {
             position: absolute;
             background: white;
@@ -365,6 +372,20 @@
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
             z-index: 2001;
             transition: all 0.3s ease;
+        }
+        
+        @media (max-width: 768px) {
+            .tour-tooltip {
+                position: fixed;
+                bottom: 20px;
+                left: 16px;
+                right: 16px;
+                width: auto;
+                max-width: none;
+                padding: 16px;
+                border-radius: 8px;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            }
         }
         
         .tour-tooltip h3 {
@@ -419,6 +440,13 @@
             display: flex;
             gap: 8px;
             z-index: 2002;
+        }
+        
+        @media (max-width: 768px) {
+            .tour-progress {
+                bottom: 100px; /* Move above the mobile tooltip */
+                gap: 6px;
+            }
         }
         
         .tour-progress-dot {
@@ -556,11 +584,16 @@
             }
             
             .tour-tooltip {
-                max-width: calc(100vw - 32px);
-                padding: 16px;
+                position: fixed !important;
+                bottom: 20px !important;
                 left: 16px !important;
-                right: 16px;
-                width: auto;
+                right: 16px !important;
+                width: auto !important;
+                max-width: none !important;
+                padding: 16px;
+                border-radius: 8px;
+                transform: none !important;
+                top: auto !important;
             }
             
             .tour-tooltip h3 {
@@ -569,6 +602,15 @@
             
             .tour-tooltip p {
                 font-size: 13px;
+            }
+            
+            .tour-tooltip-controls {
+                margin-top: 12px;
+            }
+            
+            .tour-tooltip-btn {
+                padding: 8px 12px;
+                font-size: 12px;
             }
             
             .footer {
@@ -865,31 +907,41 @@
                 const tooltipRect = tooltip.getBoundingClientRect();
                 const viewportWidth = window.innerWidth;
                 const viewportHeight = window.innerHeight;
+                const isMobile = viewportWidth <= 768;
                 
                 let left, top;
                 
-                switch (position) {
-                    case 'bottom':
-                        left = rect.left + (rect.width / 2) - (tooltipRect.width / 2);
-                        top = rect.bottom + 20;
-                        break;
-                    case 'top':
-                        left = rect.left + (rect.width / 2) - (tooltipRect.width / 2);
-                        top = rect.top - tooltipRect.height - 20;
-                        break;
-                    case 'right':
-                        left = rect.right + 20;
-                        top = rect.top + (rect.height / 2) - (tooltipRect.height / 2);
-                        break;
-                    case 'left':
-                        left = rect.left - tooltipRect.width - 20;
-                        top = rect.top + (rect.height / 2) - (tooltipRect.height / 2);
-                        break;
+                if (isMobile) {
+                    // On mobile, always position tooltip at bottom with full width
+                    left = 16;
+                    top = viewportHeight - 200; // Fixed position near bottom
+                    tooltip.style.width = (viewportWidth - 32) + 'px';
+                    tooltip.style.maxWidth = 'none';
+                } else {
+                    // Desktop positioning logic
+                    switch (position) {
+                        case 'bottom':
+                            left = rect.left + (rect.width / 2) - (tooltipRect.width / 2);
+                            top = rect.bottom + 20;
+                            break;
+                        case 'top':
+                            left = rect.left + (rect.width / 2) - (tooltipRect.width / 2);
+                            top = rect.top - tooltipRect.height - 20;
+                            break;
+                        case 'right':
+                            left = rect.right + 20;
+                            top = rect.top + (rect.height / 2) - (tooltipRect.height / 2);
+                            break;
+                        case 'left':
+                            left = rect.left - tooltipRect.width - 20;
+                            top = rect.top + (rect.height / 2) - (tooltipRect.height / 2);
+                            break;
+                    }
+                    
+                    // Keep tooltip within viewport on desktop
+                    left = Math.max(20, Math.min(left, viewportWidth - tooltipRect.width - 20));
+                    top = Math.max(20, Math.min(top, viewportHeight - tooltipRect.height - 20));
                 }
-                
-                // Keep tooltip within viewport
-                left = Math.max(20, Math.min(left, viewportWidth - tooltipRect.width - 20));
-                top = Math.max(20, Math.min(top, viewportHeight - tooltipRect.height - 20));
                 
                 tooltip.style.left = left + 'px';
                 tooltip.style.top = top + 'px';
