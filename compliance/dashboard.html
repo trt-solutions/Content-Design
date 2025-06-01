@@ -577,7 +577,7 @@
                 </div>
                 
                 <div class="queue-content" id="queueContent">
-                    <div class="risk-item" onclick="showComingSoon('Risk Detail')">
+                    <div class="risk-item" onclick="goToRiskReview('Unusual payment pattern detected', 'Downtown Property', 'Pattern Alert')">
                         <div class="risk-priority high"></div>
                         <div class="risk-content">
                             <div class="risk-description">Unusual payment pattern detected</div>
@@ -586,7 +586,7 @@
                         </div>
                     </div>
                     
-                    <div class="risk-item" onclick="showComingSoon('Risk Detail')">
+                    <div class="risk-item" onclick="goToRiskReview('High-value payment pending dual approval', 'TechFlow LLC', 'Threshold')">
                         <div class="risk-priority high"></div>
                         <div class="risk-content">
                             <div class="risk-description">High-value payment pending dual approval</div>
@@ -595,7 +595,7 @@
                         </div>
                     </div>
                     
-                    <div class="risk-item" onclick="showComingSoon('Risk Detail')">
+                    <div class="risk-item" onclick="goToRiskReview('Custom recurrence requires documentation', 'Metro Insurance', 'Policy')">
                         <div class="risk-priority medium"></div>
                         <div class="risk-content">
                             <div class="risk-description">Custom recurrence requires documentation</div>
@@ -604,7 +604,7 @@
                         </div>
                     </div>
                     
-                    <div class="risk-item" onclick="showComingSoon('Risk Detail')">
+                    <div class="risk-item" onclick="goToRiskReview('Payment frequency above threshold', 'Acme Corp', 'Pattern Alert')">
                         <div class="risk-priority medium"></div>
                         <div class="risk-content">
                             <div class="risk-description">Payment frequency above threshold</div>
@@ -613,7 +613,7 @@
                         </div>
                     </div>
                     
-                    <div class="risk-item" onclick="showComingSoon('Risk Detail')">
+                    <div class="risk-item" onclick="goToRiskReview('New vendor requires verification', 'Global Supplies Inc', 'Policy')">
                         <div class="risk-priority low"></div>
                         <div class="risk-content">
                             <div class="risk-description">New vendor requires verification</div>
@@ -622,7 +622,7 @@
                         </div>
                     </div>
                     
-                    <div class="risk-item" onclick="showComingSoon('Risk Detail')">
+                    <div class="risk-item" onclick="goToRiskReview('Late approval notification', 'Office Supply Co', 'Threshold')">
                         <div class="risk-priority low"></div>
                         <div class="risk-content">
                             <div class="risk-description">Late approval notification</div>
@@ -631,7 +631,7 @@
                         </div>
                     </div>
                     
-                    <div class="risk-item" onclick="showComingSoon('Risk Detail')">
+                    <div class="risk-item" onclick="goToRiskReview('Weekend payment scheduling', 'City Utilities', 'Pattern Alert')">
                         <div class="risk-priority low"></div>
                         <div class="risk-content">
                             <div class="risk-description">Weekend payment scheduling</div>
@@ -696,6 +696,9 @@
     </div>
     
     <script>
+        // In-memory storage for risk actions
+        window.riskActionData = null;
+        
         function toggleQueue() {
             const queueContent = document.getElementById('queueContent');
             const queueToggle = document.getElementById('queueToggle');
@@ -707,6 +710,22 @@
                 queueContent.classList.add('collapsed');
                 queueToggle.classList.remove('expanded');
             }
+        }
+        
+        function goToRiskReview(riskDescription, vendor, category) {
+            // Store the risk data for the review page
+            const riskData = {
+                description: riskDescription,
+                vendor: vendor,
+                category: category,
+                timestamp: new Date().toISOString()
+            };
+            
+            // Store in window object for the review page to access
+            window.riskReviewData = riskData;
+            
+            // Navigate to the risk review page
+            window.location.href = 'risk-review.html';
         }
         
         function showComingSoon(feature) {
@@ -725,7 +744,117 @@
         document.addEventListener('DOMContentLoaded', function() {
             const queueToggle = document.getElementById('queueToggle');
             queueToggle.classList.add('expanded');
+            
+            // Check for risk action results
+            checkForRiskActionResult();
         });
+        
+        function checkForRiskActionResult() {
+            const actionData = window.riskActionData;
+            if (actionData) {
+                showSuccessBanner(actionData);
+                
+                // Clear the stored data
+                window.riskActionData = null;
+                
+                // Remove the processed item from queue (simulate)
+                removeFromQueue(actionData.vendor);
+            }
+        }
+        
+        function showSuccessBanner(data) {
+            const banner = document.getElementById('successBanner');
+            const successText = document.getElementById('successText');
+            const successSubtext = document.getElementById('successSubtext');
+            
+            let message = '';
+            let submessage = '';
+            
+            switch(data.action) {
+                case 'risk_approved':
+                    message = `Risk review completed for ${data.vendor}`;
+                    submessage = `Decision: ${data.decision}`;
+                    break;
+                case 'risk_escalated':
+                    message = `Risk escalated for ${data.vendor}`;
+                    submessage = 'Senior compliance team notified';
+                    break;
+                case 'investigation_requested':
+                    message = `Investigation requested for ${data.vendor}`;
+                    submessage = 'Audit team will review';
+                    break;
+            }
+            
+            successText.textContent = message;
+            successSubtext.textContent = submessage;
+            
+            // Make sure banner is visible
+            banner.style.display = 'flex';
+            
+            // Force a reflow to ensure the display change takes effect
+            banner.offsetHeight;
+            
+            // Add the show class
+            banner.classList.add('show');
+            
+            // Auto-hide after 8 seconds
+            setTimeout(() => {
+                hideSuccessBanner();
+            }, 8000);
+        }
+        
+        function removeFromQueue(vendorName) {
+            // Find and remove the risk item from the queue
+            const riskItems = document.querySelectorAll('.risk-item');
+            let itemFound = false;
+            
+            riskItems.forEach(item => {
+                const detail = item.querySelector('.risk-detail');
+                if (detail && detail.textContent.includes(vendorName)) {
+                    itemFound = true;
+                    item.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateX(-100%)';
+                    
+                    setTimeout(() => {
+                        if (item.parentNode) {
+                            item.parentNode.removeChild(item);
+                        }
+                        updateQueueCount();
+                    }, 300);
+                }
+            });
+            
+            if (!itemFound) {
+                console.log('Risk item not found in queue:', vendorName);
+                updateQueueCount();
+            }
+        }
+        
+        function updateQueueCount() {
+            const remainingItems = document.querySelectorAll('.risk-item').length;
+            const queueCount = document.querySelector('.queue-count');
+            
+            console.log('Updating risk queue count to:', remainingItems);
+            
+            if (queueCount) {
+                queueCount.textContent = remainingItems;
+            }
+            
+            // Update notification badge
+            const notificationBadge = document.querySelector('.notification-badge');
+            if (notificationBadge) {
+                notificationBadge.textContent = remainingItems;
+            }
+            
+            // If no items left, hide urgent banner
+            if (remainingItems === 0) {
+                const urgentBanner = document.querySelector('.urgent-banner');
+                if (urgentBanner) {
+                    urgentBanner.style.display = 'none';
+                }
+            }
+        }
     </script>
 </body>
 </html>
