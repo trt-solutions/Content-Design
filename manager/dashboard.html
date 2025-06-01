@@ -1287,10 +1287,14 @@
             successText.textContent = message;
             successSubtext.textContent = submessage;
             
+            // Make sure banner is visible
             banner.style.display = 'flex';
-            setTimeout(() => {
-                banner.classList.add('show');
-            }, 100);
+            
+            // Force a reflow to ensure the display change takes effect
+            banner.offsetHeight;
+            
+            // Add the show class
+            banner.classList.add('show');
             
             // Auto-hide after 8 seconds
             setTimeout(() => {
@@ -1309,35 +1313,62 @@
         function removeFromQueue(vendorName) {
             // Find and remove the approval item from the queue
             const approvalItems = document.querySelectorAll('.approval-item');
+            let itemFound = false;
+            
             approvalItems.forEach(item => {
                 const vendor = item.querySelector('.approval-vendor');
-                if (vendor && vendor.textContent === vendorName) {
-                    item.style.animation = 'fadeOut 0.3s ease';
+                if (vendor && vendor.textContent.trim() === vendorName.trim()) {
+                    itemFound = true;
+                    item.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateX(-100%)';
+                    
                     setTimeout(() => {
-                        item.remove();
+                        if (item.parentNode) {
+                            item.parentNode.removeChild(item);
+                        }
                         updateQueueCount();
                     }, 300);
                 }
             });
+            
+            if (!itemFound) {
+                console.log('Item not found in queue:', vendorName);
+                // Still update counters even if item not found
+                updateQueueCount();
+            }
         }
         
         function updateQueueCount() {
             const remainingItems = document.querySelectorAll('.approval-item').length;
             const queueCount = document.querySelector('.queue-count');
-            const actionCount = document.querySelector('.action-sublabel span');
+            const actionSubLabel = document.querySelector('.action-sublabel');
+            
+            console.log('Updating queue count to:', remainingItems);
             
             if (queueCount) {
                 queueCount.textContent = remainingItems;
             }
             
-            if (actionCount) {
-                actionCount.textContent = `${remainingItems} need approval`;
+            if (actionSubLabel) {
+                const span = actionSubLabel.querySelector('span');
+                if (span) {
+                    span.textContent = `${remainingItems} need approval`;
+                }
             }
             
             // Update notification badge
             const notificationBadge = document.querySelector('.notification-badge');
             if (notificationBadge) {
                 notificationBadge.textContent = remainingItems;
+            }
+            
+            // If no items left, show different message
+            if (remainingItems === 0) {
+                const urgentBanner = document.querySelector('.urgent-banner');
+                if (urgentBanner) {
+                    urgentBanner.style.display = 'none';
+                }
             }
         }
     </script>
