@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UX Documentation - Truist Commercial Banking</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23663399'/%3E%3Cpath d='M8 8h16v4H8V8zm0 6h16v4H8v-4zm0 6h12v4H8v-4z' fill='white'/%3E%3C/svg%3E">
+    <style>
+        :root {
+            --truist-purple: #663399;
+            --truist-purple-hover: #553388;
+            --truist-purple-light: #f3f0ff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #4a5568;
+            --text-muted: #6b7280;
+            --status-success: #16a34a;
+            --status-warning: #f59e0b;
+            --status-error: #ef4444;
+            --status-info: #3b82f6;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f7fafc;
+            --bg-muted: #f3f4f6;
+            --border-light: #e5e7eb;
+            --border-medium: #d1d5db;
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            --radius-sm: 0.25rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--truist-purple) 0%, #8B5A96 100%);
+            color: white;
+            padding: var(--space-xl) 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-lg);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 300;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--space-lg);
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-md);
+            transition: background 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            background: rgba(255,255,255,0.1);
+            text-decoration: none;
+            color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-xl) var(--space-lg);
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: var(--space-2xl);
+        }
+
+        .sidebar {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-sm);
+            height: fit-content;
+            position: sticky;
+            top: 120px;
+        }
+
+        .sidebar h3 {
+            font-size: 1.1rem;
+            color: var(--truist-purple);
+            margin-bottom: var(--space-md);
+            font-weight: 600;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: var(--space-xs);
+        }
+
+        .sidebar-nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-sm);
+            display: block;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+
+        .sidebar-nav a:hover {
+            background: var(--truist-purple-light);
+            color: var(--truist-purple);
+            text-decoration: none;
+        }
+
+        .content {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: var(--space-2xl);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .section {
+            margin-bottom: var(--space-2xl);
+        }
+
+        .section h2 {
+            font-size: 1.8rem;
+            color: var(--truist-purple);
+            margin-bottom: var(--space-lg);
+            font-weight: 600;
+            border-bottom: 2px solid var(--border-light);
+            padding-bottom: var(--space-sm);
+        }
+
+        .section h3 {
+            font-size: 1.3rem;
+            color: var(--text-primary);
+            margin: var(--space-lg) 0 var(--space-md);
+            font-weight: 600;
+        }
+
+        .section h4 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin: var(--space-md) 0 var(--space-sm);
+            font-weight: 500;
+        }
+
+        .user-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-lg);
+            margin: var(--space-lg) 0;
+        }
+
+        .user-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .user-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--truist-purple);
+        }
+
+        .user-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        }
+
+        .user-card.analyst::before { background: var(--status-info); }
+        .user-card.manager::before { background: var(--status-success); }
+        .user-card.compliance::before { background: var(--status-warning); }
+
+        .user-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+            color: var(--text-primary);
+        }
+
+        .user-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-md);
+            font-weight: 500;
+        }
+
+        .user-content h5 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-top: var(--space-md);
+            margin-bottom: var(--space-xs);
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+        }
+
+        .user-content ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .user-content li {
+            padding: var(--space-xs) 0;
+            border-bottom: 1px solid var(--bg-secondary);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .user-content li:last-child {
+            border-bottom: none;
+        }
+
+        .journey-flow {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin: var(--space-lg) 0;
+            border: 1px solid var(--border-light);
+        }
+
+        .flow-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: var(--space-md);
+            color: var(--truist-purple);
+        }
+
+        .flow-steps {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            flex-wrap: wrap;
+            margin: var(--space-md) 0;
+        }
+
+        .flow-step {
+            background: white;
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-light);
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            min-width: 120px;
+            text-align: center;
+            position: relative;
+        }
+
+        .flow-step::after {
+            content: '→';
+            position: absolute;
+            right: -18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--truist-purple);
+            font-weight: bold;
+        }
+
+        .flow-step:last-child::after {
+            display: none;
+        }
+
+        .before-after {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-lg);
+            margin: var(--space-lg) 0;
+        }
+
+        .before-card {
+            background: linear-gradient(135deg, #fef2f2 0%, #ffffff 100%);
+            border: 1px solid #fecaca;
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+        }
+
+        .after-card {
+            background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);
+            border: 1px solid #bbf7d0;
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+        }
+
+        .before-card h4 {
+            color: #dc2626;
+            margin-bottom: var(--space-md);
+        }
+
+        .after-card h4 {
+            color: #16a34a;
+            margin-bottom: var(--space-md);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-md);
+            margin: var(--space-lg) 0;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, var(--truist-purple) 0%, #8B5A96 100%);
+            color: white;
+            padding: var(--space-lg);
+            border-radius: var(--radius-lg);
+            text-align: center;
+            box-shadow: var(--shadow-md);
+        }
+
+        .metric-number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: var(--space-xs);
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .info-arch {
+            background: var(--bg-muted);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin: var(--space-lg) 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            overflow-x: auto;
+            border: 1px solid var(--border-light);
+        }
+
+        .info-arch .branch {
+            color: var(--truist-purple);
+            font-weight: bold;
+        }
+
+        .info-arch .item {
+            color: var(--text-secondary);
+        }
+
+        .interaction-demo {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin: var(--space-lg) 0;
+            border: 1px solid var(--border-light);
+        }
+
+        .pattern-card {
+            background: white;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-md);
+            transition: all 0.3s ease;
+        }
+
+        .pattern-card:hover {
+            border-color: var(--truist-purple);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .pattern-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--truist-purple);
+            margin-bottom: var(--space-sm);
+        }
+
+        .pattern-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .checklist {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin: var(--space-lg) 0;
+        }
+
+        .checklist h4 {
+            color: var(--truist-purple);
+            margin-bottom: var(--space-md);
+        }
+
+        .checklist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-md);
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-sm);
+            padding: var(--space-xs) 0;
+        }
+
+        .checklist-check {
+            color: var(--status-success);
+            font-weight: bold;
+            margin-top: 2px;
+        }
+
+        .checklist-text {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                padding: var(--space-lg) var(--space-md);
+            }
+
+            .sidebar {
+                position: static;
+                order: 2;
+            }
+
+            .content {
+                order: 1;
+                padding: var(--space-lg);
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .user-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .before-after {
+                grid-template-columns: 1fr;
+            }
+
+            .flow-steps {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .flow-step::after {
+                content: '↓';
+                right: 50%;
+                top: 100%;
+                transform: translateX(50%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <h1>UX Documentation</h1>
+            <nav class="nav-links">
+                <a href="../" class="nav-link">← Back to Prototype</a>
+                <a href="./" class="nav-link">Documentation Home</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            <h3>Navigation</h3>
+            <ul class="sidebar-nav">
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#user-research">User Research</a></li>
+                <li><a href="#user-journeys">User Journeys</a></li>
+                <li><a href="#information-architecture">Information Architecture</a></li>
+                <li><a href="#interaction-design">Interaction Design</a></li>
+                <li><a href="#accessibility">Accessibility Design</a></li>
+                <li><a href="#testing">Testing & Validation</a></li>
+            </ul>
+        </aside>
+
+        <main class="content">
+            <section id="overview" class="section">
+                <h2>User Experience Overview</h2>
+                <p>This UX documentation demonstrates a user-centered design approach for Truist's Commercial Banking platform, focusing on role-based workflows that significantly improve efficiency and user satisfaction.</p>
+                
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-number">50%</div>
+                        <div class="metric-label">Time Reduction</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-number">95%+</div>
+                        <div class="metric-label">Task Completion</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-number">4.5/5</div>
+                        <div class="metric-label">User Satisfaction</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-number">&lt;2%</div>
+                        <div class="metric-label">Error Rate</div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="user-research" class="section">
+                <h2>User Research & Analysis</h2>
+                
+                <h3>Target User Roles</h3>
+                <div class="user-grid">
+                    <div class="user-card analyst">
+                        <div class="user-title">AP Analyst</div>
+                        <div class="user-subtitle">Daily payment processing specialist</div>
+                        <div class="user-content">
+                            <h5>Key Responsibilities</h5>
+                            <ul>
+                                <li>Process daily payment workflows</li>
+                                <li>Manage vendor relationships</li>
+                                <li>Track payment status and history</li>
+                                <li>Handle payment exceptions and errors</li>
+                            </ul>
+                            <h5>Pain Points</h5>
+                            <ul>
+                                <li>Time-consuming manual processes</li>
+                                <li>Limited real-time status visibility</li>
+                                <li>Difficulty prioritizing urgent payments</li>
+                                <li>Complex approval workflows</li>
+                            </ul>
+                            <h5>Goals</h5>
+                            <ul>
+                                <li>Process payments quickly and accurately</li>
+                                <li>Easily identify priority items</li>
+                                <li>Access complete payment information</li>
+                                <li>Manage workload efficiently</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="user-card manager">
+                        <div class="user-title">AP Manager</div>
+                        <div class="user-subtitle">Team oversight and strategic planning</div>
+                        <div class="user-content">
+                            <h5>Key Responsibilities</h5>
+                            <ul>
+                                <li>Oversee team performance</li>
+                                <li>Manage approval workflows</li>
+                                <li>Monitor payment trends and metrics</li>
+                                <li>Ensure compliance and accuracy</li>
+                            </ul>
+                            <h5>Pain Points</h5>
+                            <ul>
+                                <li>Limited visibility into team workload</li>
+                                <li>Slow approval processes</li>
+                                <li>Manual reporting requirements</li>
+                                <li>Difficulty tracking performance metrics</li>
+                            </ul>
+                            <h5>Goals</h5>
+                            <ul>
+                                <li>Monitor team efficiency</li>
+                                <li>Streamline approval processes</li>
+                                <li>Access analytics and reporting</li>
+                                <li>Optimize workflow performance</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="user-card compliance">
+                        <div class="user-title">Compliance Officer</div>
+                        <div class="user-subtitle">Regulatory oversight and risk management</div>
+                        <div class="user-content">
+                            <h5>Key Responsibilities</h5>
+                            <ul>
+                                <li>Ensure regulatory compliance</li>
+                                <li>Monitor risk indicators</li>
+                                <li>Prepare audit documentation</li>
+                                <li>Review policy adherence</li>
+                            </ul>
+                            <h5>Pain Points</h5>
+                            <ul>
+                                <li>Manual compliance monitoring</li>
+                                <li>Incomplete audit trails</li>
+                                <li>Reactive risk identification</li>
+                                <li>Time-intensive reporting</li>
+                            </ul>
+                            <h5>Goals</h5>
+                            <ul>
+                                <li>Proactive risk management</li>
+                                <li>Efficient audit preparation</li>
+                                <li>Automated compliance reporting</li>
+                                <li>Real-time policy monitoring</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="user-journeys" class="section">
+                <h2>User Journey Mapping</h2>
+                
+                <h3>Current vs. Future State Analysis</h3>
+                <div class="before-after">
+                    <div class="before-card">
+                        <h4>❌ Current State (Before)</h4>
+                        <div class="journey-flow">
+                            <div class="flow-title">Legacy Workflow</div>
+                            <div class="flow-steps">
+                                <div class="flow-step">Login</div>
+                                <div class="flow-step">Navigate</div>
+                                <div class="flow-step">Search</div>
+                                <div class="flow-step">Spreadsheet</div>
+                                <div class="flow-step">Manual Check</div>
+                                <div class="flow-step">Multiple Systems</div>
+                            </div>
+                            <p style="margin-top: var(--space-md); color: var(--text-secondary); font-size: 0.9rem;">
+                                <strong>Time per payment:</strong> 6-8 minutes<br>
+                                <strong>Error rate:</strong> 8-12%<br>
+                                <strong>User satisfaction:</strong> 3.2/5
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="after-card">
+                        <h4>✅ Future State (After)</h4>
+                        <div class="journey-flow">
+                            <div class="flow-title">Optimized Workflow</div>
+                            <div class="flow-steps">
+                                <div class="flow-step">Role Selection</div>
+                                <div class="flow-step">Dashboard</div>
+                                <div class="flow-step">Quick Actions</div>
+                                <div class="flow-step">Auto Status</div>
+                                <div class="flow-step">Confirmation</div>
+                            </div>
+                            <p style="margin-top: var(--space-md); color: var(--text-secondary); font-size: 0.9rem;">
+                                <strong>Time per payment:</strong> 2-3 minutes<br>
+                                <strong>Error rate:</strong> &lt;2%<br>
+                                <strong>User satisfaction:</strong> 4.5/5
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Critical User Flows</h3>
+                
+                <div class="journey-flow">
+                    <div class="flow-title">AP Analyst: Daily Payment Processing</div>
+                    <div class="flow-steps">
+                        <div class="flow-step">Dashboard View</div>
+                        <div class="flow-step">Status Scan</div>
+                        <div class="flow-step">Priority Selection</div>
+                        <div class="flow-step">Quick Action</div>
+                        <div class="flow-step">Confirmation</div>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: var(--space-md);">
+                        <strong>Success Criteria:</strong> Complete payment processing in under 3 minutes with visual status tracking
+                    </p>
+                </div>
+
+                <div class="journey-flow">
+                    <div class="flow-title">AP Manager: Approval Workflow</div>
+                    <div class="flow-steps">
+                        <div class="flow-step">Approval Queue</div>
+                        <div class="flow-step">Payment Review</div>
+                        <div class="flow-step">Decision</div>
+                        <div class="flow-step">Comments</div>
+                        <div class="flow-step">Confirmation</div>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: var(--space-md);">
+                        <strong>Success Criteria:</strong> Approve payments in under 1 minute with complete audit trail
+                    </p>
+                </div>
+
+                <div class="journey-flow">
+                    <div class="flow-title">Compliance Officer: Risk Monitoring</div>
+                    <div class="flow-steps">
+                        <div class="flow-step">Dashboard Metrics</div>
+                        <div class="flow-step">Flag Review</div>
+                        <div class="flow-step">Audit Trail</div>
+                        <div class="flow-step">Report Generation</div>
+                        <div class="flow-step">Export</div>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: var(--space-md);">
+                        <strong>Success Criteria:</strong> Complete compliance review in under 5 minutes with automated reporting
+                    </p>
+                </div>
+            </section>
+
+            <section id="information-architecture" class="section">
+                <h2>Information Architecture</h2>
+                
+                <h3>Site Structure</h3>
+                <div class="info-arch">
+<span class="branch">Truist Commercial Banking Platform</span>
+├── <span class="item">Role Selection Landing Page</span>
+│   ├── <span class="item">AP Analyst Portal</span>
+│   ├── <span class="item">AP Manager Portal</span>
+│   └── <span class="item">Compliance Officer Portal</span>
+│
+├── <span class="branch">AP Analyst Section</span>
+│   ├── <span class="item">Dashboard (Status + Quick Actions)</span>
+│   ├── <span class="item">Payment List (Filterable)</span>
+│   ├── <span class="item">Payment Details</span>
+│   ├── <span class="item">Batch Operations</span>
+│   └── <span class="item">Personal Settings</span>
+│
+├── <span class="branch">AP Manager Section</span>
+│   ├── <span class="item">Dashboard (Team Metrics)</span>
+│   ├── <span class="item">Approval Queue</span>
+│   ├── <span class="item">Team Performance</span>
+│   ├── <span class="item">Analytics & Reports</span>
+│   └── <span class="item">Management Tools</span>
+│
+└── <span class="branch">Compliance Section</span>
+    ├── <span class="item">Dashboard (Compliance Status)</span>
+    ├── <span class="item">Risk Assessment</span>
+    ├── <span class="item">Audit Trail Management</span>
+    ├── <span class="item">Regulatory Reports</span>
+    └── <span class="item">Policy Management</span>
+                </div>
+
+                <h3>Content Prioritization Strategy</h3>
+                <div class="interaction-demo">
+                    <div class="pattern-card">
+                        <div class="pattern-title">Above the Fold (Mobile Priority)</div>
+                        <div class="pattern-description">
+                            <strong>1. Critical status indicators</strong> - Immediate attention items<br>
+                            <strong>2. Primary action buttons</strong> - Most common user tasks<br>
+                            <strong>3. Urgent/important items</strong> - High-priority payments<br>
+                            <strong>4. Clear navigation</strong> - Role-specific menu structure
+                        </div>
+                    </div>
+                    <div class="pattern-card">
+                        <div class="pattern-title">Below the Fold (Secondary)</div>
+                        <div class="pattern-description">
+                            <strong>1. Secondary actions</strong> - Less frequent operations<br>
+                            <strong>2. Historical data</strong> - Payment history and trends<br>
+                            <strong>3. Detailed information</strong> - Extended payment details<br>
+                            <strong>4. Settings and preferences</strong> - User customization options
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="interaction-design" class="section">
+                <h2>Interaction Design Patterns</h2>
+                
+                <h3>Progressive Disclosure</h3>
+                <div class="interaction-demo">
+                    <div class="pattern-card">
+                        <div class="pattern-title">Level 1: Dashboard Overview</div>
+                        <div class="pattern-description">High-level status indicators and critical metrics providing immediate situational awareness</div>
+                    </div>
+                    <div class="pattern-card">
+                        <div class="pattern-title">Level 2: List View</div>
+                        <div class="pattern-description">Key payment details with visual status indicators for quick scanning and prioritization</div>
+                    </div>
