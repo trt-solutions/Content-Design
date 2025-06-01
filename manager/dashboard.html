@@ -1153,24 +1153,20 @@
         }
         
         function goToReviewPage(vendor, amount, category, description) {
-            // For demo purposes, show the review details
-            const reviewDetails = `
-PAYMENT REVIEW DETAILS
-
-Vendor: ${vendor}
-Amount: ${amount}
-Category: ${category}
-Description: ${description}
-
-In a full system, this would open the detailed review page where you can:
-• View all payment documentation
-• Add approval comments
-• Approve, reject, or request changes
-• See complete audit trail
-
-Click OK to continue with the demo.`;
+            // Store the payment data for the review page
+            const paymentData = {
+                vendor: vendor,
+                amount: amount,
+                category: category,
+                description: description,
+                timestamp: new Date().toISOString()
+            };
             
-            alert(reviewDetails);
+            // Store in window object for the review page to access
+            window.paymentReviewData = paymentData;
+            
+            // Navigate to the review page
+            window.location.href = 'approver-review-payment.html';
         }
         
         function showComingSoon(feature) {
