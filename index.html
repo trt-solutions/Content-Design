@@ -878,33 +878,42 @@
                 
                 if (!element) return;
                 
-                const rect = element.getBoundingClientRect();
-                const spotlight = document.getElementById('tourSpotlight');
-                const tooltip = document.getElementById('tourTooltip');
+                // Scroll element into view first
+                element.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'center',
+                    inline: 'center'
+                });
                 
-                // Position spotlight
-                spotlight.style.left = (rect.left - 10) + 'px';
-                spotlight.style.top = (rect.top - 10) + 'px';
-                spotlight.style.width = (rect.width + 20) + 'px';
-                spotlight.style.height = (rect.height + 20) + 'px';
-                
-                // Update tooltip content
-                document.getElementById('tourTitle').textContent = step.title;
-                document.getElementById('tourDescription').textContent = step.description;
-                
-                // Position tooltip
-                this.positionTooltip(tooltip, rect, step.position);
-                
-                // Update progress
-                this.updateProgressDots();
-                
-                // Update button text
-                const nextBtn = document.getElementById('tourNext');
-                nextBtn.textContent = this.currentStep === this.tourSteps.length - 1 ? 'Finish' : 'Next';
+                // Wait for scroll to complete before positioning
+                setTimeout(() => {
+                    const rect = element.getBoundingClientRect();
+                    const spotlight = document.getElementById('tourSpotlight');
+                    const tooltip = document.getElementById('tourTooltip');
+                    
+                    // Position spotlight (accounting for scroll)
+                    spotlight.style.left = (rect.left - 10) + 'px';
+                    spotlight.style.top = (rect.top - 10) + 'px';
+                    spotlight.style.width = (rect.width + 20) + 'px';
+                    spotlight.style.height = (rect.height + 20) + 'px';
+                    
+                    // Update tooltip content
+                    document.getElementById('tourTitle').textContent = step.title;
+                    document.getElementById('tourDescription').textContent = step.description;
+                    
+                    // Position tooltip
+                    this.positionTooltip(tooltip, rect, step.position);
+                    
+                    // Update progress
+                    this.updateProgressDots();
+                    
+                    // Update button text
+                    const nextBtn = document.getElementById('tourNext');
+                    nextBtn.textContent = this.currentStep === this.tourSteps.length - 1 ? 'Finish' : 'Next';
+                }, 500); // Wait 500ms for smooth scroll to complete
             }
             
             positionTooltip(tooltip, rect, position) {
-                const tooltipRect = tooltip.getBoundingClientRect();
                 const viewportWidth = window.innerWidth;
                 const viewportHeight = window.innerHeight;
                 const isMobile = viewportWidth <= 768;
@@ -913,12 +922,23 @@
                 
                 if (isMobile) {
                     // On mobile, always position tooltip at bottom with full width
-                    left = 16;
-                    top = viewportHeight - 200; // Fixed position near bottom
-                    tooltip.style.width = (viewportWidth - 32) + 'px';
+                    tooltip.style.position = 'fixed';
+                    tooltip.style.bottom = '20px';
+                    tooltip.style.left = '16px';
+                    tooltip.style.right = '16px';
+                    tooltip.style.width = 'auto';
                     tooltip.style.maxWidth = 'none';
+                    tooltip.style.top = 'auto';
+                    tooltip.style.transform = 'none';
                 } else {
                     // Desktop positioning logic
+                    tooltip.style.position = 'absolute';
+                    tooltip.style.bottom = 'auto';
+                    tooltip.style.right = 'auto';
+                    
+                    // Get fresh tooltip dimensions after potential content changes
+                    const tooltipRect = tooltip.getBoundingClientRect();
+                    
                     switch (position) {
                         case 'bottom':
                             left = rect.left + (rect.width / 2) - (tooltipRect.width / 2);
@@ -941,10 +961,13 @@
                     // Keep tooltip within viewport on desktop
                     left = Math.max(20, Math.min(left, viewportWidth - tooltipRect.width - 20));
                     top = Math.max(20, Math.min(top, viewportHeight - tooltipRect.height - 20));
+                    
+                    tooltip.style.left = left + 'px';
+                    tooltip.style.top = top + 'px';
+                    tooltip.style.width = 'auto';
+                    tooltip.style.maxWidth = '300px';
+                    tooltip.style.transform = 'none';
                 }
-                
-                tooltip.style.left = left + 'px';
-                tooltip.style.top = top + 'px';
             }
             
             updateProgressDots() {
