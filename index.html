@@ -847,7 +847,7 @@
                             <strong>${dashboardUrls[role]}</strong><br><br>
                             The ${roleNames[role]} dashboard would include all the interactive features and workflows specific to this role.
                         </p>
-                        <button onclick="this.parentElement.parentElement.parentElement.remove()" style="
+                        <button onclick="closeNavigationOverlay()" style="
                             background: white;
                             color: #663399;
                             border: none;
@@ -863,6 +863,19 @@
                     </div>
                 `;
             }, 2000);
+        }
+        
+        // Function to close the navigation overlay
+        function closeNavigationOverlay() {
+            const overlays = document.querySelectorAll('div[style*="position: fixed"][style*="z-index: 9999"]');
+            overlays.forEach(overlay => {
+                overlay.style.opacity = '0';
+                setTimeout(() => {
+                    if (overlay.parentNode) {
+                        overlay.parentNode.removeChild(overlay);
+                    }
+                }, 300);
+            });
         }
         
         // Add subtle interactions to hotspots
