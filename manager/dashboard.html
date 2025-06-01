@@ -571,6 +571,170 @@
             background: #ef4444;
             border-radius: 50%;
         }
+        
+        /* Custom Rejection Popover Styles */
+        .rejection-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .rejection-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .rejection-popover {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            max-width: 340px;
+            width: 90%;
+            margin: 0 20px;
+            overflow: hidden;
+            transform: scale(0.9) translateY(20px);
+            transition: all 0.3s ease;
+        }
+        
+        .rejection-overlay.active .rejection-popover {
+            transform: scale(1) translateY(0);
+        }
+        
+        .rejection-header {
+            padding: 24px 24px 16px 24px;
+            border-bottom: 1px solid #f3f4f6;
+            text-align: center;
+        }
+        
+        .rejection-icon {
+            width: 48px;
+            height: 48px;
+            background: #fef2f2;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px auto;
+        }
+        
+        .rejection-icon-inner {
+            font-size: 20px;
+            color: #ef4444;
+        }
+        
+        .rejection-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+        
+        .rejection-subtitle {
+            font-size: 14px;
+            color: #6b7280;
+            line-height: 1.4;
+        }
+        
+        .rejection-vendor {
+            font-weight: 600;
+            color: #663399;
+        }
+        
+        .rejection-body {
+            padding: 20px 24px;
+        }
+        
+        .rejection-form-group {
+            margin-bottom: 20px;
+        }
+        
+        .rejection-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+        
+        .rejection-label .required {
+            color: #ef4444;
+            margin-left: 2px;
+        }
+        
+        .rejection-textarea {
+            width: 100%;
+            min-height: 80px;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            resize: vertical;
+            transition: border-color 0.2s ease;
+            background: white;
+        }
+        
+        .rejection-textarea:focus {
+            outline: none;
+            border-color: #663399;
+            box-shadow: 0 0 0 3px rgba(102, 51, 153, 0.1);
+        }
+        
+        .rejection-textarea::placeholder {
+            color: #9ca3af;
+        }
+        
+        .rejection-actions {
+            padding: 16px 24px 24px 24px;
+            display: flex;
+            gap: 12px;
+        }
+        
+        .rejection-btn {
+            flex: 1;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+        
+        .rejection-btn-cancel {
+            background: #f9fafb;
+            color: #374151;
+            border-color: #d1d5db;
+        }
+        
+        .rejection-btn-cancel:hover {
+            background: #f3f4f6;
+        }
+        
+        .rejection-btn-confirm {
+            background: #ef4444;
+            color: white;
+        }
+        
+        .rejection-btn-confirm:hover {
+            background: #dc2626;
+        }
+        
+        .rejection-btn-confirm:disabled {
+            background: #fca5a5;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body>
@@ -788,6 +952,44 @@
         </div>
     </div>
     
+    <!-- Custom Rejection Popover -->
+    <div class="rejection-overlay" id="rejectionOverlay">
+        <div class="rejection-popover">
+            <div class="rejection-header">
+                <div class="rejection-icon">
+                    <div class="rejection-icon-inner">⚠️</div>
+                </div>
+                <div class="rejection-title">Reject Payment</div>
+                <div class="rejection-subtitle">
+                    Are you sure you want to reject the <span class="rejection-vendor" id="rejectionVendor"></span> payment?
+                </div>
+            </div>
+            
+            <div class="rejection-body">
+                <div class="rejection-form-group">
+                    <label class="rejection-label" for="rejectionComments">
+                        Reason for rejection<span class="required">*</span>
+                    </label>
+                    <textarea 
+                        class="rejection-textarea" 
+                        id="rejectionComments" 
+                        placeholder="Please provide a reason for rejecting this payment..."
+                        required
+                    ></textarea>
+                </div>
+            </div>
+            
+            <div class="rejection-actions">
+                <button class="rejection-btn rejection-btn-cancel" onclick="hideRejectionPopover()">
+                    Cancel
+                </button>
+                <button class="rejection-btn rejection-btn-confirm" id="confirmRejectBtn" onclick="confirmRejection()">
+                    Reject Payment
+                </button>
+            </div>
+        </div>
+    </div>
+    
     <script>
         function toggleQueue() {
             const queueContent = document.getElementById('queueContent');
@@ -810,9 +1012,78 @@
         
         function quickReject(vendor) {
             console.log('Quick rejecting:', vendor);
-            // Navigate to review page with rejection action
-            location.href = 'approver-review-payment.html?action=reject&vendor=' + encodeURIComponent(vendor);
+            showRejectionPopover(vendor);
         }
+        
+        function showRejectionPopover(vendor) {
+            const overlay = document.getElementById('rejectionOverlay');
+            const vendorElement = document.getElementById('rejectionVendor');
+            const commentsTextarea = document.getElementById('rejectionComments');
+            const confirmBtn = document.getElementById('confirmRejectBtn');
+            
+            // Set vendor name and store for later use
+            vendorElement.textContent = vendor;
+            overlay.dataset.vendor = vendor;
+            
+            // Clear previous comments and reset button state
+            commentsTextarea.value = '';
+            confirmBtn.disabled = true;
+            
+            // Show the popover
+            overlay.classList.add('active');
+            
+            // Focus on textarea after animation
+            setTimeout(() => {
+                commentsTextarea.focus();
+            }, 300);
+            
+            // Listen for input to enable/disable confirm button
+            commentsTextarea.oninput = function() {
+                confirmBtn.disabled = this.value.trim().length === 0;
+            };
+        }
+        
+        function hideRejectionPopover() {
+            const overlay = document.getElementById('rejectionOverlay');
+            overlay.classList.remove('active');
+        }
+        
+        function confirmRejection() {
+            const overlay = document.getElementById('rejectionOverlay');
+            const vendor = overlay.dataset.vendor;
+            const comments = document.getElementById('rejectionComments').value.trim();
+            
+            if (!comments) {
+                alert('Please provide a reason for rejection.');
+                return;
+            }
+            
+            // Hide popover
+            hideRejectionPopover();
+            
+            // Navigate to review page with rejection data
+            const params = new URLSearchParams({
+                action: 'reject',
+                vendor: vendor,
+                comments: comments
+            });
+            
+            location.href = 'approver-review-payment.html?' + params.toString();
+        }
+        
+        // Close popover when clicking outside
+        document.getElementById('rejectionOverlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                hideRejectionPopover();
+            }
+        });
+        
+        // Close popover with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                hideRejectionPopover();
+            }
+        });
         
         // Start with queue expanded by default
         document.addEventListener('DOMContentLoaded', function() {
