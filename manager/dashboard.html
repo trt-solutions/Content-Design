@@ -887,7 +887,7 @@
             
             <div class="quick-actions">
                 <div class="actions-grid">
-                    <div class="action-item" onclick="location.href='approval-queue.html'">
+                    <div class="action-item" onclick="scrollToApprovalQueue()">
                         <div class="action-icon">✅</div>
                         <div class="action-label">Approve</div>
                         <div class="action-sublabel">Pending payments<br><span style="color: #ef4444; font-weight: 600; font-size: 11px;">7 need approval</span></div>
@@ -1102,6 +1102,22 @@
     <script>
         // In-memory storage for payment actions (since sessionStorage is not available)
         window.paymentActionData = null;
+        
+        function scrollToApprovalQueue() {
+            const approvalQueue = document.querySelector('.approval-queue');
+            if (approvalQueue) {
+                approvalQueue.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start' 
+                });
+                
+                // Highlight the queue briefly
+                approvalQueue.style.boxShadow = '0 0 0 3px rgba(102, 51, 153, 0.2)';
+                setTimeout(() => {
+                    approvalQueue.style.boxShadow = '0 1px 3px rgba(0,0,0,0.1)';
+                }, 2000);
+            }
+        }
         
         function toggleQueue() {
             const queueContent = document.getElementById('queueContent');
