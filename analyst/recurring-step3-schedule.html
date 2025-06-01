@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Schedule Recurring Payment</title>
+    <title>Schedule Recurring Payment - Step 3</title>
     <style>
         * {
             margin: 0;
@@ -44,6 +44,7 @@
             padding: 16px;
             text-align: center;
             border-bottom: 1px solid #e5e7eb;
+            position: relative;
         }
         
         .step-visual {
@@ -104,6 +105,7 @@
             display: flex;
             align-items: center;
             gap: 16px;
+            position: relative;
         }
         
         .back-btn {
@@ -176,113 +178,157 @@
             color: #6b7280;
         }
         
-        .amount-section {
+        .frequency-section {
             margin-bottom: 32px;
-        }
-        
-        .amount-input-container {
             position: relative;
-            margin-bottom: 16px;
         }
         
-        .currency-symbol {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 16px;
-            font-weight: 400;
-            color: #374151;
-            z-index: 2;
+        .frequency-dropdown {
+            position: relative;
+            margin-bottom: 24px;
         }
         
-        .amount-input {
+        .frequency-select {
             width: 100%;
-            padding: 20px 20px 20px 50px;
+            padding: 16px 20px;
             border: 2px solid #d1d5db;
             border-radius: 16px;
             font-size: 16px;
-            font-weight: 400;
             color: #374151;
             background: white;
             transition: all 0.2s ease;
             font-family: inherit;
+            appearance: none;
+            cursor: pointer;
         }
         
-        .amount-input:focus {
+        .frequency-select:focus {
             outline: none;
             border-color: #663399;
             box-shadow: 0 0 0 3px rgba(102, 51, 153, 0.1);
         }
         
-        .amount-input::placeholder {
+        .dropdown-arrow {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
             color: #9ca3af;
         }
         
-        .amount-suggestions {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 20px;
-            overflow-x: auto;
-            padding-bottom: 4px;
+        .date-fields {
+            margin-bottom: 24px;
+            position: relative;
         }
         
-        .amount-suggestion {
-            background: #f3f4f6;
-            border: 1px solid #d1d5db;
-            border-radius: 20px;
-            padding: 8px 16px;
+        .date-field {
+            margin-bottom: 16px;
+        }
+        
+        .field-label {
+            display: block;
             font-size: 14px;
             font-weight: 500;
             color: #374151;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            white-space: nowrap;
-            flex-shrink: 0;
+            margin-bottom: 8px;
         }
         
-        .amount-suggestion:hover {
-            background: #e5e7eb;
-        }
-
-        .amount-suggestion.demo-highlight {
-            background: #663399;
-            color: white;
-            border-color: #663399;
-            animation: suggestion-pulse 2s infinite;
-        }
-
-        @keyframes suggestion-pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+        .required {
+            color: #ef4444;
         }
         
-        .memo-section {
-            margin-bottom: 32px;
+        .date-input-container {
+            position: relative;
         }
         
-        .memo-input {
+        .date-input {
             width: 100%;
-            padding: 16px;
-            border: 1px solid #d1d5db;
-            border-radius: 12px;
+            padding: 16px 20px;
+            border: 2px solid #d1d5db;
+            border-radius: 16px;
             font-size: 16px;
             color: #374151;
             background: white;
             transition: all 0.2s ease;
             font-family: inherit;
-            resize: vertical;
-            min-height: 80px;
         }
         
-        .memo-input:focus {
+        .date-input:focus {
             outline: none;
             border-color: #663399;
             box-shadow: 0 0 0 3px rgba(102, 51, 153, 0.1);
         }
         
-        .memo-input::placeholder {
-            color: #9ca3af;
+        .ending-options {
+            margin-bottom: 32px;
+            position: relative;
+        }
+        
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: white;
+        }
+        
+        .radio-option:hover {
+            background: #f9fafb;
+        }
+        
+        .radio-option.selected {
+            border-color: #663399;
+            background: #faf8ff;
+        }
+        
+        .radio-input {
+            margin-right: 12px;
+            accent-color: #663399;
+        }
+        
+        .radio-label {
+            font-size: 14px;
+            color: #374151;
+            cursor: pointer;
+        }
+        
+        .end-date-field {
+            margin-left: 24px;
+            margin-top: 12px;
+        }
+        
+        .custom-warning {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        
+        .warning-icon {
+            color: #3b82f6;
+            font-size: 18px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        
+        .warning-text {
+            font-size: 14px;
+            color: #1e40af;
+            font-weight: 500;
         }
         
         .continue-btn {
@@ -325,7 +371,70 @@
             }
         }
 
-        /* Hotspot and Tour Styles */
+        /* Content Design Hotspots */
+        .content-hotspot {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #3b82f6;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            animation: content-pulse 2s infinite;
+            border: 2px solid white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            z-index: 100;
+        }
+
+        @keyframes content-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        .demo-indicator {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ef4444;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 10px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: demo-bounce 1.5s infinite;
+            border: 2px solid white;
+            z-index: 10;
+        }
+
+        @keyframes demo-bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* Phase indicator */
+        .phase-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #3b82f6;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            z-index: 1003;
+            display: none;
+        }
+
         .hotspot-overlay {
             position: fixed;
             top: 0;
@@ -442,44 +551,14 @@
         .tour-btn.secondary:hover {
             background: #e5e7eb;
         }
-
-        .demo-indicator {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background: #ef4444;
-            color: white;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            font-size: 10px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: demo-bounce 1.5s infinite;
-            border: 2px solid white;
-            z-index: 10;
-        }
-
-        @keyframes demo-bounce {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
+        
+        .hidden {
+            display: none;
         }
         
         @media (max-width: 640px) {
             .title {
                 font-size: 18px;
-            }
-            
-            .amount-input {
-                font-size: 16px;
-                padding: 18px 18px 18px 45px;
-            }
-            
-            .currency-symbol {
-                font-size: 16px;
-                left: 18px;
             }
         }
     </style>
@@ -492,26 +571,28 @@
             <div class="step-visual">
                 <div class="step-dot completed">✓</div>
                 <div class="step-connector completed"></div>
-                <div class="step-dot active">2</div>
-                <div class="step-connector"></div>
-                <div class="step-dot inactive">3</div>
+                <div class="step-dot completed">✓</div>
+                <div class="step-connector completed"></div>
+                <div class="step-dot active">3</div>
                 <div class="step-connector"></div>
                 <div class="step-dot inactive">4</div>
                 <div class="step-connector"></div>
                 <div class="step-dot inactive">5</div>
             </div>
-            <div class="step-text">Step 2 of 5 • Enter amount</div>
+            <div class="step-text">Step 3 of 5 • Setup frequency</div>
+            <div class="content-hotspot" id="hotspot-2" onclick="showContentTooltip(2)" style="top: 15px; right: 20px;">2</div>
         </div>
         
         <div class="header">
             <button class="back-btn" onclick="history.back()">‹</button>
             <div class="header-content">
-                <h2 class="title">How much will you pay?</h2>
+                <h2 class="title">How often would you like to pay?</h2>
+                <div class="content-hotspot" id="hotspot-1" onclick="showContentTooltip(1)" style="top: 5px; right: -30px;">1</div>
             </div>
         </div>
         
         <div class="content">
-            <div class="payee-summary" id="payeeSummary">
+            <div class="payee-summary">
                 <div class="payee-avatar">DP</div>
                 <div class="payee-info">
                     <div class="payee-name">Downtown Property</div>
@@ -519,117 +600,196 @@
                 </div>
             </div>
             
-            <div class="amount-section">
-                <div class="amount-input-container" id="amount-input-container">
-                    <span class="currency-symbol">$</span>
-                    <input type="text" class="amount-input" id="amountInput" placeholder="Enter the amount" inputmode="decimal">
-                    <div class="demo-indicator">!</div>
+            <div class="frequency-section">
+                <div class="frequency-dropdown" id="frequency-dropdown">
+                    <select class="frequency-select" id="frequencySelect">
+                        <option value="daily">Daily</option>
+                        <option value="weekly">Weekly</option>
+                        <option value="biweekly">Every 2 weeks</option>
+                        <option value="monthly" selected>Monthly</option>
+                        <option value="quarterly">Quarterly</option>
+                        <option value="custom">Custom</option>
+                    </select>
+                    <div class="dropdown-arrow">▼</div>
+                    <div class="demo-indicator" style="display: none;">!</div>
                 </div>
-
-                <div class="amount-suggestions" id="amount-suggestions" style="display: none;">
-                    <button class="amount-suggestion demo-highlight" onclick="setAmount('8500')">$8,500</button>
-                    <button class="amount-suggestion" onclick="setAmount('8000')">$8,000</button>
-                    <button class="amount-suggestion" onclick="setAmount('9000')">$9,000</button>
+                <div class="content-hotspot" id="hotspot-3" onclick="showContentTooltip(3)" style="top: 10px; right: -30px;">3</div>
+            </div>
+            
+            <div class="date-fields" id="dateFields">
+                <div class="date-field" id="startDateField">
+                    <label class="field-label" for="startDate">
+                        Starting <span class="required">*</span>
+                    </label>
+                    <div class="date-input-container">
+                        <input type="date" class="date-input" id="startDate" required>
+                    </div>
+                </div>
+                <div class="content-hotspot" id="hotspot-4" onclick="showContentTooltip(4)" style="top: 15px; right: -30px;">4</div>
+                
+                <div class="date-field hidden" id="sendDateField">
+                    <label class="field-label" for="sendDate">
+                        Send on <span class="required">*</span>
+                    </label>
+                    <div class="date-input-container">
+                        <input type="date" class="date-input" id="sendDate">
+                    </div>
                 </div>
             </div>
             
-            <div class="memo-section">
-                <textarea class="memo-input" id="memoInput" placeholder="Add a note about this payment (optional)"></textarea>
+            <div class="ending-options" id="endingOptions">
+                <label class="field-label">
+                    Ending <span class="required">*</span>
+                </label>
+                <div class="radio-group">
+                    <div class="radio-option selected" data-value="continue">
+                        <input type="radio" name="endOption" value="continue" class="radio-input" checked>
+                        <span class="radio-label">Continue until canceled</span>
+                    </div>
+                    <div class="radio-option" data-value="specific">
+                        <input type="radio" name="endOption" value="specific" class="radio-input">
+                        <span class="radio-label">On specific date</span>
+                    </div>
+                    <div class="end-date-field hidden" id="endDateField">
+                        <div class="date-input-container">
+                            <input type="date" class="date-input" id="endDate">
+                        </div>
+                    </div>
+                </div>
+                <div class="content-hotspot" id="hotspot-5" onclick="showContentTooltip(5)" style="top: 15px; right: -30px; display: none;">5</div>
             </div>
             
-            <button class="continue-btn" id="continueBtn" onclick="continueToStep3()">
-                Setup Frequency
+            <div class="custom-warning hidden" id="customWarning">
+                <div class="warning-icon">⚠️</div>
+                <div class="warning-text">
+                    Need a custom schedule? Allow 2–3 extra days for approval and processing.
+                </div>
+            </div>
+            
+            <button class="continue-btn" id="continueBtn" onclick="continueToStep4()">
+                Continue
                 <div class="demo-indicator" id="continue-indicator" style="display: none;">!</div>
             </button>
         </div>
     </div>
 
+    <!-- Phase Indicator -->
+    <div class="phase-indicator" id="phase-indicator"></div>
+
     <!-- Hotspot Overlay -->
     <div class="hotspot-overlay" id="hotspot-overlay"></div>
 
-    <!-- Tour Tooltip -->
-    <div class="tour-tooltip" id="tour-tooltip">
+    <!-- Tour Tooltips -->
+    <div class="tour-tooltip" id="frequency-tooltip">
         <div class="tour-header">
-            <span>💰</span>
-            <span>Enter recurring payment amount</span>
+            <span>📅</span>
+            <span>Workflow Demo</span>
         </div>
         <div class="tour-content">
-            Enter <strong>8500</strong> for the monthly rent payment. You can type the amount or tap the button.
+            <strong>Monthly</strong> is perfect for office rent. Now let's complete the workflow by keeping this selection.
         </div>
         <div class="tour-actions">
             <button class="tour-btn secondary" onclick="closeTour()">Skip</button>
-            <button class="tour-btn primary" onclick="enterDemoAmount()">Enter 8500</button>
+            <button class="tour-btn primary" onclick="confirmMonthly()">Keep Monthly</button>
         </div>
     </div>
 
-    <!-- Tour Tooltip for Continue Button -->
     <div class="tour-tooltip" id="continue-tooltip">
         <div class="tour-header">
-            <span>📅</span>
-            <span>Ready for next step!</span>
+            <span>✨</span>
+            <span>Next: Approval Setup</span>
         </div>
         <div class="tour-content">
-            Great! Now click <strong>"Setup Frequency"</strong> to choose how often this payment repeats.
+            Perfect! Now continue to set up who needs to approve this payment before it's sent.
         </div>
         <div class="tour-actions">
-            <button class="tour-btn primary" onclick="proceedToFrequency()">Setup Frequency</button>
+            <button class="tour-btn primary" onclick="proceedToApprovers()">Continue to Approvers</button>
         </div>
     </div>
     
     <script>
-        // Auto-start tour when page loads
+        let selectedFrequency = 'monthly';
+        let selectedEndOption = 'continue';
+        let currentContentStep = 0;
+        let isInDemoPhase = false;
+        
+        // Auto-start content design review when page loads
         window.addEventListener('load', function() {
-            setTimeout(showAmountTour, 800);
+            setTimeout(startContentReview, 1000);
         });
 
-        function showAmountTour() {
+        function startContentReview() {
+            document.getElementById('phase-indicator').style.display = 'block';
+            document.getElementById('phase-indicator').textContent = 'Phase 1: Content Design Review';
+            showContentTooltip(1);
+        }
+
+        function showContentTooltip(step) {
+            console.log('Showing content tooltip for step:', step);
+            currentContentStep = step;
+            // For now, just proceed to demo phase
+            setTimeout(() => {
+                startActionTour();
+            }, 1000);
+        }
+
+        function startActionTour() {
+            hideAllContentTooltips();
+            isInDemoPhase = true;
+            
+            // Reset to monthly for demo
+            document.getElementById('frequencySelect').value = 'monthly';
+            selectedFrequency = 'monthly';
+            updateFormFields();
+            
+            // Show demo indicators and start guided tour
+            document.getElementById('phase-indicator').style.display = 'block';
+            document.getElementById('phase-indicator').textContent = 'Phase 2: Workflow Demo';
+            
+            setTimeout(() => {
+                showFrequencyTour();
+            }, 500);
+        }
+
+        function hideAllContentTooltips() {
+            document.querySelectorAll('.content-hotspot').forEach(hotspot => {
+                hotspot.style.display = 'none';
+            });
+        }
+
+        function showFrequencyTour() {
             const overlay = document.getElementById('hotspot-overlay');
-            const tooltip = document.getElementById('tour-tooltip');
-            const amountContainer = document.getElementById('amount-input-container');
-            const suggestions = document.getElementById('amount-suggestions');
+            const tooltip = document.getElementById('frequency-tooltip');
+            const frequencyDropdown = document.getElementById('frequency-dropdown');
+            const demoIndicator = frequencyDropdown.querySelector('.demo-indicator');
             
-            // Show overlay
             overlay.style.display = 'block';
+            frequencyDropdown.classList.add('hotspot-highlight');
+            demoIndicator.style.display = 'block';
             
-            // Add hotspot highlight
-            amountContainer.classList.add('hotspot-highlight');
-            
-            // Show suggestions
-            suggestions.style.display = 'flex';
-            
-            // Position and show tooltip
-            const rect = amountContainer.getBoundingClientRect();
+            const rect = frequencyDropdown.getBoundingClientRect();
             tooltip.style.left = `${rect.left + (rect.width / 2) - 140}px`;
             tooltip.style.top = `${rect.bottom + 20}px`;
             tooltip.style.display = 'block';
 
-            // Scroll to amount input if needed
-            amountContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            frequencyDropdown.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
         function closeTour() {
             const overlay = document.getElementById('hotspot-overlay');
-            const tooltip = document.getElementById('tour-tooltip');
-            const amountContainer = document.getElementById('amount-input-container');
+            const tooltip = document.getElementById('frequency-tooltip');
+            const frequencyDropdown = document.getElementById('frequency-dropdown');
             
             overlay.style.display = 'none';
             tooltip.style.display = 'none';
-            amountContainer.classList.remove('hotspot-highlight');
+            frequencyDropdown.classList.remove('hotspot-highlight');
         }
 
-        function enterDemoAmount() {
+        function confirmMonthly() {
             closeTour();
-            setAmount('8500');
-            
-            // Focus on memo after entering amount
             setTimeout(() => {
-                document.getElementById('memoInput').focus();
-                
-                // Show continue button tour after amount is entered
-                setTimeout(() => {
-                    showContinueTour();
-                }, 1500);
-            }, 500);
+                showContinueTour();
+            }, 1000);
         }
 
         function showContinueTour() {
@@ -638,29 +798,21 @@
             const continueBtn = document.getElementById('continueBtn');
             const indicator = document.getElementById('continue-indicator');
             
-            // Show overlay
             overlay.style.display = 'block';
-            
-            // Add pulse animation to button
-            continueBtn.classList.add('demo-ready');
-            continueBtn.classList.add('hotspot-highlight');
-            
-            // Show indicator
+            continueBtn.classList.add('demo-ready', 'hotspot-highlight');
             indicator.style.display = 'flex';
             
-            // Position and show tooltip
             const rect = continueBtn.getBoundingClientRect();
             tooltip.style.left = `${rect.left + (rect.width / 2) - 140}px`;
             tooltip.style.top = `${rect.top - 100}px`;
             tooltip.style.display = 'block';
 
-            // Scroll to continue button
             continueBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
-        function proceedToFrequency() {
+        function proceedToApprovers() {
             closeContinueTour();
-            // Just close the tour - let them click the actual button
+            continueToStep4();
         }
 
         function closeContinueTour() {
@@ -674,102 +826,108 @@
             continueBtn.classList.remove('demo-ready', 'hotspot-highlight');
             indicator.style.display = 'none';
         }
-
-        function continueToStep3() {
-            console.log('Navigating to frequency page...'); // Debug log
+        
+        function continueToStep4() {
+            console.log('Continuing to Step 4...');
             
-            const amount = document.getElementById('amountInput').value;
-            const memo = document.getElementById('memoInput').value;
+            const startDate = document.getElementById('startDate').value;
+            const sendDate = document.getElementById('sendDate').value;
+            const endDate = document.getElementById('endDate').value;
             
-            // Store data for demo
-            window.demoPaymentData = {
-                amount: amount,
-                memo: memo,
-                payee: 'Downtown Property',
-                type: 'Office rent'
+            const frequencyData = {
+                frequency: selectedFrequency,
+                startDate: startDate,
+                sendDate: sendDate,
+                endDate: endDate,
+                endOption: selectedEndOption
             };
             
-            // Navigate directly - NO ALERT
-            window.location.href = 'recurring-step3-schedule.html';
+            console.log('Frequency Data:', frequencyData);
+            
+            // Store data for next step
+            try {
+                localStorage.setItem('frequencyData', JSON.stringify(frequencyData));
+            } catch (error) {
+                window.demoFrequencyData = frequencyData;
+            }
+            
+            // In a real app, this would navigate to the next step
+            alert('Demo complete! This would navigate to the approvers setup page.');
         }
         
-        // Load selected recipient data
         document.addEventListener('DOMContentLoaded', function() {
-            const recipient = {
-                name: 'Downtown Property',
-                type: 'Office rent',
-                bank: 'Truist ****2341'
-            };
+            console.log('Step 3 page loaded');
             
-            updatePayeeSummary(recipient);
-            validateForm();
-        });
-        
-        function updatePayeeSummary(recipient) {
-            const avatar = document.querySelector('.payee-avatar');
-            const name = document.querySelector('.payee-name');
-            const detail = document.querySelector('.payee-detail');
+            // Set default start date to today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('startDate').value = today;
             
-            const initials = recipient.name.split(' ').map(word => word[0]).join('');
-            avatar.textContent = initials;
-            
-            name.textContent = recipient.name;
-            detail.textContent = `${recipient.type} • ${recipient.bank}`;
-        }
-        
-        function setAmount(amount) {
-            const input = document.getElementById('amountInput');
-            const numericAmount = parseFloat(amount);
-            input.value = numericAmount.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-            input.focus();
-            validateForm();
-
-            document.querySelectorAll('.amount-suggestion').forEach(btn => {
-                btn.classList.remove('demo-highlight');
-            });
-        }
-        
-        // Format amount input with commas
-        document.getElementById('amountInput').addEventListener('input', function(e) {
-            let value = e.target.value.replace(/[^\d.]/g, '');
-            
-            const parts = value.split('.');
-            if (parts.length > 2) {
-                value = parts[0] + '.' + parts.slice(1).join('');
-            }
-            if (parts[1] && parts[1].length > 2) {
-                value = parts[0] + '.' + parts[1].slice(0, 2);
-            }
-            
-            if (value && !isNaN(value)) {
-                const numericValue = parseFloat(value);
-                if (!isNaN(numericValue)) {
-                    e.target.value = numericValue.toLocaleString('en-US', {
-                        minimumFractionDigits: value.includes('.') ? (parts[1] ? parts[1].length : 1) : 0,
-                        maximumFractionDigits: 2
-                    });
-                }
-            }
-            
-            validateForm();
-        });
-        
-        function validateForm() {
-            const amountInput = document.getElementById('amountInput');
-            const continueBtn = document.getElementById('continueBtn');
-            
-            const amount = parseFloat(amountInput.value.replace(/[^\d.]/g, ''));
-            
-            if (amount && amount > 0) {
-                continueBtn.disabled = false;
+            // Frequency dropdown change handler
+            document.getElementById('frequencySelect').addEventListener('change', function(e) {
+                selectedFrequency = e.target.value;
+                updateFormFields();
                 
-                if (amount === 8500 && !continueBtn.classList.contains('demo-ready')) {
+                // Show continue tour if monthly is selected during demo
+                if (isInDemoPhase && selectedFrequency === 'monthly' && !document.getElementById('continueBtn').classList.contains('demo-ready')) {
                     setTimeout(() => {
                         showContinueTour();
-                    }, 1000);
+                    }, 500);
                 }
+            });
+            
+            // Radio button handlers
+            document.querySelectorAll('.radio-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const value = this.getAttribute('data-value');
+                    selectedEndOption = value;
+                    
+                    // Update radio button selection
+                    document.querySelectorAll('.radio-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    this.classList.add('selected');
+                    
+                    // Update actual radio input
+                    const radioInput = this.querySelector('input[type="radio"]');
+                    radioInput.checked = true;
+                    
+                    // Show/hide end date field
+                    const endDateField = document.getElementById('endDateField');
+                    if (value === 'specific') {
+                        endDateField.classList.remove('hidden');
+                    } else {
+                        endDateField.classList.add('hidden');
+                    }
+                });
+            });
+            
+            // Initialize form fields
+            updateFormFields();
+        });
+        
+        function updateFormFields() {
+            const startDateField = document.getElementById('startDateField');
+            const sendDateField = document.getElementById('sendDateField');
+            const endingOptions = document.getElementById('endingOptions');
+            const customWarning = document.getElementById('customWarning');
+            
+            if (selectedFrequency === 'daily') {
+                // For daily, show "Send on" instead of "Starting" and hide ending options
+                startDateField.classList.add('hidden');
+                sendDateField.classList.remove('hidden');
+                endingOptions.classList.add('hidden');
             } else {
-                continueBtn.disabled = true;
+                // For other frequencies, show normal fields
+                startDateField.classList.remove('hidden');
+                sendDateField.classList.add('hidden');
+                endingOptions.classList.remove('hidden');
+            }
+            
+            // Show/hide custom warning
+            if (selectedFrequency === 'custom') {
+                customWarning.classList.remove('hidden');
+            } else {
+                customWarning.classList.add('hidden');
             }
         }
     </script>
