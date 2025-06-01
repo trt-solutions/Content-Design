@@ -1114,6 +1114,9 @@
     </div>
     
     <script>
+        // In-memory storage for payment actions (since sessionStorage is not available)
+        window.paymentActionData = null;
+        
         function toggleQueue() {
             const queueContent = document.getElementById('queueContent');
             const queueToggle = document.getElementById('queueToggle');
@@ -1129,8 +1132,22 @@
         
         function quickApprove(vendor) {
             console.log('Quick approving:', vendor);
-            alert(`${vendor} payment approved! Moving to next in queue...`);
-            // In real app: update payment status and refresh dashboard
+            
+            // Complete approval directly on dashboard
+            const approvalData = {
+                vendor: vendor,
+                reason: 'Quick approved',
+                timestamp: new Date().toISOString(),
+                action: 'approved'
+            };
+            
+            // Show success banner
+            showSuccessBanner(approvalData);
+            
+            // Remove item from queue
+            removeFromQueue(vendor);
+            
+            // In real app: send approval to backend
         }
         
         function quickReject(vendor) {
@@ -1232,16 +1249,15 @@
         });
         
         function checkForPaymentActionResult() {
-            const actionData = sessionStorage.getItem('lastPaymentAction');
+            const actionData = window.paymentActionData;
             if (actionData) {
-                const data = JSON.parse(actionData);
-                showSuccessBanner(data);
+                showSuccessBanner(actionData);
                 
                 // Clear the stored data
-                sessionStorage.removeItem('lastPaymentAction');
+                window.paymentActionData = null;
                 
                 // Remove the processed item from queue (simulate)
-                removeFromQueue(data.vendor);
+                removeFromQueue(actionData.vendor);
             }
         }
         
