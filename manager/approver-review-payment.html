@@ -577,9 +577,76 @@
             background: #fef2f2;
         }
         
-        .rejection-mode .comments-textarea:focus {
-            border-color: #dc2626;
-            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+        .success-state {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+            text-align: center;
+            display: none;
+        }
+        
+        .success-state.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+        
+        .success-icon-large {
+            width: 64px;
+            height: 64px;
+            background: #10b981;
+            border-radius: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px auto;
+            font-size: 32px;
+            color: white;
+        }
+        
+        .success-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #166534;
+            margin-bottom: 8px;
+        }
+        
+        .success-message {
+            font-size: 14px;
+            color: #166534;
+            line-height: 1.4;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .action-buttons.approved {
+            display: none;
+        }
+        
+        .dashboard-button {
+            width: 100%;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            background: #663399;
+            color: white;
+            display: none;
+        }
+        
+        .dashboard-button.show {
+            display: block;
+        }
+        
+        .dashboard-button:hover {
+            background: #553288;
         }
     </style>
 </head>
@@ -606,6 +673,11 @@
         </div>
         
         <div class="content">
+            <div id="successState" class="success-state">
+                <div class="success-icon-large">✓</div>
+                <div class="success-title">Payment Approved Successfully!</div>
+            </div>
+            
             <div id="urgencyBanner" class="urgency-banner" style="display: none;">
                 <div class="urgency-icon">⏰</div>
                 <div class="urgency-content">
@@ -722,7 +794,7 @@
             </div>
         </div>
         
-        <div class="action-buttons">
+        <div class="action-buttons" id="actionButtons">
             <button class="action-btn approve-btn" id="approveBtn" onclick="approvePayment()">
                 Approve Payment
             </button>
@@ -733,6 +805,10 @@
                 Reject Payment
             </button>
         </div>
+        
+        <button class="dashboard-button" id="dashboardBtn" onclick="goToDashboard()">
+            Go to Dashboard
+        </button>
     </div>
     
     <script>
@@ -821,6 +897,9 @@
         function approvePayment() {
             console.log('Approving payment');
             
+            // Show success state
+            showApprovalSuccess();
+            
             // Store approval data for dashboard to show updated status
             const approvalData = {
                 vendor: pendingVendor || document.getElementById('vendorName').textContent,
@@ -829,11 +908,37 @@
                 action: 'approved'
             };
             
-            // Store in window object to pass to dashboard
-            window.parent.paymentActionData = approvalData;
+            // Store in window object for this page
+            window.paymentActionData = approvalData;
             
             // In real app: send approval to backend
-            // Redirect back to dashboard
+        }
+        
+        function showApprovalSuccess() {
+            // Hide the urgency banner
+            const urgencyBanner = document.getElementById('urgencyBanner');
+            if (urgencyBanner) {
+                urgencyBanner.style.display = 'none';
+            }
+            
+            // Show success state
+            const successState = document.getElementById('successState');
+            successState.classList.add('show');
+            
+            // Hide action buttons
+            const actionButtons = document.getElementById('actionButtons');
+            actionButtons.style.display = 'none';
+            
+            // Show dashboard button
+            const dashboardBtn = document.getElementById('dashboardBtn');
+            dashboardBtn.classList.add('show');
+            
+            // Scroll to top to show success message
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function goToDashboard() {
+            // Navigate back to dashboard
             window.history.back();
         }
         
@@ -855,8 +960,8 @@
                 action: 'changes_requested'
             };
             
-            // Store in window object to pass to dashboard
-            window.parent.paymentActionData = changeRequestData;
+            // Store in window object for this page
+            window.paymentActionData = changeRequestData;
             
             // In real app: send change request to backend
             // Redirect back to dashboard
@@ -887,8 +992,8 @@
                 action: 'rejected'
             };
             
-            // Store in window object to pass to dashboard
-            window.parent.paymentActionData = rejectionData;
+            // Store in window object for this page
+            window.paymentActionData = rejectionData;
             
             // In real app: send rejection to backend
             // Redirect back to dashboard immediately
