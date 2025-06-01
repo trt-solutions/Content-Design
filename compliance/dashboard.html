@@ -95,9 +95,10 @@
             align-items: center;
         }
         
-        .notification-btn, .export-btn, .signoff-btn, .role-btn {
+        .notification-btn, .signoff-btn, .role-btn {
             background: #f3f4f6;
             border: none;
+            width: 40px;
             height: 40px;
             border-radius: 20px;
             cursor: pointer;
@@ -108,11 +109,12 @@
             position: relative;
         }
         
-        .notification-btn {
-            width: 40px;
+        .notification-btn:hover, .signoff-btn:hover, .role-btn:hover {
+            background: #e5e7eb;
         }
         
-        .export-btn, .signoff-btn, .role-btn {
+        .signoff-btn, .role-btn {
+            width: auto;
             padding: 0 16px;
             font-size: 14px;
             font-weight: 500;
@@ -124,10 +126,6 @@
             font-weight: 600;
             color: #663399;
             padding: 0 12px;
-        }
-        
-        .notification-btn:hover, .export-btn:hover, .signoff-btn:hover, .role-btn:hover {
-            background: #e5e7eb;
         }
         
         .notification-badge {
@@ -170,7 +168,7 @@
             padding: 24px 16px;
         }
         
-        .compliance-alerts {
+        .urgent-banner {
             background: #fffbeb;
             border: 1px solid #fde68a;
             border-radius: 12px;
@@ -181,7 +179,7 @@
             gap: 12px;
         }
         
-        .alert-icon {
+        .urgent-icon {
             background: #f59e0b;
             color: white;
             border-radius: 50%;
@@ -194,11 +192,11 @@
             flex-shrink: 0;
         }
         
-        .alert-content {
+        .urgent-content {
             flex: 1;
         }
         
-        .alert-text {
+        .urgent-text {
             font-size: 14px;
             color: #92400e;
             line-height: 1.4;
@@ -206,70 +204,9 @@
             font-weight: 600;
         }
         
-        .alert-subtext {
+        .urgent-subtext {
             font-size: 12px;
             color: #b45309;
-        }
-        
-        .quick-actions {
-            background: white;
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 24px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        
-        .actions-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 24px;
-        }
-        
-        .action-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-        }
-        
-        .action-item:hover {
-            transform: translateY(-2px);
-        }
-        
-        .action-icon {
-            width: 64px;
-            height: 64px;
-            background: #663399;
-            border-radius: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 12px;
-            color: white;
-            font-size: 24px;
-            transition: all 0.2s ease;
-        }
-        
-        .action-item:hover .action-icon {
-            background: #553288;
-            transform: scale(1.05);
-        }
-        
-        .action-label {
-            font-size: 16px;
-            font-weight: 600;
-            color: #1a1a1a;
-            text-align: center;
-            margin-bottom: 4px;
-        }
-        
-        .action-sublabel {
-            font-size: 12px;
-            color: #6b7280;
-            text-align: center;
-            line-height: 1.3;
-            font-weight: 500;
         }
         
         .risk-monitoring {
@@ -280,7 +217,7 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
         
-        .risk-header {
+        .queue-header {
             padding: 20px 24px 16px 24px;
             border-bottom: 1px solid #f3f4f6;
             display: flex;
@@ -290,23 +227,23 @@
             transition: background-color 0.2s ease;
         }
         
-        .risk-header:hover {
+        .queue-header:hover {
             background: #fef7f0;
         }
         
-        .risk-title {
+        .queue-title {
             font-size: 18px;
             font-weight: 600;
             color: #1a1a1a;
         }
         
-        .risk-controls {
+        .queue-controls {
             display: flex;
             align-items: center;
             gap: 12px;
         }
         
-        .risk-count {
+        .queue-count {
             background: #f59e0b;
             color: white;
             padding: 4px 8px;
@@ -315,24 +252,24 @@
             font-weight: 600;
         }
         
-        .risk-toggle {
+        .queue-toggle {
             color: #6b7280;
             font-size: 16px;
             font-weight: 600;
             transition: transform 0.2s ease;
         }
         
-        .risk-toggle.expanded {
+        .queue-toggle.expanded {
             transform: rotate(180deg);
         }
         
-        .risk-content {
+        .queue-content {
             max-height: 1000px;
             overflow: hidden;
             transition: max-height 0.3s ease;
         }
         
-        .risk-content.collapsed {
+        .queue-content.collapsed {
             max-height: 0;
         }
         
@@ -341,40 +278,41 @@
             align-items: center;
             padding: 16px 24px;
             border-bottom: 1px solid #f9fafb;
+            position: relative;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: background-color 0.2s ease;
         }
         
         .risk-item:hover {
             background: #fef7f0;
         }
         
-        .risk-severity {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
+        .risk-priority {
+            width: 4px;
+            height: 40px;
+            border-radius: 2px;
             margin-right: 16px;
             flex-shrink: 0;
         }
         
-        .risk-severity.high {
+        .risk-priority.high {
             background: #ef4444;
         }
         
-        .risk-severity.medium {
+        .risk-priority.medium {
             background: #f59e0b;
         }
         
-        .risk-severity.low {
+        .risk-priority.low {
             background: #10b981;
         }
         
-        .risk-item-content {
+        .risk-content {
             flex: 1;
         }
         
         .risk-description {
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 600;
             color: #1a1a1a;
             margin-bottom: 2px;
@@ -387,27 +325,20 @@
         }
         
         .risk-category {
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            padding: 2px 6px;
-            border-radius: 8px;
         }
         
         .risk-category.policy {
-            background: #fef3c7;
             color: #92400e;
         }
         
         .risk-category.threshold {
-            background: #fee2e2;
-            color: #991b1b;
+            color: #dc2626;
         }
         
         .risk-category.pattern {
-            background: #ede9fe;
-            color: #6b21a8;
+            color: #7c3aed;
         }
         
         .menu-section {
@@ -529,6 +460,72 @@
             background: #f59e0b;
             border-radius: 50%;
         }
+        
+        /* Success Banner Styles */
+        .success-banner {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+        
+        .success-banner.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .success-icon {
+            background: #10b981;
+            color: white;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        
+        .success-content {
+            flex: 1;
+        }
+        
+        .success-text {
+            font-size: 14px;
+            color: #166534;
+            line-height: 1.4;
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+        
+        .success-subtext {
+            font-size: 12px;
+            color: #166534;
+            opacity: 0.8;
+        }
+        
+        .success-close {
+            background: none;
+            border: none;
+            color: #166534;
+            cursor: pointer;
+            font-size: 18px;
+            padding: 4px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+        }
+        
+        .success-close:hover {
+            background: #dcfce7;
+        }
     </style>
 </head>
 <body>
@@ -544,7 +541,6 @@
                         🔔
                         <span class="notification-badge">7</span>
                     </button>
-                    <button class="export-btn">Export</button>
                     <button class="signoff-btn">Sign off</button>
                     <button class="role-btn" onclick="location.href='../index.html'">Switch Role</button>
                 </div>
@@ -554,125 +550,114 @@
         </div>
         
         <div class="content">
-            <div class="compliance-alerts">
-                <div class="alert-icon">🚨</div>
-                <div class="alert-content">
-                    <div class="alert-text">3 policy exceptions require review before EOD</div>
-                    <div class="alert-subtext">Downtown Property, Metro Insurance, TechFlow LLC</div>
+            <div id="successBanner" class="success-banner" style="display: none;">
+                <div class="success-icon">✓</div>
+                <div class="success-content">
+                    <div class="success-text" id="successText">Risk review completed</div>
+                    <div class="success-subtext" id="successSubtext">Compliance team notified</div>
                 </div>
+                <button class="success-close" onclick="hideSuccessBanner()">×</button>
             </div>
             
-            <div class="quick-actions">
-                <div class="actions-grid">
-                    <div class="action-item" onclick="location.href='risk-monitoring.html'">
-                        <div class="action-icon">🔍</div>
-                        <div class="action-label">Monitor</div>
-                        <div class="action-sublabel">Risk patterns<br><span style="color: #f59e0b; font-weight: 600; font-size: 11px;">7 alerts active</span></div>
-                    </div>
-                    <div class="action-item" onclick="location.href='compliance-reports.html'">
-                        <div class="action-icon">📊</div>
-                        <div class="action-label">View</div>
-                        <div class="action-sublabel">Compliance reports</div>
-                    </div>
-                    <div class="action-item" onclick="location.href='transaction-audit.html'">
-                        <div class="action-icon">📋</div>
-                        <div class="action-label">Audit</div>
-                        <div class="action-sublabel">Transactions</div>
-                    </div>
+            <div class="urgent-banner">
+                <div class="urgent-icon">🚨</div>
+                <div class="urgent-content">
+                    <div class="urgent-text">3 policy exceptions require review by 5 PM EST today</div>
+                    <div class="urgent-subtext">Downtown Property, Metro Insurance, TechFlow LLC</div>
                 </div>
             </div>
             
             <div class="risk-monitoring">
-                <div class="risk-header" onclick="toggleRisk()">
-                    <h2 class="risk-title">Risk Monitoring</h2>
-                    <div class="risk-controls">
-                        <span class="risk-count">7</span>
-                        <span class="risk-toggle" id="riskToggle">▼</span>
+                <div class="queue-header" onclick="toggleQueue()">
+                    <h2 class="queue-title">Risk alerts</h2>
+                    <div class="queue-controls">
+                        <span class="queue-count">7</span>
+                        <span class="queue-toggle" id="queueToggle">▼</span>
                     </div>
                 </div>
                 
-                <div class="risk-content" id="riskContent">
-                    <div class="risk-item">
-                        <div class="risk-severity high"></div>
-                        <div class="risk-item-content">
+                <div class="queue-content" id="queueContent">
+                    <div class="risk-item" onclick="showComingSoon('Risk Detail')">
+                        <div class="risk-priority high"></div>
+                        <div class="risk-content">
                             <div class="risk-description">Unusual payment pattern detected</div>
                             <div class="risk-detail">Downtown Property • $8,500 • 3x normal frequency</div>
-                            <span class="risk-category pattern">Pattern Alert</span>
+                            <div class="risk-category pattern">Pattern Alert</div>
                         </div>
                     </div>
                     
-                    <div class="risk-item">
-                        <div class="risk-severity high"></div>
-                        <div class="risk-item-content">
+                    <div class="risk-item" onclick="showComingSoon('Risk Detail')">
+                        <div class="risk-priority high"></div>
+                        <div class="risk-content">
                             <div class="risk-description">High-value payment pending dual approval</div>
                             <div class="risk-detail">TechFlow LLC • $75,000 • Single approval received</div>
-                            <span class="risk-category threshold">Threshold</span>
+                            <div class="risk-category threshold">Threshold</div>
                         </div>
                     </div>
                     
-                    <div class="risk-item">
-                        <div class="risk-severity medium"></div>
-                        <div class="risk-item-content">
+                    <div class="risk-item" onclick="showComingSoon('Risk Detail')">
+                        <div class="risk-priority medium"></div>
+                        <div class="risk-content">
                             <div class="risk-description">Custom recurrence requires documentation</div>
                             <div class="risk-detail">Metro Insurance • Bi-annual schedule • Missing justification</div>
-                            <span class="risk-category policy">Policy</span>
+                            <div class="risk-category policy">Policy</div>
                         </div>
                     </div>
                     
-                    <div class="risk-item">
-                        <div class="risk-severity medium"></div>
-                        <div class="risk-item-content">
+                    <div class="risk-item" onclick="showComingSoon('Risk Detail')">
+                        <div class="risk-priority medium"></div>
+                        <div class="risk-content">
                             <div class="risk-description">Payment frequency above threshold</div>
                             <div class="risk-detail">Acme Corp • 15 payments this month • 50% increase</div>
-                            <span class="risk-category pattern">Pattern Alert</span>
+                            <div class="risk-category pattern">Pattern Alert</div>
                         </div>
                     </div>
                     
-                    <div class="risk-item">
-                        <div class="risk-severity low"></div>
-                        <div class="risk-item-content">
+                    <div class="risk-item" onclick="showComingSoon('Risk Detail')">
+                        <div class="risk-priority low"></div>
+                        <div class="risk-content">
                             <div class="risk-description">New vendor requires verification</div>
                             <div class="risk-detail">Global Supplies Inc • First payment • $3,200</div>
-                            <span class="risk-category policy">Policy</span>
+                            <div class="risk-category policy">Policy</div>
                         </div>
                     </div>
                     
-                    <div class="risk-item">
-                        <div class="risk-severity low"></div>
-                        <div class="risk-item-content">
+                    <div class="risk-item" onclick="showComingSoon('Risk Detail')">
+                        <div class="risk-priority low"></div>
+                        <div class="risk-content">
                             <div class="risk-description">Late approval notification</div>
                             <div class="risk-detail">Office Supply Co • Approved 2 hours past deadline</div>
-                            <span class="risk-category threshold">Threshold</span>
+                            <div class="risk-category threshold">Threshold</div>
                         </div>
                     </div>
                     
-                    <div class="risk-item">
-                        <div class="risk-severity low"></div>
-                        <div class="risk-item-content">
+                    <div class="risk-item" onclick="showComingSoon('Risk Detail')">
+                        <div class="risk-priority low"></div>
+                        <div class="risk-content">
                             <div class="risk-description">Weekend payment scheduling</div>
                             <div class="risk-detail">City Utilities • Scheduled for Saturday processing</div>
-                            <span class="risk-category pattern">Pattern Alert</span>
+                            <div class="risk-category pattern">Pattern Alert</div>
                         </div>
                     </div>
                 </div>
             </div>
             
             <div class="menu-section">
-                <div class="menu-item" onclick="location.href='compliance-reports.html'">
+                <div class="menu-item" onclick="showComingSoon('Compliance Reports')">
                     <div class="menu-item-content">
                         <div class="menu-label">View</div>
                         <div class="menu-sublabel">All transactions, audit trails, and compliance reports</div>
                     </div>
                     <div class="menu-arrow">›</div>
                 </div>
-                <div class="menu-item" onclick="location.href='risk-policies.html'">
+                <div class="menu-item" onclick="showComingSoon('Risk Policies')">
                     <div class="menu-item-content">
                         <div class="menu-label">Manage</div>
                         <div class="menu-sublabel">Risk policies and monitoring thresholds</div>
                     </div>
                     <div class="menu-arrow">›</div>
                 </div>
-                <div class="menu-item" onclick="location.href='compliance-help.html'">
+                <div class="menu-item" onclick="showComingSoon('Compliance Help')">
                     <div class="menu-item-content">
                         <div class="menu-label">Learn</div>
                         <div class="menu-sublabel">More about compliance, regulations, and risk management</div>
@@ -691,19 +676,19 @@
                 <div class="nav-icon">🏠</div>
                 <div class="nav-label">Dashboard</div>
             </div>
-            <div class="nav-item" onclick="location.href='risk-monitoring.html'">
+            <div class="nav-item" onclick="showComingSoon('Risk Monitor')">
                 <div class="nav-icon">🔍</div>
                 <div class="nav-label">Monitor</div>
             </div>
-            <div class="nav-item" onclick="location.href='transaction-audit.html'">
+            <div class="nav-item" onclick="showComingSoon('Audit')">
                 <div class="nav-icon audit-badge">📋</div>
                 <div class="nav-label">Audit</div>
             </div>
-            <div class="nav-item" onclick="location.href='compliance-reports.html'">
+            <div class="nav-item" onclick="showComingSoon('Reports')">
                 <div class="nav-icon">📊</div>
                 <div class="nav-label">Reports</div>
             </div>
-            <div class="nav-item" onclick="location.href='risk-policies.html'">
+            <div class="nav-item" onclick="showComingSoon('Settings')">
                 <div class="nav-icon">⚙️</div>
                 <div class="nav-label">Settings</div>
             </div>
@@ -711,23 +696,35 @@
     </div>
     
     <script>
-        function toggleRisk() {
-            const riskContent = document.getElementById('riskContent');
-            const riskToggle = document.getElementById('riskToggle');
+        function toggleQueue() {
+            const queueContent = document.getElementById('queueContent');
+            const queueToggle = document.getElementById('queueToggle');
             
-            if (riskContent.classList.contains('collapsed')) {
-                riskContent.classList.remove('collapsed');
-                riskToggle.classList.add('expanded');
+            if (queueContent.classList.contains('collapsed')) {
+                queueContent.classList.remove('collapsed');
+                queueToggle.classList.add('expanded');
             } else {
-                riskContent.classList.add('collapsed');
-                riskToggle.classList.remove('expanded');
+                queueContent.classList.add('collapsed');
+                queueToggle.classList.remove('expanded');
             }
         }
         
-        // Start with risk monitoring expanded by default
+        function showComingSoon(feature) {
+            alert(`${feature} feature coming soon! This is a demo of the Compliance Officer dashboard.`);
+        }
+        
+        function hideSuccessBanner() {
+            const banner = document.getElementById('successBanner');
+            banner.classList.remove('show');
+            setTimeout(() => {
+                banner.style.display = 'none';
+            }, 300);
+        }
+        
+        // Start with queue expanded by default
         document.addEventListener('DOMContentLoaded', function() {
-            const riskToggle = document.getElementById('riskToggle');
-            riskToggle.classList.add('expanded');
+            const queueToggle = document.getElementById('queueToggle');
+            queueToggle.classList.add('expanded');
         });
     </script>
 </body>
