@@ -396,7 +396,123 @@
             50% { transform: scale(1.15); }
         }
 
-        .demo-indicator {
+        .content-tooltip {
+            position: absolute;
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            max-width: 320px;
+            z-index: 1002;
+            border: 2px solid #3b82f6;
+            display: none;
+        }
+
+        .content-tooltip::before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border: 10px solid transparent;
+        }
+
+        .content-tooltip.arrow-left::before {
+            border-right-color: #3b82f6;
+            left: -22px;
+            top: 20px;
+        }
+
+        .content-tooltip.arrow-right::before {
+            border-left-color: #3b82f6;
+            right: -22px;
+            top: 20px;
+        }
+
+        .content-tooltip.arrow-bottom::before {
+            border-top-color: #3b82f6;
+            bottom: -22px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .content-tooltip::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border: 8px solid transparent;
+        }
+
+        .content-tooltip.arrow-left::after {
+            border-right-color: white;
+            left: -16px;
+            top: 22px;
+        }
+
+        .content-tooltip.arrow-right::after {
+            border-left-color: white;
+            right: -16px;
+            top: 22px;
+        }
+
+        .content-tooltip.arrow-bottom::after {
+            border-top-color: white;
+            bottom: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .content-header {
+            font-size: 16px;
+            font-weight: 700;
+            color: #3b82f6;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .content-text {
+            font-size: 14px;
+            color: #1a1a1a;
+            line-height: 1.4;
+            margin-bottom: 16px;
+        }
+
+        .content-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        .content-btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            border: none;
+        }
+
+        .content-btn.next {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .content-btn.next:hover {
+            background: #2563eb;
+        }
+
+        .content-btn.skip {
+            background: #f3f4f6;
+            color: #1a1a1a;
+        }
+
+        .content-btn.skip:hover {
+            background: #e5e7eb;
+        }
             position: absolute;
             top: -8px;
             right: -8px;
@@ -656,7 +772,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="content-hotspot" id="hotspot-5" onclick="showContentTooltip(5)" style="top: 15px; right: -30px; display: none;">5</div>
+                <div class="content-hotspot" id="hotspot-5" onclick="showContentTooltip(5)" style="top: 15px; right: -30px; display: none; z-index: 200;">5</div>
             </div>
             
             <div class="custom-warning hidden" id="customWarning">
@@ -715,7 +831,7 @@
         
         // Auto-start content design review when page loads
         window.addEventListener('load', function() {
-            setTimeout(startContentReview, 1000);
+            setTimeout(startContentReview, 2000);
         });
 
         function startContentReview() {
@@ -725,12 +841,145 @@
         }
 
         function showContentTooltip(step) {
-            console.log('Showing content tooltip for step:', step);
+            // Hide all existing tooltips
+            document.querySelectorAll('.content-tooltip').forEach(tooltip => {
+                tooltip.style.display = 'none';
+            });
+            
             currentContentStep = step;
-            // For now, just proceed to demo phase
-            setTimeout(() => {
+            
+            // Create and show content tooltip for current step
+            const hotspot = document.getElementById(`hotspot-${step}`);
+            if (!hotspot) return;
+            
+            // Remove existing tooltip if it exists
+            const existingTooltip = document.getElementById(`content-tooltip-${step}`);
+            if (existingTooltip) {
+                existingTooltip.remove();
+            }
+            
+            // Create new tooltip
+            const tooltip = document.createElement('div');
+            tooltip.id = `content-tooltip-${step}`;
+            tooltip.className = 'content-tooltip';
+            tooltip.innerHTML = getContentTooltipHTML(step);
+            
+            document.body.appendChild(tooltip);
+            
+            // Position tooltip
+            const rect = hotspot.getBoundingClientRect();
+            const tooltipWidth = 320;
+            
+            if (step === 2) {
+                // Position to the left of hotspot
+                tooltip.style.left = `${rect.left - tooltipWidth - 20}px`;
+                tooltip.style.top = `${rect.top - 20}px`;
+                tooltip.classList.add('arrow-right');
+            } else {
+                // Position to the right of hotspot
+                tooltip.style.left = `${rect.right + 20}px`;
+                tooltip.style.top = `${rect.top - 20}px`;
+                tooltip.classList.add('arrow-left');
+            }
+            
+            tooltip.style.display = 'block';
+            
+            // Scroll to ensure visibility
+            hotspot.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function getContentTooltipHTML(step) {
+            const content = {
+                1: {
+                    icon: '💬',
+                    title: 'Content Design: Clear Headlines',
+                    text: 'Notice how the question "How often would you like to pay?" is direct and conversational. This reduces cognitive load and guides users naturally through the decision.',
+                    actions: `
+                        <button class="content-btn skip" onclick="nextContentStep()">Next</button>
+                        <button class="content-btn next" onclick="skipToDemo()">Skip to Demo</button>
+                    `
+                },
+                2: {
+                    icon: '🎯',
+                    title: 'Content Design: Progress Clarity',
+                    text: 'The step indicator shows clear progress (Step 3 of 5) with visual completion states. Users always know where they are and how much remains.',
+                    actions: `
+                        <button class="content-btn skip" onclick="nextContentStep()">Next</button>
+                        <button class="content-btn next" onclick="skipToDemo()">Skip to Demo</button>
+                    `
+                },
+                3: {
+                    icon: '⚡',
+                    title: 'Content Design: Smart Defaults',
+                    text: 'Monthly is pre-selected because it\'s perfect for rent payments. The dropdown shows contextually relevant options like "Every 2 weeks" instead of technical terms.',
+                    actions: `
+                        <button class="content-btn skip" onclick="nextContentStep()">Next</button>
+                        <button class="content-btn next" onclick="skipToDemo()">Skip to Demo</button>
+                    `
+                },
+                4: {
+                    icon: '📅',
+                    title: 'Content Design: Adaptive Fields',
+                    text: 'The form adapts based on frequency selection. For daily payments, it shows "Send on" instead of "Starting" - the language matches the user\'s mental model.',
+                    actions: `
+                        <button class="content-btn skip" onclick="nextContentStep()">Next</button>
+                        <button class="content-btn next" onclick="skipToDemo()">Skip to Demo</button>
+                    `
+                },
+                5: {
+                    icon: '⚠️',
+                    title: 'Content Design: Transparent Expectations',
+                    text: 'Custom schedules show upfront consequences: "Allow 2-3 extra days for approval." No surprises - builds trust through transparency.',
+                    actions: `
+                        <button class="content-btn skip" onclick="startActionTour()">Continue to Demo</button>
+                        <button class="content-btn next" onclick="skipToDemo()">Skip</button>
+                    `
+                }
+            };
+            
+            const stepContent = content[step];
+            return `
+                <div class="content-header">
+                    <span>${stepContent.icon}</span>
+                    <span>${stepContent.title}</span>
+                </div>
+                <div class="content-text">${stepContent.text}</div>
+                <div class="content-actions">${stepContent.actions}</div>
+            `;
+        }
+
+        function nextContentStep() {
+            const nextStep = currentContentStep + 1;
+            if (nextStep <= 5) {
+                // Show custom warning if going to step 5
+                if (nextStep === 5) {
+                    showCustomWarning();
+                    return;
+                }
+                showContentTooltip(nextStep);
+            } else {
                 startActionTour();
-            }, 1000);
+            }
+        }
+
+        function showCustomWarning() {
+            // Temporarily select custom to show the warning
+            document.getElementById('frequencySelect').value = 'custom';
+            selectedFrequency = 'custom';
+            updateFormFields();
+            
+            // Show hotspot 5 with better visibility while keeping consistent styling
+            const hotspot5 = document.getElementById('hotspot-5');
+            hotspot5.style.display = 'flex';
+            hotspot5.style.zIndex = '200';
+            
+            setTimeout(() => {
+                showContentTooltip(5);
+            }, 800);
+        }
+
+        function skipToDemo() {
+            startActionTour();
         }
 
         function startActionTour() {
@@ -748,10 +997,13 @@
             
             setTimeout(() => {
                 showFrequencyTour();
-            }, 500);
+            }, 1000);
         }
 
         function hideAllContentTooltips() {
+            document.querySelectorAll('.content-tooltip').forEach(tooltip => {
+                tooltip.remove();
+            });
             document.querySelectorAll('.content-hotspot').forEach(hotspot => {
                 hotspot.style.display = 'none';
             });
