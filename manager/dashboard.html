@@ -209,67 +209,6 @@
             color: #b91c1c;
         }
         
-        .quick-actions {
-            background: white;
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 24px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        
-        .actions-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-        }
-        
-        .action-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-        }
-        
-        .action-item:hover {
-            transform: translateY(-2px);
-        }
-        
-        .action-icon {
-            width: 64px;
-            height: 64px;
-            background: #663399;
-            border-radius: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 12px;
-            color: white;
-            font-size: 24px;
-            transition: all 0.2s ease;
-        }
-        
-        .action-item:hover .action-icon {
-            background: #553288;
-            transform: scale(1.05);
-        }
-        
-        .action-label {
-            font-size: 16px;
-            font-weight: 600;
-            color: #1a1a1a;
-            text-align: center;
-            margin-bottom: 4px;
-        }
-        
-        .action-sublabel {
-            font-size: 12px;
-            color: #6b7280;
-            text-align: center;
-            line-height: 1.3;
-            font-weight: 500;
-        }
-        
         .approval-queue {
             background: white;
             border-radius: 16px;
@@ -437,16 +376,6 @@
             font-weight: 600;
         }
         
-        .approve-btn {
-            background: #10b981;
-            color: white;
-        }
-        
-        .reject-btn {
-            background: #ef4444;
-            color: white;
-        }
-        
         .review-btn {
             background: #f3f4f6;
             color: #374151;
@@ -570,6 +499,77 @@
             height: 8px;
             background: #ef4444;
             border-radius: 50%;
+        }
+        
+        /* Success Banner Styles */
+        .success-banner {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+        
+        .success-banner.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .success-icon {
+            background: #10b981;
+            color: white;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        
+        .success-content {
+            flex: 1;
+        }
+        
+        .success-text {
+            font-size: 14px;
+            color: #166534;
+            line-height: 1.4;
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+        
+        .success-subtext {
+            font-size: 12px;
+            color: #166534;
+            opacity: 0.8;
+        }
+        
+        .success-close {
+            background: none;
+            border: none;
+            color: #166534;
+            cursor: pointer;
+            font-size: 18px;
+            padding: 4px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+        }
+        
+        .success-close:hover {
+            background: #dcfce7;
+        }
+        
+        @keyframes fadeOut {
+            from { opacity: 1; transform: translateX(0); }
+            to { opacity: 0; transform: translateX(-100%); }
         }
         
         /* Custom Rejection Popover Styles */
@@ -736,77 +736,6 @@
             cursor: not-allowed;
         }
         
-        /* Success Banner Styles */
-        .success-banner {
-            background: #f0fdf4;
-            border: 1px solid #bbf7d0;
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 24px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            opacity: 0;
-            transform: translateY(-10px);
-            transition: all 0.3s ease;
-        }
-        
-        .success-banner.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .success-icon {
-            background: #10b981;
-            color: white;
-            border-radius: 50%;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            flex-shrink: 0;
-        }
-        
-        .success-content {
-            flex: 1;
-        }
-        
-        .success-text {
-            font-size: 14px;
-            color: #166534;
-            line-height: 1.4;
-            margin-bottom: 4px;
-            font-weight: 600;
-        }
-        
-        .success-subtext {
-            font-size: 12px;
-            color: #166534;
-            opacity: 0.8;
-        }
-        
-        .success-close {
-            background: none;
-            border: none;
-            color: #166534;
-            cursor: pointer;
-            font-size: 18px;
-            padding: 4px;
-            border-radius: 4px;
-            transition: background-color 0.2s ease;
-        }
-        
-        .success-close:hover {
-            background: #dcfce7;
-        }
-        
-        @keyframes fadeOut {
-            from { opacity: 1; transform: translateX(0); }
-            to { opacity: 0; transform: translateX(-100%); }
-        }
-        
         /* Form Validation Styles */
         .form-validation-message {
             background: #fef2f2;
@@ -885,24 +814,9 @@
                 </div>
             </div>
             
-            <div class="quick-actions">
-                <div class="actions-grid">
-                    <div class="action-item" onclick="scrollToApprovalQueue()">
-                        <div class="action-icon">✅</div>
-                        <div class="action-label">Approve</div>
-                        <div class="action-sublabel">Pending payments<br><span style="color: #ef4444; font-weight: 600; font-size: 11px;">7 need approval</span></div>
-                    </div>
-                    <div class="action-item" onclick="scrollToPaymentHistory()">
-                        <div class="action-icon">📊</div>
-                        <div class="action-label">View</div>
-                        <div class="action-sublabel">Payment history</div>
-                    </div>
-                </div>
-            </div>
-            
             <div class="approval-queue">
                 <div class="queue-header" onclick="toggleQueue()">
-                    <h2 class="queue-title">Approval Queue</h2>
+                    <h2 class="queue-title">To be approved</h2>
                     <div class="queue-controls">
                         <span class="queue-count">7</span>
                         <span class="queue-toggle" id="queueToggle">▼</span>
@@ -910,7 +824,7 @@
                 </div>
                 
                 <div class="queue-content" id="queueContent">
-                    <div class="approval-item" onclick="goToReviewPage('Downtown Property', '$8,500', 'Office Rent', 'Monthly recurring payment')">>>
+                    <div class="approval-item" onclick="goToReviewPage('Downtown Property', '$8,500', 'Office Rent', 'Monthly recurring payment')">
                         <div class="approval-priority high"></div>
                         <div class="approval-content">
                             <div class="approval-vendor">Downtown Property</div>
@@ -923,7 +837,7 @@
                         </div>
                     </div>
                     
-                    <div class="approval-item" onclick="goToReviewPage('Metro Insurance', '$12,750', 'Business Insurance', 'Monthly recurring payment')">>
+                    <div class="approval-item" onclick="goToReviewPage('Metro Insurance', '$12,750', 'Business Insurance', 'Monthly recurring payment')">
                         <div class="approval-priority high"></div>
                         <div class="approval-content">
                             <div class="approval-vendor">Metro Insurance</div>
@@ -936,7 +850,7 @@
                         </div>
                     </div>
                     
-                    <div class="approval-item" onclick="location.href='approver-review-payment.html'">
+                    <div class="approval-item" onclick="goToReviewPage('Acme Corp Software', '$2,400', 'SaaS Subscription', 'Monthly software license')">
                         <div class="approval-priority medium"></div>
                         <div class="approval-content">
                             <div class="approval-vendor">Acme Corp Software</div>
@@ -945,11 +859,11 @@
                         </div>
                         <div class="approval-amount">$2,400</div>
                         <div class="approval-actions" onclick="event.stopPropagation()">
-                            <button class="action-btn review-btn" onclick="location.href='approver-review-payment.html'">Review</button>
+                            <button class="action-btn review-btn" onclick="goToReviewPage('Acme Corp Software', '$2,400', 'SaaS Subscription', 'Monthly software license')">Review</button>
                         </div>
                     </div>
                     
-                    <div class="approval-item" onclick="location.href='approver-review-payment.html'">
+                    <div class="approval-item" onclick="goToReviewPage('Office Supply Co', '$875', 'Monthly Supplies', 'Office supplies and materials')">
                         <div class="approval-priority normal"></div>
                         <div class="approval-content">
                             <div class="approval-vendor">Office Supply Co</div>
@@ -958,11 +872,11 @@
                         </div>
                         <div class="approval-amount">$875</div>
                         <div class="approval-actions" onclick="event.stopPropagation()">
-                            <button class="action-btn review-btn" onclick="location.href='approver-review-payment.html'">Review</button>
+                            <button class="action-btn review-btn" onclick="goToReviewPage('Office Supply Co', '$875', 'Monthly Supplies', 'Office supplies and materials')">Review</button>
                         </div>
                     </div>
                     
-                    <div class="approval-item" onclick="location.href='approver-review-payment.html'">
+                    <div class="approval-item" onclick="goToReviewPage('TechFlow LLC', '$3,200', 'Consulting Services', 'Technical consulting services')">
                         <div class="approval-priority normal"></div>
                         <div class="approval-content">
                             <div class="approval-vendor">TechFlow LLC</div>
@@ -971,11 +885,11 @@
                         </div>
                         <div class="approval-amount">$3,200</div>
                         <div class="approval-actions" onclick="event.stopPropagation()">
-                            <button class="action-btn review-btn" onclick="location.href='approver-review-payment.html'">Review</button>
+                            <button class="action-btn review-btn" onclick="goToReviewPage('TechFlow LLC', '$3,200', 'Consulting Services', 'Technical consulting services')">Review</button>
                         </div>
                     </div>
                     
-                    <div class="approval-item" onclick="location.href='approver-review-payment.html'">
+                    <div class="approval-item" onclick="goToReviewPage('Global Tech Solutions', '$4,800', 'Software License', 'Annual software licensing')">
                         <div class="approval-priority normal"></div>
                         <div class="approval-content">
                             <div class="approval-vendor">Global Tech Solutions</div>
@@ -984,11 +898,11 @@
                         </div>
                         <div class="approval-amount">$4,800</div>
                         <div class="approval-actions" onclick="event.stopPropagation()">
-                            <button class="action-btn review-btn" onclick="location.href='approver-review-payment.html'">Review</button>
+                            <button class="action-btn review-btn" onclick="goToReviewPage('Global Tech Solutions', '$4,800', 'Software License', 'Annual software licensing')">Review</button>
                         </div>
                     </div>
                     
-                    <div class="approval-item" onclick="location.href='approver-review-payment.html'">
+                    <div class="approval-item" onclick="goToReviewPage('City Utilities', '$1,650', 'Monthly Utilities', 'Electricity, water, and gas')">
                         <div class="approval-priority normal"></div>
                         <div class="approval-content">
                             <div class="approval-vendor">City Utilities</div>
@@ -997,7 +911,7 @@
                         </div>
                         <div class="approval-amount">$1,650</div>
                         <div class="approval-actions" onclick="event.stopPropagation()">
-                            <button class="action-btn review-btn" onclick="location.href='approver-review-payment.html'">Review</button>
+                            <button class="action-btn review-btn" onclick="goToReviewPage('City Utilities', '$1,650', 'Monthly Utilities', 'Electricity, water, and gas')">Review</button>
                         </div>
                     </div>
                 </div>
@@ -1041,7 +955,7 @@
                 <div class="nav-icon">💸</div>
                 <div class="nav-label">Payments</div>
             </div>
-            <div class="nav-item" onclick="scrollToApprovalQueue()">
+            <div class="nav-item" onclick="showComingSoon('Approvals')">
                 <div class="nav-icon approval-badge">✅</div>
                 <div class="nav-label">Approvals</div>
             </div>
@@ -1102,52 +1016,6 @@
     <script>
         // In-memory storage for payment actions (since sessionStorage is not available)
         window.paymentActionData = null;
-        
-        function scrollToApprovalQueue() {
-            const approvalQueue = document.querySelector('.approval-queue');
-            if (approvalQueue) {
-                approvalQueue.scrollIntoView({ 
-                    behavior: 'smooth', 
-                    block: 'start' 
-                });
-                
-                // Highlight the queue briefly
-                approvalQueue.style.boxShadow = '0 0 0 3px rgba(102, 51, 153, 0.2)';
-                setTimeout(() => {
-                    approvalQueue.style.boxShadow = '0 1px 3px rgba(0,0,0,0.1)';
-                }, 2000);
-            }
-        }
-        
-        function goToReviewPage(vendor, amount, category, description) {
-            // Store the payment data for the review page
-            const paymentData = {
-                vendor: vendor,
-                amount: amount,
-                category: category,
-                description: description,
-                timestamp: new Date().toISOString()
-            };
-            
-            // Store in window object for the review page to access
-            window.paymentReviewData = paymentData;
-            
-            // For now, show a modal or simulate the review since we can't navigate
-            showReviewModal(paymentData);
-        }
-        
-        function showReviewModal(data) {
-            alert(`Review Payment\n\nVendor: ${data.vendor}\nAmount: ${data.amount}\nCategory: ${data.category}\nDescription: ${data.description}\n\nThis would normally open the detailed review page.`);
-        }
-        
-        function showComingSoon(feature) {
-            alert(`${feature} feature coming soon! This is a demo of the AP Manager dashboard.`);
-        }
-        
-        function scrollToPaymentHistory() {
-            // Since we don't have a payment history section, show a message
-            alert('Payment history feature coming soon! For now, you can view payment details in the approval queue.');
-        }
         
         function toggleQueue() {
             const queueContent = document.getElementById('queueContent');
@@ -1239,25 +1107,79 @@
             const comments = commentsTextarea.value.trim();
             const validationMessage = document.getElementById('validationMessage');
             
+            console.log('confirmRejection called with vendor:', vendor, 'comments:', comments);
+            
             if (!comments) {
+                console.log('No comments provided, showing validation');
                 // Show validation message and highlight textarea
                 commentsTextarea.classList.add('error');
                 validationMessage.classList.add('show');
                 commentsTextarea.focus();
-                return;
+                return false; // Prevent any further action
             }
             
-            // Hide popover
+            console.log('Comments provided, proceeding with rejection');
+            
+            // Hide popover first
             hideRejectionPopover();
             
-            // Navigate to review page with rejection data
-            const params = new URLSearchParams({
-                action: 'reject',
-                vendor: vendor,
-                comments: comments
-            });
+            // Complete rejection directly on dashboard (no navigation)
+            setTimeout(() => {
+                completeRejection(vendor, comments);
+            }, 300); // Small delay to let popover close
             
-            location.href = 'approver-review-payment.html?' + params.toString();
+            return false; // Prevent any default behavior
+        }
+        
+        function completeRejection(vendor, comments) {
+            console.log('Completing rejection on dashboard:', vendor, comments);
+            
+            // Store rejection data for success banner
+            const rejectionData = {
+                vendor: vendor,
+                reason: comments,
+                timestamp: new Date().toISOString(),
+                action: 'rejected'
+            };
+            
+            // Show success banner immediately
+            showSuccessBanner(rejectionData);
+            
+            // Remove item from queue with animation
+            removeFromQueue(vendor);
+            
+            // In real app: send rejection to backend API
+            console.log('Rejection completed - no navigation should occur');
+        }
+        
+        function goToReviewPage(vendor, amount, category, description) {
+            // For demo purposes, show the review details
+            const reviewDetails = `
+PAYMENT REVIEW DETAILS
+
+Vendor: ${vendor}
+Amount: ${amount}
+Category: ${category}
+Description: ${description}
+
+In a full system, this would open the detailed review page where you can:
+• View all payment documentation
+• Add approval comments
+• Approve, reject, or request changes
+• See complete audit trail
+
+Click OK to continue with the demo.`;
+            
+            alert(reviewDetails);
+        }
+        
+        function showComingSoon(feature) {
+            alert(`${feature} feature coming soon! This is a demo of the AP Manager dashboard.`);
+        }
+        
+        function scrollToPaymentHistory() {
+            // Since we don't have a payment history section, show a message
+            alert('Payment history feature coming soon! For now, you can view payment details in the approval queue.');
         }
         
         // Close popover when clicking outside
