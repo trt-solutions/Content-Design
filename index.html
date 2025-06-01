@@ -12,10 +12,10 @@
         }
         
         body {
-            font-family: 'Truist Trio', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            font-family: 'Truist Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
             line-height: 1.5;
-            color: #1a1a1a;
-            background: linear-gradient(135deg, #663399 0%, #4c1d95 100%);
+            color: #2d2d2d;
+            background: #663399;
             padding: 0;
             margin: 0;
             min-height: 100vh;
@@ -39,45 +39,48 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 24px;
+            margin-bottom: 32px;
         }
         
-        .truist-icon {
-            width: 48px;
-            height: 48px;
+        .truist-brand {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .truist-text {
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        
+        .truist-icon-square {
+            width: 40px;
+            height: 40px;
             background: white;
-            border-radius: 8px;
-            margin-right: 16px;
+            border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
         }
         
-        .truist-icon::before {
+        .truist-icon-square::before {
             content: '';
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             background: #663399;
-            transform: rotate(45deg);
             position: absolute;
-            border-radius: 2px;
         }
         
-        .truist-icon::after {
-            content: '';
-            width: 10px;
-            height: 10px;
-            background: white;
-            position: absolute;
-            border-radius: 1px;
-        }
-        
-        .truist-text {
-            font-size: 32px;
-            font-weight: 700;
+        .fdic-text {
             color: white;
-            letter-spacing: 1px;
+            font-size: 14px;
+            font-weight: 400;
+            margin-left: 24px;
+            opacity: 0.9;
         }
         
         .welcome-title {
@@ -85,19 +88,23 @@
             font-weight: 700;
             color: white;
             margin-bottom: 16px;
+            letter-spacing: -0.02em;
         }
         
         .welcome-subtitle {
-            font-size: 20px;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 8px;
+            font-size: 24px;
+            color: white;
+            margin-bottom: 12px;
+            font-weight: 600;
         }
         
         .welcome-description {
             font-size: 16px;
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(255, 255, 255, 0.85);
             max-width: 600px;
             margin: 0 auto;
+            font-weight: 400;
+            line-height: 1.6;
         }
         
         .role-selection {
@@ -110,123 +117,98 @@
         
         .role-card {
             background: white;
-            border-radius: 20px;
+            border-radius: 16px;
             padding: 40px 32px;
             text-decoration: none;
             color: inherit;
             transition: all 0.3s ease;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             position: relative;
             overflow: hidden;
-        }
-        
-        .role-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 6px;
-            transition: all 0.3s ease;
-        }
-        
-        .role-card.analyst::before {
-            background: #10b981;
-        }
-        
-        .role-card.manager::before {
-            background: #3b82f6;
-        }
-        
-        .role-card.compliance::before {
-            background: #f59e0b;
+            border: none;
         }
         
         .role-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
-        }
-        
-        .role-card:hover::before {
-            height: 8px;
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
         }
         
         .role-icon {
             width: 80px;
             height: 80px;
-            border-radius: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 24px;
-            font-size: 36px;
+            margin: 0 auto 32px;
             transition: all 0.3s ease;
-        }
-        
-        .role-card.analyst .role-icon {
-            background: #dcfce7;
-            color: #059669;
-        }
-        
-        .role-card.manager .role-icon {
-            background: #dbeafe;
-            color: #2563eb;
-        }
-        
-        .role-card.compliance .role-icon {
-            background: #fef3c7;
-            color: #d97706;
+            position: relative;
         }
         
         .role-card:hover .role-icon {
-            transform: scale(1.1);
+            transform: scale(1.05);
+        }
+        
+        .role-icon svg {
+            width: 52px;
+            height: 52px;
+            color: #663399;
+            stroke-width: 1.5;
         }
         
         .role-title {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: 700;
-            color: #1a1a1a;
-            margin-bottom: 12px;
+            color: #2d2d2d;
+            margin-bottom: 16px;
+            letter-spacing: -0.01em;
         }
         
         .role-description {
             font-size: 16px;
-            color: #6b7280;
-            margin-bottom: 24px;
+            color: #666666;
+            margin-bottom: 28px;
             line-height: 1.6;
+            font-weight: 400;
         }
         
         .role-features {
             list-style: none;
             text-align: left;
-            margin-bottom: 32px;
+            margin-bottom: 36px;
         }
         
         .role-features li {
-            font-size: 14px;
-            color: #374151;
-            margin-bottom: 8px;
-            padding-left: 20px;
+            font-size: 15px;
+            color: #2d2d2d;
+            margin-bottom: 12px;
+            padding-left: 28px;
             position: relative;
+            font-weight: 500;
+            line-height: 1.5;
         }
         
         .role-features li::before {
-            content: '✓';
+            content: '';
             position: absolute;
             left: 0;
-            font-weight: 600;
+            top: 6px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #663399;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
-        .role-card.analyst .role-features li::before {
-            color: #059669;
-        }
-        
-        .role-card.manager .role-features li::before {
-            color: #2563eb;
-        }
-        
-        .role-card.compliance .role-features li::before {
-            color: #d97706;
+        .role-features li::after {
+            content: '✓';
+            position: absolute;
+            left: 5px;
+            top: 2px;
+            font-size: 12px;
+            font-weight: 700;
+            color: white;
         }
         
         .role-button {
@@ -235,34 +217,42 @@
             gap: 8px;
             background: #663399;
             color: white;
-            padding: 12px 24px;
-            border-radius: 25px;
+            padding: 16px 32px;
+            border-radius: 8px;
             font-size: 16px;
             font-weight: 600;
             text-decoration: none;
             transition: all 0.3s ease;
+            text-transform: none;
+            letter-spacing: 0;
         }
         
         .role-button:hover {
             background: #553288;
-            transform: translateX(4px);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 51, 153, 0.3);
         }
         
         .footer {
             margin-top: 80px;
-            padding-top: 40px;
+            padding-top: 32px;
             border-top: 1px solid rgba(255, 255, 255, 0.2);
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(255, 255, 255, 0.8);
             font-size: 14px;
+            font-weight: 400;
         }
         
         @media (max-width: 768px) {
+            .truist-text {
+                font-size: 24px;
+            }
+            
             .welcome-title {
                 font-size: 36px;
             }
             
             .welcome-subtitle {
-                font-size: 18px;
+                font-size: 20px;
             }
             
             .role-selection {
@@ -273,6 +263,10 @@
             .role-card {
                 padding: 32px 24px;
             }
+            
+            .role-title {
+                font-size: 24px;
+            }
         }
     </style>
 </head>
@@ -280,8 +274,11 @@
     <div class="container">
         <div class="header">
             <div class="truist-logo">
-                <div class="truist-icon"></div>
-                <div class="truist-text">Truist</div>
+                <div class="truist-brand">
+                    <div class="truist-icon-square"></div>
+                    <span class="truist-text">TRUIST</span>
+                    <span class="fdic-text">FDIC</span>
+                </div>
             </div>
             <h1 class="welcome-title">Commercial Banking</h1>
             <p class="welcome-subtitle">Choose Your Role to Continue</p>
@@ -292,7 +289,14 @@
         
         <div class="role-selection">
             <a href="analyst/dashboard.html" class="role-card analyst">
-                <div class="role-icon">💸</div>
+                <div class="role-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 6v6l4 2"/>
+                        <path d="M16 8h2a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2"/>
+                        <path d="M8 8H6a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2"/>
+                    </svg>
+                </div>
                 <h2 class="role-title">AP Analyst</h2>
                 <p class="role-description">
                     Create and manage payments for vendors, contractors, and service providers.
@@ -309,7 +313,12 @@
             </a>
             
             <a href="manager/dashboard.html" class="role-card manager">
-                <div class="role-icon">✅</div>
+                <div class="role-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 11l3 3 8-8"/>
+                        <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c2.39 0 4.68.94 6.36 2.64"/>
+                    </svg>
+                </div>
                 <h2 class="role-title">AP Manager</h2>
                 <p class="role-description">
                     Review and approve payments with full oversight of team activities.
@@ -326,7 +335,12 @@
             </a>
             
             <a href="compliance/dashboard.html" class="role-card compliance">
-                <div class="role-icon">🔍</div>
+                <div class="role-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        <path d="M9 12l2 2 4-4"/>
+                    </svg>
+                </div>
                 <h2 class="role-title">Compliance Officer</h2>
                 <p class="role-description">
                     Monitor risk patterns and ensure regulatory compliance across all transactions.
@@ -344,7 +358,7 @@
         </div>
         
         <div class="footer">
-            <p>Truist Bank, N.A. Member FDIC. • Commercial Banking Platform Demo</p>
+            <p>Truist Bank, N.A. Member FDIC. • Commercial Banking Platform</p>
         </div>
     </div>
 </body>
