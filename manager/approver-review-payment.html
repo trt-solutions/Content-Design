@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Truist Commercial Banking - AP Manager</title>
+    <title>Truist Commercial Banking - Review Payment</title>
     <style>
         * {
             margin: 0;
@@ -44,6 +44,24 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 16px;
+        }
+        
+        .back-btn {
+            background: #f3f4f6;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            font-size: 18px;
+        }
+        
+        .back-btn:hover {
+            background: #e5e7eb;
         }
         
         .truist-logo {
@@ -95,7 +113,7 @@
             align-items: center;
         }
         
-        .notification-btn, .signoff-btn, .role-btn {
+        .notification-btn, .role-btn {
             background: #f3f4f6;
             border: none;
             width: 40px;
@@ -109,23 +127,16 @@
             position: relative;
         }
         
-        .notification-btn:hover, .signoff-btn:hover, .role-btn:hover {
-            background: #e5e7eb;
-        }
-        
-        .signoff-btn, .role-btn {
-            width: auto;
-            padding: 0 16px;
-            font-size: 14px;
-            font-weight: 500;
-            color: #374151;
-        }
-        
         .role-btn {
+            width: auto;
+            padding: 0 12px;
             font-size: 12px;
             font-weight: 600;
             color: #663399;
-            padding: 0 12px;
+        }
+        
+        .notification-btn:hover, .role-btn:hover {
+            background: #e5e7eb;
         }
         
         .notification-badge {
@@ -144,31 +155,131 @@
             justify-content: center;
         }
         
-        .greeting {
+        .page-title {
             font-size: 24px;
             font-weight: 600;
             color: #1a1a1a;
             margin-bottom: 4px;
         }
         
-        .role-context {
+        .page-subtitle {
             font-size: 14px;
             color: #6b7280;
             font-weight: 500;
-            cursor: pointer;
-            transition: color 0.2s ease;
-        }
-        
-        .role-context:hover {
-            color: #663399;
-            text-decoration: underline;
         }
         
         .content {
-            padding: 24px 16px;
+            padding: 24px 16px 100px 16px;
         }
         
-        .urgent-banner {
+        .payment-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid #e5e7eb;
+        }
+        
+        .vendor-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .vendor-avatar {
+            width: 48px;
+            height: 48px;
+            background: #663399;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            margin-right: 16px;
+        }
+        
+        .vendor-info {
+            flex: 1;
+        }
+        
+        .vendor-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+        
+        .vendor-description {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 4px;
+        }
+        
+        .payment-meta {
+            font-size: 12px;
+            color: #9ca3af;
+        }
+        
+        .payment-amount {
+            font-size: 28px;
+            font-weight: 700;
+            color: #663399;
+            text-align: right;
+        }
+        
+        .payment-section {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+        }
+        
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+        
+        .detail-label {
+            font-size: 14px;
+            color: #6b7280;
+            font-weight: 500;
+        }
+        
+        .detail-value {
+            font-size: 14px;
+            color: #1a1a1a;
+            font-weight: 500;
+        }
+        
+        .memo-field {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 14px;
+            color: #663399;
+            margin-top: 8px;
+        }
+        
+        .urgency-banner {
             background: #fef2f2;
             border: 1px solid #fca5a5;
             border-radius: 12px;
@@ -179,7 +290,7 @@
             gap: 12px;
         }
         
-        .urgent-icon {
+        .urgency-icon {
             background: #ef4444;
             color: white;
             border-radius: 50%;
@@ -192,24 +303,18 @@
             flex-shrink: 0;
         }
         
-        .urgent-content {
+        .urgency-content {
             flex: 1;
         }
         
-        .urgent-text {
+        .urgency-text {
             font-size: 14px;
             color: #991b1b;
             line-height: 1.4;
-            margin-bottom: 8px;
             font-weight: 600;
         }
         
-        .urgent-subtext {
-            font-size: 12px;
-            color: #b91c1c;
-        }
-        
-        .quick-actions {
+        .comments-section {
             background: white;
             border-radius: 16px;
             padding: 24px;
@@ -217,467 +322,24 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
         
-        .actions-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-        }
-        
-        .action-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-        }
-        
-        .action-item:hover {
-            transform: translateY(-2px);
-        }
-        
-        .action-icon {
-            width: 64px;
-            height: 64px;
-            background: #663399;
-            border-radius: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 12px;
-            color: white;
-            font-size: 24px;
-            transition: all 0.2s ease;
-        }
-        
-        .action-item:hover .action-icon {
-            background: #553288;
-            transform: scale(1.05);
-        }
-        
-        .action-label {
+        .comments-label {
             font-size: 16px;
-            font-weight: 600;
-            color: #1a1a1a;
-            text-align: center;
-            margin-bottom: 4px;
-        }
-        
-        .action-sublabel {
-            font-size: 12px;
-            color: #6b7280;
-            text-align: center;
-            line-height: 1.3;
-            font-weight: 500;
-        }
-        
-        .approval-queue {
-            background: white;
-            border-radius: 16px;
-            margin-bottom: 24px;
-            overflow: hidden;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        
-        .queue-header {
-            padding: 20px 24px 16px 24px;
-            border-bottom: 1px solid #f3f4f6;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-        }
-        
-        .queue-header:hover {
-            background: #faf8ff;
-        }
-        
-        .queue-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #1a1a1a;
-        }
-        
-        .queue-controls {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .queue-count {
-            background: #ef4444;
-            color: white;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-        
-        .queue-toggle {
-            color: #6b7280;
-            font-size: 16px;
-            font-weight: 600;
-            transition: transform 0.2s ease;
-        }
-        
-        .queue-toggle.expanded {
-            transform: rotate(180deg);
-        }
-        
-        .queue-content {
-            max-height: 1000px;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-        
-        .queue-content.collapsed {
-            max-height: 0;
-        }
-        
-        .approval-item {
-            display: flex;
-            align-items: center;
-            padding: 16px 24px;
-            border-bottom: 1px solid #f9fafb;
-            position: relative;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-        }
-        
-        .approval-item:hover {
-            background: #faf8ff;
-        }
-        
-        .approval-item:hover .approval-actions {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .approval-priority {
-            width: 4px;
-            height: 40px;
-            border-radius: 2px;
-            margin-right: 16px;
-            flex-shrink: 0;
-        }
-        
-        .approval-priority.high {
-            background: #ef4444;
-        }
-        
-        .approval-priority.medium {
-            background: #f59e0b;
-        }
-        
-        .approval-priority.normal {
-            background: #10b981;
-        }
-        
-        .approval-content {
-            flex: 1;
-        }
-        
-        .approval-vendor {
-            font-size: 15px;
-            font-weight: 600;
-            color: #1a1a1a;
-            margin-bottom: 2px;
-        }
-        
-        .approval-detail {
-            font-size: 13px;
-            color: #6b7280;
-            margin-bottom: 4px;
-        }
-        
-        .approval-urgency {
-            font-size: 12px;
-            font-weight: 600;
-        }
-        
-        .approval-urgency.urgent {
-            color: #dc2626;
-        }
-        
-        .approval-urgency.normal {
-            color: #059669;
-        }
-        
-        .approval-amount {
-            font-size: 14px;
-            font-weight: 600;
-            color: #663399;
-            text-align: right;
-            margin-right: 16px;
-        }
-        
-        .approval-actions {
-            position: absolute;
-            right: 24px;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            gap: 8px;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.2s ease;
-            background: white;
-            padding: 4px;
-            border-radius: 6px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        
-        .action-btn {
-            padding: 6px 12px;
-            font-size: 12px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-weight: 600;
-        }
-        
-        .approve-btn {
-            background: #10b981;
-            color: white;
-        }
-        
-        .reject-btn {
-            background: #ef4444;
-            color: white;
-        }
-        
-        .review-btn {
-            background: #f3f4f6;
-            color: #374151;
-        }
-        
-        .menu-section {
-            background: white;
-            border-radius: 16px;
-            margin-bottom: 24px;
-            overflow: hidden;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        
-        .menu-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 24px;
-            border-bottom: 1px solid #f3f4f6;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-        }
-        
-        .menu-item-content {
-            flex: 1;
-        }
-        
-        .menu-item:last-child {
-            border-bottom: none;
-        }
-        
-        .menu-item:hover {
-            background: #faf8ff;
-        }
-        
-        .menu-label {
-            font-size: 16px;
-            font-weight: 500;
-            color: #1a1a1a;
-            margin-bottom: 2px;
-        }
-        
-        .menu-sublabel {
-            font-size: 13px;
-            color: #6b7280;
-            font-weight: 400;
-            line-height: 1.3;
-        }
-        
-        .menu-arrow {
-            color: #9ca3af;
-            font-size: 16px;
-        }
-        
-        .bank-info {
-            text-align: center;
-            padding: 16px;
-            color: #6b7280;
-            font-size: 12px;
-            margin-bottom: 80px;
-        }
-        
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 375px;
-            background: white;
-            border-top: 1px solid #e5e7eb;
-            padding: 12px 0 8px 0;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-        }
-        
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            padding: 8px 12px;
-            border-radius: 12px;
-        }
-        
-        .nav-item.active {
-            background: #faf8ff;
-        }
-        
-        .nav-icon {
-            font-size: 20px;
-            margin-bottom: 4px;
-            color: #6b7280;
-        }
-        
-        .nav-item.active .nav-icon {
-            color: #663399;
-        }
-        
-        .nav-label {
-            font-size: 11px;
-            color: #6b7280;
-            font-weight: 500;
-        }
-        
-        .nav-item.active .nav-label {
-            color: #663399;
-        }
-        
-        .approval-badge {
-            position: relative;
-        }
-        
-        .approval-badge::after {
-            content: '';
-            position: absolute;
-            top: -2px;
-            right: -2px;
-            width: 8px;
-            height: 8px;
-            background: #ef4444;
-            border-radius: 50%;
-        }
-        
-        /* Custom Rejection Popover Styles */
-        .rejection-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(4px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-        
-        .rejection-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .rejection-popover {
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            max-width: 340px;
-            width: 90%;
-            margin: 0 20px;
-            overflow: hidden;
-            transform: scale(0.9) translateY(20px);
-            transition: all 0.3s ease;
-        }
-        
-        .rejection-overlay.active .rejection-popover {
-            transform: scale(1) translateY(0);
-        }
-        
-        .rejection-header {
-            padding: 24px 24px 16px 24px;
-            border-bottom: 1px solid #f3f4f6;
-            text-align: center;
-        }
-        
-        .rejection-icon {
-            width: 48px;
-            height: 48px;
-            background: #fef2f2;
-            border-radius: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 16px auto;
-        }
-        
-        .rejection-icon-inner {
-            font-size: 20px;
-            color: #ef4444;
-        }
-        
-        .rejection-title {
-            font-size: 18px;
             font-weight: 600;
             color: #1a1a1a;
             margin-bottom: 8px;
         }
         
-        .rejection-subtitle {
-            font-size: 14px;
-            color: #6b7280;
-            line-height: 1.4;
-        }
-        
-        .rejection-vendor {
-            font-weight: 600;
-            color: #663399;
-        }
-        
-        .rejection-body {
-            padding: 20px 24px;
-        }
-        
-        .rejection-form-group {
-            margin-bottom: 20px;
-        }
-        
-        .rejection-label {
-            display: block;
-            font-size: 14px;
-            font-weight: 500;
-            color: #374151;
-            margin-bottom: 8px;
-        }
-        
-        .rejection-label .required {
+        .required {
             color: #ef4444;
             margin-left: 2px;
         }
         
-        .rejection-textarea {
+        .comments-textarea {
             width: 100%;
-            min-height: 80px;
-            padding: 12px;
+            min-height: 100px;
+            padding: 16px;
             border: 1px solid #d1d5db;
-            border-radius: 8px;
+            border-radius: 12px;
             font-size: 14px;
             font-family: inherit;
             resize: vertical;
@@ -685,135 +347,78 @@
             background: white;
         }
         
-        .rejection-textarea:focus {
+        .comments-textarea:focus {
             outline: none;
             border-color: #663399;
             box-shadow: 0 0 0 3px rgba(102, 51, 153, 0.1);
         }
         
-        .rejection-textarea::placeholder {
+        .comments-textarea::placeholder {
             color: #9ca3af;
         }
         
-        .rejection-actions {
-            padding: 16px 24px 24px 24px;
+        .action-buttons {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 375px;
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            padding: 16px;
             display: flex;
+            flex-direction: column;
             gap: 12px;
         }
         
-        .rejection-btn {
-            flex: 1;
-            padding: 12px 16px;
-            border-radius: 8px;
-            font-size: 14px;
+        .action-btn {
+            width: 100%;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 16px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
             border: 1px solid transparent;
         }
         
-        .rejection-btn-cancel {
-            background: #f9fafb;
-            color: #374151;
-            border-color: #d1d5db;
+        .approve-btn {
+            background: #10b981;
+            color: white;
+            border: none;
         }
         
-        .rejection-btn-cancel:hover {
+        .approve-btn:hover {
+            background: #059669;
+        }
+        
+        .request-changes-btn {
+            background: #f9fafb;
+            color: #374151;
+            border: 1px solid #d1d5db;
+        }
+        
+        .request-changes-btn:hover {
             background: #f3f4f6;
         }
         
-        .rejection-btn-confirm {
-            background: #ef4444;
-            color: white;
+        .reject-btn {
+            background: #fef2f2;
+            color: #ef4444;
+            border: 1px solid #fca5a5;
         }
         
-        .rejection-btn-confirm:hover {
-            background: #dc2626;
+        .reject-btn:hover {
+            background: #fef2f2;
+            border-color: #f87171;
         }
         
-        .rejection-btn-confirm:disabled {
-            background: #fca5a5;
-            cursor: not-allowed;
-        }
-        
-        /* Success Banner Styles */
-        .success-banner {
-            background: #f0fdf4;
-            border: 1px solid #bbf7d0;
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 24px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            opacity: 0;
-            transform: translateY(-10px);
-            transition: all 0.3s ease;
-        }
-        
-        .success-banner.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .success-icon {
-            background: #10b981;
-            color: white;
-            border-radius: 50%;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            flex-shrink: 0;
-        }
-        
-        .success-content {
-            flex: 1;
-        }
-        
-        .success-text {
-            font-size: 14px;
-            color: #166534;
-            line-height: 1.4;
-            margin-bottom: 4px;
-            font-weight: 600;
-        }
-        
-        .success-subtext {
-            font-size: 12px;
-            color: #166534;
-            opacity: 0.8;
-        }
-        
-        .success-close {
-            background: none;
-            border: none;
-            color: #166534;
-            cursor: pointer;
-            font-size: 18px;
-            padding: 4px;
-            border-radius: 4px;
-            transition: background-color 0.2s ease;
-        }
-        
-        .success-close:hover {
-            background: #dcfce7;
-        }
-        
-        @keyframes fadeOut {
-            from { opacity: 1; transform: translateX(0); }
-            to { opacity: 0; transform: translateX(-100%); }
-        }
-        
-        /* Form Validation Styles */
         .form-validation-message {
             background: #fef2f2;
             border: 1px solid #fca5a5;
             border-radius: 8px;
             padding: 12px 16px;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -835,13 +440,27 @@
             flex-shrink: 0;
         }
         
-        .rejection-textarea.error {
+        .comments-textarea.error {
             border-color: #ef4444;
             box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
         }
         
-        .rejection-textarea.error:focus {
+        .comments-textarea.error:focus {
             border-color: #ef4444;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+        }
+        
+        .rejection-mode .comments-label {
+            color: #ef4444;
+        }
+        
+        .rejection-mode .comments-textarea {
+            border-color: #ef4444;
+            background: #fef2f2;
+        }
+        
+        .rejection-mode .comments-textarea:focus {
+            border-color: #dc2626;
             box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
         }
     </style>
@@ -850,6 +469,9 @@
     <div class="container">
         <div class="header">
             <div class="header-top">
+                <button class="back-btn" onclick="history.back()" title="Back to dashboard">
+                    ←
+                </button>
                 <div class="truist-logo">
                     <div class="truist-icon"></div>
                     <div class="truist-text">Truist</div>
@@ -859,573 +481,277 @@
                         🔔
                         <span class="notification-badge">7</span>
                     </button>
-                    <button class="signoff-btn">Sign off</button>
                     <button class="role-btn" onclick="location.href='../index.html'">Switch Role</button>
                 </div>
             </div>
-            <div class="greeting">Good morning, Sarah</div>
-            <div class="role-context" title="View team permissions and delegation settings">AP Manager • Finance Team</div>
+            <div class="page-title">Review Payment</div>
+            <div class="page-subtitle">Approve, reject, or request changes</div>
         </div>
         
         <div class="content">
-            <div id="successBanner" class="success-banner" style="display: none;">
-                <div class="success-icon">✓</div>
-                <div class="success-content">
-                    <div class="success-text" id="successText">Payment action completed</div>
-                    <div class="success-subtext" id="successSubtext">The submitter will be notified</div>
-                </div>
-                <button class="success-close" onclick="hideSuccessBanner()">×</button>
-            </div>
-            
-            <div class="urgent-banner">
-                <div class="urgent-icon">⏰</div>
-                <div class="urgent-content">
-                    <div class="urgent-text">2 high-priority approvals expire today</div>
-                    <div class="urgent-subtext">Downtown Property and Metro Insurance</div>
+            <div id="urgencyBanner" class="urgency-banner" style="display: none;">
+                <div class="urgency-icon">⏰</div>
+                <div class="urgency-content">
+                    <div class="urgency-text">This payment expires in 4 hours</div>
                 </div>
             </div>
             
-            <div class="quick-actions">
-                <div class="actions-grid">
-                    <div class="action-item" onclick="scrollToApprovalQueue()">
-                        <div class="action-icon">✅</div>
-                        <div class="action-label">Approve</div>
-                        <div class="action-sublabel">Pending payments<br><span style="color: #ef4444; font-weight: 600; font-size: 11px;">7 need approval</span></div>
+            <div class="payment-card">
+                <div class="vendor-header">
+                    <div class="vendor-avatar" id="vendorAvatar">DP</div>
+                    <div class="vendor-info">
+                        <div class="vendor-name" id="vendorName">Downtown Property</div>
+                        <div class="vendor-description" id="vendorDescription">Monthly recurring payment</div>
+                        <div class="payment-meta" id="paymentMeta">Submitted by Alex Chen, AP Analyst • 2:15 PM today</div>
                     </div>
-                    <div class="action-item" onclick="scrollToPaymentHistory()">
-                        <div class="action-icon">📊</div>
-                        <div class="action-label">View</div>
-                        <div class="action-sublabel">Payment history</div>
-                    </div>
+                    <div class="payment-amount" id="paymentAmount">$8,500.00</div>
                 </div>
             </div>
             
-            <div class="approval-queue">
-                <div class="queue-header" onclick="toggleQueue()">
-                    <h2 class="queue-title">Approval Queue</h2>
-                    <div class="queue-controls">
-                        <span class="queue-count">7</span>
-                        <span class="queue-toggle" id="queueToggle">▼</span>
-                    </div>
+            <div class="payment-section">
+                <h3 class="section-title">Payment details</h3>
+                
+                <div class="detail-row">
+                    <span class="detail-label">Account</span>
+                    <span class="detail-value" id="accountNumber">Truist ****2341</span>
                 </div>
                 
-                <div class="queue-content" id="queueContent">
-                    <div class="approval-item" onclick="goToReviewPage('Downtown Property', '$8,500', 'Office Rent', 'Monthly recurring payment')">>>
-                        <div class="approval-priority high"></div>
-                        <div class="approval-content">
-                            <div class="approval-vendor">Downtown Property</div>
-                            <div class="approval-detail">Office Rent • Submitted by Alex K. • Due: Today</div>
-                            <div class="approval-urgency urgent">Expires in 4 hours</div>
-                        </div>
-                        <div class="approval-amount">$8,500</div>
-                        <div class="approval-actions" onclick="event.stopPropagation()">
-                            <button class="action-btn review-btn" onclick="goToReviewPage('Downtown Property', '$8,500', 'Office Rent', 'Monthly recurring payment')">Review</button>
-                        </div>
-                    </div>
-                    
-                    <div class="approval-item" onclick="goToReviewPage('Metro Insurance', '$12,750', 'Business Insurance', 'Monthly recurring payment')">>
-                        <div class="approval-priority high"></div>
-                        <div class="approval-content">
-                            <div class="approval-vendor">Metro Insurance</div>
-                            <div class="approval-detail">Business Insurance • Submitted by Lisa M. • Due: Today</div>
-                            <div class="approval-urgency urgent">Expires in 6 hours</div>
-                        </div>
-                        <div class="approval-amount">$12,750</div>
-                        <div class="approval-actions" onclick="event.stopPropagation()">
-                            <button class="action-btn review-btn" onclick="goToReviewPage('Metro Insurance', '$12,750', 'Business Insurance', 'Monthly recurring payment')">Review</button>
-                        </div>
-                    </div>
-                    
-                    <div class="approval-item" onclick="location.href='approver-review-payment.html'">
-                        <div class="approval-priority medium"></div>
-                        <div class="approval-content">
-                            <div class="approval-vendor">Acme Corp Software</div>
-                            <div class="approval-detail">SaaS Subscription • Submitted by Alex K. • Due: Feb 1</div>
-                            <div class="approval-urgency normal">Due in 2 days</div>
-                        </div>
-                        <div class="approval-amount">$2,400</div>
-                        <div class="approval-actions" onclick="event.stopPropagation()">
-                            <button class="action-btn review-btn" onclick="location.href='approver-review-payment.html'">Review</button>
-                        </div>
-                    </div>
-                    
-                    <div class="approval-item" onclick="location.href='approver-review-payment.html'">
-                        <div class="approval-priority normal"></div>
-                        <div class="approval-content">
-                            <div class="approval-vendor">Office Supply Co</div>
-                            <div class="approval-detail">Monthly Supplies • Submitted by Jordan T. • Due: Feb 5</div>
-                            <div class="approval-urgency normal">Due in 5 days</div>
-                        </div>
-                        <div class="approval-amount">$875</div>
-                        <div class="approval-actions" onclick="event.stopPropagation()">
-                            <button class="action-btn review-btn" onclick="location.href='approver-review-payment.html'">Review</button>
-                        </div>
-                    </div>
-                    
-                    <div class="approval-item" onclick="location.href='approver-review-payment.html'">
-                        <div class="approval-priority normal"></div>
-                        <div class="approval-content">
-                            <div class="approval-vendor">TechFlow LLC</div>
-                            <div class="approval-detail">Consulting Services • Submitted by Maria S. • Due: Feb 7</div>
-                            <div class="approval-urgency normal">Due in 7 days</div>
-                        </div>
-                        <div class="approval-amount">$3,200</div>
-                        <div class="approval-actions" onclick="event.stopPropagation()">
-                            <button class="action-btn review-btn" onclick="location.href='approver-review-payment.html'">Review</button>
-                        </div>
-                    </div>
-                    
-                    <div class="approval-item" onclick="location.href='approver-review-payment.html'">
-                        <div class="approval-priority normal"></div>
-                        <div class="approval-content">
-                            <div class="approval-vendor">Global Tech Solutions</div>
-                            <div class="approval-detail">Software License • Submitted by Alex K. • Due: Feb 10</div>
-                            <div class="approval-urgency normal">Due in 10 days</div>
-                        </div>
-                        <div class="approval-amount">$4,800</div>
-                        <div class="approval-actions" onclick="event.stopPropagation()">
-                            <button class="action-btn review-btn" onclick="location.href='approver-review-payment.html'">Review</button>
-                        </div>
-                    </div>
-                    
-                    <div class="approval-item" onclick="location.href='approver-review-payment.html'">
-                        <div class="approval-priority normal"></div>
-                        <div class="approval-content">
-                            <div class="approval-vendor">City Utilities</div>
-                            <div class="approval-detail">Monthly Utilities • Submitted by Jordan T. • Due: Feb 12</div>
-                            <div class="approval-urgency normal">Due in 12 days</div>
-                        </div>
-                        <div class="approval-amount">$1,650</div>
-                        <div class="approval-actions" onclick="event.stopPropagation()">
-                            <button class="action-btn review-btn" onclick="location.href='approver-review-payment.html'">Review</button>
-                        </div>
-                    </div>
+                <div class="detail-row">
+                    <span class="detail-label">Payment type</span>
+                    <span class="detail-value" id="paymentType">ACH Transfer</span>
+                </div>
+                
+                <div class="detail-row">
+                    <span class="detail-label">Category</span>
+                    <span class="detail-value" id="paymentCategory">Office Rent</span>
+                </div>
+                
+                <div class="detail-label">Memo</div>
+                <div class="memo-field" id="paymentMemo">Monthly office rent payment</div>
+            </div>
+            
+            <div class="payment-section">
+                <h3 class="section-title">Payment schedule</h3>
+                
+                <div class="detail-row">
+                    <span class="detail-label">Frequency</span>
+                    <span class="detail-value" id="paymentFrequency">Monthly</span>
+                </div>
+                
+                <div class="detail-row">
+                    <span class="detail-label">First payment</span>
+                    <span class="detail-value" id="firstPayment">June 1, 2025</span>
+                </div>
+                
+                <div class="detail-row">
+                    <span class="detail-label">End condition</span>
+                    <span class="detail-value" id="endCondition">Continue until canceled</span>
+                </div>
+                
+                <div class="detail-row">
+                    <span class="detail-label">Estimated annual total</span>
+                    <span class="detail-value" id="annualTotal">$102,000.00</span>
                 </div>
             </div>
             
-            <div class="menu-section">
-                <div class="menu-item" onclick="showComingSoon('Payment History')">
-                    <div class="menu-item-content">
-                        <div class="menu-label">View</div>
-                        <div class="menu-sublabel">All payment statuses, history, and audit trails</div>
-                    </div>
-                    <div class="menu-arrow">›</div>
+            <div class="comments-section" id="commentsSection">
+                <div id="validationMessage" class="form-validation-message">
+                    <div class="validation-icon">⚠️</div>
+                    <div id="validationText">What's the reason for rejecting this payment?</div>
                 </div>
-                <div class="menu-item" onclick="showComingSoon('Team Management')">
-                    <div class="menu-item-content">
-                        <div class="menu-label">Manage</div>
-                        <div class="menu-sublabel">Team permissions and approval workflows</div>
-                    </div>
-                    <div class="menu-arrow">›</div>
-                </div>
-                <div class="menu-item" onclick="showComingSoon('Help & Guides')">
-                    <div class="menu-item-content">
-                        <div class="menu-label">Learn</div>
-                        <div class="menu-sublabel">More about approvals, policies, and compliance</div>
-                    </div>
-                    <div class="menu-arrow">›</div>
-                </div>
-            </div>
-            
-            <div class="bank-info">
-                Truist Bank, N.A. Member FDIC.
+                
+                <label class="comments-label" for="comments" id="commentsLabel">
+                    Comments<span class="required" id="requiredIndicator" style="display: none;">*</span>
+                </label>
+                <textarea 
+                    class="comments-textarea" 
+                    id="comments" 
+                    placeholder="Enter your payment decision comments..."
+                ></textarea>
             </div>
         </div>
         
-        <div class="bottom-nav">
-            <div class="nav-item active">
-                <div class="nav-icon">🏠</div>
-                <div class="nav-label">Dashboard</div>
-            </div>
-            <div class="nav-item" onclick="showComingSoon('Payments')">
-                <div class="nav-icon">💸</div>
-                <div class="nav-label">Payments</div>
-            </div>
-            <div class="nav-item" onclick="scrollToApprovalQueue()">
-                <div class="nav-icon approval-badge">✅</div>
-                <div class="nav-label">Approvals</div>
-            </div>
-            <div class="nav-item" onclick="showComingSoon('Reports')">
-                <div class="nav-icon">📊</div>
-                <div class="nav-label">Reports</div>
-            </div>
-            <div class="nav-item" onclick="showComingSoon('Settings')">
-                <div class="nav-icon">⚙️</div>
-                <div class="nav-label">Settings</div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Custom Rejection Popover -->
-    <div class="rejection-overlay" id="rejectionOverlay">
-        <div class="rejection-popover">
-            <div class="rejection-header">
-                <div class="rejection-icon">
-                    <div class="rejection-icon-inner">⚠️</div>
-                </div>
-                <div class="rejection-title">Reject Payment</div>
-                <div class="rejection-subtitle">
-                    Are you sure you want to reject the <span class="rejection-vendor" id="rejectionVendor"></span> payment?
-                </div>
-            </div>
-            
-            <div class="rejection-body">
-                <div id="validationMessage" class="form-validation-message">
-                    <div class="validation-icon">⚠️</div>
-                    <div>What's the reason for rejecting this payment?</div>
-                </div>
-                
-                <div class="rejection-form-group">
-                    <label class="rejection-label" for="rejectionComments">
-                        Reason for rejection<span class="required">*</span>
-                    </label>
-                    <textarea 
-                        class="rejection-textarea" 
-                        id="rejectionComments" 
-                        placeholder="Please provide a reason for rejecting this payment..."
-                        required
-                    ></textarea>
-                </div>
-            </div>
-            
-            <div class="rejection-actions">
-                <button type="button" class="rejection-btn rejection-btn-cancel" onclick="hideRejectionPopover()">
-                    Cancel
-                </button>
-                <button type="button" class="rejection-btn rejection-btn-confirm" id="confirmRejectBtn">
-                    Reject Payment
-                </button>
-            </div>
+        <div class="action-buttons">
+            <button class="action-btn approve-btn" id="approveBtn" onclick="approvePayment()">
+                Approve Payment
+            </button>
+            <button class="action-btn request-changes-btn" onclick="requestChanges()">
+                Request Changes
+            </button>
+            <button class="action-btn reject-btn" id="rejectBtn" onclick="rejectPayment()">
+                Reject Payment
+            </button>
         </div>
     </div>
     
     <script>
         // In-memory storage for payment actions (since sessionStorage is not available)
-        window.paymentActionData = null;
+        let currentAction = '';
+        let pendingVendor = '';
+        let pendingComments = '';
         
-        function scrollToApprovalQueue() {
-            const approvalQueue = document.querySelector('.approval-queue');
-            if (approvalQueue) {
-                approvalQueue.scrollIntoView({ 
-                    behavior: 'smooth', 
-                    block: 'start' 
-                });
+        // Parse URL parameters to check if coming from rejection flow
+        function parseURLParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const action = urlParams.get('action');
+            const vendor = urlParams.get('vendor');
+            const comments = urlParams.get('comments');
+            
+            if (action === 'reject' && vendor) {
+                currentAction = 'reject';
+                pendingVendor = vendor;
+                pendingComments = comments || '';
                 
-                // Highlight the queue briefly
-                approvalQueue.style.boxShadow = '0 0 0 3px rgba(102, 51, 153, 0.2)';
-                setTimeout(() => {
-                    approvalQueue.style.boxShadow = '0 1px 3px rgba(0,0,0,0.1)';
-                }, 2000);
+                // Update UI for rejection mode
+                setRejectionMode();
+                
+                // If comments were provided, populate them
+                if (comments) {
+                    document.getElementById('comments').value = comments;
+                }
             }
         }
         
-        function goToReviewPage(vendor, amount, category, description) {
-            // Store the payment data for the review page
-            const paymentData = {
-                vendor: vendor,
-                amount: amount,
-                category: category,
-                description: description,
-                timestamp: new Date().toISOString()
-            };
-            
-            // Store in window object for the review page to access
-            window.paymentReviewData = paymentData;
-            
-            // For now, show a modal or simulate the review since we can't navigate
-            showReviewModal(paymentData);
-        }
-        
-        function showReviewModal(data) {
-            alert(`Review Payment\n\nVendor: ${data.vendor}\nAmount: ${data.amount}\nCategory: ${data.category}\nDescription: ${data.description}\n\nThis would normally open the detailed review page.`);
-        }
-        
-        function showComingSoon(feature) {
-            alert(`${feature} feature coming soon! This is a demo of the AP Manager dashboard.`);
-        }
-        
-        function scrollToPaymentHistory() {
-            // Since we don't have a payment history section, show a message
-            alert('Payment history feature coming soon! For now, you can view payment details in the approval queue.');
-        }
-        
-        function toggleQueue() {
-            const queueContent = document.getElementById('queueContent');
-            const queueToggle = document.getElementById('queueToggle');
-            
-            if (queueContent.classList.contains('collapsed')) {
-                queueContent.classList.remove('collapsed');
-                queueToggle.classList.add('expanded');
-            } else {
-                queueContent.classList.add('collapsed');
-                queueToggle.classList.remove('expanded');
-            }
-        }
-        
-        function quickApprove(vendor) {
-            console.log('Quick approving:', vendor);
-            
-            // Complete approval directly on dashboard
-            const approvalData = {
-                vendor: vendor,
-                reason: 'Quick approved',
-                timestamp: new Date().toISOString(),
-                action: 'approved'
-            };
-            
-            // Show success banner
-            showSuccessBanner(approvalData);
-            
-            // Remove item from queue
-            removeFromQueue(vendor);
-            
-            // In real app: send approval to backend
-        }
-        
-        function quickReject(vendor) {
-            console.log('Quick rejecting:', vendor);
-            // Stop any event propagation
-            event.stopPropagation();
-            showRejectionPopover(vendor);
-            return false;
-        }
-        
-        function showRejectionPopover(vendor) {
-            const overlay = document.getElementById('rejectionOverlay');
-            const vendorElement = document.getElementById('rejectionVendor');
-            const commentsTextarea = document.getElementById('rejectionComments');
-            const confirmBtn = document.getElementById('confirmRejectBtn');
+        function setRejectionMode() {
+            const commentsSection = document.getElementById('commentsSection');
+            const commentsLabel = document.getElementById('commentsLabel');
+            const requiredIndicator = document.getElementById('requiredIndicator');
+            const comments = document.getElementById('comments');
             const validationMessage = document.getElementById('validationMessage');
             
-            // Set vendor name and store for later use
-            vendorElement.textContent = vendor;
-            overlay.dataset.vendor = vendor;
+            // Add rejection styling
+            commentsSection.classList.add('rejection-mode');
             
-            // Clear previous comments and reset states
-            commentsTextarea.value = '';
-            commentsTextarea.classList.remove('error');
-            confirmBtn.disabled = true;
-            validationMessage.classList.remove('show');
+            // Show required indicator
+            requiredIndicator.style.display = 'inline';
             
-            // Show the popover
-            overlay.classList.add('active');
+            // Update label text
+            commentsLabel.textContent = 'Reason for rejection';
             
-            // Focus on textarea after animation
-            setTimeout(() => {
-                commentsTextarea.focus();
-            }, 300);
+            // Update placeholder
+            comments.placeholder = 'Please provide a detailed reason for rejecting this payment...';
             
-            // Listen for input to enable/disable confirm button and hide validation
-            commentsTextarea.oninput = function() {
-                const hasText = this.value.trim().length > 0;
-                confirmBtn.disabled = !hasText;
-                
-                if (hasText) {
+            // Show validation message if no comments
+            if (!comments.value.trim()) {
+                validationMessage.classList.add('show');
+                comments.classList.add('error');
+                comments.focus();
+            }
+            
+            // Listen for input to hide validation
+            comments.oninput = function() {
+                if (this.value.trim()) {
                     this.classList.remove('error');
                     validationMessage.classList.remove('show');
                 }
             };
         }
         
-        function hideRejectionPopover() {
-            const overlay = document.getElementById('rejectionOverlay');
-            overlay.classList.remove('active');
+        function approvePayment() {
+            console.log('Approving payment');
+            
+            // Store approval data for dashboard to show updated status
+            const approvalData = {
+                vendor: pendingVendor || document.getElementById('vendorName').textContent,
+                reason: document.getElementById('comments').value.trim() || 'Approved',
+                timestamp: new Date().toISOString(),
+                action: 'approved'
+            };
+            
+            // Store in window object to pass to dashboard
+            window.parent.paymentActionData = approvalData;
+            
+            // In real app: send approval to backend
+            // Redirect back to dashboard
+            window.location.href = 'truist-ap-manager-dashboard.html';
         }
         
-        function confirmRejection() {
-            const overlay = document.getElementById('rejectionOverlay');
-            const vendor = overlay.dataset.vendor;
-            const commentsTextarea = document.getElementById('rejectionComments');
-            const comments = commentsTextarea.value.trim();
-            const validationMessage = document.getElementById('validationMessage');
+        function requestChanges() {
+            const comments = document.getElementById('comments').value.trim();
             
             if (!comments) {
-                // Show validation message and highlight textarea
+                showValidationMessage('Please explain what changes are needed.');
+                return;
+            }
+            
+            console.log('Requesting changes:', comments);
+            
+            // Store change request data for dashboard to show updated status
+            const changeRequestData = {
+                vendor: pendingVendor || document.getElementById('vendorName').textContent,
+                reason: comments,
+                timestamp: new Date().toISOString(),
+                action: 'changes_requested'
+            };
+            
+            // Store in window object to pass to dashboard
+            window.parent.paymentActionData = changeRequestData;
+            
+            // In real app: send change request to backend
+            // Redirect back to dashboard
+            window.location.href = 'truist-ap-manager-dashboard.html';
+        }
+        
+        function rejectPayment() {
+            const comments = document.getElementById('comments').value.trim();
+            const validationMessage = document.getElementById('validationMessage');
+            const commentsTextarea = document.getElementById('comments');
+            
+            if (!comments) {
+                // Show validation and highlight field
+                showValidationMessage('What\'s the reason for rejecting this payment?');
                 commentsTextarea.classList.add('error');
                 validationMessage.classList.add('show');
                 commentsTextarea.focus();
                 return;
             }
             
-            // Hide popover
-            hideRejectionPopover();
+            console.log('Rejecting payment:', comments);
             
-            // Navigate to review page with rejection data
-            const params = new URLSearchParams({
-                action: 'reject',
-                vendor: vendor,
-                comments: comments
-            });
+            // Store rejection data for dashboard to show updated status
+            const rejectionData = {
+                vendor: pendingVendor || document.getElementById('vendorName').textContent,
+                reason: comments,
+                timestamp: new Date().toISOString(),
+                action: 'rejected'
+            };
             
-            location.href = 'approver-review-payment.html?' + params.toString();
+            // Store in window object to pass to dashboard
+            window.parent.paymentActionData = rejectionData;
+            
+            // In real app: send rejection to backend
+            // Redirect back to dashboard immediately
+            window.location.href = 'truist-ap-manager-dashboard.html';
         }
         
-        // Close popover when clicking outside
-        document.getElementById('rejectionOverlay').addEventListener('click', function(e) {
-            if (e.target === this) {
-                hideRejectionPopover();
-            }
-        });
-        
-        // Close popover with Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                hideRejectionPopover();
-            }
-        });
-        
-        // Prevent any accidental navigation during rejection process
-        function preventNavigation(e) {
-            if (document.getElementById('rejectionOverlay').classList.contains('active')) {
-                e.preventDefault();
-                e.stopPropagation();
-                return false;
-            }
+        function showValidationMessage(message) {
+            const validationMessage = document.getElementById('validationMessage');
+            const validationText = document.getElementById('validationText');
+            const commentsTextarea = document.getElementById('comments');
+            
+            validationText.textContent = message;
+            validationMessage.classList.add('show');
+            commentsTextarea.classList.add('error');
+            commentsTextarea.focus();
         }
         
-        // Start with queue expanded by default
+        // Initialize page based on URL parameters
         document.addEventListener('DOMContentLoaded', function() {
-            const queueToggle = document.getElementById('queueToggle');
-            queueToggle.classList.add('expanded');
+            parseURLParams();
             
-            // Bind rejection button event listener
-            const confirmRejectBtn = document.getElementById('confirmRejectBtn');
-            if (confirmRejectBtn) {
-                confirmRejectBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    confirmRejection();
-                    return false;
-                });
-            }
+            // Show urgency banner for high priority items
+            const urgencyBanner = document.getElementById('urgencyBanner');
+            urgencyBanner.style.display = 'flex';
             
-            // Check for payment action results
-            checkForPaymentActionResult();
-        });
-        
-        function checkForPaymentActionResult() {
-            const actionData = window.paymentActionData;
-            if (actionData) {
-                showSuccessBanner(actionData);
-                
-                // Clear the stored data
-                window.paymentActionData = null;
-                
-                // Remove the processed item from queue (simulate)
-                removeFromQueue(actionData.vendor);
-            }
-        }
-        
-        function showSuccessBanner(data) {
-            const banner = document.getElementById('successBanner');
-            const successText = document.getElementById('successText');
-            const successSubtext = document.getElementById('successSubtext');
-            
-            let message = '';
-            let submessage = '';
-            
-            switch(data.action) {
-                case 'approved':
-                    message = `Payment to ${data.vendor} approved`;
-                    submessage = 'Payment processed successfully';
-                    break;
-                case 'rejected':
-                    message = `Payment to ${data.vendor} rejected`;
-                    submessage = `Reason: ${data.reason}`;
-                    break;
-                case 'changes_requested':
-                    message = `Changes requested for ${data.vendor}`;
-                    submessage = `Feedback: ${data.reason}`;
-                    break;
-            }
-            
-            successText.textContent = message;
-            successSubtext.textContent = submessage;
-            
-            // Make sure banner is visible
-            banner.style.display = 'flex';
-            
-            // Force a reflow to ensure the display change takes effect
-            banner.offsetHeight;
-            
-            // Add the show class
-            banner.classList.add('show');
-            
-            // Auto-hide after 8 seconds
-            setTimeout(() => {
-                hideSuccessBanner();
-            }, 8000);
-        }
-        
-        function hideSuccessBanner() {
-            const banner = document.getElementById('successBanner');
-            banner.classList.remove('show');
-            setTimeout(() => {
-                banner.style.display = 'none';
-            }, 300);
-        }
-        
-        function removeFromQueue(vendorName) {
-            // Find and remove the approval item from the queue
-            const approvalItems = document.querySelectorAll('.approval-item');
-            let itemFound = false;
-            
-            approvalItems.forEach(item => {
-                const vendor = item.querySelector('.approval-vendor');
-                if (vendor && vendor.textContent.trim() === vendorName.trim()) {
-                    itemFound = true;
-                    item.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-                    item.style.opacity = '0';
-                    item.style.transform = 'translateX(-100%)';
-                    
-                    setTimeout(() => {
-                        if (item.parentNode) {
-                            item.parentNode.removeChild(item);
-                        }
-                        updateQueueCount();
-                    }, 300);
+            // Listen for comments input to clear validation
+            const commentsTextarea = document.getElementById('comments');
+            commentsTextarea.addEventListener('input', function() {
+                if (this.value.trim()) {
+                    this.classList.remove('error');
+                    document.getElementById('validationMessage').classList.remove('show');
                 }
             });
-            
-            if (!itemFound) {
-                console.log('Item not found in queue:', vendorName);
-                // Still update counters even if item not found
-                updateQueueCount();
-            }
-        }
-        
-        function updateQueueCount() {
-            const remainingItems = document.querySelectorAll('.approval-item').length;
-            const queueCount = document.querySelector('.queue-count');
-            const actionSubLabel = document.querySelector('.action-sublabel');
-            
-            console.log('Updating queue count to:', remainingItems);
-            
-            if (queueCount) {
-                queueCount.textContent = remainingItems;
-            }
-            
-            if (actionSubLabel) {
-                const span = actionSubLabel.querySelector('span');
-                if (span) {
-                    span.textContent = `${remainingItems} need approval`;
-                }
-            }
-            
-            // Update notification badge
-            const notificationBadge = document.querySelector('.notification-badge');
-            if (notificationBadge) {
-                notificationBadge.textContent = remainingItems;
-            }
-            
-            // If no items left, show different message
-            if (remainingItems === 0) {
-                const urgentBanner = document.querySelector('.urgent-banner');
-                if (urgentBanner) {
-                    urgentBanner.style.display = 'none';
-                }
-            }
-        }
+        });
     </script>
 </body>
 </html>
