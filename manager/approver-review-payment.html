@@ -648,8 +648,19 @@
         
         function approvePayment() {
             console.log('Approving payment');
+            
+            // Store approval data for dashboard to show updated status
+            const approvalData = {
+                vendor: pendingVendor || document.getElementById('vendorName').textContent,
+                reason: document.getElementById('comments').value.trim() || 'Approved',
+                timestamp: new Date().toISOString(),
+                action: 'approved'
+            };
+            
+            // Store in sessionStorage to pass to dashboard
+            sessionStorage.setItem('lastPaymentAction', JSON.stringify(approvalData));
+            
             // In real app: send approval to backend
-            alert('Payment approved successfully! Notification sent to submitter.');
             // Redirect back to dashboard
             window.location.href = 'ap-manager-dashboard.html';
         }
@@ -663,8 +674,19 @@
             }
             
             console.log('Requesting changes:', comments);
+            
+            // Store change request data for dashboard to show updated status
+            const changeRequestData = {
+                vendor: pendingVendor || document.getElementById('vendorName').textContent,
+                reason: comments,
+                timestamp: new Date().toISOString(),
+                action: 'changes_requested'
+            };
+            
+            // Store in sessionStorage to pass to dashboard
+            sessionStorage.setItem('lastPaymentAction', JSON.stringify(changeRequestData));
+            
             // In real app: send change request to backend
-            alert('Change request sent! The submitter will be notified with your comments.');
             // Redirect back to dashboard
             window.location.href = 'ap-manager-dashboard.html';
         }
@@ -684,9 +706,20 @@
             }
             
             console.log('Rejecting payment:', comments);
+            
+            // Store rejection data for dashboard to show updated status
+            const rejectionData = {
+                vendor: pendingVendor || document.getElementById('vendorName').textContent,
+                reason: comments,
+                timestamp: new Date().toISOString(),
+                action: 'rejected'
+            };
+            
+            // Store in sessionStorage to pass to dashboard
+            sessionStorage.setItem('lastPaymentAction', JSON.stringify(rejectionData));
+            
             // In real app: send rejection to backend
-            alert('Payment rejected! The submitter will be notified with your comments.');
-            // Redirect back to dashboard
+            // Redirect back to dashboard immediately
             window.location.href = 'ap-manager-dashboard.html';
         }
         
