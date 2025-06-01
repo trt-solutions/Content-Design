@@ -1,16 +1,4 @@
-<!-- Tour Tooltip for Continue Button -->
-    <div class="tour-tooltip" id="continue-tooltip">
-        <div class="tour-header">
-            <span>📅</span>
-            <span>Ready for next step!</span>
-        </div>
-        <div class="tour-content">
-            Great! Now click <strong>"Setup Frequency"</strong> to choose how often this payment repeats.
-        </div>
-        <div class="tour-actions">
-            <button class="tour-btn primary" onclick="proceedToFrequency()">Setup Frequency</button>
-        </div>
-    </div><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -192,27 +180,6 @@
             margin-bottom: 32px;
         }
         
-        .section-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #1a1a1a;
-            margin-bottom: 8px;
-        }
-        
-        .section-subtitle {
-            font-size: 14px;
-            color: #6b7280;
-            margin-bottom: 20px;
-            transition: opacity 0.3s ease;
-        }
-        
-        .section-subtitle.hidden {
-            opacity: 0;
-            height: 0;
-            margin-bottom: 0;
-            overflow: hidden;
-        }
-        
         .amount-input-container {
             position: relative;
             margin-bottom: 16px;
@@ -277,16 +244,6 @@
         .amount-suggestion:hover {
             background: #e5e7eb;
         }
-        
-        .amount-suggestion.last-payment {
-            background: #fef3c7;
-            border-color: #fbbf24;
-            color: #92400e;
-        }
-        
-        .amount-suggestion.last-payment:hover {
-            background: #fde68a;
-        }
 
         .amount-suggestion.demo-highlight {
             background: #663399;
@@ -326,20 +283,6 @@
         
         .memo-input::placeholder {
             color: #9ca3af;
-        }
-        
-        .memo-hint {
-            font-size: 14px;
-            color: #6b7280;
-            margin-bottom: 12px;
-            transition: opacity 0.3s ease;
-        }
-        
-        .memo-hint.hidden {
-            opacity: 0;
-            height: 0;
-            margin-bottom: 0;
-            overflow: hidden;
         }
         
         .continue-btn {
@@ -618,6 +561,20 @@
             <button class="tour-btn primary" onclick="enterDemoAmount()">Enter 8500</button>
         </div>
     </div>
+
+    <!-- Tour Tooltip for Continue Button -->
+    <div class="tour-tooltip" id="continue-tooltip">
+        <div class="tour-header">
+            <span>📅</span>
+            <span>Ready for next step!</span>
+        </div>
+        <div class="tour-content">
+            Great! Now click <strong>"Setup Frequency"</strong> to choose how often this payment repeats.
+        </div>
+        <div class="tour-actions">
+            <button class="tour-btn primary" onclick="proceedToFrequency()">Setup Frequency</button>
+        </div>
+    </div>
     
     <script>
         // Auto-start tour when page loads
@@ -719,15 +676,12 @@
         }
 
         function continueToStep3() {
-            console.log('Button clicked!'); // Debug log
+            console.log('Navigating to frequency page...'); // Debug log
             
             const amount = document.getElementById('amountInput').value;
             const memo = document.getElementById('memoInput').value;
             
-            console.log('Amount:', amount, 'Memo:', memo); // Debug log
-            
-            // For demo purposes, we'll simulate storing data
-            // In a real app, this would use sessionStorage
+            // Store data for demo
             window.demoPaymentData = {
                 amount: amount,
                 memo: memo,
@@ -735,17 +689,12 @@
                 type: 'Office rent'
             };
             
-            console.log('Demo data stored:', window.demoPaymentData); // Debug log
-            
-            // Navigate to step 3
+            // Navigate directly - NO ALERT
             window.location.href = 'recurring-step3-schedule.html';
         }
         
         // Load selected recipient data
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('Page loaded!'); // Debug log
-            
-            // For demo purposes, use default Downtown Property data
             const recipient = {
                 name: 'Downtown Property',
                 type: 'Office rent',
@@ -753,8 +702,6 @@
             };
             
             updatePayeeSummary(recipient);
-            
-            // Initial form validation
             validateForm();
         });
         
@@ -763,7 +710,6 @@
             const name = document.querySelector('.payee-name');
             const detail = document.querySelector('.payee-detail');
             
-            // Set initials
             const initials = recipient.name.split(' ').map(word => word[0]).join('');
             avatar.textContent = initials;
             
@@ -778,7 +724,6 @@
             input.focus();
             validateForm();
 
-            // Remove highlight from suggestions after selection
             document.querySelectorAll('.amount-suggestion').forEach(btn => {
                 btn.classList.remove('demo-highlight');
             });
@@ -788,7 +733,6 @@
         document.getElementById('amountInput').addEventListener('input', function(e) {
             let value = e.target.value.replace(/[^\d.]/g, '');
             
-            // Handle decimal places
             const parts = value.split('.');
             if (parts.length > 2) {
                 value = parts[0] + '.' + parts.slice(1).join('');
@@ -797,7 +741,6 @@
                 value = parts[0] + '.' + parts[1].slice(0, 2);
             }
             
-            // Format with commas
             if (value && !isNaN(value)) {
                 const numericValue = parseFloat(value);
                 if (!isNaN(numericValue)) {
@@ -820,7 +763,6 @@
             if (amount && amount > 0) {
                 continueBtn.disabled = false;
                 
-                // If amount is entered manually (not via demo), show continue tour
                 if (amount === 8500 && !continueBtn.classList.contains('demo-ready')) {
                     setTimeout(() => {
                         showContinueTour();
