@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Screen Patterns - Truist Design System</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 2rem;
+      max-width: 960px;
+      background: #f7fafc;
+      color: #1a1a1a;
+      line-height: 1.6;
+    }
+    h1, h2 {
+      color: #663399;
+    }
+    section {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+    }
+    h3 {
+      margin-top: 1rem;
+      color: #4a5568;
+    }
+    ul {
+      padding-left: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📄 Screen Patterns & Page-Level Strategy</h1>
+  <p>This section documents the layout, content questions, and role-based variations across major screens in the commercial banking experience.</p>
+
+  <section>
+    <h2>Dashboard</h2>
+    <h3>Roles:</h3>
+    <ul>
+      <li><strong>Initiator:</strong> Shows task initiation, status of own submissions</li>
+      <li><strong>Approver:</strong> Shows pending approvals with urgency indicators</li>
+      <li><strong>Auditor:</strong> Shows system-level alerts and violations</li>
+    </ul>
+    <h3>Primary Content Questions:</h3>
+    <ul>
+      <li>What do I need to act on?</li>
+      <li>What is overdue or pending?</li>
+      <li>What did I submit recently?</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Routing</h2>
+    <h3>Roles:</h3>
+    <ul><li><strong>Initiator only:</strong> Assigns an approver and adds optional note</li></ul>
+    <h3>Content Questions:</h3>
+    <ul><li>Who is approving this?</li><li>Should I add context?</li></ul>
+  </section>
+
+  <section>
+    <h2>Review + Submit</h2>
+    <h3>Roles:</h3>
+    <ul>
+      <li><strong>Initiator:</strong> Sees editable summary and a final submit button</li>
+      <li><strong>Approver:</strong> Sees approve/reject options</li>
+      <li><strong>Auditor:</strong> Read-only mode</li>
+    </ul>
+    <h3>Primary Questions:</h3>
+    <ul><li>Does this look correct?</li><li>What will happen after submission?</li></ul>
+  </section>
+
+  <section>
+    <h2>Confirmation</h2>
+    <ul>
+      <li><strong>Message:</strong> "Your payment is ready to be reviewed"</li>
+      <li><strong>Safeguard:</strong> "No changes will be made until approved"</li>
+      <li><strong>Tracking:</strong> Link to status log or audit trail</li>
+    </ul>
+  </section>
+
+</body>
+</html>
