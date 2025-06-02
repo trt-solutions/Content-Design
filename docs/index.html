@@ -3,9 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Truist Commercial Banking - Design Documentation</title>
+    <title>Truist Design Challenge - Documentation</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23663399'/%3E%3Cpath d='M8 8h16v4H8V8zm0 6h16v4H8v-4zm0 6h12v4H8v-4z' fill='white'/%3E%3C/svg%3E">
     <style>
+        :root {
+            --truist-purple: #663399;
+            --truist-purple-hover: #553388;
+            --truist-purple-light: #f3f0ff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #4a5568;
+            --text-muted: #6b7280;
+            --status-success: #16a34a;
+            --status-warning: #f59e0b;
+            --status-error: #ef4444;
+            --status-info: #3b82f6;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f7fafc;
+            --bg-muted: #f3f4f6;
+            --border-light: #e5e7eb;
+            --border-medium: #d1d5db;
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            --radius-sm: 0.25rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -15,297 +45,290 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: #1a1a1a;
-            background: linear-gradient(135deg, #663399 0%, #8B5A96 100%);
-            min-height: 100vh;
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--truist-purple) 0%, #8B5A96 100%);
+            color: white;
+            padding: var(--space-xl) 0;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: var(--space-sm);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: var(--space-xl);
         }
 
-        .header {
-            text-align: center;
-            color: white;
-            margin-bottom: 50px;
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-            font-weight: 300;
-            margin-bottom: 10px;
-        }
-
-        .header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-
-        .docs-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        .doc-card {
+        .nav-menu {
             background: white;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-lg);
+        }
+
+        .nav-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
             text-decoration: none;
             color: inherit;
+            transition: all 0.3s ease;
             display: block;
         }
 
-        .doc-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 48px rgba(0,0,0,0.15);
+        .nav-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--truist-purple);
             text-decoration: none;
             color: inherit;
         }
 
-        .doc-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #663399 0%, #8B5A96 100%);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
+        .nav-card h3 {
+            color: var(--truist-purple);
+            margin-bottom: var(--space-sm);
+            font-size: 1.1rem;
         }
 
-        .doc-title {
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: #1a1a1a;
-            margin-bottom: 12px;
-        }
-
-        .doc-description {
-            color: #4a5568;
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
-
-        .doc-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .nav-card p {
+            color: var(--text-secondary);
             font-size: 0.9rem;
-            color: #6b7280;
-            border-top: 1px solid #e5e7eb;
-            padding-top: 16px;
         }
 
-        .doc-format {
-            background: #f3f4f6;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: 500;
+        .executive-summary {
+            background: linear-gradient(135deg, var(--truist-purple-light) 0%, var(--bg-primary) 100%);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--space-2xl);
+            margin-bottom: var(--space-xl);
+            border-left: 4px solid var(--truist-purple);
         }
 
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 12px 24px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 8px;
-            transition: background 0.3s ease;
-            margin-bottom: 30px;
-        }
-
-        .back-link:hover {
-            background: rgba(255,255,255,0.2);
-            text-decoration: none;
-            color: white;
-        }
-
-        .overview-card {
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-        }
-
-        .overview-title {
-            font-size: 1.5rem;
+        .summary-title {
+            font-size: 1.6rem;
             font-weight: 600;
-            color: #663399;
-            margin-bottom: 16px;
+            color: var(--truist-purple);
+            margin-bottom: var(--space-lg);
         }
 
-        .overview-text {
-            color: #4a5568;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        .stats-grid {
+        .key-points {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--space-xl);
+            margin: var(--space-xl) 0;
         }
 
-        .stat {
-            text-align: center;
+        .point-card {
+            background: white;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-sm);
+            border-left: 4px solid var(--status-info);
         }
 
-        .stat-number {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #663399;
+        .point-card.thinking {
+            border-left-color: var(--truist-purple);
         }
 
-        .stat-label {
-            font-size: 0.9rem;
-            color: #6b7280;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+        .point-card.content {
+            border-left-color: var(--status-success);
+        }
+
+        .point-card.system {
+            border-left-color: var(--status-info);
+        }
+
+        .point-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--truist-purple);
+            margin-bottom: var(--space-md);
+        }
+
+        .point-description {
+            color: var(--text-secondary);
+            margin-bottom: var(--space-lg);
+            line-height: 1.7;
+        }
+
+        .point-bullets {
+            list-style: none;
+            padding: 0;
+        }
+
+        .point-bullets li {
+            padding: var(--space-sm) 0;
+            border-bottom: 1px solid var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        .point-bullets li:last-child {
+            border-bottom: none;
+        }
+
+        .point-bullets strong {
+            color: var(--truist-purple);
+        }
+
+        .link-button {
+            display: inline-block;
+            color: var(--truist-purple);
+            text-decoration: none;
+            font-weight: 500;
+            padding: var(--space-sm) var(--space-md);
+            border: 1px solid var(--truist-purple);
+            border-radius: var(--radius-md);
+            margin-top: var(--space-md);
+            transition: all 0.3s ease;
+        }
+
+        .link-button:hover {
+            background: var(--truist-purple);
+            color: white;
+            text-decoration: none;
+        }
+
+        .interview-note {
+            background: var(--truist-purple-light);
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
+            border-left: 4px solid var(--truist-purple);
+            margin-top: var(--space-xl);
+        }
+
+        .interview-note h3 {
+            color: var(--truist-purple);
+            margin-bottom: var(--space-md);
         }
 
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
+            .container {
+                padding: var(--space-lg);
             }
             
-            .docs-grid {
+            .key-points {
                 grid-template-columns: 1fr;
             }
             
-            .container {
-                padding: 20px 16px;
+            .nav-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
+    <header class="header">
+        <h1>Truist Design Challenge</h1>
+        <p>Key Presentation Points for Interview Discussion</p>
+    </header>
+
     <div class="container">
-        <a href="../" class="back-link">
-            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
-            </svg>
-            Back to Prototype
-        </a>
-
-        <div class="header">
-            <h1>Design Documentation</h1>
-            <p>Comprehensive design system and implementation guides for Truist Commercial Banking</p>
-        </div>
-
-        <div class="overview-card">
-            <div class="overview-title">Project Overview</div>
-            <div class="overview-text">
-                This documentation package provides a complete design challenge solution for Truist's Commercial Banking platform, 
-                focusing on accounts payable workflows with role-based dashboards and enterprise-grade accessibility.
-            </div>
-            <div class="stats-grid">
-                <div class="stat">
-                    <div class="stat-number">50%</div>
-                    <div class="stat-label">Time Reduction</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-number">$275K</div>
-                    <div class="stat-label">Annual Savings</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-number">200%</div>
-                    <div class="stat-label">ROI Target</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-number">99%+</div>
-                    <div class="stat-label">Compliance</div>
-                </div>
+        <div class="nav-menu">
+            <h2 style="color: var(--truist-purple); margin-bottom: var(--space-lg);">📚 Complete Documentation Pages</h2>
+            <div class="nav-grid">
+                <a href="user-research.html" class="nav-card">
+                    <h3>👥 User Research</h3>
+                    <p>Personas, pain points, and journey mapping that informed my design decisions</p>
+                </a>
+                <a href="content-system.html" class="nav-card">
+                    <h3>📖 Content System</h3>
+                    <p>Component-level content strategy, patterns, and governance</p>
+                </a>
+                <a href="design-system.html" class="nav-card">
+                    <h3>🎨 Design System</h3>
+                    <p>Brand identity, components, tokens, and implementation guidelines</p>
+                </a>
+                <a href="screen-patterns.html" class="nav-card">
+                    <h3>📱 Screen Patterns</h3>
+                    <p>Information architecture, interaction patterns, and user flows</p>
+                </a>
+                <a href="business-case.html" class="nav-card">
+                    <h3>📊 Business Case</h3>
+                    <p>ROI analysis, metrics, and implementation roadmap</p>
+                </a>
+                <a href="../" class="nav-card" style="border-color: var(--truist-purple);">
+                    <h3>🚀 Working Prototype</h3>
+                    <p>Interactive demonstration of the complete solution</p>
+                </a>
             </div>
         </div>
 
-        <div class="docs-grid">
-            <a href="./design-system.html" class="doc-card">
-                <div class="doc-icon">
-                    <svg width="28" height="28" fill="white" viewBox="0 0 24 24">
-                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                    </svg>
-                </div>
-                <div class="doc-title">Design System</div>
-                <div class="doc-description">
-                    Complete visual foundation including brand colors, typography, component library, and accessibility standards. 
-                    Establishes consistent design language across the platform.
-                </div>
-                <div class="doc-meta">
-                    <span>Foundation Documentation</span>
-                    <span class="doc-format">Interactive Guide</span>
-                </div>
-            </a>
-
-            <a href="./ux-documentation.html" class="doc-card">
-                <div class="doc-icon">
-                    <svg width="28" height="28" fill="white" viewBox="0 0 24 24">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                    </svg>
-                </div>
-                <div class="doc-title">UX Documentation</div>
-                <div class="doc-description">
-                    User journey maps, information architecture, interaction patterns, and accessibility guidelines. 
-                    Demonstrates user-centered design approach and research insights.
-                </div>
-                <div class="doc-meta">
-                    <span>User Experience Research</span>
-                    <span class="doc-format">Research Guide</span>
-                </div>
-            </a>
-
-            <a href="./business-requirements.html" class="doc-card">
-                <div class="doc-icon">
-                    <svg width="28" height="28" fill="white" viewBox="0 0 24 24">
-                        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
-                    </svg>
-                </div>
-                <div class="doc-title">Business Requirements</div>
-                <div class="doc-description">
-                    ROI analysis, success metrics, competitive positioning, and implementation roadmap. 
-                    Demonstrates clear business value and strategic alignment.
-                </div>
-                <div class="doc-meta">
-                    <span>Business Case & ROI</span>
-                    <span class="doc-format">Business Guide</span>
-                </div>
-            </a>
-
-            <a href="./implementation-guide.html" class="doc-card">
-                <div class="doc-icon">
-                    <svg width="28" height="28" fill="white" viewBox="0 0 24 24">
-                        <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0L19.2 12l-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/>
-                    </svg>
-                </div>
-                <div class="doc-title">Implementation Guide</div>
-                <div class="doc-description">
-                    Technical specifications, code examples, testing strategies, and deployment guidelines. 
-                    Complete developer handoff documentation for seamless implementation.
-                </div>
-                <div class="doc-meta">
-                    <span>Technical Specifications</span>
-                    <span class="doc-format">Developer Guide</span>
-                </div>
-            </a>
+        <div class="executive-summary">
+            <div class="summary-title">🎯 My Design Challenge Approach</div>
+            <p>This challenge wasn't about redesigning a UI—it was about redesigning how people think and work. I focused on three critical areas that demonstrate strategic design thinking and systematic problem-solving.</p>
         </div>
 
-        <div class="overview-card">
-            <div class="overview-title">Additional Resources</div>
-            <div class="overview-text">
-                <strong>Interactive Prototype:</strong> Experience the complete working prototype with role-based dashboards<br>
-                <strong>Design Challenge Demo:</strong> Comprehensive presentation showcasing the entire design process<br>
-                <strong>GitHub Repository:</strong> Full source code and development history
+        <div class="key-points">
+            <div class="point-card thinking">
+                <div class="point-title">1. My Thought Process & Problem Framing</div>
+                <div class="point-description">
+                    My approach started with deeply understanding the core problem: inefficiencies in commercial banking's accounts payable workflows. I focused on identifying user pain points and business objectives to define a clear, impactful scope.
+                </div>
+                <ul class="point-bullets">
+                    <li><strong>Problem Identification:</strong> How did existing workflows hinder users? (manual data entry, lack of transparency, approval bottlenecks)</li>
+                    <li><strong>User-Centric Insights:</strong> Key findings from initial research about different role needs and urgency of approvals</li>
+                    <li><strong>Strategic Choices:</strong> Why I prioritized role-based dashboards and streamlined processes to achieve the documented <strong>50% processing time reduction</strong></li>
+                </ul>
+                <a href="user-research.html" class="link-button">→ See Detailed User Research</a>
             </div>
+
+            <div class="point-card content">
+                <div class="point-title">2. The Critical Role of the Content System</div>
+                <div class="point-description">
+                    For a complex commercial banking platform, a well-defined content system isn't just about copywriting—it's about clarity, consistency, and preventing errors. My content strategy ensured information is always relevant, actionable, and easy to understand across diverse user roles.
+                </div>
+                <ul class="point-bullets">
+                    <li><strong>Content Questions as Design Drivers:</strong> Used "Primary Content Questions" for each screen (e.g., "What do I need to act on?") to guide UI design</li>
+                    <li><strong>Role-Based Content Prioritization:</strong> Content tailored to user's role (Initiator, Approver, Auditor) to reduce cognitive load</li>
+                    <li><strong>Clear & Actionable Language:</strong> Examples like "Your payment is ready to be reviewed" demonstrate direct, unambiguous communication</li>
+                    <li><strong>Scalability & Maintainability:</strong> Structured approach allows new features to integrate seamlessly without degrading UX</li>
+                </ul>
+                <a href="content-system.html" class="link-button">→ See Content System Strategy</a>
+            </div>
+
+            <div class="point-card system">
+                <div class="point-title">3. Applying a Design System Approach</div>
+                <div class="point-description">
+                    Building this solution with a design system mindset from the outset was crucial for ensuring consistency, efficiency, and future scalability. It enabled rapid prototyping and lays the groundwork for robust, collaborative development.
+                </div>
+                <ul class="point-bullets">
+                    <li><strong>Consistency & Efficiency:</strong> Reusable components (buttons, cards, status indicators) ensure consistent look/feel and accelerate development</li>
+                    <li><strong>Scalability:</strong> Ability to easily expand the platform with new features while minimizing design debt</li>
+                    <li><strong>Bridging Design & Development:</strong> Shared language and component library foster better collaboration with engineers</li>
+                    <li><strong>Visual Language:</strong> Foundational elements (brand identity, typography, spacing) ensure cohesive visual experience</li>
+                </ul>
+                <a href="design-system.html" class="link-button">→ See Design System Approach</a>
+            </div>
+        </div>
+
+        <div class="interview-note">
+            <h3>💡 For the Interview</h3>
+            <p><strong>Primary Flow:</strong> I will walk you through the working prototype, illustrating these points in action and demonstrating how systematic design thinking translates to measurable business value.</p>
+            <p style="margin-top: var(--space-md);"><strong>Navigation:</strong> Use the links above to dive deeper into any area of interest. Each page contains detailed examples, rationale, and implementation guidance.</p>
         </div>
     </div>
 </body>
