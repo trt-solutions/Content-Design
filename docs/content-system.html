@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Content system and writing guidelines for Truist commercial banking platform, ensuring clarity and compliance in financial workflows.">
+    <meta name="author" content="UX Designer">
+    <meta name="robots" content="index, follow">
+    <title>Content System - Truist Design Challenge</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23663399'/%3E%3Cpath d='M8 8h16v4H8V8zm0 6h16v4H8v-4zm0 6h12v4H8v-4z' fill='white'/%3E%3C/svg%3E">
+    <style>
+        :root {
+            --truist-purple: #663399;
+            --truist-purple-hover: #553388;
+            --truist-purple-light: #f3f0ff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #4a5568;
+            --text-muted: #6b7280;
+            --status-success: #16a34a;
+            --status-warning: #f59e0b;
+            --status-error: #ef4444;
+            --status-info: #3b82f6;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f7fafc;
+            --bg-muted: #f3f4f6;
+            --border-light: #e5e7eb;
+            --border-medium: #d1d5db;
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            --radius-sm: 0.25rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--truist-purple) 0%, #8B5A96 100%);
+            color: white;
+            padding: var(--space-xl) 0;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: var(--space-sm);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .nav-breadcrumb {
+            background: white;
+            padding: var(--space-md) 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .nav-breadcrumb .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-lg);
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: var(--truist-purple);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .breadcrumb a:focus {
+            outline: 2px solid var(--truist-purple);
+            outline-offset: 2px;
+            border-radius: var(--radius-sm);
+        }
+
+        .breadcrumb span {
+            color: var(--text-muted);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-xl);
+        }
+
+        .section {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: var(--space-2xl);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: var(--space-xl);
+        }
+
+        .section h2 {
+            color: var(--truist-purple);
+            font-size: 1.8rem;
+            margin-bottom: var(--space-lg);
+            border-bottom: 2px solid var(--border-light);
+            padding-bottom: var(--space-sm);
+        }
+
+        .section h3 {
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            margin: var(--space-lg) 0 var(--space-md);
+        }
+
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-lg);
+            margin: var(--space-lg) 0;
+        }
+
+        .principle-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .principle-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        }
+
+        .principle-card.clarity::before { background: var(--status-info); }
+        .principle-card.trust::before { background: var(--status-success); }
+        .principle-card.compliance::before { background: var(--status-warning); }
+        .principle-card.efficiency::before { background: var(--truist-purple); }
+
+        .principle-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .principle-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+            color: var(--text-primary);
+        }
+
+        .principle-description {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .content-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--space-lg) 0;
+            background: white;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .content-table th,
+        .content-table td {
+            padding: var(--space-md);
+            text-align: left;
+            border-bottom: 1px solid var(--border-light);
+            vertical-align: top;
+        }
+
+        .content-table th {
+            background: var(--bg-secondary);
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .content-table td {
+            font-size: 0.85rem;
+        }
+
+        .content-table tr:hover {
+            background: var(--truist-purple-light);
+        }
+
+        .example-good {
+            color: var(--status-success);
+            font-weight: 500;
+        }
+
+        .example-avoid {
+            color: var(--status-error);
+            font-weight: 500;
+        }
+
+        .voice-tone-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-lg);
+            margin: var(--space-lg) 0;
+        }
+
+        .voice-card, .tone-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+        }
+
+        .voice-card {
+            border-left: 4px solid var(--status-info);
+        }
+
+        .tone-card {
+            border-left: 4px solid var(--status-success);
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: var(--space-md);
+            color: var(--text-primary);
+        }
+
+        .attribute-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .attribute-list li {
+            padding: var(--space-xs) 0;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .attribute-list li:last-child {
+            border-bottom: none;
+        }
+
+        .example-section {
+            background: var(--bg-muted);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin: var(--space-lg) 0;
+            border-left: 4px solid var(--truist-purple);
+        }
+
+        .example-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: var(--space-md);
+            color: var(--truist-purple);
+        }
+
+        .before-after {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-lg);
+            margin: var(--space-lg) 0;
+        }
+
+        .before-card {
+            background: linear-gradient(135deg, #fef2f2 0%, #ffffff 100%);
+            border: 1px solid #fecaca;
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+        }
+
+        .after-card {
+            background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);
+            border: 1px solid #bbf7d0;
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+        }
+
+        .before-card h4 {
+            color: #dc2626;
+            margin-bottom: var(--space-md);
+        }
+
+        .after-card h4 {
+            color: #16a34a;
+            margin-bottom: var(--space-md);
+        }
+
+        .syntax-pattern {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-medium);
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin: var(--space-sm) 0;
+            color: var(--truist-purple);
+            font-weight: 500;
+        }
+
+        /* Focus and accessibility styles */
+        *:focus {
+            outline: 2px solid var(--truist-purple);
+            outline-offset: 2px;
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--truist-purple);
+            color: white;
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-top:hover {
+            background: var(--truist-purple-hover);
+            transform: translateY(-2px);
+        }
+
+        .back-to-top:focus {
+            outline: 2px solid white;
+            outline-offset: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: var(--space-lg);
+            }
+            
+            .principles-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .voice-tone-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .before-after {
+                grid-template-columns: 1fr;
+            }
+
+            .content-table {
+                font-size: 0.8rem;
+            }
+
+            .content-table th,
+            .content-table td {
+                padding: var(--space-sm);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header" role="banner">
+        <h1>Content System</h1>
+        <p>Strategic content design for commercial banking workflows</p>
+    </header>
+
+    <nav class="nav-breadcrumb" role="navigation" aria-label="Breadcrumb">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="presentation-highlights.html">Back to Presentation Highlights</a>
+                <span>/</span>
+                <span>Content System</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="section">
+            <h2>Content Strategy Overview</h2>
+            <p>This content system ensures consistency, clarity, and compliance across all commercial banking interactions. Content is designed for high-stakes financial operations with proper regulatory compliance and user confidence at its core.</p>
+
+            <h3>📋 Table of Contents</h3>
+            <nav style="background: var(--bg-secondary); padding: var(--space-lg); border-radius: var(--radius-md); margin: var(--space-lg) 0;">
+                <ul style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-sm);">
+                    <li><a href="#principles" style="color: var(--truist-purple); text-decoration: none; font-size: 0.9rem;">Core Design Principles</a></li>
+                    <li><a href="#voice-tone" style="color: var(--truist-purple); text-decoration: none; font-size: 0.9rem;">Voice & Tone Framework</a></li>
+                    <li><a href="#component-guidelines" style="color: var(--truist-purple); text-decoration: none; font-size: 0.9rem;">Component Guidelines</a></li>
+                    <li><a href="#content-workflow" style="color: var(--truist-purple); text-decoration: none; font-size: 0.9rem;">Content Workflow</a></li>
+                    <li><a href="#examples" style="color: var(--truist-purple); text-decoration: none; font-size: 0.9rem;">Transformation Examples</a></li>
+                    <li><a href="#compliance" style="color: var(--truist-purple); text-decoration: none; font-size: 0.9rem;">Compliance & Legal</a></li>
+                    <li><a href="#implementation" style="color: var(--truist-purple); text-decoration: none; font-size: 0.9rem;">Implementation & Tools</a></li>
+                </ul>
+            </nav>
+
+            <h3 id="principles">Core Design Principles</h3>
+            <div class="principles-grid">
+                <div class="principle-card clarity">
+                    <div class="principle-title">📝 Clarity</div>
+                    <div class="principle-description">
+                        Write with precision. Avoid jargon. Surface the essential truth fast. Every word serves a purpose in guiding users through complex financial processes.
+                    </div>
+                </div>
+
+                <div class="principle-card trust">
+                    <div class="principle-title">🔒 Trust</div>
+                    <div class="principle-description">
+                        Reinforce control, safety, and transparency through language. Users must feel confident in every transaction and decision point.
+                    </div>
+                </div>
+
+                <div class="principle-card compliance">
+                    <div class="principle-title">⚖️ Compliance</div>
+                    <div class="principle-description">
+                        Follow legal tone rules, field-level clarity, and proper disclaimers. Ensure all content meets regulatory requirements.
+                    </div>
+                </div>
+
+                <div class="principle-card efficiency">
+                    <div class="principle-title">⚡ Efficiency</div>
+                    <div class="principle-description">
+                        Use patterns that reduce rework and guide users through tasks quickly. Minimize cognitive load while maximizing comprehension.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="voice-tone">
+            <h2>Voice & Tone Framework</h2>
+            
+            <div class="voice-tone-grid">
+                <div class="voice-card">
+                    <div class="card-title">🎯 Voice (Consistent)</div>
+                    <ul class="attribute-list">
+                        <li><strong>Professional</strong> - Appropriate for business banking</li>
+                        <li><strong>Confident</strong> - Demonstrates expertise and reliability</li>
+                        <li><strong>Clear</strong> - Direct communication without ambiguity</li>
+                        <li><strong>Helpful</strong> - Guides users toward successful outcomes</li>
+                        <li><strong>Trustworthy</strong> - Builds confidence in financial decisions</li>
+                    </ul>
+                </div>
+
+                <div class="tone-card">
+                    <div class="card-title">🎭 Tone (Contextual)</div>
+                    <ul class="attribute-list">
+                        <li><strong>Urgent situations:</strong> Direct, action-oriented</li>
+                        <li><strong>Error states:</strong> Reassuring, solution-focused</li>
+                        <li><strong>Success states:</strong> Affirming, next-step oriented</li>
+                        <li><strong>Complex tasks:</strong> Patient, step-by-step guidance</li>
+                        <li><strong>Compliance:</strong> Formal, precise, comprehensive</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="content-workflow">
+            <h2>Content Lifecycle & Workflow</h2>
+            <p>A systematic approach to content creation, review, and implementation ensuring quality and compliance at every stage.</p>
+
+            <div class="example-section">
+                <div class="example-title">Content Production Pipeline</div>
+                <div style="background: white; padding: var(--space-lg); border-radius: var(--radius-md); margin: var(--space-md) 0;">
+                    <div style="display: flex; align-items: center; gap: var(--space-md); flex-wrap: wrap; font-family: 'Courier New', monospace; font-size: 0.85rem;">
+                        <div style="background: var(--status-info); color: white; padding: var(--space-xs) var(--space-sm); border-radius: var(--radius-sm);">Request Intake</div>
+                        <span style="color: var(--truist-purple); font-weight: bold;">→</span>
+                        <div style="background: var(--truist-purple); color: white; padding: var(--space-xs) var(--space-sm); border-radius: var(--radius-sm);">UX Writing</div>
+                        <span style="color: var(--truist-purple); font-weight: bold;">→</span>
+                        <div style="background: var(--status-warning); color: white; padding: var(--space-xs) var(--space-sm); border-radius: var(--radius-sm);">Legal Review</div>
+                        <span style="color: var(--truist-purple); font-weight: bold;">→</span>
+                        <div style="background: var(--status-success); color: white; padding: var(--space-xs) var(--space-sm); border-radius: var(--radius-sm);">UX Validation</div>
+                        <span style="color: var(--truist-purple); font-weight: bold;">→</span>
+                        <div style="background: var(--text-secondary); color: white; padding: var(--space-xs) var(--space-sm); border-radius: var(--radius-sm);">Dev Handoff</div>
+                        <span style="color: var(--truist-purple); font-weight: bold;">→</span>
+                        <div style="background: var(--status-info); color: white; padding: var(--space-xs) var(--space-sm); border-radius: var(--radius-sm);">QA Testing</div>
+                        <span style="color: var(--truist-purple); font-weight: bold;">→</span>
+                        <div style="background: var(--status-success); color: white; padding: var(--space-xs) var(--space-sm); border-radius: var(--radius-sm);">Production</div>
+                    </div>
+                </div>
+                
+                <h4>Workflow Responsibilities</h4>
+                <ul style="padding-left: var(--space-lg); margin: var(--space-md) 0; line-height: 1.8;">
+                    <li><strong>UX Writers:</strong> Ensure content follows voice/tone guidelines and user research insights</li>
+                    <li><strong>Legal Team:</strong> Validate compliance with banking regulations and risk management</li>
+                    <li><strong>Developers:</strong> Implement content using design system tokens and CMS integration</li>
+                    <li><strong>QA Team:</strong> Test content effectiveness through usability metrics and A/B testing</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section" id="component-guidelines">
+            <h2>Component-Level Content Guidelines</h2>
+            <p>Systematic content patterns for UI components, ensuring consistency and clarity across all touchpoints.</p>
+
+            <h3>Error Message Severity Levels</h3>
+            <table class="content-table" style="margin-bottom: var(--space-xl);">
+                <thead>
+                    <tr>
+                        <th>Severity</th>
+                        <th>Tone</th>
+                        <th>Pattern</th>
+                        <th>Example</th>
+                        <th>Visual Treatment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Info</strong></td>
+                        <td>Soft nudge, helpful</td>
+                        <td>[Suggestion] [Benefit]</td>
+                        <td>"Add a reference number to help track this payment"</td>
+                        <td>Blue icon, inline</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Warning</strong></td>
+                        <td>Corrective, clear</td>
+                        <td>[Issue] [Action needed]</td>
+                        <td>"Amount exceeds daily limit. Contact manager for approval."</td>
+                        <td>Yellow icon, prominent</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Error</strong></td>
+                        <td>Blocking, solution-focused</td>
+                        <td>[What's wrong] [How to fix] [Help available]</td>
+                        <td>"Vendor not found. Check spelling or add new vendor. Need help?"</td>
+                        <td>Red icon, modal/banner</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Do/Don't Quick Reference</h3>
+            <table class="content-table">
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>✅ Do</th>
+                        <th>❌ Don't</th>
+                        <th>Why</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Error Message</strong></td>
+                        <td><span class="example-good">"Enter an amount under $50,000"</span></td>
+                        <td><span class="example-avoid">"Invalid input"</span></td>
+                        <td>Specific guidance helps users fix issues faster</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Button Label</strong></td>
+                        <td><span class="example-good">"Send for Approval"</span></td>
+                        <td><span class="example-avoid">"OK" or "Submit"</span></td>
+                        <td>Clear outcome reduces user uncertainty</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Confirmation</strong></td>
+                        <td><span class="example-good">"Payment sent to John for review"</span></td>
+                        <td><span class="example-avoid">"Done" or "Success"</span></td>
+                        <td>Specific confirmation builds trust and sets expectations</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Status Banner</strong></td>
+                        <td><span class="example-good">"3 payments need your approval"</span></td>
+                        <td><span class="example-avoid">"You have tasks"</span></td>
+                        <td>Quantified, specific information enables immediate action</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Form Label</strong></td>
+                        <td><span class="example-good">"Payment Amount (Required)"</span></td>
+                        <td><span class="example-avoid">"Amount"</span></td>
+                        <td>Context and requirements prevent form errors</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Button Pattern Formalization</h3>
+            <div class="example-section">
+                <div class="example-title">Verb + Noun | Specific Action Pattern</div>
+                <div style="background: white; padding: var(--space-lg); border-radius: var(--radius-md);">
+                    <div class="syntax-pattern" style="margin-bottom: var(--space-md);">[Action Verb] + [Object/Outcome] = Clear User Expectation</div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg);">
+                        <div>
+                            <h5 style="color: var(--status-success); margin-bottom: var(--space-sm);">✅ Preferred Patterns</h5>
+                            <ul style="list-style: none; margin: 0; padding: 0;">
+                                <li style="padding: var(--space-xs) 0; color: var(--text-secondary);">• "Submit for Approval"</li>
+                                <li style="padding: var(--space-xs) 0; color: var(--text-secondary);">• "Schedule Payment"</li>
+                                <li style="padding: var(--space-xs) 0; color: var(--text-secondary);">• "Save as Draft"</li>
+                                <li style="padding: var(--space-xs) 0; color: var(--text-secondary);">• "Export Report"</li>
+                                <li style="padding: var(--space-xs) 0; color: var(--text-secondary);">• "Cancel Payment"</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h5 style="color: var(--status-error); margin-bottom: var(--space-sm);">❌ Avoid These</h5>
+                            <ul style="list-style: none; margin: 0; padding: 0;">
+                                <li style="padding: var(--space-xs) 0; color: var(--text-secondary);">• "Submit" (submit what?)</li>
+                                <li style="padding: var(--space-xs) 0; color: var(--text-secondary);">• "OK" (ok to what?)</li>
+                                <li style="padding: var(--space-xs) 0; color: var(--text-secondary);">• "Save" (save where?)</li>
+                                <li style="padding: var(--space-xs) 0; color: var(--text-secondary);">• "Export" (export what?)</li>
+                                <li style="padding: var(--space-xs) 0; color: var(--text-secondary);">• "Cancel" (cancel what?)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>Content Pattern</th>
+                        <th>Example</th>
+                        <th>Voice & Tone</th>
+                        <th>Usage Guidelines</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Status Banner</strong></td>
+                        <td><div class="syntax-pattern">[X] [items] need your [action]</div></td>
+                        <td><span class="example-good">"3 payments require your approval"</span></td>
+                        <td>Direct, action-oriented. Use urgency without panic.</td>
+                        <td>Always include count and specific action required</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Button Labels</strong></td>
+                        <td><div class="syntax-pattern">[Action] [Object]</div></td>
+                        <td><span class="example-good">"Submit for Approval"</span><br><span class="example-avoid">Avoid: "Submit"</span></td>
+                        <td>Clear, specific actions. No ambiguity about outcome.</td>
+                        <td>Be specific about what happens next</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Error Messages</strong></td>
+                        <td><div class="syntax-pattern">[Issue] [Solution] [Help]</div></td>
+                        <td><span class="example-good">"Amount exceeds limit. Enter $50,000 or less. Contact your manager for higher limits."</span></td>
+                        <td>Helpful, solution-focused. Avoid blame.</td>
+                        <td>Always provide clear next steps</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Confirmation</strong></td>
+                        <td><div class="syntax-pattern">[Success] [Next Step] [Reassurance]</div></td>
+                        <td><span class="example-good">"Payment submitted successfully. John will receive it for approval. You'll be notified of the decision."</span></td>
+                        <td>Positive, reassuring, informative.</td>
+                        <td>Confirm action and set expectations</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Form Labels</strong></td>
+                        <td><div class="syntax-pattern">[Clear Label] (Required/Optional)</div></td>
+                        <td><span class="example-good">"Vendor Name (Required)"</span><br><span class="example-good">"Reference Number (Optional)"</span></td>
+                        <td>Descriptive, unambiguous.</td>
+                        <td>Always indicate if field is required</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Navigation</strong></td>
+                        <td><div class="syntax-pattern">[Destination] + [Context]</div></td>
+                        <td><span class="example-good">"Payment History"</span><br><span class="example-good">"Team Dashboard"</span></td>
+                        <td>Clear, predictable destinations.</td>
+                        <td>Match user mental models</td>
+                    </tr>
+            <h3>Detailed Component Patterns</h3>
+            <table class="content-table">
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>Content Pattern</th>
+                        <th>Example</th>
+                        <th>Voice & Tone</th>
+                        <th>Usage Guidelines</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Status Banner</strong></td>
+                        <td><div class="syntax-pattern">[X] [items] need your [action]</div></td>
+                        <td><span class="example-good">"3 payments require your approval"</span></td>
+                        <td>Direct, action-oriented. Create urgency by focusing on solutions and next steps, not just problems.</td>
+                        <td>Always include count and specific action required</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Button Labels</strong></td>
+                        <td><div class="syntax-pattern">[Action] [Object]</div></td>
+                        <td><span class="example-good">"Submit for Approval"</span><br><span class="example-avoid">Avoid: "Submit"</span></td>
+                        <td>Clear, specific actions. No ambiguity about outcome.</td>
+                        <td>Be specific about what happens next. Use verb + noun pattern.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Error Messages</strong></td>
+                        <td><div class="syntax-pattern">[Issue] [Solution] [Help]</div></td>
+                        <td><span class="example-good">"Amount exceeds limit. Enter $50,000 or less. Contact your manager for higher limits."</span></td>
+                        <td>Helpful, solution-focused. Avoid blame. Use "you" language sparingly in errors.</td>
+                        <td>Always provide clear next steps. Match severity to visual treatment.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Confirmation</strong></td>
+                        <td><div class="syntax-pattern">[Success] [Next Step] [Reassurance]</div></td>
+                        <td><span class="example-good">"Payment submitted successfully. John will receive it for approval. You'll be notified of the decision."</span></td>
+                        <td>Positive, reassuring, informative. Build confidence in the system.</td>
+                        <td>Confirm action and set expectations. Name specific people when possible.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Form Labels</strong></td>
+                        <td><div class="syntax-pattern">[Clear Label] (Required/Optional)</div></td>
+                        <td><span class="example-good">"Vendor Name (Required)"</span><br><span class="example-good">"Reference Number (Optional)"</span></td>
+                        <td>Descriptive, unambiguous. Help users succeed.</td>
+                        <td>Always indicate if field is required. Provide examples for complex fields.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Navigation</strong></td>
+                        <td><div class="syntax-pattern">[Destination] + [Context]</div></td>
+                        <td><span class="example-good">"Payment History"</span><br><span class="example-good">"Team Dashboard"</span></td>
+                        <td>Clear, predictable destinations. Build mental models.</td>
+                        <td>Match user mental models. Use consistent terminology across platform.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section" id="examples">
+            <h2>Content Transformation Examples</h2>
+            
+            <div class="example-section">
+                <div class="example-title">Status Messages</div>
+                <div class="before-after">
+                    <div class="before-card">
+                        <h4>❌ Before</h4>
+                        <p><strong>Generic:</strong> "Task completed"</p>
+                        <p><strong>Problem:</strong> Doesn't specify what happened or what's next</p>
+                    </div>
+                    <div class="after-card">
+                        <h4>✅ After</h4>
+                        <p><strong>Specific:</strong> "Payment submitted successfully. John will review within 24 hours."</p>
+                        <p><strong>Why Better:</strong> Confirms action, names approver, sets timeline</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="example-section">
+                <div class="example-title">Error Handling</div>
+                <div class="before-after">
+                    <div class="before-card">
+                        <h4>❌ Before</h4>
+                        <p><strong>Vague:</strong> "Invalid input"</p>
+                        <p><strong>Problem:</strong> User doesn't know what's wrong or how to fix it</p>
+                    </div>
+                    <div class="after-card">
+                        <h4>✅ After</h4>
+                        <p><strong>Helpful:</strong> "Amount exceeds $50,000 limit. Enter a smaller amount or request approval for higher limits."</p>
+                        <p><strong>Why Better:</strong> Explains issue and provides clear solutions</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="example-section">
+                <div class="example-title">Button Labels</div>
+                <div class="before-after">
+                    <div class="before-card">
+                        <h4>❌ Before</h4>
+                        <p><strong>Ambiguous:</strong> "Submit", "Save", "OK"</p>
+                        <p><strong>Problem:</strong> Users unsure of outcome</p>
+                    </div>
+                    <div class="after-card">
+                        <h4>✅ After</h4>
+                        <p><strong>Clear:</strong> "Submit for Approval", "Save Draft", "Schedule Payment"</p>
+                        <p><strong>Why Better:</strong> Specific outcomes reduce uncertainty</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="compliance">
+            <h2>Legal & Compliance Framework</h2>
+            
+            <h3>Content Review Process</h3>
+            <div class="example-section">
+                <div class="example-title">Legal Review Requirements</div>
+                <ul style="padding-left: var(--space-lg); margin: var(--space-md) 0; line-height: 1.8;">
+                    <li><strong>Mandatory Review Triggers:</strong> Error messages mentioning limits, compliance language, new feature announcements</li>
+                    <li><strong>Standard Review:</strong> All user-facing content changes require legal sign-off within 48 hours</li>
+                    <li><strong>Expedited Review:</strong> Critical bug fixes can use pre-approved language templates</li>
+                    <li><strong>Documentation:</strong> All content changes tracked in compliance audit system</li>
+                </ul>
+            </div>
+
+            <h3>Required Legal Language Patterns</h3>
+            <table class="content-table">
+                <thead>
+                    <tr>
+                        <th>Context</th>
+                        <th>Required Elements</th>
+                        <th>Standard Language</th>
+                        <th>Placement</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Payment Limits</strong></td>
+                        <td>Disclaimer about policy changes</td>
+                        <td>"Limits subject to change. Contact your relationship manager for current terms."</td>
+                        <td>Below limit notification</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Transaction Errors</strong></td>
+                        <td>Support contact information</td>
+                        <td>"Need help? Contact Commercial Banking Support at [phone] or [email]."</td>
+                        <td>End of error message</td>
+                    </tr>
+                    <tr>
+                        <td><strong>System Maintenance</strong></td>
+                        <td>Alternative access methods</td>
+                        <td>"For urgent requests during maintenance, call [emergency number]."</td>
+                        <td>Maintenance notifications</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Data Privacy</strong></td>
+                        <td>Privacy policy reference</td>
+                        <td>"Your information is protected. View our Privacy Policy."</td>
+                        <td>Forms collecting sensitive data</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Regulatory Requirements</h3>
+            <ul style="padding-left: var(--space-lg); margin: var(--space-md) 0; line-height: 1.8;">
+                <li><strong>Clear Disclaimers:</strong> All financial actions include appropriate risk and compliance language</li>
+                <li><strong>Audit Trail Language:</strong> Ensure all status updates can be traced for regulatory reporting</li>
+                <li><strong>Privacy Compliance:</strong> Content respects CCPA, GDPR, and banking privacy requirements</li>
+                <li><strong>Accessibility Standards:</strong> All content meets WCAG 2.1 AA guidelines for screen readers and cognitive accessibility</li>
+                <li><strong>Record Keeping:</strong> Content changes documented for regulatory examination purposes</li>
+            </ul>
+        </div>
+
+        <div class="section" id="implementation">
+            <h2>Implementation & Tooling</h2>
+            
+            <h3>Content Management Integration</h3>
+            <div class="example-section">
+                <div class="example-title">Technical Implementation</div>
+                <ul style="padding-left: var(--space-lg); margin: var(--space-md) 0; line-height: 1.8;">
+                    <li><strong>Design System Integration:</strong> Content patterns documented in Figma component library with token-based content</li>
+                    <li><strong>CMS Integration:</strong> Dynamic content pulled from headless CMS for easy updates without code deployments</li>
+                    <li><strong>Localization Ready:</strong> All content structured for translation and cultural adaptation</li>
+                    <li><strong>A/B Testing:</strong> Content variations tested through LaunchDarkly feature flags</li>
+                </ul>
+            </div>
+
+            <h3>Quality Assurance Tools</h3>
+            <div class="voice-tone-grid">
+                <div class="voice-card">
+                    <div class="card-title">🔧 Development Tools</div>
+                    <ul class="attribute-list">
+                        <li><strong>ESLint Rules:</strong> Custom rules enforce button labeling patterns</li>
+                        <li><strong>Content Linting:</strong> Alex.js integration catches insensitive language</li>
+                        <li><strong>Length Validation:</strong> Automated checks for mobile text overflow</li>
+                        <li><strong>Accessibility Audit:</strong> axe-core validates content contrast and readability</li>
+                    </ul>
+                </div>
+
+                <div class="tone-card">
+                    <div class="card-title">📊 Performance Metrics</div>
+                    <ul class="attribute-list">
+                        <li><strong>Task Completion Rate:</strong> Track content effectiveness by user flow</li>
+                        <li><strong>Error Resolution Time:</strong> Measure how quickly users resolve errors</li>
+                        <li><strong>Support Ticket Reduction:</strong> Monitor decrease in content-related support requests</li>
+                        <li><strong>User Satisfaction:</strong> Content-specific ratings in user feedback</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Governance & Maintenance</h3>
+            <ul style="padding-left: var(--space-lg); margin: var(--space-md) 0; line-height: 1.8;">
+                <li><strong>Style Guide Integration:</strong> Content patterns are documented in the design system and updated with component releases</li>
+                <li><strong>Review Process:</strong> All content changes require UX and legal review before deployment</li>
+                <li><strong>Version Control:</strong> Content updates tracked alongside design changes in Git with proper branching strategy</li>
+                <li><strong>User Testing:</strong> Content effectiveness measured through quarterly usability studies and continuous user feedback</li>
+                <li><strong>Performance Monitoring:</strong> Content success metrics tracked through analytics and support ticket analysis</li>
+                <li><strong>Training & Onboarding:</strong> New team members trained on content guidelines through interactive workshops and documentation</li>
+            </ul>
+
+            <h3>Scalability Framework</h3>
+            <ul style="padding-left: var(--space-lg); margin: var(--space-md) 0; line-height: 1.8;">
+                <li><strong>Template System:</strong> Reusable content patterns for new features reduce time-to-market</li>
+                <li><strong>Component Library:</strong> Content integrated with UI component documentation in Storybook</li>
+                <li><strong>Automated Checks:</strong> Style and compliance validation in CI/CD pipeline prevents regressions</li>
+                <li><strong>International Expansion:</strong> Content system designed for multi-market rollout with regional customization</li>
+                <li><strong>API Documentation:</strong> Content endpoints documented for engineering team integration</li>
+            </ul>
+        </div>
+    </div>
+
+    <button class="back-to-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' });" aria-label="Back to top">
+        ↑ Top
+    </button>
+</body>
+</html>
