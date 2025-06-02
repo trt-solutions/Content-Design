@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="User research insights and personas for Truist design challenge, focusing on commercial banking AP workflows and user pain points.">
+    <meta name="author" content="UX Designer">
+    <meta name="robots" content="index, follow">
+    <title>User Research - Truist Design Challenge</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23663399'/%3E%3Cpath d='M8 8h16v4H8V8zm0 6h16v4H8v-4zm0 6h12v4H8v-4z' fill='white'/%3E%3C/svg%3E">
+    <style>
+        :root {
+            --truist-purple: #663399;
+            --truist-purple-hover: #553388;
+            --truist-purple-light: #f3f0ff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #4a5568;
+            --text-muted: #6b7280;
+            --status-success: #16a34a;
+            --status-warning: #f59e0b;
+            --status-error: #ef4444;
+            --status-info: #3b82f6;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f7fafc;
+            --bg-muted: #f3f4f6;
+            --border-light: #e5e7eb;
+            --border-medium: #d1d5db;
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            --radius-sm: 0.25rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--truist-purple) 0%, #8B5A96 100%);
+            color: white;
+            padding: var(--space-xl) 0;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: var(--space-sm);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .nav-breadcrumb {
+            background: white;
+            padding: var(--space-md) 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .nav-breadcrumb .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-lg);
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: var(--truist-purple);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .breadcrumb a:focus {
+            outline: 2px solid var(--truist-purple);
+            outline-offset: 2px;
+            border-radius: var(--radius-sm);
+        }
+
+        .breadcrumb span {
+            color: var(--text-muted);
+        }
+
+        /* Focus and accessibility styles */
+        *:focus {
+            outline: 2px solid var(--truist-purple);
+            outline-offset: 2px;
+        }
+
+        .metric-card:focus,
+        .user-card:focus {
+            outline: 3px solid var(--truist-purple);
+            outline-offset: 3px;
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--truist-purple);
+            color: white;
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-top:hover {
+            background: var(--truist-purple-hover);
+            transform: translateY(-2px);
+        }
+
+        .back-to-top:focus {
+            outline: 2px solid white;
+            outline-offset: 2px;
+        }
+
+        /* Enhanced persona visual distinction */
+        .user-card.analyst .user-section {
+            border-left: 3px solid var(--status-info);
+        }
+
+        .user-card.manager .user-section {
+            border-left: 3px solid var(--status-success);
+        }
+
+        .user-card.compliance .user-section {
+            border-left: 3px solid var(--status-warning);
+        }
+
+        /* Icon enhancements for metrics */
+        .metric-card::before {
+            content: '';
+            font-size: 1.5rem;
+            margin-bottom: var(--space-sm);
+            display: block;
+        }
+
+        .metric-card:nth-child(1)::before { content: '⏱️'; }
+        .metric-card:nth-child(2)::before { content: '✅'; }
+        .metric-card:nth-child(3)::before { content: '😊'; }
+        .metric-card:nth-child(4)::before { content: '🎯'; }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-xl);
+        }
+
+        .section {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: var(--space-2xl);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: var(--space-xl);
+        }
+
+        .section h2 {
+            color: var(--truist-purple);
+            font-size: 1.8rem;
+            margin-bottom: var(--space-lg);
+            border-bottom: 2px solid var(--border-light);
+            padding-bottom: var(--space-sm);
+        }
+
+        .section h3 {
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            margin: var(--space-lg) 0 var(--space-md);
+        }
+
+        .key-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-md);
+            margin: var(--space-lg) 0;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, var(--truist-purple) 0%, #8B5A96 100%);
+            color: white;
+            padding: var(--space-lg);
+            border-radius: var(--radius-lg);
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .metric-number {
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin-bottom: var(--space-xs);
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        .user-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-lg);
+            margin: var(--space-lg) 0;
+        }
+
+        .user-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .user-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--truist-purple);
+        }
+
+        .user-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        }
+
+        .user-card.analyst::before { background: var(--status-info); }
+        .user-card.manager::before { background: var(--status-success); }
+        .user-card.compliance::before { background: var(--status-warning); }
+
+        .user-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+            color: var(--text-primary);
+        }
+
+        .user-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-md);
+            font-weight: 500;
+            font-style: italic;
+        }
+
+        .user-content {
+            display: grid;
+            gap: var(--space-md);
+        }
+
+        .user-section {
+            background: var(--bg-secondary);
+            padding: var(--space-md);
+            border-radius: var(--radius-md);
+        }
+
+        .user-content h5 {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--truist-purple);
+            margin-bottom: var(--space-sm);
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+        }
+
+        .user-content p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .stat-highlight {
+            background: var(--truist-purple-light);
+            color: var(--truist-purple);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin: var(--space-xs) 0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: var(--space-lg);
+            }
+            
+            .user-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header" role="banner">
+        <h1>User Research & My Thought Process</h1>
+        <p>Understanding users to drive strategic design decisions</p>
+    </header>
+
+    <nav class="nav-breadcrumb" role="navigation" aria-label="Breadcrumb">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="presentation-highlights.html">Back to Presentation Highlights</a>
+                <span>/</span>
+                <span>User Research</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="section">
+            <h2>My Research Approach</h2>
+            <p>Understanding the varied needs and pain points of different commercial banking roles was foundational to this design. My process involved:</p>
+            <ul style="padding-left: var(--space-lg); margin: var(--space-md) 0; line-height: 1.8;">
+                <li><strong>Initial Problem Definition:</strong> Identifying key inefficiencies in manual accounts payable processes</li>
+                <li><strong>Persona Development:</strong> Creating detailed personas based on user roles to inform specific user journeys and content needs</li>
+                <li><strong>Workflow Mapping:</strong> Analyzing existing workflows to identify critical touchpoints and opportunities for digital transformation</li>
+                <li><strong>Competitive Analysis:</strong> Reviewed existing solutions and identified a critical gap in real-time payment tracking across major banking platforms</li>
+            </ul>
+            
+            <h3>Design Decision Impact</h3>
+            <p>Based on the 8-12% error rate for AP Analysts, my design prioritizes robust input validation and clear feedback mechanisms. The 6-8 minute approval time led me to focus on streamlined approval workflows with contextual information readily available to managers.</p>
+        </div>
+
+        <div class="section">
+            <h2>Research Goals & Success Metrics</h2>
+            <div class="key-metrics">
+                <div class="metric-card">
+                    <div class="metric-number">50%</div>
+                    <div class="metric-label">Time Reduction Target</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">95%+</div>
+                    <div class="metric-label">Task Completion Goal</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">4.5/5</div>
+                    <div class="metric-label">User Satisfaction Target</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">&lt;2%</div>
+                    <div class="metric-label">Error Rate Goal</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Key User Personas</h2>
+            <div class="user-grid">
+                <div class="user-card analyst" tabindex="0" role="article" aria-labelledby="analyst-title">
+                    <div class="user-title" id="analyst-title">AP Analyst (Initiator)</div>
+                    <div class="user-subtitle">"I need to quickly create and track payments."</div>
+                    <div class="user-content">
+                        <div class="user-section">
+                            <h5>Primary Goals</h5>
+                            <p>Efficiently initiate payment requests, track status in real-time, and ensure data accuracy before submission.</p>
+                        </div>
+                        <div class="user-section">
+                            <h5>⚠️ Key Pain Points</h5>
+                            <p>Manual data entry errors, lack of status visibility, and time-consuming approval processes.</p>
+                            <div class="stat-highlight">8-12% error rate</div>
+                            <div class="stat-highlight">6-8 min per payment</div>
+                        </div>
+                        <div class="user-section">
+                            <h5>Daily Workload</h5>
+                            <p>Processes 20-50 payments per day under tight deadlines with frequent status checking.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="user-card manager" tabindex="0" role="article" aria-labelledby="manager-title">
+                    <div class="user-title" id="manager-title">AP Manager (Approver)</div>
+                    <div class="user-subtitle">"I need to review and approve payments quickly and confidently."</div>
+                    <div class="user-content">
+                        <div class="user-section">
+                            <h5>Primary Goals</h5>
+                            <p>Approve payments with sufficient context, monitor team performance, and ensure regulatory compliance.</p>
+                        </div>
+                        <div class="user-section">
+                            <h5>⚠️ Key Pain Points</h5>
+                            <p>Overdue approvals causing bottlenecks, insufficient decision-making information, and manual compliance checking.</p>
+                            <div class="stat-highlight">100+ requests/week</div>
+                        </div>
+                        <div class="user-section">
+                            <h5>Focus Areas</h5>
+                            <p>Risk assessment, vendor history review, and maintaining audit trails for regulatory purposes.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="user-card compliance" tabindex="0" role="article" aria-labelledby="compliance-title">
+                    <div class="user-title" id="compliance-title">Compliance Officer</div>
+                    <div class="user-subtitle">"I need to ensure all transactions meet regulatory requirements."</div>
+                    <div class="user-content">
+                        <div class="user-section">
+                            <h5>Primary Goals</h5>
+                            <p>Monitor transaction compliance, generate audit reports, and flag suspicious or irregular payments.</p>
+                        </div>
+                        <div class="user-section">
+                            <h5>⚠️ Key Pain Points</h5>
+                            <p>Manual audit trail creation, delayed compliance reporting, and difficulty tracking policy violations.</p>
+                            <div class="stat-highlight">Monthly audits</div>
+                        </div>
+                        <div class="user-section">
+                            <h5>Critical Needs</h5>
+                            <p>Real-time compliance monitoring, automated reporting, and exception handling workflows.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="back-to-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' });" aria-label="Back to top">
+        ↑ Top
+    </button>
+</body>
+</html>
