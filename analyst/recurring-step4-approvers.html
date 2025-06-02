@@ -44,6 +44,7 @@
             padding: 16px;
             text-align: center;
             border-bottom: 1px solid #e5e7eb;
+            position: relative;
         }
         
         .step-visual {
@@ -129,13 +130,6 @@
             font-size: 20px;
             font-weight: 600;
             color: #1a1a1a;
-            margin-bottom: 4px;
-        }
-        
-        .subtitle {
-            font-size: 14px;
-            color: #6b7280;
-            font-weight: 400;
         }
         
         .content {
@@ -248,12 +242,6 @@
             line-height: 1.4;
         }
         
-        .section-subtitle {
-            font-size: 14px;
-            color: #6b7280;
-            margin-bottom: 16px;
-        }
-        
         .approver-card {
             background: white;
             border: 2px solid #e5e7eb;
@@ -261,11 +249,6 @@
             padding: 16px;
             margin-bottom: 12px;
             transition: all 0.2s ease;
-        }
-        
-        .approver-card.selected {
-            border-color: #663399;
-            background: #faf8ff;
         }
         
         .approver-card.required {
@@ -357,14 +340,362 @@
         .continue-btn:hover {
             background: #553288;
         }
-        
-        .continue-btn:disabled {
-            background: #9ca3af;
-            cursor: not-allowed;
+
+        /* Content Design & Demo Boxes */
+        .info-boxes {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            z-index: 999;
+            max-width: 320px;
+        }
+
+        .info-box {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border: 2px solid #e5e7eb;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .content-design-box {
+            border-color: #3b82f6;
+        }
+
+        .demo-box {
+            border-color: #663399;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .box-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .content-design-box .box-header {
+            color: #3b82f6;
+        }
+
+        .demo-box .box-header {
+            color: #663399;
+        }
+
+        .box-title {
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .box-content {
+            font-size: 12px;
+            line-height: 1.4;
+            color: #1a1a1a;
+        }
+
+        .design-point {
+            margin-bottom: 12px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .design-point:last-child {
+            margin-bottom: 0;
+        }
+
+        .design-point::before {
+            content: attr(data-number);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            background: #3b82f6;
+            color: white;
+            border-radius: 50%;
+            font-size: 10px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .design-point-title {
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 2px;
+        }
+
+        .design-point-desc {
+            color: #6b7280;
+            font-size: 11px;
+        }
+
+        .demo-instruction {
+            background: #faf8ff;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 3px solid #663399;
+            font-weight: 500;
+            color: #663399;
+        }
+
+        .demo-action {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .demo-letter {
+            width: 18px;
+            height: 18px;
+            background: #663399;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .demo-text {
+            flex: 1;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .close-box {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: none;
+            border: none;
+            color: #9ca3af;
+            cursor: pointer;
+            font-size: 16px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-box:hover {
+            background: #f3f4f6;
+            color: #6b7280;
+        }
+
+        /* Content Design Indicators */
+        .design-indicator {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #3b82f6;
+            color: white;
+            border-radius: 50%;
+            font-size: 11px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid white;
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.5);
+            z-index: 100;
+            animation: indicator-pulse 3s infinite;
+        }
+
+        @keyframes indicator-pulse {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 2px 8px rgba(59, 130, 246, 0.5);
+            }
+            50% { 
+                transform: scale(1.15);
+                box-shadow: 0 4px 12px rgba(59, 130, 246, 0.7);
+            }
+        }
+
+        .indicator-1 {
+            top: -5px;
+            right: -30px;
+        }
+
+        .indicator-2 {
+            top: 10px;
+            right: -30px;
+        }
+
+        .indicator-3 {
+            top: -8px;
+            right: -40px;
+        }
+
+        @media (max-width: 768px) {
+            .info-boxes {
+                position: relative;
+                top: 0;
+                left: 0;
+                max-width: 100%;
+                margin: 16px;
+                flex-direction: column;
+            }
+        }
+
+        /* Highlight effects */
+        .highlight-pulse {
+            animation: highlight 3s infinite;
+        }
+
+        @keyframes highlight {
+            0%, 100% { 
+                box-shadow: 0 0 0 0 rgba(102, 51, 153, 0.4);
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 0 0 8px rgba(102, 51, 153, 0);
+                transform: scale(1.02);
+            }
+        }
+
+        .workflow-steps {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            border: 2px solid #663399;
+            max-width: 280px;
+            z-index: 999;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .workflow-header {
+            font-size: 14px;
+            font-weight: 700;
+            color: #663399;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .workflow-list {
+            font-size: 13px;
+            color: #1a1a1a;
+            line-height: 1.5;
+        }
+
+        .workflow-list div {
+            margin-bottom: 8px;
+            padding-left: 16px;
+            position: relative;
+        }
+
+        .workflow-list div::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #663399;
+            font-weight: bold;
+        }
+
+        .workflow-list div.current {
+            background: #faf8ff;
+            padding: 4px 8px 4px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            border-left: 3px solid #663399;
+        }
+
+        .workflow-list div.current::before {
+            content: '→';
         }
     </style>
 </head>
 <body>
+    <!-- Content Design & Demo Boxes -->
+    <div class="info-boxes" id="infoBoxes">
+        <!-- Content Design Box -->
+        <div class="info-box content-design-box">
+            <button class="close-box" onclick="closeBox('content')" title="Close">×</button>
+            <div class="box-header">
+                <span>🎨</span>
+                <div class="box-title">Content Design Insights</div>
+            </div>
+            <div class="box-content">
+                <div class="design-point" data-number="1">
+                    <div class="design-point-title">Conversational Heading</div>
+                    <div class="design-point-desc">Major banks are moving towards less copy and more intuitive language. "Who needs to approve?" vs technical jargon.</div>
+                </div>
+                <div class="design-point" data-number="2">
+                    <div class="design-point-title">Context Persistence</div>
+                    <div class="design-point-desc">Payment summary stays visible - users don't lose context while making approval decisions. Design and copy complement each other.</div>
+                </div>
+                <div class="design-point" data-number="3">
+                    <div class="design-point-title">Discoverable Help</div>
+                    <div class="design-point-desc">Complex policies hidden behind "?" icon. Progressive disclosure keeps interface clean while making help available when needed.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Demo Steps Box -->
+        <div class="info-box demo-box">
+            <button class="close-box" onclick="closeBox('demo')" title="Close">×</button>
+            <div class="box-header">
+                <span>🎯</span>
+                <div class="box-title">Try the Workflow</div>
+            </div>
+            <div class="box-content">
+                <div class="demo-instruction">
+                    Experience enterprise approval routing in action
+                </div>
+                <div class="demo-action">
+                    <div class="demo-letter">a</div>
+                    <div class="demo-text">Review the payment details</div>
+                </div>
+                <div class="demo-action">
+                    <div class="demo-letter">b</div>
+                    <div class="demo-text">Tap the help icon to review the approval policy</div>
+                </div>
+                <div class="demo-action">
+                    <div class="demo-letter">c</div>
+                    <div class="demo-text">Notice how approvers are automatically determined by payment amount</div>
+                </div>
+                <div class="demo-action">
+                    <div class="demo-letter">d</div>
+                    <div class="demo-text">Tap review for a final review</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <h1 class="main-title">Schedule Recurring Payment</h1>
         
@@ -385,14 +716,14 @@
         
         <div class="header">
             <button class="back-btn" onclick="history.back()">‹</button>
-            <div class="header-content">
+            <div class="header-content" style="position: relative;">
                 <h2 class="title">Who needs to approve this payment?</h2>
+                <div class="design-indicator indicator-1">1</div>
             </div>
         </div>
         
         <div class="content">
-            <!-- Payment Summary -->
-            <div class="payment-summary">
+            <div class="payment-summary" style="position: relative;">
                 <div class="payment-info">
                     <div class="payee-avatar">DP</div>
                     <div class="payment-details">
@@ -401,15 +732,16 @@
                     </div>
                 </div>
                 <div class="payment-amount">$8,500.00</div>
+                <div class="design-indicator indicator-2">2</div>
             </div>
             
-            <!-- Approval Routing -->
             <div class="routing-section">
-                <div class="section-title">
+                <div class="section-title" style="position: relative;">
                     Required approvers
-                    <button class="help-icon" onclick="toggleHelp()" title="View approval policy">
+                    <button class="help-icon highlight-pulse" id="helpIcon" onclick="toggleHelp()" title="View approval policy">
                         <span>?</span>
                     </button>
+                    <div class="design-indicator indicator-3">3</div>
                 </div>
                 
                 <div class="help-content hidden" id="helpContent">
@@ -449,56 +781,73 @@
                 </div>
             </div>
             
-            <!-- Continue Button -->
-            <button class="continue-btn" onclick="proceedToCompleteReview()">
+            <button class="continue-btn" onclick="proceedToReview()">
                 Review
             </button>
         </div>
     </div>
-    
+
     <script>
         function toggleHelp() {
-            const helpContent = document.getElementById('helpContent');
-            helpContent.classList.toggle('hidden');
-        }
-        
-        function proceedToCompleteReview() {
-            console.log('Proceeding to complete review...');
+            var helpContent = document.getElementById('helpContent');
+            var helpIcon = document.getElementById('helpIcon');
             
-            // Store approval routing data
-            const approvalData = {
+            if (helpContent.classList.contains('hidden')) {
+                helpContent.classList.remove('hidden');
+                helpIcon.classList.remove('highlight-pulse');
+                
+                // Update demo box to show success
+                updateDemoBox('help-opened');
+            } else {
+                helpContent.classList.add('hidden');
+            }
+        }
+
+        function closeBox(type) {
+            var boxes = document.getElementById('infoBoxes');
+            if (type === 'content') {
+                var contentBox = boxes.querySelector('.content-design-box');
+                if (contentBox) contentBox.style.display = 'none';
+            } else if (type === 'demo') {
+                var demoBox = boxes.querySelector('.demo-box');
+                if (demoBox) demoBox.style.display = 'none';
+            }
+        }
+
+        function updateDemoBox(status) {
+            var demoBox = document.querySelector('.demo-box .demo-instruction');
+            if (status === 'help-opened' && demoBox) {
+                demoBox.innerHTML = '✅ Great! You can see how policies determine routing automatically';
+                demoBox.style.background = '#f0fdf4';
+                demoBox.style.borderColor = '#10b981';
+                demoBox.style.color = '#059669';
+            }
+        }
+
+        function proceedToReview() {
+            console.log('Proceeding to review...');
+            
+            var approvalData = {
                 primaryApprover: {
                     name: 'Sarah Chen',
                     role: 'AP Manager',
-                    email: 's.chen@company.com',
                     required: true
                 },
-                ccApprovers: [
-                    {
-                        name: 'Michael Johnson',
-                        role: 'Finance Director',
-                        email: 'm.johnson@company.com',
-                        required: false
-                    }
-                ],
-                approvalPolicy: 'single_manager_under_50k'
+                ccApprovers: [{
+                    name: 'Michael Johnson',
+                    role: 'Finance Director',
+                    required: false
+                }]
             };
             
-            sessionStorage.setItem('approvalData', JSON.stringify(approvalData));
+            try {
+                localStorage.setItem('approvalData', JSON.stringify(approvalData));
+            } catch (error) {
+                window.demoApprovalData = approvalData;
+            }
             
-            // Navigate directly to step 5 review
             window.location.href = 'recurring-step5-review.html';
         }
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Approval routing page loaded');
-            
-            // Load payment data for summary
-            const paymentData = JSON.parse(sessionStorage.getItem('paymentData') || '{}');
-            if (paymentData.amount) {
-                document.querySelector('.payment-amount').textContent = '$' + paymentData.amount;
-            }
-        });
     </script>
 </body>
 </html>
