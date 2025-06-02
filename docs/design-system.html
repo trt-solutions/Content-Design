@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Comprehensive design system for Truist commercial banking platform, featuring design tokens, components, and implementation guidelines.">
+    <meta name="author" content="UX Designer">
+    <meta name="robots" content="index, follow">
+    <title>Design System - Truist Design Challenge</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23663399'/%3E%3Cpath d='M8 8h16v4H8V8zm0 6h16v4H8v-4zm0 6h12v4H8v-4z' fill='white'/%3E%3C/svg%3E">
+    <style>
+        :root {
+            --truist-purple: #663399;
+            --truist-purple-hover: #553388;
+            --truist-purple-light: #f3f0ff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #4a5568;
+            --text-muted: #6b7280;
+            --status-success: #16a34a;
+            --status-warning: #f59e0b;
+            --status-error: #ef4444;
+            --status-info: #3b82f6;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f7fafc;
+            --bg-muted: #f3f4f6;
+            --border-light: #e5e7eb;
+            --border-medium: #d1d5db;
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            --radius-sm: 0.25rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--truist-purple) 0%, #8B5A96 100%);
+            color: white;
+            padding: var(--space-xl) 0;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: var(--space-sm);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .nav-breadcrumb {
+            background: white;
+            padding: var(--space-md) 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .nav-breadcrumb .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-lg);
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: var(--truist-purple);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .breadcrumb a:focus {
+            outline: 2px solid var(--truist-purple);
+            outline-offset: 2px;
+            border-radius: var(--radius-sm);
+        }
+
+        .breadcrumb span {
+            color: var(--text-muted);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-xl);
+        }
+
+        .section {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: var(--space-2xl);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: var(--space-xl);
+        }
+
+        .section h2 {
+            color: var(--truist-purple);
+            font-size: 1.8rem;
+            margin-bottom: var(--space-lg);
+            border-bottom: 2px solid var(--border-light);
+            padding-bottom: var(--space-sm);
+        }
+
+        .section h3 {
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            margin: var(--space-lg) 0 var(--space-md);
+        }
+
+        .section h4 {
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            margin: var(--space-md) 0 var(--space-sm);
+            font-weight: 500;
+        }
+
+        /* Color System */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-lg);
+            margin: var(--space-lg) 0;
+        }
+
+        .color-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.2s ease;
+        }
+
+        .color-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .color-swatch {
+            height: 80px;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 500;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            font-size: 0.9rem;
+        }
+
+        .color-info {
+            padding: var(--space-md);
+        }
+
+        .color-name {
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+            font-size: 0.9rem;
+        }
+
+        .color-value {
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            background: var(--bg-muted);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-sm);
+            display: inline-block;
+        }
+
+        .color-usage {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: var(--space-xs);
+        }
+
+        /* Typography */
+        .typography-sample {
+            margin: var(--space-md) 0;
+            padding: var(--space-lg);
+            border-left: 3px solid var(--truist-purple);
+            background: var(--bg-secondary);
+        }
+
+        .typography-sample h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-sm);
+        }
+
+        .typography-sample h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-sm);
+        }
+
+        .typography-sample h3 {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: var(--space-sm);
+        }
+
+        .typography-sample p {
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-bottom: var(--space-sm);
+        }
+
+        .typography-sample .secondary {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-sm);
+        }
+
+        .typography-sample .small {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* Spacing System */
+        .spacing-demo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: var(--space-md);
+            margin: var(--space-lg) 0;
+        }
+
+        .spacing-item {
+            text-align: center;
+            background: var(--bg-secondary);
+            padding: var(--space-md);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-light);
+        }
+
+        .spacing-visual {
+            background: var(--truist-purple);
+            border-radius: var(--radius-sm);
+            margin-bottom: var(--space-sm);
+            margin: 0 auto var(--space-sm);
+            width: 100%;
+        }
+
+        .spacing-xs { height: 4px; }
+        .spacing-sm { height: 8px; }
+        .spacing-md { height: 16px; }
+        .spacing-lg { height: 24px; }
+        .spacing-xl { height: 32px; }
+        .spacing-2xl { height: 48px; }
+
+        .spacing-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .spacing-value {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Component Demos */
+        .component-demo {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-md);
+            padding: var(--space-xl);
+            margin: var(--space-lg) 0;
+            border: 1px solid var(--border-light);
+        }
+
+        .demo-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: var(--space-md);
+            color: var(--text-primary);
+        }
+
+        .button-demo {
+            display: flex;
+            gap: var(--space-md);
+            flex-wrap: wrap;
+            align-items: center;
+            margin: var(--space-md) 0;
+        }
+
+        .btn-primary {
+            background: var(--truist-purple);
+            color: white;
+            border: none;
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            font-size: 0.9rem;
+            font-family: inherit;
+        }
+
+        .btn-primary:hover {
+            background: var(--truist-purple-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary:focus {
+            outline: 2px solid var(--truist-purple);
+            outline-offset: 2px;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--text-primary);
+            border: 1px solid var(--border-medium);
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            font-size: 0.9rem;
+            font-family: inherit;
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-secondary);
+            border-color: var(--truist-purple);
+        }
+
+        .btn-danger {
+            background: var(--status-error);
+            color: white;
+            border: none;
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            font-size: 0.9rem;
+            font-family: inherit;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        .btn-small {
+            padding: var(--space-xs) var(--space-md);
+            font-size: 0.8rem;
+        }
+
+        .btn-large {
+            padding: var(--space-md) var(--space-xl);
+            font-size: 1rem;
+        }
+
+        .btn-disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Status Indicators */
+        .status-demo {
+            display: flex;
+            gap: var(--space-md);
+            flex-wrap: wrap;
+            align-items: center;
+            margin: var(--space-md) 0;
+        }
+
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+        }
+
+        .status-completed {
+            background: rgba(22, 163, 74, 0.1);
+            color: var(--status-success);
+            border: 1px solid rgba(22, 163, 74, 0.2);
+        }
+
+        .status-pending {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--status-warning);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+
+        .status-overdue {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--status-error);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .status-scheduled {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--status-info);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        /* Card Components */
+        .card-demo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-lg);
+            margin: var(--space-lg) 0;
+        }
+
+        .sample-card {
+            background: white;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+        }
+
+        .sample-card:hover {
+            border-color: var(--truist-purple);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .sample-card h4 {
+            color: var(--text-primary);
+            margin-bottom: var(--space-sm);
+            font-size: 1.1rem;
+        }
+
+        .sample-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: var(--space-md);
+            line-height: 1.5;
+        }
+
+        .sample-card .amount {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-sm);
+        }
+
+        /* Form Elements */
+        .form-demo {
+            background: white;
+            padding: var(--space-lg);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-light);
+            margin: var(--space-md) 0;
+        }
+
+        .form-group {
+            margin-bottom: var(--space-md);
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: var(--space-xs);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: var(--space-sm) var(--space-md);
+            border: 1px solid var(--border-medium);
+            border-radius: var(--radius-md);
+            font-size: 0.9rem;
+            transition: border-color 0.15s ease;
+            font-family: inherit;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--truist-purple);
+            box-shadow: 0 0 0 3px rgba(102, 51, 153, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: var(--space-sm) var(--space-md);
+            border: 1px solid var(--border-medium);
+            border-radius: var(--radius-md);
+            font-size: 0.9rem;
+            background: white;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: var(--truist-purple);
+            box-shadow: 0 0 0 3px rgba(102, 51, 153, 0.1);
+        }
+
+        /* Code Blocks */
+        .code-block {
+            background: #1a1a1a;
+            color: #e2e8f0;
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
+            margin: var(--space-md) 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            border: 1px solid var(--border-light);
+        }
+
+        .code-block .property {
+            color: #60a5fa;
+        }
+
+        .code-block .value {
+            color: #34d399;
+        }
+
+        .code-block .comment {
+            color: #9ca3af;
+        }
+
+        /* Tables */
+        .design-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--space-lg) 0;
+            background: white;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .design-table th,
+        .design-table td {
+            padding: var(--space-md);
+            text-align: left;
+            border-bottom: 1px solid var(--border-light);
+            vertical-align: top;
+        }
+
+        .design-table th {
+            background: var(--bg-secondary);
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .design-table td {
+            font-size: 0.85rem;
+        }
+
+        .design-table tr:hover {
+            background: var(--truist-purple-light);
+        }
+
+        /* Focus and accessibility styles */
+        *:focus {
+            outline: 2px solid var(--truist-purple);
+            outline-offset: 2px;
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--truist-purple);
+            color: white;
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-top:hover {
+            background: var(--truist-purple-hover);
+            transform: translateY(-2px);
+        }
+
+        .back-to-top:focus {
+            outline: 2px solid white;
+            outline-offset: 2px;
+        }
+
+        /* Icons */
+        .icon-demo {
+            display: flex;
+            gap: var(--space-lg);
+            flex-wrap: wrap;
+            align-items: center;
+            margin: var(--space-md) 0;
+        }
+
+        .icon-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-xs);
+            padding: var(--space-md);
+            border-radius: var(--radius-md);
+            background: var(--bg-secondary);
+            min-width: 80px;
+        }
+
+        .icon {
+            font-size: 1.5rem;
+        }
+
+        .icon-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: var(--space-lg);
+            }
+            
+            .color-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .spacing-demo {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .button-demo {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .card-demo {
+                grid-template-columns: 1fr;
+            }
+
+            .status-demo {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header" role="banner">
+        <h1>Design System</h1>
+        <p>Scalable, consistent design foundations for commercial banking</p>
+    </header>
+
+    <nav class="nav-breadcrumb" role="navigation" aria-label="Breadcrumb">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="index.html">Back</a>
+                <span>/</span>
+                <span>Design System</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="section">
+            <h2>Design System Overview</h2>
+            <p>This design system provides a comprehensive foundation for building consistent, accessible, and scalable user interfaces across Truist's commercial banking platform. Built with systematic thinking and enterprise-grade requirements in mind.</p>
+
+            <h3>📋 Table of Contents</h3>
+            <nav style="background: var(--bg-secondary); padding: var(--space-lg); border-radius: var(--radius-md); margin: var(--space-lg) 0;">
+                <ul style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-sm);">
+                    <li><a href="#design-tokens" style="color: var(--truist-purple); text-decoration: none; font-size: 0.9rem;">Design Tokens</a></li>
+                    <li><a href="#colors" style="color: var(--truist-purple); text-decoration: none; font-size: 0.9rem;">Color System</a></li>
+                    <li><a href="#typography" style="color: var(--truist-purple); text-decoration: none; font-size: 0.9rem;">Typography</a></li>
+                    <li><a href="#spacing" style="color: var(--truist-purple); text-decoration: none; font-size: 0.9rem;">Spacing & Layout</a></li>
+                    <li><a href="#components" style="color: var(--truist-purple); text-decoration: none; font-size: 0.9rem;">Components</a></li>
+                    <li><a href="#patterns" style="color: var(--truist-purple); text-decoration: none; font-size: 0.9rem;">UI Patterns</a></li>
+                    <li><a href="#implementation" style="color: var(--truist-purple); text-decoration: none; font-size: 0.9rem;">Implementation</a></li>
+                    <li><a href="#accessibility" style="color: var(--truist-purple); text-decoration: none; font-size: 0.9rem;">Accessibility</a></li>
+                </ul>
+            </nav>
+
+            <h3>System Principles</h3>
+            <ul style="padding-left: var(--space-lg); margin: var(--space-md) 0; line-height: 1.8;">
+                <li><strong>Consistency:</strong> Predictable patterns reduce cognitive load and build user confidence</li>
+                <li><strong>Scalability:</strong> Modular components support rapid feature development and platform growth</li>
+                <li><strong>Accessibility:</strong> WCAG 2.1 AA compliance ensures inclusive design for all users</li>
+                <li><strong>Performance:</strong> Optimized components and efficient CSS architecture</li>
+                <li><strong>Maintainability:</strong> Clear documentation and version control enable team collaboration</li>
+            </ul>
+        </div>
+
+        <div class="section" id="design-tokens">
+            <h2>Design Tokens</h2>
+            <p>Design tokens are the atomic elements of our design system, providing a single source of truth for design decisions across all platforms and tools.</p>
+
+            <h3>Token Architecture</h3>
+            <div class="code-block">
+<span class="comment">/* Design Tokens - CSS Custom Properties */</span>
+:root {
+  <span class="comment">/* Brand Colors */</span>
+  <span class="property">--truist-purple</span>: <span class="value">#663399</span>;
+  <span class="property">--truist-purple-hover</span>: <span class="value">#553388</span>;
+  <span class="property">--truist-purple-light</span>: <span class="value">#f3f0ff</span>;
+  
+  <span class="comment">/* Semantic Colors */</span>
+  <span class="property">--text-primary</span>: <span class="value">#1a1a1a</span>;
+  <span class="property">--text-secondary</span>: <span class="value">#4a5568</span>;
+  <span class="property">--text-muted</span>: <span class="value">#6b7280</span>;
+  
+  <span class="comment">/* Status Colors */</span>
+  <span class="property">--status-success</span>: <span class="value">#16a34a</span>;
+  <span class="property">--status-warning</span>: <span class="value">#f59e0b</span>;
+  <span class="property">--status-error</span>: <span class="value">#ef4444</span>;
+  <span class="property">--status-info</span>: <span class="value">#3b82f6</span>;
+  
+  <span class="comment">/* Spacing Scale (4px base) */</span>
+  <span class="property">--space-xs</span>: <span class="value">0.25rem</span>; <span class="comment">/* 4px */</span>
+  <span class="property">--space-sm</span>: <span class="value">0.5rem</span>;  <span class="comment">/* 8px */</span>
+  <span class="property">--space-md</span>: <span class="value">1rem</span>;    <span class="comment">/* 16px */</span>
+  <span class="property">--space-lg</span>: <span class="value">1.5rem</span>;  <span class="comment">/* 24px */</span>
+  <span class="property">--space-xl</span>: <span class="value">2rem</span>;    <span class="comment">/* 32px */</span>
+  <span class="property">--space-2xl</span>: <span class="value">3rem</span>;   <span class="comment">/* 48px */</span>
+  
+  <span class="comment">/* Border Radius */</span>
+  <span class="property">--radius-sm</span>: <span class="value">0.25rem</span>;
+  <span class="property">--radius-md</span>: <span class="value">0.5rem</span>;
+  <span class="property">--radius-lg</span>: <span class="value">0.75rem</span>;
+  
+  <span class="comment">/* Shadows */</span>
+  <span class="property">--shadow-sm</span>: <span class="value">0 1px 2px rgba(0, 0, 0, 0.05)</span>;
+  <span class="property">--shadow-md</span>: <span class="value">0 1px 3px rgba(0, 0, 0, 0.1)</span>;
+  <span class="property">--shadow-lg</span>: <span class="value">0 4px 6px rgba(0, 0, 0, 0.1)</span>;
+}
+            </div>
+
+            <h3>Token Benefits</h3>
+            <ul style="padding-left: var(--space-lg); margin: var(--space-md) 0; line-height: 1.8;">
+                <li><strong>Cross-platform Consistency:</strong> Tokens sync between Figma, CSS, and mobile platforms</li>
+                <li><strong>Efficient Updates:</strong> Global changes propagate automatically across all components</li>
+                <li><strong>Developer Handoff:</strong> Precise values eliminate guesswork during implementation</li>
+                <li><strong>Theme Support:</strong> Foundation for dark mode and accessibility themes</li>
+            </ul>
+        </div>
+
+        <div class="section" id="colors">
+            <h2>Color System</h2>
+            <p>A carefully crafted color palette that balances brand identity with functional requirements for commercial banking interfaces.</p>
+            
+            <h3>Primary Brand Colors</h3>
+            <div class="color-grid">
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #663399;" onclick="copyToClipboard('#663399')">
+                        Click to Copy
+                    </div>
+                    <div class="color-info">
+                        <div class="color-name">Truist Purple</div>
+                        <div class="color-value">#663399</div>
+                        <div class="color-usage">Primary actions, navigation, headers</div>
+                    </div>
+                </div>
+                
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #553388;" onclick="copyToClipboard('#553388')">
+                        Click to Copy
+                    </div>
+                    <div class="color-info">
+                        <div class="color-name">Truist Purple Hover</div>
+                        <div class="color-value">#553388</div>
+                        <div class="color-usage">Interactive states, hover effects</div>
+                    </div>
+                </div>
+                
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #f3f0ff; color: #663399;" onclick="copyToClipboard('#f3f0ff')">
+                        Click to Copy
+                    </div>
+                    <div class="color-info">
+                        <div class="color-name">Truist Purple Light</div>
+                        <div class="color-value">#f3f0ff</div>
+                        <div class="color-usage">Backgrounds, highlights, focus states</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Semantic Colors</h3>
+            <div class="color-grid">
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #1a1a1a;" onclick="copyToClipboard('#1a1a1a')">
+                        Click to Copy
+                    </div>
+                    <div class="color-info">
+                        <div class="color-name">Text Primary</div>
+                        <div class="color-value">#1a1a1a</div>
+                        <div class="color-usage">Main content, headings</div>
+                    </div>
+                </div>
+                
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #4a5568;" onclick="copyToClipboard('#4a5568')">
+                        Click to Copy
+                    </div>
+                    <div class="color-info">
+                        <div class="color-name">Text Secondary</div>
+                        <div class="color-value">#4a5568</div>
+                        <div class="color-usage">Supporting text, descriptions</div>
+                    </div>
+                </div>
+                
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #6b7280;" onclick="copyToClipboard('#6b7280')">
+                        Click to Copy
+                    </div>
+                    <div class="color-info">
+                        <div class="color-name">Text Muted</div>
+                        <div class="color-value">#6b7280</div>
+                        <div class="color-usage">Placeholders, disabled text</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Status Colors</h3>
+            <div class="color-grid">
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #16a34a;" onclick="copyToClipboard('#16a34a')">
+                        Click to Copy
+                    </div>
+                    <div class="color-info">
+                        <div class="color-name">Success</div>
+                        <div class="color-value">#16a34a</div>
+                        <div class="color-usage">Completed payments, approvals</div>
+                    </div>
+                </div>
+                
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #f59e0b;" onclick="copyToClipboard('#f59e0b')">
+                        Click to Copy
+                    </div>
+                    <div class="color-info">
+                        <div class="color-name">Warning</div>
+                        <div class="color-value">#f59e0b</div>
+                        <div class="color-usage">Pending approvals, attention needed</div>
+                    </div>
+                </div>
+                
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #ef4444;" onclick="copyToClipboard('#ef4444')">
+                        Click to Copy
+                    </div>
+                    <div class="color-info">
+                        <div class="color-name">Error</div>
+                        <div class="color-value">#ef4444</div>
+                        <div class="color-usage">Failed transactions, critical alerts</div>
+                    </div>
+                </div>
+                
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #3b82f6;" onclick="copyToClipboard('#3b82f6')">
+                        Click to Copy
+                    </div>
+                    <div class="color-info">
+                        <div class="color-name">Info</div>
+                        <div class="color-value">#3b82f6</div>
+                        <div class="color-usage">Informational messages, tips</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Color Usage Guidelines</h3>
+            <table class="design-table">
+                <thead>
+                    <tr>
+                        <th>Context</th>
+                        <th>Primary</th>
+                        <th>Secondary</th>
+                        <th>Accessibility Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Text on White</strong></td>
+                        <td>Text Primary (#1a1a1a)</td>
+                        <td>Text Secondary (#4a5568)</td>
+                        <td>Both meet WCAG AA contrast requirements</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Interactive Elements</strong></td>
+                        <td>Truist Purple (#663399)</td>
+                        <td>Purple Hover (#553388)</td>
+                        <td>Focus states use outline for keyboard users</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Status Communication</strong></td>
+                        <td>Status colors + icons</td>
+                        <td>Text descriptions</td>
+                        <td>Never rely on color alone for meaning</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Backgrounds</strong></td>
+                        <td>White (#ffffff)</td>
+                        <td>Secondary (#f7fafc)</td>
+                        <td>Sufficient contrast maintained at all levels</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section" id="typography">
+            <h2>Typography System</h2>
+            <p>A clear, readable typography hierarchy optimized for financial data and commercial banking workflows.</p>
+            
+            <h3>Font Stack</h3>
+            <div class="code-block">
+<span class="comment">/* Primary Font Stack */</span>
+<span class="property">font-family</span>: <span class="value">'Segoe UI', Tahoma, Geneva, Verdana, sans-serif</span>;
+
+<span class="comment">/* Monospace for Data */</span>
+<span class="property">font-family</span>: <span class="value">'Courier New', 'Monaco', monospace</span>;
+            </div>
+
+            <h3>Type Scale & Examples</h3>
+            <div class="typography-sample">
+                <h1>H1 - Page Titles (32px, 600 weight)</h1>
+                <h2>H2 - Section Headers (24px, 600 weight)</h2>
+                <h3>H3 - Card Titles (20px, 500 weight)</h3>
+                <p>Body Text - Main content (16px, 400 weight) - Optimized for reading financial information and detailed banking workflows with sufficient line height for accessibility.</p>
+                <p class="secondary">Secondary Text - Supporting information (14px, 400 weight) - Used for metadata, descriptions, and supplementary content.</p>
+                <p class="small">Small Text - Labels and captions (12px, 400 weight) - Minimum size for accessibility compliance.</p>
+            </div>
+
+            <h3>Typography Guidelines</h3>
+            <table class="design-table">
+                <thead>
+                    <tr>
+                        <th>Element</th>
+                        <th>Size/Weight</th>
+                        <th>Line Height</th>
+                        <th>Use Case</th>
+                        <th>Accessibility</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>H1</strong></td>
+                        <td>32px / 600</td>
+                        <td>1.2</td>
+                        <td>Page titles, main headings</td>
+                        <td>Proper heading hierarchy for screen readers</td>
+                    </tr>
+                    <tr>
+                        <td><strong>H2</strong></td>
+                        <td>24px / 600</td>
+                        <td>1.3</td>
+                        <td>Section headers, dashboard widgets</td>
+                        <td>Logical content structure</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Body</strong></td>
+                        <td>16px / 400</td>
+                        <td>1.6</td>
+                        <td>Main content, descriptions</td>
+                        <td>Minimum 1.5 line height for readability</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Small</strong></td>
+                        <td>12px / 400</td>
+                        <td>1.5</td>
+                        <td>Labels, captions, metadata</td>
+                        <td>Minimum size for WCAG compliance</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section" id="spacing">
+            <h2>Spacing & Layout System</h2>
+            <p>A systematic approach to spacing based on 4px increments, ensuring consistent rhythm and visual hierarchy across all interfaces.</p>
+            
+            <h3>Spacing Scale</h3>
+            <div class="spacing-demo">
+                <div class="spacing-item">
+                    <div class="spacing-visual spacing-xs"></div>
+                    <div class="spacing-label">XS</div>
+                    <div class="spacing-value">4px</div>
+                </div>
+                <div class="spacing-item">
+                    <div class="spacing-visual spacing-sm"></div>
+                    <div class="spacing-label">SM</div>
+                    <div class="spacing-value">8px</div>
+                </div>
+                <div class="spacing-item">
+                    <div class="spacing-visual spacing-md"></div>
+                    <div class="spacing-label">MD</div>
+                    <div class="spacing-value">16px</div>
+                </div>
+                <div class="spacing-item">
+                    <div class="spacing-visual spacing-lg"></div>
+                    <div class="spacing-label">LG</div>
+                    <div class="spacing-value">24px</div>
+                </div>
+                <div class="spacing-item">
+                    <div class="spacing-visual spacing-xl"></div>
+                    <div class="spacing-label">XL</div>
+                    <div class="spacing-value">32px</div>
+                </div>
+                <div class="spacing-item">
+                    <div class="spacing-visual spacing-2xl"></div>
+                    <div class="spacing-label">2XL</div>
+                    <div class="spacing-value">48px</div>
+                </div>
+            </div>
+
+            <h3>Layout Principles</h3>
+            <ul style="padding-left: var(--space-lg); margin: var(--space-md) 0; line-height: 1.8;">
+                <li><strong>4px Base Unit:</strong> All spacing derives from 4px for perfect pixel alignment</li>
+                <li><strong>Responsive Grid:</strong> 12-column system adapts to mobile, tablet, and desktop</li>
+                <li><strong>Content Width:</strong> Maximum 1200px prevents excessive line lengths</li>
+                <li><strong>Touch Targets:</strong> Minimum 44px for mobile accessibility</li>
+                <li><strong>Breathing Room:</strong> Adequate whitespace reduces cognitive load</li>
+            </ul>
+
+            <h3>Responsive Breakpoints</h3>
+            <div class="code-block">
+<span class="comment">/* Responsive Breakpoints */</span>
+<span class="property">--breakpoint-mobile</span>: <span class="value">320px</span>;  <span class="comment">/* Small phones */</span>
+<span class="property">--breakpoint-tablet</span>: <span class="value">768px</span>;  <span class="comment">/* Tablets */</span>
+<span class="property">--breakpoint-desktop</span>: <span class="value">1024px</span>; <span class="comment">/* Desktop */</span>
+<span class="property">--breakpoint-large</span>: <span class="value">1440px</span>; <span class="comment">/* Large screens */</span>
+            </div>
+        </div>
+
+        <div class="section" id="components">
+            <h2>Component Library</h2>
+            <p>Reusable, accessible components that form the building blocks of the commercial banking interface.</p>
+            
+            <h3>Buttons</h3>
+            <div class="component-demo">
+                <div class="demo-title">Button Variants & States</div>
+                <div class="button-demo">
+                    <button class="btn-primary">Submit for Approval</button>
+                    <button class="btn-secondary">Cancel</button>
+                    <button class="btn-danger">Delete Payment</button>
+                    <button class="btn-primary btn-disabled" disabled>Processing...</button>
+                </div>
+                <div class="button-demo">
+                    <button class="btn-primary btn-small">Small Action</button>
+                    <button class="btn-primary">Default Size</button>
+                    <button class="btn-primary btn-large">Primary Action</button>
+                </div>
+            </div>
+
+            <h4>Button Implementation</h4>
+            <div class="code-block">
+<span class="comment">/* Primary Button */</span>
+.<span class="property">btn-primary</span> {
+  <span class="property">background-color</span>: <span class="value">var(--truist-purple)</span>;
+  <span class="property">color</span>: <span class="value">white</span>;
+  <span class="property">border</span>: <span class="value">none</span>;
+  <span class="property">padding</span>: <span class="value">var(--space-sm) var(--space-lg)</span>;
+  <span class="property">border-radius</span>: <span class="value">var(--radius-md)</span>;
+  <span class="property">font-weight</span>: <span class="value">500</span>;
+  <span class="property">cursor</span>: <span class="value">pointer</span>;
+  <span class="property">transition</span>: <span class="value">all 150ms ease</span>;
+}
+
+.<span class="property">btn-primary</span>:<span class="value">hover</span> {
+  <span class="property">background-color</span>: <span class="value">var(--truist-purple-hover)</span>;
+  <span class="property">transform</span>: <span class="value">translateY(-1px)</span>;
+}
+
+.<span class="property">btn-primary</span>:<span class="value">focus</span> {
+  <span class="property">outline</span>: <span class="value">2px solid var(--truist-purple)</span>;
+  <span class="property">outline-offset</span>: <span class="value">2px</span>;
+}
+            </div>
+
+            <h3>Status Indicators</h3>
+            <div class="component-demo">
+                <div class="demo-title">Status Communication System</div>
+                <div class="status-demo">
+                    <div class="status-indicator status-completed">
+                        <span>✓</span>
+                        <span>Completed</span>
+                    </div>
+                    <div class="status-indicator status-pending">
+                        <span>⏰</span>
+                        <span>Pending</span>
+                    </div>
+                    <div class="status-indicator status-overdue">
+                        <span>⚠</span>
+                        <span>Overdue</span>
+                    </div>
+                    <div class="status-indicator status-scheduled">
+                        <span>📅</span>
+                        <span>Scheduled</span>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Form Elements</h3>
+            <div class="component-demo">
+                <div class="demo-title">Form Components</div>
+                <div class="form-demo">
+                    <div class="form-group">
+                        <label class="form-label" for="vendor-name">Vendor Name (Required)</label>
+                        <input type="text" id="vendor-name" class="form-input" placeholder="Enter vendor name">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="payment-amount">Payment Amount (Required)</label>
+                        <input type="number" id="payment-amount" class="form-input" placeholder="0.00">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="payment-type">Payment Type</label>
+                        <select id="payment-type" class="form-select">
+                            <option>ACH Transfer</option>
+                            <option>Wire Transfer</option>
+                            <option>Check</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Cards</h3>
+            <div class="component-demo">
+                <div class="demo-title">Card Components</div>
+                <div class="card-demo">
+                    <div class="sample-card">
+                        <h4>Downtown Property Management</h4>
+                        <p>Office rent payment for January 2025</p>
+                        <div class="amount">$12,500.00</div>
+                        <div class="status-indicator status-pending">
+                            <span>⏰</span>
+                            <span>Pending Approval</span>
+                        </div>
+                    </div>
+                    <div class="sample-card">
+                        <h4>Tech Solutions Inc.</h4>
+                        <p>Software license renewal - Annual subscription</p>
+                        <div class="amount">$8,900.00</div>
+                        <div class="status-indicator status-completed">
+                            <span>✓</span>
+                            <span>Approved</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="patterns">
+            <h2>UI Patterns & Layouts</h2>
+            <p>Common interface patterns and layout structures that ensure consistent user experiences across the platform.</p>
+
+            <h3>Dashboard Patterns</h3>
+            <table class="design-table">
+                <thead>
+                    <tr>
+                        <th>Pattern</th>
+                        <th>Use Case</th>
+                        <th>Components</th>
+                        <th>Responsive Behavior</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Status Overview</strong></td>
+                        <td>Quick status at-a-glance</td>
+                        <td>Metric cards, status indicators</td>
+                        <td>Stack vertically on mobile</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Action Queue</strong></td>
+                        <td>Items requiring attention</td>
+                        <td>Cards, buttons, status badges</td>
+                        <td>Single column on small screens</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Data Tables</strong></td>
+                        <td>Payment history, reports</td>
+                        <td>Tables, pagination, filters</td>
+                        <td>Horizontal scroll, condensed view</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Progressive Disclosure</strong></td>
+                        <td>Complex forms, detailed views</td>
+                        <td>Accordions, tabs, modals</td>
+                        <td>Full-screen on mobile</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Information Hierarchy</h3>
+            <ul style="padding-left: var(--space-lg); margin: var(--space-md) 0; line-height: 1.8;">
+                <li><strong>Above the Fold:</strong> Critical status, primary actions, urgent items</li>
+                <li><strong>Secondary Content:</strong> Recent activity, secondary actions, navigation</li>
+                <li><strong>Supporting Information:</strong> Help text, additional options, settings</li>
+                <li><strong>Progressive Enhancement:</strong> Advanced features revealed as needed</li>
+            </ul>
+        </div>
+
+        <div class="section" id="implementation">
+            <h2>Implementation Guidelines</h2>
+            <p>Technical specifications and best practices for implementing the design system across development teams.</p>
+
+            <h3>CSS Architecture</h3>
+            <div class="code-block">
+<span class="comment">/* Design System CSS Structure */</span>
+<span class="property">design-system/</span>
+├── <span class="value">tokens/</span>          <span class="comment">/* Design tokens */</span>
+│   ├── <span class="value">colors.css</span>
+│   ├── <span class="value">spacing.css</span>
+│   └── <span class="value">typography.css</span>
+├── <span class="value">components/</span>      <span class="comment">/* Individual components */</span>
+│   ├── <span class="value">buttons.css</span>
+│   ├── <span class="value">cards.css</span>
+│   └── <span class="value">forms.css</span>
+└── <span class="value">utilities/</span>       <span class="comment">/* Utility classes */</span>
+    ├── <span class="value">layout.css</span>
+    └── <span class="value">accessibility.css</span>
+            </div>
+
+            <h3>Development Workflow</h3>
+            <ul style="padding-left: var(--space-lg); margin: var(--space-md) 0; line-height: 1.8;">
+                <li><strong>Figma Integration:</strong> Design tokens sync automatically with Figma styles</li>
+                <li><strong>Component Library:</strong> Storybook documentation for all components</li>
+                <li><strong>Version Control:</strong> Semantic versioning for design system releases</li>
+                <li><strong>Testing:</strong> Visual regression testing with Percy or Chromatic</li>
+                <li><strong>Build Process:</strong> Automated CSS generation from design tokens</li>
+            </ul>
+
+            <h3>Team Adoption</h3>
+            <table class="design-table">
+                <thead>
+                    <tr>
+                        <th>Role</th>
+                        <th>Responsibilities</th>
+                        <th>Tools</th>
+                        <th>Deliverables</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Designers</strong></td>
+                        <td>Use system components, propose new patterns</td>
+                        <td>Figma library, design tokens</td>
+                        <td>Consistent mockups, component specs</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Developers</strong></td>
+                        <td>Implement components, maintain code quality</td>
+                        <td>CSS framework, Storybook, linting</td>
+                        <td>Reusable components, documentation</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Product Managers</strong></td>
+                        <td>Advocate for consistency, plan system evolution</td>
+                        <td>Component audit tools, usage metrics</td>
+                        <td>Requirements, roadmap prioritization</td>
+                    </tr>
+                    <tr>
+                        <td><strong>QA Engineers</strong></td>
+                        <td>Test component behavior, accessibility compliance</td>
+                        <td>Automated testing, accessibility tools</td>
+                        <td>Test coverage, accessibility reports</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section" id="accessibility">
+            <h2>Accessibility Standards</h2>
+            <p>Comprehensive accessibility guidelines ensuring the design system meets WCAG 2.1 AA standards and provides inclusive experiences for all users.</p>
+
+            <h3>Color & Contrast</h3>
+            <table class="design-table">
+                <thead>
+                    <tr>
+                        <th>Color Combination</th>
+                        <th>Contrast Ratio</th>
+                        <th>WCAG Level</th>
+                        <th>Use Case</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Text Primary on White</td>
+                        <td>13.1:1</td>
+                        <td>AAA</td>
+                        <td>Body text, headings</td>
+                    </tr>
+                    <tr>
+                        <td>Text Secondary on White</td>
+                        <td>7.2:1</td>
+                        <td>AAA</td>
+                        <td>Supporting text</td>
+                    </tr>
+                    <tr>
+                        <td>Truist Purple on White</td>
+                        <td>6.8:1</td>
+                        <td>AA</td>
+                        <td>Links, interactive elements</td>
+                    </tr>
+                    <tr>
+                        <td>White on Truist Purple</td>
+                        <td>6.8:1</td>
+                        <td>AA</td>
+                        <td>Primary buttons, badges</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Keyboard Navigation</h3>
+            <ul style="padding-left: var(--space-lg); margin: var(--space-md) 0; line-height: 1.8;">
+                <li><strong>Focus Indicators:</strong> Visible 2px outline for all interactive elements</li>
+                <li><strong>Tab Order:</strong> Logical sequence following visual hierarchy</li>
+                <li><strong>Skip Links:</strong> Allow users to bypass navigation</li>
+                <li><strong>Escape Functionality:</strong> Close modals and overlays with Escape key</li>
+            </ul>
+
+            <h3>Screen Reader Support</h3>
+            <ul style="padding-left: var(--space-lg); margin: var(--space-md) 0; line-height: 1.8;">
+                <li><strong>Semantic HTML:</strong> Proper heading hierarchy and landmark elements</li>
+                <li><strong>ARIA Labels:</strong> Descriptive labels for complex interactions</li>
+                <li><strong>Status Updates:</strong> Live regions announce dynamic content changes</li>
+                <li><strong>Form Labels:</strong> Clear association between labels and form controls</li>
+            </ul>
+
+            <h3>Testing Checklist</h3>
+            <div class="code-block">
+<span class="comment">/* Accessibility Testing Workflow */</span>
+<span class="property">Manual Testing:</span>
+  - <span class="value">Keyboard navigation</span>
+  - <span class="value">Screen reader testing (NVDA, JAWS)</span>
+  - <span class="value">Color blindness simulation</span>
+  - <span class="value">High contrast mode</span>
+
+<span class="property">Automated Testing:</span>
+  - <span class="value">axe-core integration</span>
+  - <span class="value">Lighthouse accessibility audit</span>
+  - <span class="value">WAVE evaluation</span>
+  - <span class="value">Color contrast validation</span>
+            </div>
+        </div>
+    </div>
+
+    <button class="back-to-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' });" aria-label="Back to top">
+        ↑ Top
+    </button>
+
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                // Could add a toast notification here
+                console.log('Color value copied to clipboard:', text);
+            });
+        }
+    </script>
+</body>
+</html>
