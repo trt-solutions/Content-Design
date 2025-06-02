@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="User journey mapping and workflow optimization for Truist commercial banking platform, showcasing end-to-end user experiences and pain point resolution.">
+    <meta name="author" content="UX Designer">
+    <meta name="robots" content="index, follow">
+    <title>User Flows - Truist Design Challenge</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23663399'/%3E%3Cpath d='M8 8h16v4H8V8zm0 6h16v4H8v-4zm0 6h12v4H8v-4z' fill='white'/%3E%3C/svg%3E">
+    <style>
+        :root {
+            --truist-purple: #663399;
+            --truist-purple-hover: #553388;
+            --truist-purple-light: #f3f0ff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #4a5568;
+            --text-muted: #6b7280;
+            --status-success: #16a34a;
+            --status-warning: #f59e0b;
+            --status-error: #ef4444;
+            --status-info: #3b82f6;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f7fafc;
+            --bg-muted: #f3f4f6;
+            --border-light: #e5e7eb;
+            --border-medium: #d1d5db;
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            --radius-sm: 0.25rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--truist-purple) 0%, #8B5A96 100%);
+            color: white;
+            padding: var(--space-xl) 0;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: var(--space-sm);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .nav-breadcrumb {
+            background: white;
+            padding: var(--space-md) 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .nav-breadcrumb .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-lg);
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: var(--truist-purple);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .breadcrumb a:focus {
+            outline: 2px solid var(--truist-purple);
+            outline-offset: 2px;
+            border-radius: var(--radius-sm);
+        }
+
+        .breadcrumb span {
+            color: var(--text-muted);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-xl);
+        }
+
+        .section {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: var(--space-2xl);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: var(--space-xl);
+        }
+
+        .section h2 {
+            color: var(--truist-purple);
+            font-size: 1.8rem;
+            margin-bottom: var(--space-lg);
+            border-bottom: 2px solid var(--border-light);
+            padding-bottom: var(--space-sm);
+        }
+
+        .section h3 {
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            margin: var(--space-lg) 0 var(--space-md);
+        }
+
+        .section h4 {
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            margin: var(--space-md) 0 var(--space-sm);
+            font-weight: 500;
+        }
+
+        /* Flow Visualization */
+        .journey-flow {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin: var(--space-lg) 0;
+            border: 1px solid var(--border-light);
+        }
+
+        .flow-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: var(--space-md);
+            color: var(--truist-purple);
+        }
+
+        .flow-steps {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            flex-wrap: wrap;
+            margin: var(--space-md) 0;
+        }
+
+        .flow-step {
+            background: white;
+            padding: var(--space-md) var(--space-lg);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-light);
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            min-width: 140px;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .flow-step:hover {
+            border-color: var(--truist-purple);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .flow-step::after {
+            content: '→';
+            position: absolute;
+            right: -18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--truist-purple);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .flow-step:last-child::after {
+            display: none;
+        }
+
+        /* Before/After Comparison */
+        .before-after {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-lg);
+            margin: var(--space-lg) 0;
+        }
+
+        .before-card {
+            background: linear-gradient(135deg, #fef2f2 0%, #ffffff 100%);
+            border: 1px solid #fecaca;
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+        }
+
+        .after-card {
+            background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);
+            border: 1px solid #bbf7d0;
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+        }
+
+        .before-card h4 {
+            color: #dc2626;
+            margin-bottom: var(--space-md);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .after-card h4 {
+            color: #16a34a;
+            margin-bottom: var(--space-md);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .metric-highlight {
+            background: rgba(102, 51, 153, 0.1);
+            color: var(--truist-purple);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin: var(--space-xs) 0;
+        }
+
+        /* Task Flow Table */
+        .task-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--space-lg) 0;
+            background: white;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .task-table th,
+        .task-table td {
+            padding: var(--space-md);
+            text-align: left;
+            border-bottom: 1px solid var(--border-light);
+            vertical-align: top;
+        }
+
+        .task-table th {
+            background: var(--bg-secondary);
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .task-table td {
+            font-size: 0.85rem;
+        }
+
+        .task-table tr:hover {
+            background: var(--truist-purple-light);
+        }
+
+        /* Persona Cards */
+        .persona-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-lg);
+            margin: var(--space-lg) 0;
+        }
+
+        .persona-flow-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .persona-flow-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--truist-purple);
+        }
+
+        .persona-flow-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        }
+
+        .persona-flow-card.analyst::before { background: var(--status-info); }
+        .persona-flow-card.manager::before { background: var(--status-success); }
+        .persona-flow-card.compliance::before { background: var(--status-warning); }
+
+        .persona-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+            color: var(--text-primary);
+        }
+
+        .persona-scenario {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-md);
+            font-style: italic;
+        }
+
+        .pain-point {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--status-error);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            margin: var(--space-xs) 0;
+            display: inline-block;
+        }
+
+        .opportunity {
+            background: rgba(22, 163, 74, 0.1);
+            color: var(--status-success);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            margin: var(--space-xs) 0;
+            display: inline-block;
+        }
+
+        /* Time indicators */
+        .time-saved {
+            background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);
+            border-left: 4px solid var(--status-success);
+            padding: var(--space-md);
+            border-radius: var(--radius-md);
+            margin: var(--space-md) 0;
+        }
+
+        .time-saved-title {
+            font-weight: 600;
+            color: var(--status-success);
+            margin-bottom: var(--space-xs);
+        }
+
+        /* Focus and accessibility styles */
+        *:focus {
+            outline: 2px solid var(--truist-purple);
+            outline-offset: 2px;
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--truist-purple);
+            color: white;
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-top:hover {
+            background: var(--truist-purple-hover);
+            transform: translateY(-2px);
+        }
+
+        .back-to-top:focus {
+            outline: 2px solid white;
+            outline-offset: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: var(--space-lg);
+            }
+            
+            .before-after {
+                grid-template-columns: 1fr;
+            }
+            
+            .persona-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .flow-steps {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .flow-step::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header" role="banner">
+        <h1>User Flows & Journey Mapping</h1>
+        <p>End-to-end user experiences and workflow optimization</p>
+    </header>
+
+    <nav class="nav-breadcrumb" role="navigation" aria-label="Breadcrumb">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="index.html">Back</a>
+                <span>/</span>
+                <span>User Flows</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="section">
+            <h2>User Journey Overview</h2>
+            <p>Comprehensive mapping of user experiences across the commercial banking platform, identifying pain points and designing solutions that reduce processing time by 50% while improving accuracy and user satisfaction.</p>
+
+            <h3>📋 Table of Contents</h3>
+            <nav style="background: var(--bg-secondary); padding: var(--space-lg); border-radius: var(--radius-md); margin: var(--space-lg) 0;">
+                <ul style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-sm);">
+                    <li><a href="#core-flows" style="color: var(--truist-purple); text-decoration: none; font-size: 0.9rem;">Core User Flows</a></li>
+                    <li><a href="#persona-journeys" style="color: var(--truist-purple); text-decoration: none; font-size: 0.9rem;">Persona Journeys</a></li>
+                    <li><a href="#task-flows" style="color: var(--truist-purple); text-decoration: none; font-size: 0.9rem;">Detailed Task Flows</a></li>
+                    <li><a href="#pain-points" style="color: var(--truist-purple); text-decoration: none; font-size: 0.9rem;">Pain Point Analysis</a></li>
+                    <li><a href="#optimization" style="color: var(--truist-purple); text-decoration: none; font-size: 0.9rem;">Workflow Optimization</a></li>
+                    <li><a href="#success-metrics" style="color: var(--truist-purple); text-decoration: none; font-size: 0.9rem;">Success Metrics</a></li>
+                </ul>
+            </nav>
+
+            <h3>Journey Mapping Methodology</h3>
+            <ul style="padding-left: var(--space-lg); margin: var(--space-md) 0; line-height: 1.8;">
+                <li><strong>User Research Foundation:</strong> Based on detailed persona analysis and current workflow observation</li>
+                <li><strong>End-to-End Mapping:</strong> Complete journeys from task initiation to final resolution</li>
+                <li><strong>Pain Point Identification:</strong> Systematic cataloging of friction points and inefficiencies</li>
+                <li><strong>Solution Design:</strong> Targeted improvements addressing specific user needs and business goals</li>
+                <li><strong>Measurable Outcomes:</strong> Clear metrics for success and continuous improvement</li>
+            </ul>
+        </div>
+
+        <div class="section" id="core-flows">
+            <h2>Core User Flows</h2>
+            <p>The fundamental workflows that drive the commercial banking platform, optimized for efficiency and error reduction.</p>
+
+            <h3>Primary Payment Flow</h3>
+            <div class="journey-flow">
+                <div class="flow-title">Payment Creation & Approval Process</div>
+                <div class="flow-steps">
+                    <div class="flow-step">Login & Dashboard</div>
+                    <div class="flow-step">Create Payment</div>
+                    <div class="flow-step">Enter Details</div>
+                    <div class="flow-step">Review & Submit</div>
+                    <div class="flow-step">Routing</div>
+                    <div class="flow-step">Approval</div>
+                    <div class="flow-step">Processing</div>
+                    <div class="flow-step">Confirmation</div>
+                </div>
+                <div class="time-saved">
+                    <div class="time-saved-title">⚡ Time Improvement</div>
+                    <div>Reduced from 8-12 minutes to 3-5 minutes per payment through streamlined data entry and intelligent routing</div>
+                </div>
+            </div>
+
+            <h3>Approval Workflow</h3>
+            <div class="journey-flow">
+                <div class="flow-title">Manager Approval Process</div>
+                <div class="flow-steps">
+                    <div class="flow-step">Notification</div>
+                    <div class="flow-step">Review Queue</div>
+                    <div class="flow-step">Payment Details</div>
+                    <div class="flow-step">Risk Assessment</div>
+                    <div class="flow-step">Decision</div>
+                    <div class="flow-step">Action Taken</div>
+                    <div class="flow-step">Status Update</div>
+                </div>
+                <div class="time-saved">
+                    <div class="time-saved-title">⚡ Efficiency Gains</div>
+                    <div>Contextual information and risk indicators enable faster decision-making with 95% fewer follow-up questions</div>
+                </div>
+            </div>
+
+            <h3>Compliance Monitoring</h3>
+            <div class="journey-flow">
+                <div class="flow-title">Real-time Compliance Workflow</div>
+                <div class="flow-steps">
+                    <div class="flow-step">Auto-Screening</div>
+                    <div class="flow-step">Risk Flagging</div>
+                    <div class="flow-step">Manual Review</div>
+                    <div class="flow-step">Exception Handling</div>
+                    <div class="flow-step">Documentation</div>
+                    <div class="flow-step">Reporting</div>
+                </div>
+                <div class="time-saved">
+                    <div class="time-saved-title">⚡ Compliance Automation</div>
+                    <div>Automated screening reduces manual review time by 70% while maintaining 99%+ accuracy</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="persona-journeys">
+            <h2>Persona-Specific Journeys</h2>
+            <p>Detailed journey maps for each user type, highlighting unique needs, goals, and interaction patterns.</p>
+
+            <div class="persona-grid">
+                <div class="persona-flow-card analyst">
+                    <div class="persona-title">AP Analyst Journey</div>
+                    <div class="persona-scenario">"I need to process 35 payments today before the 3 PM cutoff"</div>
+                    
+                    <h4>Key Touchpoints</h4>
+                    <ul style="list-style: none; margin: var(--space-md) 0; padding: 0;">
+                        <li style="padding: var(--space-xs) 0; color: var(--text-secondary); font-size: 0.9rem;">• Morning dashboard review</li>
+                        <li style="padding: var(--space-xs) 0; color: var(--text-secondary); font-size: 0.9rem;">• Bulk payment creation</li>
+                        <li style="padding: var(--space-xs) 0; color: var(--text-secondary); font-size: 0.9rem;">• Status tracking throughout day</li>
+                        <li style="padding: var(--space-xs) 0; color: var(--text-secondary); font-size: 0.9rem;">• End-of-day reconciliation</li>
+                    </ul>
+
+                    <h5 style="font-size: 0.9rem; font-weight: 600; color: var(--text-primary); margin-top: var(--space-md); margin-bottom: var(--space-xs);">Pain Points Addressed</h5>
+                    <div class="pain-point">Manual data entry errors</div>
+                    <div class="pain-point">Unclear approval status</div>
+                    <div class="opportunity">Smart data validation</div>
+                    <div class="opportunity">Real-time status updates</div>
+                </div>
+
+                <div class="persona-flow-card manager">
+                    <div class="persona-title">AP Manager Journey</div>
+                    <div class="persona-scenario">"I need to approve high-value payments while managing team workload"</div>
+                    
+                    <h4>Key Touchpoints</h4>
+                    <ul style="list-style: none; margin: var(--space-md) 0; padding: 0;">
+                        <li style="padding: var(--space-xs) 0; color: var(--text-secondary); font-size: 0.9rem;">• Priority queue management</li>
+                        <li style="padding: var(--space-xs) 0; color: var(--text-secondary); font-size: 0.9rem;">• Risk assessment review</li>
+                        <li style="padding: var(--space-xs) 0; color: var(--text-secondary); font-size: 0.9rem;">• Team performance monitoring</li>
+                        <li style="padding: var(--space-xs) 0; color: var(--text-secondary); font-size: 0.9rem;">• Exception handling</li>
+                    </ul>
+
+                    <h5 style="font-size: 0.9rem; font-weight: 600; color: var(--text-primary); margin-top: var(--space-md); margin-bottom: var(--space-xs);">Pain Points Addressed</h5>
+                    <div class="pain-point">Information overload</div>
+                    <div class="pain-point">Approval bottlenecks</div>
+                    <div class="opportunity">Contextual decision support</div>
+                    <div class="opportunity">Intelligent routing</div>
+                </div>
+
+                <div class="persona-flow-card compliance">
+                    <div class="persona-title">Compliance Officer Journey</div>
+                    <div class="persona-scenario">"I need to ensure all transactions meet regulatory requirements"</div>
+                    
+                    <h4>Key Touchpoints</h4>
+                    <ul style="list-style: none; margin: var(--space-md) 0; padding: 0;">
+                        <li style="padding: var(--space-xs) 0; color: var(--text-secondary); font-size: 0.9rem;">• Automated screening review</li>
+                        <li style="padding: var(--space-xs) 0; color: var(--text-secondary); font-size: 0.9rem;">• Exception investigation</li>
+                        <li style="padding: var(--space-xs) 0; color: var(--text-secondary); font-size: 0.9rem;">• Audit trail management</li>
+                        <li style="padding: var(--space-xs) 0; color: var(--text-secondary); font-size: 0.9rem;">• Regulatory reporting</li>
+                    </ul>
+
+                    <h5 style="font-size: 0.9rem; font-weight: 600; color: var(--text-primary); margin-top: var(--space-md); margin-bottom: var(--space-xs);">Pain Points Addressed</h5>
+                    <div class="pain-point">Manual audit trails</div>
+                    <div class="pain-point">Late compliance catches</div>
+                    <div class="opportunity">Automated documentation</div>
+                    <div class="opportunity">Real-time monitoring</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="task-flows">
+            <h2>Detailed Task Flows</h2>
+            <p>Step-by-step breakdowns of critical tasks with time estimates and improvement opportunities.</p>
+
+            <h3>Payment Creation Task Flow</h3>
+            <table class="task-table">
+                <thead>
+                    <tr>
+                        <th>Step</th>
+                        <th>Current Process</th>
+                        <th>Time (Old)</th>
+                        <th>Improved Process</th>
+                        <th>Time (New)</th>
+                        <th>Key Improvement</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>1. Data Entry</strong></td>
+                        <td>Manual typing of vendor details</td>
+                        <td>3-4 min</td>
+                        <td>Autocomplete with vendor database</td>
+                        <td>30 sec</td>
+                        <td>Smart suggestions reduce typing</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2. Amount Entry</strong></td>
+                        <td>Manual calculation and entry</td>
+                        <td>1-2 min</td>
+                        <td>Invoice scanning with OCR</td>
+                        <td>15 sec</td>
+                        <td>Automated data extraction</td>
+                    </tr>
+                    <tr>
+                        <td><strong>3. Validation</strong></td>
+                        <td>Manual checking of all fields</td>
+                        <td>2-3 min</td>
+                        <td>Real-time validation with errors</td>
+                        <td>30 sec</td>
+                        <td>Instant feedback prevents errors</td>
+                    </tr>
+                    <tr>
+                        <td><strong>4. Routing</strong></td>
+                        <td>Manual approver selection</td>
+                        <td>1-2 min</td>
+                        <td>Intelligent routing based on rules</td>
+                        <td>5 sec</td>
+                        <td>Automated workflow assignment</td>
+                    </tr>
+                    <tr>
+                        <td><strong>5. Submission</strong></td>
+                        <td>Multiple confirmation screens</td>
+                        <td>1 min</td>
+                        <td>Single confirmation with summary</td>
+                        <td>15 sec</td>
+                        <td>Streamlined confirmation flow</td>
+                    </tr>
+                    <tr style="background: var(--truist-purple-light); font-weight: 600;">
+                        <td><strong>Total</strong></td>
+                        <td colspan="2"><strong>8-12 minutes</strong></td>
+                        <td colspan="2"><strong>1.5-2 minutes</strong></td>
+                        <td><strong>75% time reduction</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Approval Decision Task Flow</h3>
+            <table class="task-table">
+                <thead>
+                    <tr>
+                        <th>Step</th>
+                        <th>Current Process</th>
+                        <th>Time (Old)</th>
+                        <th>Improved Process</th>
+                        <th>Time (New)</th>
+                        <th>Key Improvement</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>1. Queue Review</strong></td>
+                        <td>Scan through long list</td>
+                        <td>2-3 min</td>
+                        <td>Priority-sorted with urgency indicators</td>
+                        <td>30 sec</td>
+                        <td>Smart prioritization</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2. Context Gathering</strong></td>
+                        <td>Look up vendor history manually</td>
+                        <td>3-4 min</td>
+                        <td>Contextual information panel</td>
+                        <td>15 sec</td>
+                        <td>Integrated vendor insights</td>
+                    </tr>
+                    <tr>
+                        <td><strong>3. Risk Assessment</strong></td>
+                    <tr>
+                        <td><strong>3. Risk Assessment</strong></td>
+                        <td>Manual policy checking</td>
+                        <td>2-3 min</td>
+                        <td>Automated risk scoring</td>
+                        <td>Instant</td>
+                        <td>Real-time compliance checking</td>
+                    </tr>
+                    <tr>
+                        <td><strong>4. Decision</strong></td>
+                        <td>Navigate to separate approval screen</td>
+                        <td>1 min</td>
+                        <td>In-context approve/reject buttons</td>
+                        <td>5 sec</td>
+                        <td>Streamlined decision interface</td>
+                    </tr>
+                    <tr style="background: var(--truist-purple-light); font-weight: 600;">
+                        <td><strong>Total</strong></td>
+                        <td colspan="2"><strong>8-11 minutes</strong></td>
+                        <td colspan="2"><strong>1 minute</strong></td>
+                        <td><strong>90% time reduction</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section" id="pain-points">
+            <h2>Pain Point Analysis & Solutions</h2>
+            <p>Systematic identification of user frustrations and corresponding design solutions that directly address workflow inefficiencies.</p>
+
+            <h3>Current State vs. Optimized State</h3>
+            <div class="before-after">
+                <div class="before-card">
+                    <h4>❌ Current Pain Points</h4>
+                    <ul style="list-style: none; margin: var(--space-md) 0; padding: 0; line-height: 1.8;">
+                        <li><strong>Data Entry Errors:</strong> 8-12% error rate due to manual typing</li>
+                        <li><strong>Status Blindness:</strong> No real-time visibility into approval progress</li>
+                        <li><strong>Context Switching:</strong> Multiple systems for vendor lookup</li>
+                        <li><strong>Approval Delays:</strong> Managers lack sufficient decision context</li>
+                        <li><strong>Compliance Lag:</strong> Post-transaction compliance checking</li>
+                    </ul>
+                    <div class="metric-highlight">Average 8-12 min per payment</div>
+                </div>
+                <div class="after-card">
+                    <h4>✅ Optimized Solutions</h4>
+                    <ul style="list-style: none; margin: var(--space-md) 0; padding: 0; line-height: 1.8;">
+                        <li><strong>Smart Validation:</strong> Real-time error prevention and suggestions</li>
+                        <li><strong>Live Status:</strong> Real-time progress tracking with notifications</li>
+                        <li><strong>Unified Interface:</strong> All information in single, contextual view</li>
+                        <li><strong>Decision Support:</strong> Risk indicators and vendor history at-a-glance</li>
+                        <li><strong>Proactive Compliance:</strong> Real-time screening and automated documentation</li>
+                    </ul>
+                    <div class="metric-highlight">Target 1.5-3 min per payment</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="optimization">
+            <h2>Workflow Optimization Strategies</h2>
+            <p>Strategic improvements designed to eliminate friction, reduce errors, and accelerate task completion across all user types.</p>
+
+            <h3>Intelligent Automation</h3>
+            <div class="journey-flow">
+                <div class="flow-title">Automated Workflow Enhancements</div>
+                <ul style="padding-left: var(--space-lg); margin: var(--space-md) 0; line-height: 1.8;">
+                    <li><strong>Smart Data Entry:</strong> OCR scanning of invoices automatically populates payment fields</li>
+                    <li><strong>Vendor Recognition:</strong> Machine learning suggests vendors based on description patterns</li>
+                    <li><strong>Compliance Screening:</strong> Real-time checking against regulatory requirements</li>
+                    <li><strong>Risk Scoring:</strong> Automated risk assessment based on vendor history and amount</li>
+                    <li><strong>Routing Intelligence:</strong> Dynamic approver assignment based on workload and expertise</li>
+                </ul>
+            </div>
+
+            <h3>User Experience Improvements</h3>
+            <div class="before-after">
+                <div class="before-card">
+                    <h4>❌ Current UX Challenges</h4>
+                    <ul style="list-style: none; margin: var(--space-md) 0; padding: 0; line-height: 1.6;">
+                        <li>• Complex multi-step forms</li>
+                        <li>• No progress indicators</li>
+                        <li>• Unclear error messages</li>
+                        <li>• Limited mobile support</li>
+                        <li>• Inconsistent interface patterns</li>
+                    </ul>
+                </div>
+                <div class="after-card">
+                    <h4>✅ Enhanced UX Solutions</h4>
+                    <ul style="list-style: none; margin: var(--space-md) 0; padding: 0; line-height: 1.6;">
+                        <li>• Progressive disclosure with smart defaults</li>
+                        <li>• Clear progress tracking and save states</li>
+                        <li>• Contextual help and error recovery</li>
+                        <li>• Mobile-first responsive design</li>
+                        <li>• Consistent design system implementation</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Performance Optimizations</h3>
+            <table class="task-table">
+                <thead>
+                    <tr>
+                        <th>Optimization Area</th>
+                        <th>Current State</th>
+                        <th>Target State</th>
+                        <th>Implementation</th>
+                        <th>Expected Impact</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Data Entry Speed</strong></td>
+                        <td>Manual typing</td>
+                        <td>Autocomplete & OCR</td>
+                        <td>ML-powered suggestions</td>
+                        <td>75% faster entry</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Error Reduction</strong></td>
+                        <td>8-12% error rate</td>
+                        <td>&lt;2% error rate</td>
+                        <td>Real-time validation</td>
+                        <td>85% fewer errors</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Approval Speed</strong></td>
+                        <td>6-8 minutes</td>
+                        <td>1-2 minutes</td>
+                        <td>Contextual information</td>
+                        <td>75% faster decisions</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mobile Usage</strong></td>
+                        <td>5% mobile adoption</td>
+                        <td>40% mobile adoption</td>
+                        <td>Mobile-optimized design</td>
+                        <td>8x increase in mobile use</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section" id="success-metrics">
+            <h2>Success Metrics & Validation</h2>
+            <p>Measurable outcomes demonstrating the effectiveness of workflow optimizations and user experience improvements.</p>
+
+            <h3>Quantitative Improvements</h3>
+            <table class="task-table">
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Baseline</th>
+                        <th>Target</th>
+                        <th>Measurement Method</th>
+                        <th>Business Impact</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Processing Time</strong></td>
+                        <td>8-12 minutes</td>
+                        <td>1.5-3 minutes</td>
+                        <td>Task completion analytics</td>
+                        <td>$275K annual savings</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Error Rate</strong></td>
+                        <td>8-12%</td>
+                        <td>&lt;2%</td>
+                        <td>Data validation tracking</td>
+                        <td>95% reduction in corrections</td>
+                    </tr>
+                    <tr>
+                        <td><strong>User Satisfaction</strong></td>
+                        <td>2.8/5</td>
+                        <td>4.5/5</td>
+                        <td>Quarterly user surveys</td>
+                        <td>Higher adoption rates</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mobile Adoption</strong></td>
+                        <td>5%</td>
+                        <td>40%</td>
+                        <td>Device usage analytics</td>
+                        <td>Increased accessibility</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Compliance Score</strong></td>
+                        <td>94%</td>
+                        <td>99%+</td>
+                        <td>Automated compliance reporting</td>
+                        <td>Reduced regulatory risk</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>User Experience Validation</h3>
+            <div class="journey-flow">
+                <div class="flow-title">Continuous Improvement Framework</div>
+                <ul style="padding-left: var(--space-lg); margin: var(--space-md) 0; line-height: 1.8;">
+                    <li><strong>A/B Testing:</strong> Test workflow variations with real users to optimize conversion</li>
+                    <li><strong>User Interviews:</strong> Quarterly sessions to gather qualitative feedback and pain points</li>
+                    <li><strong>Analytics Monitoring:</strong> Real-time tracking of task completion rates and drop-off points</li>
+                    <li><strong>Performance Metrics:</strong> System response times and error rates for technical validation</li>
+                    <li><strong>Business KPIs:</strong> ROI tracking and cost savings measurement for stakeholder reporting</li>
+                </ul>
+            </div>
+
+            <h3>Implementation Phases</h3>
+            <div class="before-after">
+                <div class="before-card">
+                    <h4>📅 Phase 1 (Months 1-2)</h4>
+                    <ul style="list-style: none; margin: var(--space-md) 0; padding: 0; line-height: 1.6;">
+                        <li>• Core payment flow optimization</li>
+                        <li>• Smart data entry and validation</li>
+                        <li>• Basic mobile responsiveness</li>
+                        <li>• User acceptance testing</li>
+                    </ul>
+                    <div class="metric-highlight">Target: 30% time reduction</div>
+                </div>
+                <div class="after-card">
+                    <h4>📅 Phase 2 (Months 3-4)</h4>
+                    <ul style="list-style: none; margin: var(--space-md) 0; padding: 0; line-height: 1.6;">
+                        <li>• Advanced automation features</li>
+                        <li>• Real-time collaboration tools</li>
+                        <li>• Enhanced compliance monitoring</li>
+                        <li>• Performance optimization</li>
+                    </ul>
+                    <div class="metric-highlight">Target: 50% time reduction</div>
+                </div>
+            </div>
+
+            <h3>Key Success Indicators</h3>
+            <div class="journey-flow">
+                <div class="flow-title">Measuring Design Impact</div>
+                <div class="before-after">
+                    <div class="before-card">
+                        <h4>📊 Operational Metrics</h4>
+                        <ul style="list-style: none; margin: var(--space-md) 0; padding: 0; line-height: 1.6;">
+                            <li>• Daily payment volume processed</li>
+                            <li>• Average time per payment creation</li>
+                            <li>• Error rates and correction frequency</li>
+                            <li>• Approval queue backlog reduction</li>
+                            <li>• System uptime and performance</li>
+                        </ul>
+                    </div>
+                    <div class="after-card">
+                        <h4>📈 Business Outcomes</h4>
+                        <ul style="list-style: none; margin: var(--space-md) 0; padding: 0; line-height: 1.6;">
+                            <li>• Cost savings from efficiency gains</li>
+                            <li>• Reduced training time for new users</li>
+                            <li>• Improved vendor relationship management</li>
+                            <li>• Enhanced regulatory compliance scores</li>
+                            <li>• Competitive advantage in market</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="back-to-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' });" aria-label="Back to top">
+        ↑ Top
+    </button>
+</body>
+</html>
