@@ -889,10 +889,10 @@
                 existingActions.forEach(action => action.remove());
                 
                 var newActions = [
-                    { letter: 'e', text: 'Click "Go to Dashboard" to continue the demo' },
-                    { letter: 'f', text: 'View from AP Manager\'s perspective to approve' },
-                    { letter: 'g', text: 'See Finance Director\'s optional approval step' },
-                    { letter: 'h', text: 'Complete workflow when all approvals are done' }
+                    { letter: 'e', text: 'Click "Go to Dashboard" to return to role selection' },
+                    { letter: 'f', text: 'Select "AP Manager" role to review and approve' },
+                    { letter: 'g', text: 'Then select "Finance Director" for optional approval' },
+                    { letter: 'h', text: 'Experience the complete approval workflow' }
                 ];
                 
                 newActions.forEach(action => {
@@ -914,29 +914,21 @@
         }
         
         function goToDashboard() {
-            console.log('Navigating to dashboard...');
+            console.log('Navigating to role selection for next approver...');
             
             // Update demo box to show workflow continuation
             var demoBox = document.querySelector('.demo-box .demo-instruction');
             if (demoBox) {
-                demoBox.innerHTML = '🔄 Continuing to Approval Dashboard...';
+                demoBox.innerHTML = '🔄 Returning to Role Selection...';
                 demoBox.style.background = '#eff6ff';
                 demoBox.style.borderColor = '#2563eb';
                 demoBox.style.color = '#2563eb';
             }
             
-            // Simulate navigation to approval dashboard
+            // Navigate back to role selection page
             setTimeout(() => {
-                alert('Demo continues:\n\n1. AP Manager (Sarah Chen) reviews and approves\n2. Finance Director (Michael Johnson) provides optional approval\n3. Compliance review if required\n\nComplete workflow = Analyst → Approvers → Payment Execution');
-                
-                // Update demo box to show completion
-                if (demoBox) {
-                    demoBox.innerHTML = '✅ Full Workflow Demo Complete!';
-                    demoBox.style.background = '#f0fdf4';
-                    demoBox.style.borderColor = '#10b981';
-                    demoBox.style.color = '#059669';
-                }
-            }, 1000);
+                window.location.href = 'index.html';
+            }, 800);
         }
         
         document.addEventListener('DOMContentLoaded', function() {
