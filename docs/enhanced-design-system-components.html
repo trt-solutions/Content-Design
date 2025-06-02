@@ -1,0 +1,188 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Component-Level Content System</title>
+  <link rel="stylesheet" href="design-system.css">
+  <style>
+    body {
+      background: var(--bg-secondary);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: var(--text-primary);
+    }
+    .header {
+      background: linear-gradient(135deg, var(--truist-purple) 0%, #8B5A96 100%);
+      padding: 2rem 1rem;
+      color: white;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+    }
+    .content {
+      max-width: 1200px;
+      margin: 2rem auto;
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .content h1 {
+      color: var(--truist-purple);
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    .contrast-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1.5rem;
+    }
+    .contrast-table th, .contrast-table td {
+      padding: 1rem;
+      border: 1px solid var(--border-light);
+      text-align: left;
+      vertical-align: top;
+    }
+    .contrast-table th {
+      background: var(--truist-purple-light);
+      color: var(--text-primary);
+    }
+    .contrast-table tr:nth-child(even) {
+      background: var(--bg-muted);
+    }
+    .contrast-table tr:hover {
+      background: #fefcbf;
+    }
+    .rationale {
+      color: var(--text-muted);
+      font-style: italic;
+      font-size: 0.875rem;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <h1>Component-Level Content System</h1>
+    <p style="font-size: 1rem;">Consistency, Clarity, and Accessibility Across Truist Commercial Interfaces</p>
+  </header>
+  <main class="content">
+    <h1>Component Syntax + Design Library</h1>
+    <p>This table includes content syntax, voice/tone, accessibility, localization notes, and rationale for each UI component.</p>
+    <table class="dataframe contrast-table">
+  <thead>
+    <tr style="text-align: center;">
+      <th>Component</th>
+      <th>Content Syntax</th>
+      <th>Example</th>
+      <th>Voice &amp; Tone</th>
+      <th>Char Count Guidance</th>
+      <th>A11y Notes</th>
+      <th>Localization Notes</th>
+      <th>Usage Guidelines</th>
+      <th>Context Type</th>
+      <th>Rationale</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Status Banner</td>
+      <td>[X] [items] need your [action]</td>
+      <td>1 payment requires your approval</td>
+      <td>Direct, action-oriented. Use urgency without panic. Reassuring when confirming success.</td>
+      <td>Max 10 words / 60 characters</td>
+      <td>Use ARIA live regions. Ensure contrast and icon labels.</td>
+      <td>Check plural rules. Adapt urgency language per locale.</td>
+      <td>Top-of-page priority. One banner per screen. Use for time-sensitive or success states.</td>
+      <td>Standard / High-Stakes</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>CTA Button</td>
+      <td>[Verb] [Object]</td>
+      <td>Submit for Approval</td>
+      <td>Confident, outcome-driven. Prioritize clarity over cleverness.</td>
+      <td>2–4 words / Max 25 characters</td>
+      <td>Match visual label to accessible label. Use aria-label if needed.</td>
+      <td>Ensure verb translation remains short and actionable.</td>
+      <td>Primary: irreversible actions. Secondary: navigation, cancel. One primary CTA per screen.</td>
+      <td>Standard</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Quick Action Tile</td>
+      <td>[Action Verb]\n[Action Type / Help Text]\n[Optional Status Tag]</td>
+      <td>Schedule\nRecurring payments\n⚡ Demo Ready</td>
+      <td>Verb-first, confident. Help text should be informative but light.</td>
+      <td>Label: 1–2 words; Subtext: max 25 characters</td>
+      <td>Entire tile must be keyboard accessible. Use `aria-label` for embedded statuses.</td>
+      <td>Make sure status badges translate cleanly.</td>
+      <td>Use icon + label combo. Indicate demo/limited access with status badge or note.</td>
+      <td>Task Entry / CTA</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Summary Card (Recent Payment)</td>
+      <td>[Vendor Name]\n[Category • Frequency/Due Date]\n[Optional Status • CTA]</td>
+      <td>Downtown Property\nOffice Rent • Due Jan 31\n⚡ Pending manager approval</td>
+      <td>Professional and scannable. Plain English. Avoid acronyms.</td>
+      <td>Vendor: 35 chars max; Details: 1–2 lines</td>
+      <td>Icons must have alt text. Ensure high contrast for details/status.</td>
+      <td>Allow space for long translated vendor or status lines.</td>
+      <td>Stack content vertically. Truncate long vendor names. Show urgency/status when relevant.</td>
+      <td>Standard / Informational</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Navigation Label</td>
+      <td>[Section Name]</td>
+      <td>Payments, History, Dashboard</td>
+      <td>Short, noun-based. No verbs unless required.</td>
+      <td>Max 12 characters preferred</td>
+      <td>Label active state. Use semantic nav roles.</td>
+      <td>Account for label expansion during translation.</td>
+      <td>Capitalize only first word. Use task-based, not system-based labels.</td>
+      <td>Global Navigation</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>System-Level Error Message</td>
+      <td>[What went wrong]. [What to do now].</td>
+      <td>Something went wrong. Please try again or contact support.</td>
+      <td>Calm, reassuring. Avoid blame. Prioritize next steps.</td>
+      <td>Max 150 characters</td>
+      <td>Use ARIA role='alert' for real-time announcement</td>
+      <td>Avoid idioms. Use plain, direct instructions.</td>
+      <td>Use when a full process fails (not a field). Always pair with retry guidance or help link.</td>
+      <td>High-Stakes / Blocking</td>
+      <td>Prevents user frustration by clearly showing failure + solution path</td>
+    </tr>
+    <tr>
+      <td>Tooltip / Contextual Help</td>
+      <td>Brief explanation of field/functionality</td>
+      <td>This is the legal name used for tax reporting.</td>
+      <td>Helpful, neutral. Avoid full sentences.</td>
+      <td>Max 80 characters</td>
+      <td>Must be dismissible. Include aria-describedby reference.</td>
+      <td>Avoid technical terms that don't translate easily.</td>
+      <td>Use only for non-critical clarification. Don’t hide important decisions behind tooltips.</td>
+      <td>Supplementary</td>
+      <td>Supports self-service learning without overwhelming the screen</td>
+    </tr>
+    <tr>
+      <td>Loading State / Spinner Microcopy</td>
+      <td>[Action verb] + [object or state]</td>
+      <td>Loading payments...</td>
+      <td>Calm, transparent. Acknowledge progress.</td>
+      <td>Max 40 characters</td>
+      <td>Use ARIA role='status' and announce visually hidden progress</td>
+      <td>Ensure progress verbs translate well</td>
+      <td>Use when action takes more than 800ms. Show spinner + verb. Avoid humor.</td>
+      <td>Passive/Progress</td>
+      <td>Reduces uncertainty during wait times and builds trust in system behavior</td>
+    </tr>
+  </tbody>
+</table>
+  </main>
+</body>
+</html>
