@@ -164,6 +164,7 @@
             display: flex;
             align-items: center;
             gap: 16px;
+            position: relative;
         }
         
         .back-btn {
@@ -208,6 +209,7 @@
             border-radius: 16px;
             padding: 20px;
             margin-bottom: 24px;
+            position: relative;
         }
         
         .section-title {
@@ -360,6 +362,7 @@
         
         .submit-section {
             margin-bottom: 80px;
+            position: relative;
         }
         
         .submit-btn {
@@ -408,6 +411,236 @@
         .dashboard-btn:hover {
             background: #faf8ff;
         }
+
+        /* Content Design & Demo Boxes */
+        .info-boxes {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            z-index: 999;
+            max-width: 320px;
+        }
+
+        .info-box {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border: 2px solid #e5e7eb;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .content-design-box {
+            border-color: #3b82f6;
+        }
+
+        .demo-box {
+            border-color: #663399;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .box-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .content-design-box .box-header {
+            color: #3b82f6;
+        }
+
+        .demo-box .box-header {
+            color: #663399;
+        }
+
+        .box-title {
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .box-content {
+            font-size: 12px;
+            line-height: 1.4;
+            color: #1a1a1a;
+        }
+
+        .design-point {
+            margin-bottom: 12px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .design-point:last-child {
+            margin-bottom: 0;
+        }
+
+        .design-point::before {
+            content: attr(data-number);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            background: #3b82f6;
+            color: white;
+            border-radius: 50%;
+            font-size: 10px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .design-point-title {
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 2px;
+        }
+
+        .design-point-desc {
+            color: #6b7280;
+            font-size: 11px;
+        }
+
+        .demo-instruction {
+            background: #faf8ff;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 3px solid #663399;
+            font-weight: 500;
+            color: #663399;
+        }
+
+        .demo-action {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .demo-letter {
+            width: 18px;
+            height: 18px;
+            background: #663399;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .demo-text {
+            flex: 1;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        .close-box {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: none;
+            border: none;
+            color: #9ca3af;
+            cursor: pointer;
+            font-size: 16px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-box:hover {
+            background: #f3f4f6;
+            color: #6b7280;
+        }
+
+        /* Content Design Indicators */
+        .design-indicator {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #3b82f6;
+            color: white;
+            border-radius: 50%;
+            font-size: 11px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid white;
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.5);
+            z-index: 100;
+            animation: indicator-pulse 3s infinite;
+        }
+
+        @keyframes indicator-pulse {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 2px 8px rgba(59, 130, 246, 0.5);
+            }
+            50% { 
+                transform: scale(1.15);
+                box-shadow: 0 4px 12px rgba(59, 130, 246, 0.7);
+            }
+        }
+
+        .indicator-1 {
+            top: -5px;
+            right: -30px;
+        }
+
+        .indicator-2 {
+            top: 15px;
+            right: -30px;
+        }
+
+        .indicator-3 {
+            top: -5px;
+            right: -30px;
+        }
+
+        .highlight-pulse {
+            animation: highlight 3s infinite;
+        }
+
+        @keyframes highlight {
+            0%, 100% { 
+                box-shadow: 0 0 0 0 rgba(102, 51, 153, 0.4);
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 0 0 8px rgba(102, 51, 153, 0);
+                transform: scale(1.02);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .info-boxes {
+                position: relative;
+                top: 0;
+                left: 0;
+                max-width: 100%;
+                margin: 16px;
+                flex-direction: column;
+            }
+        }
         
         .hidden {
             display: none;
@@ -415,6 +648,62 @@
     </style>
 </head>
 <body>
+    <!-- Content Design & Demo Boxes -->
+    <div class="info-boxes" id="infoBoxes">
+        <!-- Content Design Box -->
+        <div class="info-box content-design-box">
+            <button class="close-box" onclick="closeBox('content')" title="Close">×</button>
+            <div class="box-header">
+                <span>🎨</span>
+                <div class="box-title">Content Design Insights</div>
+            </div>
+            <div class="box-content">
+                <div class="design-point" data-number="1">
+                    <div class="design-point-title">Friendly Review Language</div>
+                    <div class="design-point-desc">"Looking good?" feels approachable vs "Review and Confirm". Reduces anxiety about complex financial decisions.</div>
+                </div>
+                <div class="design-point" data-number="2">
+                    <div class="design-point-title">Grouped Information</div>
+                    <div class="design-point-desc">Payment, Schedule, and Approval details are clearly sectioned. Users can scan and verify each area independently.</div>
+                </div>
+                <div class="design-point" data-number="3">
+                    <div class="design-point-title">Edit Access</div>
+                    <div class="design-point-desc">Every section has an "Edit" link. Users feel in control and can make changes without starting over.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Demo Steps Box -->
+        <div class="info-box demo-box">
+            <button class="close-box" onclick="closeBox('demo')" title="Close">×</button>
+            <div class="box-header">
+                <span>🎯</span>
+                <div class="box-title">Try the Workflow</div>
+            </div>
+            <div class="box-content">
+                <div class="demo-instruction">
+                    Experience the final review and submission process
+                </div>
+                <div class="demo-action">
+                    <div class="demo-letter">a</div>
+                    <div class="demo-text">Review all payment details for accuracy</div>
+                </div>
+                <div class="demo-action">
+                    <div class="demo-letter">b</div>
+                    <div class="demo-text">Notice how information is grouped and scannable</div>
+                </div>
+                <div class="demo-action">
+                    <div class="demo-letter">c</div>
+                    <div class="demo-text">Try clicking "Edit" links to see navigation flow</div>
+                </div>
+                <div class="demo-action">
+                    <div class="demo-letter">d</div>
+                    <div class="demo-text">Submit for approval to complete the workflow</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <h1 class="main-title">Schedule Recurring Payment</h1>
         
@@ -445,18 +734,20 @@
         
         <div class="header">
             <button class="back-btn" onclick="history.back()">‹</button>
-            <div class="header-content">
+            <div class="header-content" style="position: relative;">
                 <h2 class="title">Looking good?</h2>
+                <div class="design-indicator indicator-1">1</div>
             </div>
         </div>
         
         <div class="content">
             <!-- Payment Details -->
-            <div class="review-section">
+            <div class="review-section" style="position: relative;">
                 <div class="section-title">
                     Payment details
                     <a href="recurring-step2-amount.html" class="edit-link">Edit</a>
                 </div>
+                <div class="design-indicator indicator-2">2</div>
                 
                 <div class="payment-row">
                     <div class="payment-info">
@@ -480,11 +771,12 @@
             </div>
             
             <!-- Schedule Details -->
-            <div class="review-section">
+            <div class="review-section" style="position: relative;">
                 <div class="section-title">
                     Payment schedule
-                    <a href="recurring-step3-schedule.html" class="edit-link">Edit</a>
+                    <a href="recurring-step3-schedule.html" class="edit-link highlight-pulse">Edit</a>
                 </div>
+                <div class="design-indicator indicator-3">3</div>
                 
                 <div class="detail-row">
                     <span class="detail-label">Frequency</span>
@@ -532,15 +824,21 @@
     </div>
     
     <script>
+        function closeBox(type) {
+            var boxes = document.getElementById('infoBoxes');
+            if (type === 'content') {
+                var contentBox = boxes.querySelector('.content-design-box');
+                if (contentBox) contentBox.style.display = 'none';
+            } else if (type === 'demo') {
+                var demoBox = boxes.querySelector('.demo-box');
+                if (demoBox) demoBox.style.display = 'none';
+            }
+        }
+
         function submitPayment() {
             console.log('Submitting payment for approval...');
             
-            // In a real environment, this would use sessionStorage
-            // const paymentData = JSON.parse(sessionStorage.getItem('paymentData') || '{}');
-            // const frequencyData = JSON.parse(sessionStorage.getItem('frequencyData') || '{}');
-            // const approvalData = JSON.parse(sessionStorage.getItem('approvalData') || '{}');
-            
-            const completeSubmission = {
+            var completeSubmission = {
                 paymentData: { amount: '8,500.00', memo: 'Monthly office rent payment' },
                 frequencyData: { frequency: 'monthly', startDate: '2025-06-01' },
                 approvalData: { primaryApprover: 'Sarah Chen' },
@@ -551,28 +849,62 @@
             
             console.log('Complete submission:', completeSubmission);
             
-            // In real environment: sessionStorage.setItem('submissionData', JSON.stringify(completeSubmission));
-            
             // Show confirmation banner
-            const banner = document.getElementById('confirmationBanner');
-            const submitBtn = document.getElementById('submitBtn');
-            const dashboardBtn = document.getElementById('dashboardBtn');
-            const editLinks = document.querySelectorAll('.edit-link');
+            var banner = document.getElementById('confirmationBanner');
+            var submitBtn = document.getElementById('submitBtn');
+            var dashboardBtn = document.getElementById('dashboardBtn');
+            var editLinks = document.querySelectorAll('.edit-link');
             
             banner.classList.add('show');
             submitBtn.style.display = 'none';
             dashboardBtn.classList.add('show');
             
             // Hide all edit links to make it read-only
-            editLinks.forEach(link => {
+            editLinks.forEach(function(link) {
                 link.classList.add('hidden');
             });
             
             // Update step progress to show completion
-            const activeDot = document.querySelector('.step-dot.active');
+            var activeDot = document.querySelector('.step-dot.active');
             activeDot.classList.remove('active');
             activeDot.classList.add('completed');
             activeDot.textContent = '✓';
+            
+            // Hide design indicators after submission
+            document.querySelectorAll('.design-indicator').forEach(function(indicator) {
+                indicator.style.display = 'none';
+            });
+            
+            // Update demo box to show next steps
+            var demoBox = document.querySelector('.demo-box .demo-instruction');
+            var demoContent = document.querySelector('.demo-box .box-content');
+            if (demoBox && demoContent) {
+                demoBox.innerHTML = '🎯 Next: Complete the Full Approval Workflow';
+                demoBox.style.background = '#fff7ed';
+                demoBox.style.borderColor = '#ea580c';
+                demoBox.style.color = '#ea580c';
+                
+                // Replace demo actions with approval workflow steps
+                var existingActions = demoContent.querySelectorAll('.demo-action');
+                existingActions.forEach(action => action.remove());
+                
+                var newActions = [
+                    { letter: 'e', text: 'Click "Go to Dashboard" to continue the demo' },
+                    { letter: 'f', text: 'View from AP Manager\'s perspective to approve' },
+                    { letter: 'g', text: 'See Finance Director\'s optional approval step' },
+                    { letter: 'h', text: 'Complete workflow when all approvals are done' }
+                ];
+                
+                newActions.forEach(action => {
+                    var actionDiv = document.createElement('div');
+                    actionDiv.className = 'demo-action';
+                    actionDiv.innerHTML = `
+                        <div class="demo-letter">${action.letter}</div>
+                        <div class="demo-text">${action.text}</div>
+                    `;
+                    demoContent.appendChild(actionDiv);
+                });
+            }
             
             // Scroll to top to show confirmation
             window.scrollTo({
@@ -583,14 +915,32 @@
         
         function goToDashboard() {
             console.log('Navigating to dashboard...');
-            // Navigate directly to dashboard
-            window.location.href = 'dashboard.html';
+            
+            // Update demo box to show workflow continuation
+            var demoBox = document.querySelector('.demo-box .demo-instruction');
+            if (demoBox) {
+                demoBox.innerHTML = '🔄 Continuing to Approval Dashboard...';
+                demoBox.style.background = '#eff6ff';
+                demoBox.style.borderColor = '#2563eb';
+                demoBox.style.color = '#2563eb';
+            }
+            
+            // Simulate navigation to approval dashboard
+            setTimeout(() => {
+                alert('Demo continues:\n\n1. AP Manager (Sarah Chen) reviews and approves\n2. Finance Director (Michael Johnson) provides optional approval\n3. Compliance review if required\n\nComplete workflow = Analyst → Approvers → Payment Execution');
+                
+                // Update demo box to show completion
+                if (demoBox) {
+                    demoBox.innerHTML = '✅ Full Workflow Demo Complete!';
+                    demoBox.style.background = '#f0fdf4';
+                    demoBox.style.borderColor = '#10b981';
+                    demoBox.style.color = '#059669';
+                }
+            }, 1000);
         }
         
         document.addEventListener('DOMContentLoaded', function() {
             console.log('Final review page loaded');
-            // In preview mode, using default values already in HTML
-            console.log('Using default review data for preview');
         });
     </script>
 </body>
