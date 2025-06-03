@@ -12,7 +12,7 @@
         }
         
         body {
-            font-family: 'Truist Trio', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            font-family: 'Truist Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
             line-height: 1.5;
             color: #1a1a1a;
             background: #f8f9fa;
@@ -65,440 +65,110 @@
         
         .truist-icon::before {
             content: '';
-            width: 10px;
-            height: 10px;
+            width: 12px;
+            height: 12px;
             background: white;
-            transform: rotate(45deg);
             position: absolute;
-            border-radius: 1px;
-        }
-        
-        .truist-icon::after {
-            content: '';
-            width: 6px;
-            height: 6px;
-            background: #663399;
-            position: absolute;
-            border-radius: 1px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
         
         .truist-text {
             font-size: 18px;
-            font-weight: 600;
+            font-weight: 700;
             color: #663399;
             letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
         
         .header-actions {
             display: flex;
-            gap: 16px;
+            gap: 12px;
             align-items: center;
         }
         
         .notification-btn, .signoff-btn, .role-btn {
             background: #f3f4f6;
             border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 20px;
+            height: 36px;
+            border-radius: 8px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.2s ease;
             position: relative;
+            font-family: inherit;
+        }
+        
+        .notification-btn {
+            width: 36px;
+        }
+        
+        .role-btn, .signoff-btn {
+            width: auto;
+            padding: 0 12px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #663399;
+        }
+        
+        .signoff-btn {
+            color: #1a1a1a;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 0 16px;
         }
         
         .notification-btn:hover, .signoff-btn:hover, .role-btn:hover {
             background: #e5e7eb;
         }
         
-        .signoff-btn, .role-btn {
-            width: auto;
-            padding: 0 16px;
-            font-size: 14px;
-            font-weight: 500;
-            color: #374151;
-        }
-        
-        .role-btn {
-            font-size: 12px;
-            font-weight: 600;
-            color: #663399;
-            padding: 0 12px;
-        }
-        
         .notification-badge {
             position: absolute;
-            top: -2px;
-            right: -2px;
-            background: #ef4444;
+            top: -4px;
+            right: -4px;
+            background: #663399;
             color: white;
             border-radius: 50%;
             width: 18px;
             height: 18px;
             font-size: 10px;
-            font-weight: 600;
+            font-weight: 700;
             display: flex;
             align-items: center;
             justify-content: center;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .notification-icon {
+            width: 18px;
+            height: 18px;
+            color: #4a5568;
         }
         
         .greeting {
             font-size: 24px;
-            font-weight: 600;
+            font-weight: 700;
             color: #1a1a1a;
             margin-bottom: 4px;
         }
         
         .role-context {
             font-size: 14px;
-            color: #6b7280;
+            color: #4a5568;
             font-weight: 500;
-            cursor: pointer;
-            transition: color 0.2s ease;
-        }
-        
-        .role-context:hover {
-            color: #663399;
-            text-decoration: underline;
         }
         
         .content {
             padding: 24px 16px;
-        }
-        
-        .urgent-banner {
-            background: #fef2f2;
-            border: 1px solid #fca5a5;
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 24px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .urgent-icon {
-            background: #ef4444;
-            color: white;
-            border-radius: 50%;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            flex-shrink: 0;
-        }
-        
-        .urgent-content {
-            flex: 1;
-        }
-        
-        .urgent-text {
-            font-size: 14px;
-            color: #991b1b;
-            line-height: 1.4;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-        
-        .urgent-subtext {
-            font-size: 12px;
-            color: #b91c1c;
-        }
-        
-        .approval-queue {
-            background: white;
-            border-radius: 16px;
-            margin-bottom: 24px;
-            overflow: hidden;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        
-        .queue-header {
-            padding: 20px 24px 16px 24px;
-            border-bottom: 1px solid #f3f4f6;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-        }
-        
-        .queue-header:hover {
-            background: #faf8ff;
-        }
-        
-        .queue-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #1a1a1a;
-        }
-        
-        .queue-controls {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .queue-count {
-            background: #ef4444;
-            color: white;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-        
-        .queue-toggle {
-            color: #6b7280;
-            font-size: 16px;
-            font-weight: 600;
-            transition: transform 0.2s ease;
-        }
-        
-        .queue-toggle.expanded {
-            transform: rotate(180deg);
-        }
-        
-        .queue-content {
-            max-height: 1000px;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-        
-        .queue-content.collapsed {
-            max-height: 0;
-        }
-        
-        .approval-item {
-            display: flex;
-            align-items: center;
-            padding: 16px 24px;
-            border-bottom: 1px solid #f9fafb;
-            position: relative;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-        }
-        
-        .approval-item:hover {
-            background: #faf8ff;
-        }
-        
-        .approval-item:hover .approval-actions {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .approval-priority {
-            width: 4px;
-            height: 40px;
-            border-radius: 2px;
-            margin-right: 16px;
-            flex-shrink: 0;
-        }
-        
-        .approval-priority.high {
-            background: #ef4444;
-        }
-        
-        .approval-priority.medium {
-            background: #f59e0b;
-        }
-        
-        .approval-priority.normal {
-            background: #10b981;
-        }
-        
-        .approval-content {
-            flex: 1;
-        }
-        
-        .approval-vendor {
-            font-size: 15px;
-            font-weight: 600;
-            color: #1a1a1a;
-            margin-bottom: 2px;
-        }
-        
-        .approval-detail {
-            font-size: 13px;
-            color: #6b7280;
-            margin-bottom: 4px;
-        }
-        
-        .approval-urgency {
-            font-size: 12px;
-            font-weight: 600;
-        }
-        
-        .approval-urgency.urgent {
-            color: #dc2626;
-        }
-        
-        .approval-urgency.normal {
-            color: #059669;
-        }
-        
-        .approval-amount {
-            font-size: 14px;
-            font-weight: 600;
-            color: #663399;
-            text-align: right;
-            margin-right: 16px;
-        }
-        
-        .approval-actions {
-            position: absolute;
-            right: 24px;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            gap: 8px;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.2s ease;
-            background: white;
-            padding: 4px;
-            border-radius: 6px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        
-        .action-btn {
-            padding: 6px 12px;
-            font-size: 12px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-weight: 600;
-        }
-        
-        .review-btn {
-            background: #f3f4f6;
-            color: #374151;
-        }
-        
-        .menu-section {
-            background: white;
-            border-radius: 16px;
-            margin-bottom: 24px;
-            overflow: hidden;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        
-        .menu-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 24px;
-            border-bottom: 1px solid #f3f4f6;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-        }
-        
-        .menu-item-content {
-            flex: 1;
-        }
-        
-        .menu-item:last-child {
-            border-bottom: none;
-        }
-        
-        .menu-item:hover {
-            background: #faf8ff;
-        }
-        
-        .menu-label {
-            font-size: 16px;
-            font-weight: 500;
-            color: #1a1a1a;
-            margin-bottom: 2px;
-        }
-        
-        .menu-sublabel {
-            font-size: 13px;
-            color: #6b7280;
-            font-weight: 400;
-            line-height: 1.3;
-        }
-        
-        .menu-arrow {
-            color: #9ca3af;
-            font-size: 16px;
-        }
-        
-        .bank-info {
-            text-align: center;
-            padding: 16px;
-            color: #6b7280;
-            font-size: 12px;
-            margin-bottom: 80px;
-        }
-        
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 375px;
-            background: white;
-            border-top: 1px solid #e5e7eb;
-            padding: 12px 0 8px 0;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-        }
-        
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            padding: 8px 12px;
-            border-radius: 12px;
-        }
-        
-        .nav-item.active {
-            background: #faf8ff;
-        }
-        
-        .nav-icon {
-            font-size: 20px;
-            margin-bottom: 4px;
-            color: #6b7280;
-        }
-        
-        .nav-item.active .nav-icon {
-            color: #663399;
-        }
-        
-        .nav-label {
-            font-size: 11px;
-            color: #6b7280;
-            font-weight: 500;
-        }
-        
-        .nav-item.active .nav-label {
-            color: #663399;
-        }
-        
-        .approval-badge {
-            position: relative;
-        }
-        
-        .approval-badge::after {
-            content: '';
-            position: absolute;
-            top: -2px;
-            right: -2px;
-            width: 8px;
-            height: 8px;
-            background: #ef4444;
-            border-radius: 50%;
         }
         
         /* Success Banner Styles */
@@ -567,211 +237,330 @@
             background: #dcfce7;
         }
         
-        @keyframes fadeOut {
-            from { opacity: 1; transform: translateX(0); }
-            to { opacity: 0; transform: translateX(-100%); }
-        }
-        
-        /* Custom Rejection Popover Styles */
-        .rejection-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(4px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-        
-        .rejection-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .rejection-popover {
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            max-width: 340px;
-            width: 90%;
-            margin: 0 20px;
-            overflow: hidden;
-            transform: scale(0.9) translateY(20px);
-            transition: all 0.3s ease;
-        }
-        
-        .rejection-overlay.active .rejection-popover {
-            transform: scale(1) translateY(0);
-        }
-        
-        .rejection-header {
-            padding: 24px 24px 16px 24px;
-            border-bottom: 1px solid #f3f4f6;
-            text-align: center;
-        }
-        
-        .rejection-icon {
-            width: 48px;
-            height: 48px;
+        .urgent-banner {
             background: #fef2f2;
-            border-radius: 24px;
+            border: 1px solid #fca5a5;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            margin: 0 auto 16px auto;
-        }
-        
-        .rejection-icon-inner {
-            font-size: 20px;
-            color: #ef4444;
-        }
-        
-        .rejection-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #1a1a1a;
-            margin-bottom: 8px;
-        }
-        
-        .rejection-subtitle {
-            font-size: 14px;
-            color: #6b7280;
-            line-height: 1.4;
-        }
-        
-        .rejection-vendor {
-            font-weight: 600;
-            color: #663399;
-        }
-        
-        .rejection-body {
-            padding: 20px 24px;
-        }
-        
-        .rejection-form-group {
-            margin-bottom: 20px;
-        }
-        
-        .rejection-label {
-            display: block;
-            font-size: 14px;
-            font-weight: 500;
-            color: #374151;
-            margin-bottom: 8px;
-        }
-        
-        .rejection-label .required {
-            color: #ef4444;
-            margin-left: 2px;
-        }
-        
-        .rejection-textarea {
-            width: 100%;
-            min-height: 80px;
-            padding: 12px;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            font-size: 14px;
-            font-family: inherit;
-            resize: vertical;
-            transition: border-color 0.2s ease;
-            background: white;
-        }
-        
-        .rejection-textarea:focus {
-            outline: none;
-            border-color: #663399;
-            box-shadow: 0 0 0 3px rgba(102, 51, 153, 0.1);
-        }
-        
-        .rejection-textarea::placeholder {
-            color: #9ca3af;
-        }
-        
-        .rejection-actions {
-            padding: 16px 24px 24px 24px;
-            display: flex;
             gap: 12px;
         }
         
-        .rejection-btn {
-            flex: 1;
-            padding: 12px 16px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border: 1px solid transparent;
-        }
-        
-        .rejection-btn-cancel {
-            background: #f9fafb;
-            color: #374151;
-            border-color: #d1d5db;
-        }
-        
-        .rejection-btn-cancel:hover {
-            background: #f3f4f6;
-        }
-        
-        .rejection-btn-confirm {
+        .urgent-icon {
             background: #ef4444;
             color: white;
-        }
-        
-        .rejection-btn-confirm:hover {
-            background: #dc2626;
-        }
-        
-        .rejection-btn-confirm:disabled {
-            background: #fca5a5;
-            cursor: not-allowed;
-        }
-        
-        /* Form Validation Styles */
-        .form-validation-message {
-            background: #fef2f2;
-            border: 1px solid #fca5a5;
-            border-radius: 8px;
-            padding: 12px 16px;
-            margin-bottom: 12px;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 14px;
-            color: #991b1b;
-            opacity: 0;
-            transform: translateY(-10px);
-            transition: all 0.3s ease;
-        }
-        
-        .form-validation-message.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .validation-icon {
-            color: #ef4444;
+            justify-content: center;
             font-size: 16px;
             flex-shrink: 0;
         }
         
-        .rejection-textarea.error {
-            border-color: #ef4444;
-            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+        .urgent-content {
+            flex: 1;
         }
         
-        .rejection-textarea.error:focus {
-            border-color: #ef4444;
-            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+        .urgent-text {
+            font-size: 14px;
+            color: #991b1b;
+            line-height: 1.4;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .urgent-subtext {
+            font-size: 12px;
+            color: #b91c1c;
+        }
+        
+        .approval-queue {
+            background: white;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        
+        .queue-header {
+            padding: 20px 24px 16px 24px;
+            border-bottom: 1px solid #f3f4f6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        
+        .queue-header:hover {
+            background: #faf8ff;
+        }
+        
+        .queue-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+        
+        .queue-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .queue-count {
+            background: #ef4444;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .queue-toggle {
+            color: #4a5568;
+            font-size: 16px;
+            font-weight: 600;
+            transition: transform 0.2s ease;
+        }
+        
+        .queue-toggle.expanded {
+            transform: rotate(180deg);
+        }
+        
+        .queue-content {
+            max-height: 1000px;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .queue-content.collapsed {
+            max-height: 0;
+        }
+        
+        .approval-item {
+            display: flex;
+            align-items: center;
+            padding: 16px 24px;
+            border-bottom: 1px solid #f9fafb;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        
+        .approval-item:hover {
+            background: #faf8ff;
+        }
+        
+        .approval-item:hover .approval-actions {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .approval-priority {
+            width: 4px;
+            height: 40px;
+            border-radius: 2px;
+            margin-right: 16px;
+            flex-shrink: 0;
+        }
+        
+        .approval-priority.high {
+            background: #ef4444;
+        }
+        
+        .approval-priority.medium {
+            background: #f59e0b;
+        }
+        
+        .approval-priority.normal {
+            background: #10b981;
+        }
+        
+        .approval-content {
+            flex: 1;
+        }
+        
+        .approval-vendor {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 2px;
+        }
+        
+        .approval-detail {
+            font-size: 13px;
+            color: #4a5568;
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+        
+        .approval-urgency {
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .approval-urgency.urgent {
+            color: #dc2626;
+        }
+        
+        .approval-urgency.normal {
+            color: #059669;
+        }
+        
+        .approval-amount {
+            font-size: 14px;
+            font-weight: 700;
+            color: #663399;
+            text-align: right;
+            margin-right: 16px;
+        }
+        
+        .approval-actions {
+            position: absolute;
+            right: 24px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            gap: 8px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            background: white;
+            padding: 4px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .action-btn {
+            padding: 6px 12px;
+            font-size: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 600;
+            font-family: inherit;
+        }
+        
+        .review-btn {
+            background: #f3f4f6;
+            color: #374151;
+        }
+        
+        .review-btn:hover {
+            background: #e5e7eb;
+        }
+        
+        .menu-section {
+            background: white;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            border-bottom: 1px solid #f3f4f6;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        
+        .menu-item-content {
+            flex: 1;
+        }
+        
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+        
+        .menu-item:hover {
+            background: #faf8ff;
+        }
+        
+        .menu-label {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 2px;
+        }
+        
+        .menu-sublabel {
+            font-size: 13px;
+            color: #4a5568;
+            font-weight: 500;
+            line-height: 1.3;
+        }
+        
+        .menu-arrow {
+            color: #9ca3af;
+            font-size: 16px;
+        }
+        
+        .bank-info {
+            text-align: center;
+            padding: 16px;
+            color: #4a5568;
+            font-size: 12px;
+            margin-bottom: 80px;
+            font-weight: 500;
+        }
+        
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 375px;
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            padding: 12px 0 8px 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            padding: 8px 12px;
+            border-radius: 12px;
+        }
+        
+        .nav-item.active {
+            background: #faf8ff;
+        }
+        
+        .nav-icon {
+            width: 20px;
+            height: 20px;
+            margin-bottom: 4px;
+            color: #4a5568;
+        }
+        
+        .nav-item.active .nav-icon {
+            color: #663399;
+        }
+        
+        .nav-label {
+            font-size: 11px;
+            color: #4a5568;
+            font-weight: 600;
+        }
+        
+        .nav-item.active .nav-label {
+            color: #663399;
         }
     </style>
 </head>
@@ -784,8 +573,11 @@
                     <div class="truist-text">Truist</div>
                 </div>
                 <div class="header-actions">
-                    <button class="notification-btn" title="Approval deadlines and team updates">
-                        🔔
+                    <button class="notification-btn" title="Payment status updates and reminders">
+                        <svg class="notification-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                        </svg>
                         <span class="notification-badge">7</span>
                     </button>
                     <button class="signoff-btn">Sign off</button>
@@ -793,15 +585,15 @@
                 </div>
             </div>
             <div class="greeting">Good morning, Sarah</div>
-            <div class="role-context" title="View team permissions and delegation settings">AP Manager • Finance Team</div>
+            <div class="role-context">AP Manager • Finance Team</div>
         </div>
         
         <div class="content">
             <div id="successBanner" class="success-banner" style="display: none;">
                 <div class="success-icon">✓</div>
                 <div class="success-content">
-                    <div class="success-text" id="successText">Payment action completed</div>
-                    <div class="success-subtext" id="successSubtext">The submitter will be notified</div>
+                    <div class="success-text" id="successText">Payment approved successfully</div>
+                    <div class="success-subtext" id="successSubtext">Forwarded to Finance Director for optional approval</div>
                 </div>
                 <button class="success-close" onclick="hideSuccessBanner()">×</button>
             </div>
@@ -819,7 +611,7 @@
                     <h2 class="queue-title">To be approved</h2>
                     <div class="queue-controls">
                         <span class="queue-count">7</span>
-                        <span class="queue-toggle" id="queueToggle">▼</span>
+                        <span class="queue-toggle expanded" id="queueToggle">▼</span>
                     </div>
                 </div>
                 
@@ -911,7 +703,7 @@
                         </div>
                         <div class="approval-amount">$1,650</div>
                         <div class="approval-actions" onclick="event.stopPropagation()">
-                            <button class="action-btn review-btn" onclick="goToReviewPage('City Utilities', '$1,650', 'Monthly Utilities', 'Electricity, water, and gas')">Review</button>
+                            <button class="action-btn review-btn" onclick="goToReviewPage('City Utilities', '$1,650', 'Monthly Utilities', 'Electricity, water, gas')">Review</button>
                         </div>
                     </div>
                 </div>
@@ -948,75 +740,45 @@
         
         <div class="bottom-nav">
             <div class="nav-item active">
-                <div class="nav-icon">🏠</div>
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    <polyline points="9,22 9,12 15,12 15,22"/>
+                </svg>
                 <div class="nav-label">Dashboard</div>
             </div>
             <div class="nav-item" onclick="showComingSoon('Payments')">
-                <div class="nav-icon">💸</div>
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 6v6l4 2"/>
+                </svg>
                 <div class="nav-label">Payments</div>
             </div>
             <div class="nav-item" onclick="showComingSoon('Approvals')">
-                <div class="nav-icon approval-badge">✅</div>
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20,6 9,17 4,12"/>
+                </svg>
                 <div class="nav-label">Approvals</div>
             </div>
             <div class="nav-item" onclick="showComingSoon('Reports')">
-                <div class="nav-icon">📊</div>
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 3v5h5"/>
+                    <path d="M21 21v-5h-5"/>
+                    <path d="M4 15l4-4 6 6 6-6"/>
+                </svg>
                 <div class="nav-label">Reports</div>
             </div>
-            <div class="nav-item" onclick="showComingSoon('Settings')">
-                <div class="nav-icon">⚙️</div>
-                <div class="nav-label">Settings</div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Custom Rejection Popover -->
-    <div class="rejection-overlay" id="rejectionOverlay">
-        <div class="rejection-popover">
-            <div class="rejection-header">
-                <div class="rejection-icon">
-                    <div class="rejection-icon-inner">⚠️</div>
-                </div>
-                <div class="rejection-title">Reject Payment</div>
-                <div class="rejection-subtitle">
-                    Are you sure you want to reject the <span class="rejection-vendor" id="rejectionVendor"></span> payment?
-                </div>
-            </div>
-            
-            <div class="rejection-body">
-                <div id="validationMessage" class="form-validation-message">
-                    <div class="validation-icon">⚠️</div>
-                    <div>What's the reason for rejecting this payment?</div>
-                </div>
-                
-                <div class="rejection-form-group">
-                    <label class="rejection-label" for="rejectionComments">
-                        Reason for rejection<span class="required">*</span>
-                    </label>
-                    <textarea 
-                        class="rejection-textarea" 
-                        id="rejectionComments" 
-                        placeholder="Please provide a reason for rejecting this payment..."
-                        required
-                    ></textarea>
-                </div>
-            </div>
-            
-            <div class="rejection-actions">
-                <button type="button" class="rejection-btn rejection-btn-cancel" onclick="hideRejectionPopover()">
-                    Cancel
-                </button>
-                <button type="button" class="rejection-btn rejection-btn-confirm" id="confirmRejectBtn">
-                    Reject Payment
-                </button>
+            <div class="nav-item" onclick="showComingSoon('Help')">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                    <path d="M12 17h.01"/>
+                </svg>
+                <div class="nav-label">Help</div>
             </div>
         </div>
     </div>
     
     <script>
-        // In-memory storage for payment actions (since sessionStorage is not available)
-        window.paymentActionData = null;
-        
         function toggleQueue() {
             const queueContent = document.getElementById('queueContent');
             const queueToggle = document.getElementById('queueToggle');
@@ -1028,128 +790,6 @@
                 queueContent.classList.add('collapsed');
                 queueToggle.classList.remove('expanded');
             }
-        }
-        
-        function quickApprove(vendor) {
-            console.log('Quick approving:', vendor);
-            
-            // Complete approval directly on dashboard
-            const approvalData = {
-                vendor: vendor,
-                reason: 'Quick approved',
-                timestamp: new Date().toISOString(),
-                action: 'approved'
-            };
-            
-            // Show success banner
-            showSuccessBanner(approvalData);
-            
-            // Remove item from queue
-            removeFromQueue(vendor);
-            
-            // In real app: send approval to backend
-        }
-        
-        function quickReject(vendor) {
-            console.log('Quick rejecting:', vendor);
-            // Stop any event propagation
-            event.stopPropagation();
-            showRejectionPopover(vendor);
-            return false;
-        }
-        
-        function showRejectionPopover(vendor) {
-            const overlay = document.getElementById('rejectionOverlay');
-            const vendorElement = document.getElementById('rejectionVendor');
-            const commentsTextarea = document.getElementById('rejectionComments');
-            const confirmBtn = document.getElementById('confirmRejectBtn');
-            const validationMessage = document.getElementById('validationMessage');
-            
-            // Set vendor name and store for later use
-            vendorElement.textContent = vendor;
-            overlay.dataset.vendor = vendor;
-            
-            // Clear previous comments and reset states
-            commentsTextarea.value = '';
-            commentsTextarea.classList.remove('error');
-            confirmBtn.disabled = true;
-            validationMessage.classList.remove('show');
-            
-            // Show the popover
-            overlay.classList.add('active');
-            
-            // Focus on textarea after animation
-            setTimeout(() => {
-                commentsTextarea.focus();
-            }, 300);
-            
-            // Listen for input to enable/disable confirm button and hide validation
-            commentsTextarea.oninput = function() {
-                const hasText = this.value.trim().length > 0;
-                confirmBtn.disabled = !hasText;
-                
-                if (hasText) {
-                    this.classList.remove('error');
-                    validationMessage.classList.remove('show');
-                }
-            };
-        }
-        
-        function hideRejectionPopover() {
-            const overlay = document.getElementById('rejectionOverlay');
-            overlay.classList.remove('active');
-        }
-        
-        function confirmRejection() {
-            const overlay = document.getElementById('rejectionOverlay');
-            const vendor = overlay.dataset.vendor;
-            const commentsTextarea = document.getElementById('rejectionComments');
-            const comments = commentsTextarea.value.trim();
-            const validationMessage = document.getElementById('validationMessage');
-            
-            console.log('confirmRejection called with vendor:', vendor, 'comments:', comments);
-            
-            if (!comments) {
-                console.log('No comments provided, showing validation');
-                // Show validation message and highlight textarea
-                commentsTextarea.classList.add('error');
-                validationMessage.classList.add('show');
-                commentsTextarea.focus();
-                return false; // Prevent any further action
-            }
-            
-            console.log('Comments provided, proceeding with rejection');
-            
-            // Hide popover first
-            hideRejectionPopover();
-            
-            // Complete rejection directly on dashboard (no navigation)
-            setTimeout(() => {
-                completeRejection(vendor, comments);
-            }, 300); // Small delay to let popover close
-            
-            return false; // Prevent any default behavior
-        }
-        
-        function completeRejection(vendor, comments) {
-            console.log('Completing rejection on dashboard:', vendor, comments);
-            
-            // Store rejection data for success banner
-            const rejectionData = {
-                vendor: vendor,
-                reason: comments,
-                timestamp: new Date().toISOString(),
-                action: 'rejected'
-            };
-            
-            // Show success banner immediately
-            showSuccessBanner(rejectionData);
-            
-            // Remove item from queue with animation
-            removeFromQueue(vendor);
-            
-            // In real app: send rejection to backend API
-            console.log('Rejection completed - no navigation should occur');
         }
         
         function goToReviewPage(vendor, amount, category, description) {
@@ -1173,108 +813,6 @@
             alert(`${feature} feature coming soon! This is a demo of the AP Manager dashboard.`);
         }
         
-        function scrollToPaymentHistory() {
-            // Since we don't have a payment history section, show a message
-            alert('Payment history feature coming soon! For now, you can view payment details in the approval queue.');
-        }
-        
-        // Close popover when clicking outside
-        document.getElementById('rejectionOverlay').addEventListener('click', function(e) {
-            if (e.target === this) {
-                hideRejectionPopover();
-            }
-        });
-        
-        // Close popover with Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                hideRejectionPopover();
-            }
-        });
-        
-        // Prevent any accidental navigation during rejection process
-        function preventNavigation(e) {
-            if (document.getElementById('rejectionOverlay').classList.contains('active')) {
-                e.preventDefault();
-                e.stopPropagation();
-                return false;
-            }
-        }
-        
-        // Start with queue expanded by default
-        document.addEventListener('DOMContentLoaded', function() {
-            const queueToggle = document.getElementById('queueToggle');
-            queueToggle.classList.add('expanded');
-            
-            // Bind rejection button event listener
-            const confirmRejectBtn = document.getElementById('confirmRejectBtn');
-            if (confirmRejectBtn) {
-                confirmRejectBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    confirmRejection();
-                    return false;
-                });
-            }
-            
-            // Check for payment action results
-            checkForPaymentActionResult();
-        });
-        
-        function checkForPaymentActionResult() {
-            const actionData = window.paymentActionData;
-            if (actionData) {
-                showSuccessBanner(actionData);
-                
-                // Clear the stored data
-                window.paymentActionData = null;
-                
-                // Remove the processed item from queue (simulate)
-                removeFromQueue(actionData.vendor);
-            }
-        }
-        
-        function showSuccessBanner(data) {
-            const banner = document.getElementById('successBanner');
-            const successText = document.getElementById('successText');
-            const successSubtext = document.getElementById('successSubtext');
-            
-            let message = '';
-            let submessage = '';
-            
-            switch(data.action) {
-                case 'approved':
-                    message = `Payment to ${data.vendor} approved`;
-                    submessage = 'Payment processed successfully';
-                    break;
-                case 'rejected':
-                    message = `Payment to ${data.vendor} rejected`;
-                    submessage = `Reason: ${data.reason}`;
-                    break;
-                case 'changes_requested':
-                    message = `Changes requested for ${data.vendor}`;
-                    submessage = `Feedback: ${data.reason}`;
-                    break;
-            }
-            
-            successText.textContent = message;
-            successSubtext.textContent = submessage;
-            
-            // Make sure banner is visible
-            banner.style.display = 'flex';
-            
-            // Force a reflow to ensure the display change takes effect
-            banner.offsetHeight;
-            
-            // Add the show class
-            banner.classList.add('show');
-            
-            // Auto-hide after 8 seconds
-            setTimeout(() => {
-                hideSuccessBanner();
-            }, 8000);
-        }
-        
         function hideSuccessBanner() {
             const banner = document.getElementById('successBanner');
             banner.classList.remove('show');
@@ -1283,15 +821,46 @@
             }, 300);
         }
         
+        // Check for approval results when returning from review page
+        function checkForApprovalResult() {
+            const actionData = window.paymentActionData;
+            if (actionData && actionData.action === 'approved') {
+                // Show success banner
+                const successBanner = document.getElementById('successBanner');
+                const successText = document.getElementById('successText');
+                const successSubtext = document.getElementById('successSubtext');
+                
+                successText.textContent = `Payment to ${actionData.vendor} approved`;
+                successSubtext.textContent = 'Forwarded to Finance Director for optional approval';
+                
+                successBanner.style.display = 'flex';
+                setTimeout(() => {
+                    successBanner.classList.add('show');
+                }, 100);
+                
+                // Remove item from queue
+                setTimeout(() => {
+                    removeFromQueue(actionData.vendor);
+                    
+                    // Clear the stored data
+                    window.paymentActionData = null;
+                    
+                    // After 3 seconds, show navigation back to role selection
+                    setTimeout(() => {
+                        if (confirm('Great! Payment approved by AP Manager.\n\nWould you like to continue the demo as Finance Director for optional approval?\n\nClick OK to return to role selection.')) {
+                            window.location.href = '../index.html';
+                        }
+                    }, 3000);
+                }, 1000);
+            }
+        }
+        
         function removeFromQueue(vendorName) {
-            // Find and remove the approval item from the queue
             const approvalItems = document.querySelectorAll('.approval-item');
-            let itemFound = false;
             
             approvalItems.forEach(item => {
                 const vendor = item.querySelector('.approval-vendor');
                 if (vendor && vendor.textContent.trim() === vendorName.trim()) {
-                    itemFound = true;
                     item.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
                     item.style.opacity = '0';
                     item.style.transform = 'translateX(-100%)';
@@ -1304,46 +873,37 @@
                     }, 300);
                 }
             });
-            
-            if (!itemFound) {
-                console.log('Item not found in queue:', vendorName);
-                // Still update counters even if item not found
-                updateQueueCount();
-            }
         }
         
         function updateQueueCount() {
             const remainingItems = document.querySelectorAll('.approval-item').length;
             const queueCount = document.querySelector('.queue-count');
-            const actionSubLabel = document.querySelector('.action-sublabel');
-            
-            console.log('Updating queue count to:', remainingItems);
+            const notificationBadge = document.querySelector('.notification-badge');
             
             if (queueCount) {
                 queueCount.textContent = remainingItems;
             }
             
-            if (actionSubLabel) {
-                const span = actionSubLabel.querySelector('span');
-                if (span) {
-                    span.textContent = `${remainingItems} need approval`;
-                }
-            }
-            
-            // Update notification badge
-            const notificationBadge = document.querySelector('.notification-badge');
             if (notificationBadge) {
                 notificationBadge.textContent = remainingItems;
             }
             
-            // If no items left, show different message
-            if (remainingItems === 0) {
+            if (remainingItems <= 5) {
                 const urgentBanner = document.querySelector('.urgent-banner');
                 if (urgentBanner) {
                     urgentBanner.style.display = 'none';
                 }
             }
         }
+        
+        // Start with queue expanded and check for approval results
+        document.addEventListener('DOMContentLoaded', function() {
+            const queueToggle = document.getElementById('queueToggle');
+            queueToggle.classList.add('expanded');
+            
+            // Check for approval results from review page
+            checkForApprovalResult();
+        });
     </script>
 </body>
 </html>
