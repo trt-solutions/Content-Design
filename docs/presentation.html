@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Design Challenge - Presentation</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f8f9fa;
+            color: #1a1a1a;
+            overflow: hidden;
+        }
+
+        .presentation {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            display: none;
+            padding: 0;
+            background: white;
+            position: absolute;
+            top: 0;
+            left: 0;
+            animation: slideIn 0.5s ease-in-out;
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Override all slide headers */
+        .slide-header {
+            background: linear-gradient(135deg, #5A2D82 0%, #2D5AA0 100%);
+            color: white;
+            padding: 3rem 4rem 2rem 4rem;
+            text-align: center;
+        }
+
+        /* Force title slide to be white */
+        .title-slide {
+            background: white !important;
+        }
+
+        .title-slide .slide-header {
+            background: white !important;
+            color: #1a1a1a !important;
+            padding: 4rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide-content {
+            flex: 1;
+            padding: 3rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Typography matching your design system */
+        .slide h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .slide h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: #5A2D82;
+        }
+
+        .slide h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #2D5AA0;
+        }
+
+        .slide p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            color: #333333;
+        }
+
+        .slide ul {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-left: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .slide li {
+            margin-bottom: 0.8rem;
+            color: #333333;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        /* Cards matching your design system */
+        .card {
+            background: white;
+            border: 1px solid #e1e5e9;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .card h4 {
+            color: #5A2D82;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        .card p {
+            margin-bottom: 0;
+            font-size: 1rem;
+        }
+
+        /* Grid layouts */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .three-column {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Status boxes */
+        .status-box {
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid;
+        }
+
+        .status-box.problem {
+            background: #fff5f5;
+            border-left-color: #e53e3e;
+        }
+
+        .status-box.solution {
+            background: #f0fff4;
+            border-left-color: #38a169;
+        }
+
+        .status-box.highlight {
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            color: white;
+            border-left-color: #FF6B35;
+        }
+
+        /* Metrics */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .metric-card {
+            background: #f8f9ff;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid #e6ebff;
+        }
+
+        .metric-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #5A2D82;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: #666666;
+            line-height: 1.4;
+        }
+
+        /* Demo section */
+        .demo-section {
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .demo-section h3 {
+            color: white;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .demo-link {
+            display: inline-block;
+            background: white;
+            color: #FF6B35;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: transform 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .demo-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Navigation */
+        .navigation {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 1rem;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: #5A2D82;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .nav-btn:hover {
+            background: #2D5AA0;
+            transform: translateY(-1px);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .slide-counter {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            z-index: 1000;
+        }
+
+        .progress-indicator {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            background: rgba(90, 45, 130, 0.2);
+            color: #5A2D82;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .progress-indicator.active {
+            background: #5A2D82;
+            color: white;
+        }
+
+        .progress-indicator.completed {
+            background: #28a745;
+            color: white;
+        }
+
+        .progress-line {
+            width: 1rem;
+            height: 2px;
+            background: rgba(90, 45, 130, 0.2);
+        }
+
+        .progress-line.completed {
+            background: #28a745;
+        }
+
+        /* Title slide hero layout */
+        .title-slide .slide-header {
+            padding: 4rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .hero-text {
+            text-align: left;
+        }
+
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-visual {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .payment-card {
+            background: #f8f9ff;
+            border: 2px solid #e6ebff;
+            border-radius: 16px;
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            min-width: 280px;
+            color: #1a1a1a;
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            background: #5A2D82;
+            color: white;
+            border-radius: 12px;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-content {
+            color: #1a1a1a;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: #1a1a1a;
+        }
+
+        .card-subtitle {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            color: #666;
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .workflow-step {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            background: rgba(90, 45, 130, 0.3);
+            color: #5A2D82;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .workflow-step.active {
+            background: #FF6B35;
+            color: white;
+        }
+
+        .workflow-line {
+            width: 2rem;
+            height: 2px;
+            background: rgba(90, 45, 130, 0.3);
+        }
+
+        .title-slide .slide-content {
+            display: none;
+        }
+
+        /* List styling */
+        .slide li small {
+            color: #666;
+            font-style: italic;
+            display: block;
+            margin-top: 0.3rem;
+            font-size: 0.9rem;
+        }
+
+        /* Emphasis styles */
+        .emphasis {
+            font-weight: 600;
+            color: #5A2D82;
+        }
+
+        .highlight-text {
+            background: linear-gradient(120deg, #FF6B35, #F7931E);
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .slide-header,
+            .slide-content {
+                padding: 2rem;
+            }
+            
+            .slide h1 {
+                font-size: 2.2rem;
+            }
+            
+            .slide h2 {
+                font-size: 1.8rem;
+            }
+            
+            .two-column,
+            .three-column {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+            
+            .hero-text {
+                text-align: center;
+            }
+            
+            .slide-counter {
+                flex-wrap: wrap;
+                max-width: calc(100vw - 4rem);
+            }
+        }
+
+        /* Content specific styling */
+        .process-step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+        }
+
+        /* Truist-style icons */
+        .truist-icon {
+            width: 3rem;
+            height: 3rem;
+            border: 2px solid #5A2D82;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #5A2D82;
+            background: #f8f9ff;
+            margin-bottom: 1rem;
+        }
+
+        .card .truist-icon {
+            margin: 0 auto 1rem auto;
+        }
+
+        .step-number {
+            background: #5A2D82;
+            color: white;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-right: 1.5rem;
+            flex-shrink: 0;
+            font-size: 1rem;
+        }
+
+        .step-content h4 {
+            color: #2D5AA0;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation">
+        
+        <!-- Slide 1: Title -->
+        <div class="slide active title-slide">
+            <div class="slide-header">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h1>Content Design Challenge</h1>
+                        <p class="subtitle" style="color: white;">Building Systems, Not Just Copy</p>
+                        <p style="font-size: 1.2rem; margin-bottom: 2rem; color: #333;">Commercial Banking Payment Workflow Redesign</p>
+                        <p style="font-size: 1rem; opacity: 0.8; color: #666;">Use arrow keys, spacebar, or "Next →" to navigate</p>
+                    </div>
+                    <div class="hero-image">
+                        <div class="hero-visual">
+                            <div class="payment-card">
+                                <div class="card-icon">💳</div>
+                                <div class="card-content">
+                                    <div class="card-title">Payment System</div>
+                                    <div class="card-subtitle">Streamlined workflows</div>
+                                </div>
+                            </div>
+                            <div class="workflow-indicators">
+                                <div class="workflow-step active">1</div>
+                                <div class="workflow-line"></div>
+                                <div class="workflow-step active">2</div>
+                                <div class="workflow-line"></div>
+                                <div class="workflow-step">3</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: The Challenge -->
+        <div class="slide">
+            <div class="slide-header">
+                <h1>The Challenge</h1>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div class="status-box problem">
+                        <h3>What I Was Given</h3>
+                        <ul>
+                            <li>Three isolated screens from middle of flow</li>
+                            <li>Generic copy to rewrite</li>
+                            <li>Focus on "clarity and tone"</li>
+                        </ul>
+                    </div>
+                    <div class="status-box solution">
+                        <h3>What I Delivered</h3>
+                        <ul>
+                            <li>Complete user workflow system</li>
+                            <li>Role-based content architecture</li>
+                            <li>Working prototype + strategy docs</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="status-box highlight">
+                    <p><strong>Why go this far?</strong> Content effectiveness depends on flow design. You can't optimize individual screens without understanding the complete user journey and business context.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Strategic Problems -->
+        <div class="slide">
+            <div class="slide-header">
+                <h1>Strategic Problems I Identified</h1>
+            </div>
+            <div class="slide-content">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Missing Flow Context</h4>
+                        <p>The three screens were from the middle of a workflow. Copy on Screen 2 must build from what users experienced on Screen 1. Without this context, even perfect copy fails to guide users effectively.</p>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>User State Misalignment</h4>
+                        <p>An approver reviewing payments has a completely different mental state than an analyst setting up schedules. Same content can't serve both user types effectively.</p>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Systems Gap</h4>
+                        <p>The brief asked about consistency across dashboards and notifications, but without seeing the full experience, I couldn't design scalable content patterns.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: User Research -->
+        <div class="slide">
+            <div class="slide-header">
+                <h1>User-Centered Approach</h1>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3>Understanding User States</h3>
+                        <p>Enterprise users are <span class="emphasis">busy and stressed</span>. They're handling multiple priorities before they even reach our interface.</p>
+                        <p><span class="highlight-text">Key insight:</span> User state matters as much as user type. The same person acts differently when initiating vs. approving payments.</p>
+                    </div>
+                    
+                    <div>
+                        <h3>Three Distinct Roles</h3>
+                        <div class="card">
+                            <div class="truist-icon">📊</div>
+                            <h4>Analysts</h4>
+                            <p>Routine execution, need speed and efficiency</p>
+                        </div>
+                        <div class="card">
+                            <div class="truist-icon">✔️</div>
+                            <h4>Approvers</h4>
+                            <p>Decision-making under pressure, need clarity</p>
+                        </div>
+                        <div class="card">
+                            <div class="truist-icon">🔍</div>
+                            <h4>Compliance</h4>
+                            <p>Audit oversight, need transparency</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <p class="emphasis" style="text-align: center; font-size: 1.2rem;">Digital spaces need to be as clean and minimal as physical spaces.</p>
+            </div>
+        </div>
+
+        <!-- Slide 5: Content Strategy -->
+        <div class="slide">
+            <div class="slide-header">
+                <h1>Content Strategy Framework</h1>
+            </div>
+            <div class="slide-content">
+                <div class="three-column">
+                    <div class="card">
+                        <div class="truist-icon">📝</div>
+                        <h4>Progressive Disclosure</h4>
+                        <p>Break complex decisions into manageable steps</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="truist-icon">🎯</div>
+                        <h4>Task-Oriented Headlines</h4>
+                        <p>Replace generic labels with action-focused language</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="truist-icon">💡</div>
+                        <h4>Contextual Help</h4>
+                        <p>Information appears when needed, not upfront</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="truist-icon">✅</div>
+                        <h4>Status Transparency</h4>
+                        <p>Clear next steps build user confidence</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="truist-icon">👤</div>
+                        <h4>Role-Based Content</h4>
+                        <p>Each user sees only relevant information</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="truist-icon">🛡️</div>
+                        <h4>Error Prevention</h4>
+                        <p>Guide users before mistakes happen</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Measurable Impact -->
+        <div class="slide">
+            <div class="slide-header">
+                <h1>Measurable Impact Framework</h1>
+            </div>
+            <div class="slide-content">
+                <p style="font-size: 1.3rem; text-align: center; margin-bottom: 2rem;"><span class="emphasis">Documentation isn't paperwork</span> - it's institutional knowledge that prevents costly mistakes.</p>
+                
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <span class="metric-number">⏱️</span>
+                        <div class="metric-label">Task Completion Time<br>Reduction for analysts</div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <span class="metric-number">✅</span>
+                        <div class="metric-label">Error Rate Decrease<br>Through clearer guidance</div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <span class="metric-number">🎫</span>
+                        <div class="metric-label">Support Ticket Reduction<br>Via better self-service</div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <span class="metric-number">🚀</span>
+                        <div class="metric-label">Approval Velocity<br>Through role-specific content</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Systems Thinking -->
+        <div class="slide">
+            <div class="slide-header">
+                <h1>Scalable Content Patterns</h1>
+            </div>
+            <div class="slide-content">
+                <h3>Designed for Reusability</h3>
+                
+                <ul style="font-size: 1.2rem; line-height: 1.8;">
+                    <li><span class="emphasis">Approval Language:</span> Adapts based on amount thresholds and company policies</li>
+                    <li><span class="emphasis">Recurrence Terminology:</span> Consistent across setup, dashboards, and notifications</li>
+                    <li><span class="emphasis">Error Prevention:</span> Reusable patterns for high-stakes workflows</li>
+                    <li><span class="emphasis">Audit Trail Language:</span> Satisfies compliance without overwhelming users</li>
+                </ul>
+                
+                <div class="status-box solution">
+                    <p><strong>Result:</strong> Content patterns that scale across the platform, reducing design debt and improving user experience consistency.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Demo -->
+        <div class="slide">
+            <div class="slide-header">
+                <h1>Live Demonstration</h1>
+            </div>
+            <div class="slide-content">
+                <div class="demo-section">
+                    <h3>Working Prototype</h3>
+                    <p>Experience the complete redesigned workflow</p>
+                    <a href="../index.html" class="demo-link" target="_blank">View Live Prototype →</a>
+                </div>
+                
+                <h3>Key Demo Points:</h3>
+                <ul>
+                    <li>Role-based dashboards reduce cognitive overhead <br><small>Each user sees only what they need to act on</small></li>
+                    <li>Step-by-step flows break complex tasks into manageable decisions <br><small>One decision per screen prevents overwhelm</small></li>
+                    <li>Content and design work together to guide users efficiently <br><small>Every word serves the user's mental model</small></li>
+                    <li>Each screen builds context for the next <br><small>Progressive disclosure maintains flow state</small></li>
+                </ul>
+                
+                <p class="emphasis" style="text-align: center; font-size: 1.2rem; margin-top: 2rem;">This isn't just better copy - it's a better user experience.</p>
+            </div>
+        </div>
+
+        <!-- Slide 9: Business Impact -->
+        <div class="slide">
+            <div class="slide-header">
+                <h1>Business Impact</h1>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3>Immediate Benefits</h3>
+                        <ul>
+                            <li>Reduced training time for new AP team members</li>
+                            <li>Fewer approval delays due to confusion</li>
+                            <li>Lower support costs</li>
+                            <li>Improved compliance audit readiness</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3>Long-term Value</h3>
+                        <ul>
+                            <li>Scalable content patterns for future features</li>
+                            <li>Documented design decisions prevent repeated mistakes</li>
+                            <li>Framework for measuring content effectiveness</li>
+                            <li>Foundation for enterprise workflow expansion</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="status-box highlight">
+                    <p>Better content reduces operational costs and increases transaction success rates in high-stakes banking environments.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Key Takeaways -->
+        <div class="slide">
+            <div class="slide-header">
+                <h1>Key Takeaways</h1>
+            </div>
+            <div class="slide-content">
+                <div class="process-step">
+                    <div class="step-number">🏗️</div>
+                    <div class="step-content">
+                        <h4>I Built a System, Not Just Copy</h4>
+                        <p>Content architecture that scales across complex enterprise workflows</p>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">👤</div>
+                    <div class="step-content">
+                        <h4>User Psychology Drives Design</h4>
+                        <p>Understanding user stress and cognitive load shapes every content decision</p>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">📊</div>
+                    <div class="step-content">
+                        <h4>Documentation Enables Measurement</h4>
+                        <p>Clear rationale allows teams to iterate and improve based on actual user behavior</p>
+                    </div>
+                </div>
+                
+                <div class="demo-section">
+                    <p><strong>This challenge asked for content rewrites - I delivered a content strategy that builds trust, reduces errors, and scales across the platform.</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: What I'd Do Next -->
+        <div class="slide">
+            <div class="slide-header">
+                <h1>What I'd Do Next</h1>
+            </div>
+            <div class="slide-content">
+                <p style="font-size: 1.2rem; margin-bottom: 2rem;">With more time and resources, I would:</p>
+                
+                <div class="two-column">
+                    <div>
+                        <h3>🔍 Validate Assumptions</h3>
+                        <ul>
+                            <li>Conduct user interviews with AP teams to validate mental models</li>
+                            <li>Test content variations with real transaction data</li>
+                            <li>Observe approval workflows in different company contexts</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3>📱 Expand the System</h3>
+                        <ul>
+                            <li>Design mobile-first experience for on-the-go approvals</li>
+                            <li>Create microcopy variants for other high-stakes workflows</li>
+                            <li>Build notification content that maintains context</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="status-box solution">
+                    <p><strong>The foundation is solid</strong> - these next steps would refine execution and expand the content system across Truist's commercial banking platform.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="slide-counter">
+        <div class="progress-indicator active" id="progress-1">1</div>
+        <div class="progress-line" id="line-1"></div>
+        <div class="progress-indicator" id="progress-2">2</div>
+        <div class="progress-line" id="line-2"></div>
+        <div class="progress-indicator" id="progress-3">3</div>
+        <div class="progress-line" id="line-3"></div>
+        <div class="progress-indicator" id="progress-4">4</div>
+        <div class="progress-line" id="line-4"></div>
+        <div class="progress-indicator" id="progress-5">5</div>
+        <div class="progress-line" id="line-5"></div>
+        <div class="progress-indicator" id="progress-6">6</div>
+        <div class="progress-line" id="line-6"></div>
+        <div class="progress-indicator" id="progress-7">7</div>
+        <div class="progress-line" id="line-7"></div>
+        <div class="progress-indicator" id="progress-8">8</div>
+        <div class="progress-line" id="line-8"></div>
+        <div class="progress-indicator" id="progress-9">9</div>
+        <div class="progress-line" id="line-9"></div>
+        <div class="progress-indicator" id="progress-10">10</div>
+        <div class="progress-line" id="line-10"></div>
+        <div class="progress-indicator" id="progress-11">11</div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prev-btn" onclick="previousSlide()">← Previous</button>
+        <button class="nav-btn" id="next-btn" onclick="nextSlide()">Next →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            
+            // Update progress indicators
+            updateProgressIndicators();
+            
+            // Update navigation buttons
+            document.getElementById('prev-btn').disabled = currentSlide === 0;
+            document.getElementById('next-btn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function updateProgressIndicators() {
+            for (let i = 1; i <= totalSlides; i++) {
+                const indicator = document.getElementById(`progress-${i}`);
+                const line = document.getElementById(`line-${i}`);
+                
+                if (i < currentSlide + 1) {
+                    // Completed slides
+                    indicator.classList.add('completed');
+                    indicator.classList.remove('active');
+                    if (line) line.classList.add('completed');
+                } else if (i === currentSlide + 1) {
+                    // Current slide
+                    indicator.classList.add('active');
+                    indicator.classList.remove('completed');
+                    if (line) line.classList.remove('completed');
+                } else {
+                    // Future slides
+                    indicator.classList.remove('active', 'completed');
+                    if (line) line.classList.remove('completed');
+                }
+            }
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                previousSlide();
+            }
+        });
+
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+</html>
