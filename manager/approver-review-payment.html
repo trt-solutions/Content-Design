@@ -12,7 +12,7 @@
         }
         
         body {
-            font-family: 'Truist Trio', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            font-family: 'Truist Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
             line-height: 1.5;
             color: #1a1a1a;
             background: #f8f9fa;
@@ -49,15 +49,16 @@
         .back-btn {
             background: #f3f4f6;
             border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 20px;
+            height: 36px;
+            width: 36px;
+            border-radius: 8px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.2s ease;
             font-size: 18px;
+            color: #4a5568;
         }
         
         .back-btn:hover {
@@ -83,48 +84,45 @@
         
         .truist-icon::before {
             content: '';
-            width: 10px;
-            height: 10px;
+            width: 12px;
+            height: 12px;
             background: white;
-            transform: rotate(45deg);
             position: absolute;
-            border-radius: 1px;
-        }
-        
-        .truist-icon::after {
-            content: '';
-            width: 6px;
-            height: 6px;
-            background: #663399;
-            position: absolute;
-            border-radius: 1px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
         
         .truist-text {
             font-size: 18px;
-            font-weight: 600;
+            font-weight: 700;
             color: #663399;
             letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
         
         .header-actions {
             display: flex;
-            gap: 16px;
+            gap: 12px;
             align-items: center;
         }
         
         .notification-btn, .role-btn {
             background: #f3f4f6;
             border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 20px;
+            height: 36px;
+            border-radius: 8px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.2s ease;
             position: relative;
+            font-family: inherit;
+        }
+        
+        .notification-btn {
+            width: 36px;
         }
         
         .role-btn {
@@ -141,30 +139,43 @@
         
         .notification-badge {
             position: absolute;
-            top: -2px;
-            right: -2px;
-            background: #ef4444;
+            top: -4px;
+            right: -4px;
+            background: #663399;
             color: white;
             border-radius: 50%;
             width: 18px;
             height: 18px;
             font-size: 10px;
-            font-weight: 600;
+            font-weight: 700;
             display: flex;
             align-items: center;
             justify-content: center;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .notification-icon {
+            width: 18px;
+            height: 18px;
+            color: #4a5568;
         }
         
         .page-title {
             font-size: 24px;
-            font-weight: 600;
+            font-weight: 700;
             color: #1a1a1a;
             margin-bottom: 4px;
         }
         
         .page-subtitle {
             font-size: 14px;
-            color: #6b7280;
+            color: #4a5568;
             font-weight: 500;
         }
         
@@ -177,7 +188,7 @@
             border-radius: 12px;
             padding: 16px;
             margin-bottom: 16px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             border: 1px solid #e5e7eb;
             transition: all 0.2s ease;
         }
@@ -215,7 +226,7 @@
         
         .vendor-name {
             font-size: 16px;
-            font-weight: 600;
+            font-weight: 700;
             color: #1a1a1a;
             margin-bottom: 2px;
             line-height: 1.3;
@@ -223,7 +234,7 @@
         
         .vendor-description {
             font-size: 13px;
-            color: #6b7280;
+            color: #4a5568;
             margin: 0;
             font-weight: 500;
         }
@@ -279,10 +290,10 @@
             height: 4px;
             background: #dc2626;
             border-radius: 50%;
-            animation: pulse 2s infinite;
+            animation: pulse-status 2s infinite;
         }
         
-        @keyframes pulse {
+        @keyframes pulse-status {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.5; }
         }
@@ -291,7 +302,7 @@
             background: white;
             border-radius: 12px;
             margin-bottom: 16px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             overflow: hidden;
             transition: all 0.3s ease;
         }
@@ -326,7 +337,7 @@
         
         .section-icon {
             font-size: 14px;
-            color: #6b7280;
+            color: #4a5568;
         }
         
         .expand-toggle {
@@ -334,7 +345,7 @@
             align-items: center;
             gap: 8px;
             font-size: 13px;
-            color: #6b7280;
+            color: #4a5568;
             font-weight: 500;
         }
         
@@ -377,14 +388,14 @@
         
         .detail-label {
             font-size: 14px;
-            color: #6b7280;
+            color: #4a5568;
             font-weight: 500;
         }
         
         .detail-value {
             font-size: 14px;
             color: #1a1a1a;
-            font-weight: 500;
+            font-weight: 600;
         }
         
         .memo-field {
@@ -395,6 +406,7 @@
             font-size: 14px;
             color: #663399;
             margin-top: 8px;
+            font-weight: 500;
         }
         
         .urgency-banner {
@@ -437,7 +449,7 @@
             border-radius: 16px;
             padding: 24px;
             margin-bottom: 24px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
         
         .comments-label {
@@ -498,6 +510,7 @@
             cursor: pointer;
             transition: all 0.2s ease;
             border: 1px solid transparent;
+            font-family: inherit;
         }
         
         .approve-btn {
@@ -639,6 +652,7 @@
             background: #663399;
             color: white;
             display: none;
+            font-family: inherit;
         }
         
         .dashboard-button.show {
@@ -655,15 +669,20 @@
         <div class="header">
             <div class="header-top">
                 <button class="back-btn" onclick="window.history.back()" title="Back to dashboard">
-                    ←
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 20px; height: 20px;">
+                        <path d="m15 18-6-6 6-6"/>
+                    </svg>
                 </button>
                 <div class="truist-logo">
                     <div class="truist-icon"></div>
                     <div class="truist-text">Truist</div>
                 </div>
                 <div class="header-actions">
-                    <button class="notification-btn" title="Approval deadlines and team updates">
-                        🔔
+                    <button class="notification-btn" title="Payment status updates and reminders">
+                        <svg class="notification-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                        </svg>
                         <span class="notification-badge">7</span>
                     </button>
                     <button class="role-btn" onclick="location.href='../index.html'">Switch Role</button>
@@ -812,12 +831,16 @@
     </div>
     
     <script>
-        // In-memory storage for payment actions (since sessionStorage is not available)
+        // In-memory storage for payment actions
         let currentAction = '';
         let pendingVendor = '';
         let pendingComments = '';
         
-        // Parse URL parameters to check if coming from rejection flow
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            parseURLParams();
+        });
+        
         function toggleSection(sectionId) {
             const content = document.getElementById(sectionId + 'Content');
             const toggle = document.getElementById(sectionId + 'Toggle');
@@ -932,62 +955,27 @@
             // Show dashboard button
             const dashboardBtn = document.getElementById('dashboardBtn');
             dashboardBtn.classList.add('show');
-            
-            // Scroll to top to show success message
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-        
-        function goToDashboard() {
-            // Navigate back to dashboard
-            window.history.back();
-        }
-        
-        function requestChanges() {
-            const comments = document.getElementById('comments').value.trim();
-            
-            if (!comments) {
-                showValidationMessage('Please explain what changes are needed.');
-                return;
-            }
-            
-            console.log('Requesting changes:', comments);
-            
-            // Store change request data for dashboard to show updated status
-            const changeRequestData = {
-                vendor: pendingVendor || document.getElementById('vendorName').textContent,
-                reason: comments,
-                timestamp: new Date().toISOString(),
-                action: 'changes_requested'
-            };
-            
-            // Store in window object for this page
-            window.paymentActionData = changeRequestData;
-            
-            // In real app: send change request to backend
-            // Redirect back to dashboard
-            window.history.back();
         }
         
         function rejectPayment() {
-            const comments = document.getElementById('comments').value.trim();
+            const comments = document.getElementById('comments');
             const validationMessage = document.getElementById('validationMessage');
-            const commentsTextarea = document.getElementById('comments');
             
-            if (!comments) {
-                // Show validation and highlight field
-                showValidationMessage('What\'s the reason for rejecting this payment?');
-                commentsTextarea.classList.add('error');
+            // Validate comments are provided for rejection
+            if (!comments.value.trim()) {
+                comments.classList.add('error');
                 validationMessage.classList.add('show');
-                commentsTextarea.focus();
+                document.getElementById('validationText').textContent = 'Please provide a reason for rejecting this payment.';
+                comments.focus();
                 return;
             }
             
-            console.log('Rejecting payment:', comments);
+            console.log('Rejecting payment with reason:', comments.value.trim());
             
-            // Store rejection data for dashboard to show updated status
+            // Store rejection data
             const rejectionData = {
-                vendor: pendingVendor || document.getElementById('vendorName').textContent,
-                reason: comments,
+                vendor: document.getElementById('vendorName').textContent,
+                reason: comments.value.trim(),
                 timestamp: new Date().toISOString(),
                 action: 'rejected'
             };
@@ -995,39 +983,95 @@
             // Store in window object for this page
             window.paymentActionData = rejectionData;
             
+            // Show rejection success
+            showRejectionSuccess();
+            
             // In real app: send rejection to backend
-            // Redirect back to dashboard immediately
-            window.history.back();
         }
         
-        function showValidationMessage(message) {
-            const validationMessage = document.getElementById('validationMessage');
-            const validationText = document.getElementById('validationText');
-            const commentsTextarea = document.getElementById('comments');
+        function showRejectionSuccess() {
+            // Update success state for rejection
+            const successState = document.getElementById('successState');
+            const successIcon = successState.querySelector('.success-icon-large');
+            const successTitle = successState.querySelector('.success-title');
             
-            validationText.textContent = message;
-            validationMessage.classList.add('show');
-            commentsTextarea.classList.add('error');
-            commentsTextarea.focus();
+            // Change to rejection styling
+            successState.style.background = '#fef2f2';
+            successState.style.borderColor = '#fca5a5';
+            successIcon.style.background = '#ef4444';
+            successIcon.textContent = '✕';
+            successTitle.textContent = 'Payment Rejected';
+            successTitle.style.color = '#991b1b';
+            
+            // Show success state
+            successState.classList.add('show');
+            
+            // Hide action buttons
+            const actionButtons = document.getElementById('actionButtons');
+            actionButtons.style.display = 'none';
+            
+            // Show dashboard button
+            const dashboardBtn = document.getElementById('dashboardBtn');
+            dashboardBtn.classList.add('show');
         }
         
-        // Initialize page based on URL parameters
-        document.addEventListener('DOMContentLoaded', function() {
-            parseURLParams();
+        function requestChanges() {
+            const comments = document.getElementById('comments');
             
-            // Show urgency banner for high priority items
-            const urgencyBanner = document.getElementById('urgencyBanner');
-            urgencyBanner.style.display = 'flex';
+            console.log('Requesting changes with comments:', comments.value.trim());
             
-            // Listen for comments input to clear validation
-            const commentsTextarea = document.getElementById('comments');
-            commentsTextarea.addEventListener('input', function() {
-                if (this.value.trim()) {
-                    this.classList.remove('error');
-                    document.getElementById('validationMessage').classList.remove('show');
-                }
-            });
-        });
+            // Store request changes data
+            const changesData = {
+                vendor: document.getElementById('vendorName').textContent,
+                reason: comments.value.trim() || 'Changes requested',
+                timestamp: new Date().toISOString(),
+                action: 'changes_requested'
+            };
+            
+            // Store in window object for this page
+            window.paymentActionData = changesData;
+            
+            // Show changes success
+            showChangesSuccess();
+            
+            // In real app: send request to backend
+        }
+        
+        function showChangesSuccess() {
+            // Update success state for changes request
+            const successState = document.getElementById('successState');
+            const successIcon = successState.querySelector('.success-icon-large');
+            const successTitle = successState.querySelector('.success-title');
+            
+            // Change to changes styling
+            successState.style.background = '#fffbeb';
+            successState.style.borderColor = '#fcd34d';
+            successIcon.style.background = '#f59e0b';
+            successIcon.textContent = '✏️';
+            successTitle.textContent = 'Changes Requested';
+            successTitle.style.color = '#92400e';
+            
+            // Show success state
+            successState.classList.add('show');
+            
+            // Hide action buttons
+            const actionButtons = document.getElementById('actionButtons');
+            actionButtons.style.display = 'none';
+            
+            // Show dashboard button
+            const dashboardBtn = document.getElementById('dashboardBtn');
+            dashboardBtn.classList.add('show');
+        }
+        
+        function goToDashboard() {
+            // In a real app, this would navigate to the dashboard
+            // For demo purposes, just show an alert
+            alert('Returning to dashboard...');
+            
+            // You could also use:
+            // window.location.href = '../dashboard.html';
+            // or history.back() if coming from dashboard
+        }
     </script>
 </body>
 </html>
