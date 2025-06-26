@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Partner Portal - Help System Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafc;
+            color: #334155;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 100;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            border-radius: 8px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-item {
+            color: #64748b;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .nav-item.active {
+            color: #1e40af;
+            background: #eff6ff;
+            border-bottom: 2px solid #1e40af;
+        }
+
+        .nav-item.help-item {
+            background: #f0f9ff;
+            color: #0369a1;
+            font-weight: 500;
+        }
+
+        .nav-item.help-item:hover {
+            background: #0369a1;
+            color: white;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .breadcrumb {
+            background: #10b981;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .page-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .page-title h1 {
+            color: #1e293b;
+            font-size: 1.8rem;
+        }
+
+        .help-icon {
+            width: 20px;
+            height: 20px;
+            background: #3b82f6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .help-icon:hover {
+            background: #1d4ed8;
+            transform: scale(1.1);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary { background: #10b981; color: white; }
+        .btn-primary:hover { background: #059669; }
+
+        .btn-secondary { background: #3b82f6; color: white; }
+        .btn-secondary:hover { background: #1d4ed8; }
+
+        .btn-help { background: #f59e0b; color: white; }
+        .btn-help:hover { background: #d97706; }
+
+        .filters-section {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            align-items: end;
+        }
+
+        .filter-group {
+            position: relative;
+        }
+
+        .filter-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #64748b;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            transition: border-color 0.2s;
+        }
+
+        .filter-input:focus {
+            outline: none;
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+
+        .data-table {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .table-header {
+            background: #f8fafc;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .table-title {
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .table-content {
+            padding: 1.5rem;
+        }
+
+        .data-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
+            gap: 1rem;
+            padding: 1rem;
+            border-bottom: 1px solid #f1f5f9;
+            align-items: center;
+        }
+
+        .data-row:last-child {
+            border-bottom: none;
+        }
+
+        .data-row.header {
+            font-weight: 600;
+            color: #64748b;
+            border-bottom: 2px solid #e2e8f0;
+            background: #f8fafc;
+            margin: -1rem -1rem 1rem -1rem;
+            padding: 1rem;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            white-space: nowrap;
+        }
+
+        .status-submitted { background: #dbeafe; color: #1e40af; }
+        .status-approved { background: #dcfce7; color: #166534; }
+        .status-rejected { background: #fee2e2; color: #dc2626; }
+        .status-progress { background: #fef3c7; color: #92400e; }
+        .status-action { background: #f3e8ff; color: #7c3aed; }
+
+        .amount {
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .progress-bar {
+            width: 100%;
+            max-width: 100px;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .progress-75 { width: 75%; background: #10b981; }
+        .progress-50 { width: 50%; background: #f59e0b; }
+        .progress-100 { width: 100%; background: #10b981; }
+        .progress-25 { width: 25%; background: #ef4444; }
+
+        /* Help System Styles */
+        .tooltip {
+            position: absolute;
+            background: #1e293b;
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            max-width: 280px;
+            z-index: 1000;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s;
+            pointer-events: none;
+        }
+
+        .tooltip.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .tooltip::before {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 20px;
+            width: 12px;
+            height: 12px;
+            background: #1e293b;
+            transform: rotate(45deg);
+        }
+
+        .tooltip h4 {
+            color: #10b981;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Help Panel */
+        .help-panel {
+            position: fixed;
+            right: -450px;
+            top: 0;
+            width: 450px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+            z-index: 1001;
+            transition: right 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .help-panel.open {
+            right: 0;
+        }
+
+        .help-panel-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .help-panel-content {
+            padding: 1.5rem;
+        }
+
+        .help-section {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .help-section:last-child {
+            border-bottom: none;
+        }
+
+        .help-section h3 {
+            color: #1e293b;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .help-section p {
+            color: #64748b;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .help-links {
+            list-style: none;
+        }
+
+        .help-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .help-links a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.25rem 0;
+        }
+
+        .help-links a:hover {
+            color: #1d4ed8;
+            text-decoration: underline;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .close-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #64748b;
+        }
+
+        .empty-state-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .help-suggestions {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: left;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .help-suggestions h4 {
+            color: #1e293b;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .help-suggestions ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .help-suggestions li {
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Guided Tour */
+        .tour-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.4);
+            z-index: 2000;
+            display: none;
+        }
+
+        .tour-highlight {
+            position: absolute;
+            background: transparent;
+            border: 3px solid #10b981;
+            border-radius: 8px;
+            box-shadow: 
+                0 0 0 4px rgba(16, 185, 129, 0.3),
+                0 0 0 9999px rgba(0,0,0,0.3);
+            animation: tourPulse 2s infinite;
+        }
+
+        @keyframes tourPulse {
+            0% { 
+                border-color: #10b981;
+                box-shadow: 
+                    0 0 0 4px rgba(16, 185, 129, 0.3),
+                    0 0 0 9999px rgba(0,0,0,0.3);
+            }
+            50% { 
+                border-color: #059669;
+                box-shadow: 
+                    0 0 0 8px rgba(16, 185, 129, 0.2),
+                    0 0 0 9999px rgba(0,0,0,0.3);
+            }
+            100% { 
+                border-color: #10b981;
+                box-shadow: 
+                    0 0 0 4px rgba(16, 185, 129, 0.3),
+                    0 0 0 9999px rgba(0,0,0,0.3);
+            }
+        }
+
+        .tour-tooltip {
+            position: absolute;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            max-width: 350px;
+            z-index: 2001;
+            pointer-events: auto;
+        }
+
+        .tour-tooltip * {
+            pointer-events: auto;
+        }
+
+        .tour-tooltip h3 {
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .tour-tooltip p {
+            color: #64748b;
+            margin-bottom: 1rem;
+        }
+
+        .tour-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        .tour-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .tour-btn-primary {
+            background: #10b981;
+            color: white;
+        }
+
+        .tour-btn-primary:hover {
+            background: #059669;
+        }
+
+        .tour-btn-secondary {
+            background: #f1f5f9;
+            color: #64748b;
+        }
+
+        .tour-btn-secondary:hover {
+            background: #e2e8f0;
+        }
+
+        /* Status Guide Widget */
+        .status-guide {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .status-guide h3 {
+            color: #1e293b;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .status-item {
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .help-panel {
+                width: 100vw;
+                right: -100vw;
+            }
+            
+            .filters-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .data-row {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+            
+            .page-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .action-buttons {
+                justify-content: center;
+            }
+        }
+
+        /* Animation for smooth interactions */
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo-section">
+            <div class="logo">E</div>
+            <span style="color: #1e293b; font-weight: 600;">Enterprise Partner Portal</span>
+        </div>
+        <nav class="nav-menu">
+            <a href="#" class="nav-item" onclick="switchPage('home')">Home</a>
+            <a href="#" class="nav-item" onclick="switchPage('pricing')">Pricing</a>
+            <a href="#" class="nav-item active" onclick="switchPage('claims')">Claims</a>
+            <a href="#" class="nav-item" onclick="switchPage('contracts')">Contracts</a>
+            <a href="#" class="nav-item" onclick="switchPage('analytics')">Analytics</a>
+            <a href="#" class="nav-item help-item" onclick="openHelpPage()">Help</a>
+            <div style="background: #10b981; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">U</div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="breadcrumb">
+            <span id="breadcrumbText">Home / Claims Management</span>
+        </div>
+
+        <!-- Claims Page -->
+        <div id="claimsPage">
+            <div class="page-header">
+                <div class="page-title">
+                    <h1>Claims Management (1,247)</h1>
+                    <div class="help-icon" data-tooltip="claims-overview">?</div>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn btn-help" onclick="openHelpPanel()">
+                        💡 Need Help?
+                    </button>
+                    <button class="btn btn-primary" onclick="showUploadDemo()">
+                        📤 Upload Claim
+                    </button>
+                    <button class="btn btn-secondary" onclick="startTour()">
+                        🎯 Take Tour
+                    </button>
+                </div>
+            </div>
+
+            <div class="filters-section">
+                <div class="filters-grid">
+                    <div class="filter-group">
+                        <label class="filter-label">
+                            Location
+                            <div class="help-icon" data-tooltip="location-filter">?</div>
+                        </label>
+                        <input type="text" class="filter-input" placeholder="Search by Location">
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label">
+                            Reference Number
+                            <div class="help-icon" data-tooltip="reference-number">?</div>
+                        </label>
+                        <input type="text" class="filter-input" placeholder="Search Reference ID">
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label">
+                            Status
+                            <div class="help-icon" data-tooltip="status-filter">?</div>
+                        </label>
+                        <select class="filter-input">
+                            <option>All Statuses</option>
+                            <option>Submitted</option>
+                            <option>Approved</option>
+                            <option>Rejected</option>
+                            <option>In Progress</option>
+                            <option>Action Required</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label">
+                            Period
+                            <div class="help-icon" data-tooltip="period-filter">?</div>
+                        </label>
+                        <input type="text" class="filter-input" value="June 2025" readonly>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label">
+                            Date Range
+                            <div class="help-icon" data-tooltip="date-range">?</div>
+                        </label>
+                        <input type="date" class="filter-input">
+                    </div>
+                </div>
+            </div>
+
+            <div class="data-table">
+                <div class="table-header">
+                    <span class="table-title">Recent Claims</span>
+                    <button class="btn btn-secondary" onclick="toggleData()">Show/Hide Data</button>
+                </div>
+                <div class="table-content">
+                    <div id="dataContent">
+                        <div class="data-row header">
+                            <div>Description / Type</div>
+                            <div>Period</div>
+                            <div>Status <div class="help-icon" data-tooltip="status-meanings" style="display: inline-block; margin-left: 0.5rem;">?</div></div>
+                            <div>Submission Date</div>
+                            <div>Amount</div>
+                            <div>Progress</div>
+                        </div>
+                        
+                        <div class="data-row">
+                            <div>
+                                <strong>CLM_2025_001</strong><br>
+                                <span style="color: #64748b; font-size: 0.9rem;">Rebate Claim</span>
+                            </div>
+                            <div>JUN-2025</div>
+                            <div><span class="status-badge status-submitted">✓ Submitted</span></div>
+                            <div>25.06.2025</div>
+                            <div>
+                                <div class="amount">$8,247.50</div>
+                                <div style="font-size: 0.85rem; color: #64748b;">Claimed</div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill progress-75"></div>
+                            </div>
+                        </div>
+
+                        <div class="data-row">
+                            <div>
+                                <strong>CLM_2025_002</strong><br>
+                                <span style="color: #64748b; font-size: 0.9rem;">Volume Rebate</span>
+                            </div>
+                            <div>JUN-2025</div>
+                            <div><span class="status-badge status-progress">⏳ In Progress</span></div>
+                            <div>24.06.2025</div>
+                            <div>
+                                <div class="amount">$12,890.75</div>
+                                <div style="font-size: 0.85rem; color: #64748b;">Processing</div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill progress-50"></div>
+                            </div>
+                        </div>
+
+                        <div class="data-row">
+                            <div>
+                                <strong>CLM_2025_003</strong><br>
+                                <span style="color: #64748b; font-size: 0.9rem;">Performance Bonus</span>
+                            </div>
+                            <div>MAY-2025</div>
+                            <div><span class="status-badge status-approved">✅ Approved</span></div>
+                            <div>20.05.2025</div>
+                            <div>
+                                <div class="amount">$5,440.00</div>
+                                <div style="font-size: 0.85rem; color: #64748b;">Approved</div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill progress-100"></div>
+                            </div>
+                        </div>
+
+                        <div class="data-row">
+                            <div>
+                                <strong>CLM_2025_004</strong><br>
+                                <span style="color: #64748b; font-size: 0.9rem;">Quarterly Rebate</span>
+                            </div>
+                            <div>MAY-2025</div>
+                            <div><span class="status-badge status-action">⚠️ Action Required</span></div>
+                            <div>18.05.2025</div>
+                            <div>
+                                <div class="amount">$3,275.25</div>
+                                <div style="font-size: 0.85rem; color: #64748b;">Needs Review</div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill progress-25"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Empty State -->
+                    <div class="empty-state" id="emptyState" style="display: none;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">📋</div>
+                        <h3 style="color: #1e293b; margin-bottom: 1rem;">No Claims Found</h3>
+                        <p style="margin-bottom: 2rem;">No claims match your current filters, or this might be a loading issue.</p>
+                        
+                        <div class="empty-state-actions">
+                            <button class="btn btn-secondary" onclick="clearFilters()">Clear Filters</button>
+                            <button class="btn btn-primary" onclick="refreshData()">Refresh Data</button>
+                            <button class="btn btn-help" onclick="openHelpPanel()">Get Help</button>
+                        </div>
+
+                        <div class="help-suggestions">
+                            <h4>💡 Helpful Suggestions</h4>
+                            <ul>
+                                <li>
+                                    <span style="color: #10b981;">✓</span>
+                                    <span>Try adjusting your filter criteria (location, status, date range)</span>
+                                </li>
+                                <li>
+                                    <span style="color: #10b981;">✓</span>
+                                    <span>Check if you have claims for a different time period</span>
+                                </li>
+                                <li>
+                                    <span style="color: #10b981;">✓</span>
+                                    <span>Submit your first claim using the "Upload Claim" button</span>
+                                </li>
+                                <li>
+                                    <span style="color: #10b981;">✓</span>
+                                    <span>Contact support if this appears to be a technical issue</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="status-guide">
+                <h3>📊 Quick Reference: Status Guide</h3>
+                <div class="status-grid">
+                    <div class="status-item">
+                        <div class="status-badge status-submitted" style="margin-bottom: 0.5rem;">Submitted</div>
+                        <p>Claim received and under review</p>
+                    </div>
+                    <div class="status-item">
+                        <div class="status-badge status-approved" style="margin-bottom: 0.5rem;">Approved</div>
+                        <p>Claim approved for payment</p>
+                    </div>
+                    <div class="status-item">
+                        <div class="status-badge status-rejected" style="margin-bottom: 0.5rem;">Rejected</div>
+                        <p>Claim requires corrections</p>
+                    </div>
+                    <div class="status-item">
+                        <div class="status-badge status-progress" style="margin-bottom: 0.5rem;">In Progress</div>
+                        <p>Being processed by team</p>
+                    </div>
+                    <div class="status-item">
+                        <div class="status-badge status-action" style="margin-bottom: 0.5rem;">Action Required</div>
+                        <p>Your attention needed</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Help Page (Hidden by default) -->
+        <div id="helpPage" style="display: none;">
+            <div class="page-header">
+                <div class="page-title">
+                    <h1>Help Center</h1>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" onclick="switchPage('claims')">← Back to Claims</button>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-bottom: 3rem;">
+                <h2 style="font-size: 2.5rem; color: #1e293b; margin-bottom: 1rem;">Enterprise Portal Help Center</h2>
+                <p style="font-size: 1.1rem; color: #64748b; margin-bottom: 2rem;">Find answers, tutorials, and guidance for managing your portal activities</p>
+                
+                <div style="max-width: 600px; margin: 0 auto; position: relative;">
+                    <input type="text" style="width: 100%; padding: 1rem 1.5rem; border: 2px solid #e2e8f0; border-radius: 50px; font-size: 1.1rem;" placeholder="Search for help articles, FAQs, or tutorials...">
+                    <button style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: #10b981; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 25px; cursor: pointer;">Search</button>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+                <div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1); cursor: pointer;" onclick="showHelpCategory('claims')">
+                    <div style="width: 60px; height: 60px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 1.5rem; color: white; background: #3b82f6;">📋</div>
+                    <h3 style="font-size: 1.3rem; font-weight: 600; color: #1e293b; margin-bottom: 0.5rem;">Claims Management</h3>
+                    <p style="color: #64748b; margin-bottom: 1.5rem;">Learn how to submit, track, and manage your claims</p>
+                    <ul style="list-style: none; margin: 0; padding: 0;">
+                        <li style="margin-bottom: 0.5rem;"><a href="#" style="color: #3b82f6; text-decoration: none; font-size: 0.95rem;">How to submit a new claim</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="#" style="color: #3b82f6; text-decoration: none; font-size: 0.95rem;">Understanding claim statuses</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="#" style="color: #3b82f6; text-decoration: none; font-size: 0.95rem;">Editing claim details</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="#" style="color: #3b82f6; text-decoration: none; font-size: 0.95rem;">Download claim reports</a></li>
+                    </ul>
+                </div>
+
+                <div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1); cursor: pointer;">
+                    <div style="width: 60px; height: 60px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 1.5rem; color: white; background: #8b5cf6;">📄</div>
+                    <h3 style="font-size: 1.3rem; font-weight: 600; color: #1e293b; margin-bottom: 0.5rem;">Contracts & Agreements</h3>
+                    <p style="color: #64748b; margin-bottom: 1.5rem;">Navigate your agreements and contract details</p>
+                    <ul style="list-style: none; margin: 0; padding: 0;">
+                        <li style="margin-bottom: 0.5rem;"><a href="#" style="color: #3b82f6; text-decoration: none; font-size: 0.95rem;">Understanding contract structures</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="#" style="color: #3b82f6; text-decoration: none; font-size: 0.95rem;">Contract validity periods</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="#" style="color: #3b82f6; text-decoration: none; font-size: 0.95rem;">Pricing rules and tiers</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="#" style="color: #3b82f6; text-decoration: none; font-size: 0.95rem;">Agreement status meanings</a></li>
+                    </ul>
+                </div>
+
+                <div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1); cursor: pointer;">
+                    <div style="width: 60px; height: 60px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 1.5rem; color: white; background: #f59e0b;">💰</div>
+                    <h3 style="font-size: 1.3rem; font-weight: 600; color: #1e293b; margin-bottom: 0.5rem;">Pricing & Products</h3>
+                    <p style="color: #64748b; margin-bottom: 1.5rem;">Access current pricing and product information</p>
+                    <ul style="list-style: none; margin: 0; padding: 0;">
+                        <li style="margin-bottom: 0.5rem;"><a href="#" style="color: #3b82f6; text-decoration: none; font-size: 0.95rem;">Finding product pricing</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="#" style="color: #3b82f6; text-decoration: none; font-size: 0.95rem;">Product search and filters</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="#" style="color: #3b82f6; text-decoration: none; font-size: 0.95rem;">Price validity dates</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="#" style="color: #3b82f6; text-decoration: none; font-size: 0.95rem;">Downloading price lists</a></li>
+                    </ul>
+                </div>
+
+                <div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1); cursor: pointer;">
+                    <div style="width: 60px; height: 60px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 1.5rem; color: white; background: #10b981;">👤</div>
+                    <h3 style="font-size: 1.3rem; font-weight: 600; color: #1e293b; margin-bottom: 0.5rem;">Account Management</h3>
+                    <p style="color: #64748b; margin-bottom: 1.5rem;">Manage your portal access and account settings</p>
+                    <ul style="list-style: none; margin: 0; padding: 0;">
+                        <li style="margin-bottom: 0.5rem;"><a href="#" style="color: #3b82f6; text-decoration: none; font-size: 0.95rem;">Portal navigation basics</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="#" style="color: #3b82f6; text-decoration: none; font-size: 0.95rem;">Search and filtering tips</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="#" style="color: #3b82f6; text-decoration: none; font-size: 0.95rem;">Dashboard overview</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="#" style="color: #3b82f6; text-decoration: none; font-size: 0.95rem;">Security settings</a></li>
+                    </ul>
+                </div>
+
+                <div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1); cursor: pointer;">
+                    <div style="width: 60px; height: 60px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 1.5rem; color: white; background: #ef4444;">⚠️</div>
+                    <h3 style="font-size: 1.3rem; font-weight: 600; color: #1e293b; margin-bottom: 0.5rem;">Troubleshooting</h3>
+                    <p style="color: #64748b; margin-bottom: 1.5rem;">Resolve common issues and technical problems</p>
+                    <ul style="list-style: none; margin: 0; padding: 0;">
+                        <li style="margin-bottom: 0.5rem;"><a href="#" style="color: #3b82f6; text-decoration: none; font-size: 0.95rem;">Login and access issues</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="#" style="color: #3b82f6; text-decoration: none; font-size: 0.95rem;">Upload errors</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="#" style="color: #3b82f6; text-decoration: none; font-size: 0.95rem;">Browser compatibility</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="#" style="color: #3b82f6; text-decoration: none; font-size: 0.95rem;">Performance issues</a></li>
+                    </ul>
+                </div>
+
+                <div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1); cursor: pointer;">
+                    <div style="width: 60px; height: 60px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 1.5rem; color: white; background: #06b6d4;">🎓</div>
+                    <h3 style="font-size: 1.3rem; font-weight: 600; color: #1e293b; margin-bottom: 0.5rem;">Training & Tutorials</h3>
+                    <p style="color: #64748b; margin-bottom: 1.5rem;">Video guides and step-by-step tutorials</p>
+                    <ul style="list-style: none; margin: 0; padding: 0;">
+                        <li style="margin-bottom: 0.5rem;"><a href="#" style="color: #3b82f6; text-decoration: none; font-size: 0.95rem;">First-time user guide</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="#" style="color: #3b82f6; text-decoration: none; font-size: 0.95rem;">Video tutorials</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="#" style="color: #3b82f6; text-decoration: none; font-size: 0.95rem;">Best practices</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="#" style="color: #3b82f6; text-decoration: none; font-size: 0.95rem;">Advanced features</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 3rem; border-radius: 16px; text-align: center; margin-bottom: 3rem;">
+                <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">🚀 Need Immediate Help?</h3>
+                <p style="font-size: 1.1rem; margin-bottom: 2rem; opacity: 0.9;">Can't find what you're looking for? Our support team is here to help you succeed.</p>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <button style="padding: 0.75rem 2rem; border: 2px solid white; background: transparent; color: white; border-radius: 25px; cursor: pointer; font-weight: 500;">📞 Call Support</button>
+                    <button style="padding: 0.75rem 2rem; border: 2px solid white; background: transparent; color: white; border-radius: 25px; cursor: pointer; font-weight: 500;">💬 Live Chat</button>
+                    <button style="padding: 0.75rem 2rem; border: 2px solid white; background: transparent; color: white; border-radius: 25px; cursor: pointer; font-weight: 500;">📧 Email Support</button>
+                    <button style="padding: 0.75rem 2rem; border: 2px solid white; background: transparent; color: white; border-radius: 25px; cursor: pointer; font-weight: 500;">🎯 Request Training</button>
+                </div>
+            </div>
+
+            <div style="background: white; border-radius: 12px; padding: 2rem; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                <h3 style="color: #1e293b; margin-bottom: 1rem;">📞 Contact Information</h3>
+                <p style="margin-bottom: 1.5rem;">Our support team is available Monday-Friday, 8:00 AM - 6:00 PM EST</p>
+                <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem; color: #64748b;">
+                        📞 <strong>1-800-SUPPORT</strong>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem; color: #64748b;">
+                        📧 <strong>partnersupport@company.com</strong>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem; color: #64748b;">
+                        💬 <strong>Live Chat Available</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help Panel -->
+    <div class="help-panel" id="helpPanel">
+        <div class="help-panel-header">
+            <h2>Claims Help</h2>
+            <button class="close-btn" onclick="closeHelpPanel()">&times;</button>
+        </div>
+        <div class="help-panel-content">
+            <div class="help-section">
+                <h3>🚀 Quick Start</h3>
+                <p>New to claims? Start here for the basics.</p>
+                <ul class="help-links">
+                    <li><a href="#">📝 How to submit your first claim</a></li>
+                    <li><a href="#">📊 Understanding claim statuses</a></li>
+                    <li><a href="#">📋 Required documentation</a></li>
+                    <li><a href="#">💡 Common claim mistakes to avoid</a></li>
+                </ul>
+            </div>
+
+            <div class="help-section">
+                <h3>📋 Common Tasks</h3>
+                <p>Step-by-step guides for frequent actions.</p>
+                <ul class="help-links">
+                    <li><a href="#">📤 Upload supporting documents</a></li>
+                    <li><a href="#">✏️ Edit claim line items</a></li>
+                    <li><a href="#">📥 Download claim reports</a></li>
+                    <li><a href="#">🔍 Track claim progress</a></li>
+                    <li><a href="#">🔄 Resubmit rejected claims</a></li>
+                </ul>
+            </div>
+
+            <div class="help-section">
+                <h3>⚠️ Troubleshooting</h3>
+                <p>Resolve common issues quickly.</p>
+                <ul class="help-links">
+                    <li><a href="#">❌ Claim rejected - what to do?</a></li>
+                    <li><a href="#">📝 Missing required fields</a></li>
+                    <li><a href="#">📁 File upload problems</a></li>
+                    <li><a href="#">⏰ Deadline and timing issues</a></li>
+                </ul>
+            </div>
+
+            <div class="help-section">
+                <h3>📞 Need More Help?</h3>
+                <p>Contact our support team for assistance.</p>
+                <ul class="help-links">
+                    <li><a href="#">📞 Call: 1-800-SUPPORT</a></li>
+                    <li><a href="#">📧 Email: partnersupport@company.com</a></li>
+                    <li><a href="#">💬 Start live chat</a></li>
+                    <li><a href="#">🎯 Request personalized training</a></li>
+                </ul>
+            </div>
+
+            <div style="background: #f8fafc; border-radius: 8px; padding: 1rem; margin-top: 1rem;">
+                <h4 style="color: #1e293b; margin-bottom: 0.5rem;">💡 Pro Tip</h4>
+                <p style="font-size: 0.9rem; color: #64748b;">Use the "?" icons throughout the portal for instant contextual help on any feature.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tooltip Container -->
+    <div class="tooltip" id="tooltip"></div>
+
+    <!-- Tour Overlay -->
+    <div class="tour-overlay" id="tourOverlay">
+        <div class="tour-highlight" id="tourHighlight"></div>
+        <div class="tour-tooltip" id="tourTooltip">
+            <h3>Welcome to the Enterprise Portal!</h3>
+            <p>Let's take a quick tour to help you get started with managing your claims and contracts.</p>
+            <div class="tour-buttons">
+                <button class="tour-btn tour-btn-secondary" onclick="skipTour()">Skip Tour</button>
+                <button class="tour-btn tour-btn-primary" onclick="nextStep()">Let's Go!</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tooltip data
+        const tooltipData = {
+            'claims-overview': {
+                title: 'Claims Overview',
+                content: 'This page shows all your claims. Use filters to find specific claims by status, date, or reference number.'
+            },
+            'location-filter': {
+                title: 'Location Filter',
+                content: 'Filter claims by your business location or facility. Type part of the location name to search.'
+            },
+            'reference-number': {
+                title: 'Reference Number',
+                content: 'Each claim has a unique reference ID. Use this to search for specific claims or when contacting support.'
+            },
+            'status-filter': {
+                title: 'Claim Status',
+                content: 'Filter by claim status: Submitted (under review), Approved (payment approved), Rejected (needs correction), In Progress (being processed).'
+            },
+            'period-filter': {
+                title: 'Claim Period',
+                content: 'The month/period this claim covers. Claims are typically submitted monthly for the previous period.'
+            },
+            'date-range': {
+                title: 'Date Range',
+                content: 'Filter claims by when they were submitted. Use this to find recent submissions or historical data.'
+            },
+            'status-meanings': {
+                title: 'Status Meanings',
+                content: '<strong>Submitted:</strong> Under review<br><strong>Approved:</strong> Payment approved<br><strong>Rejected:</strong> Needs correction<br><strong>In Progress:</strong> Being processed<br><strong>Action Required:</strong> Your attention needed'
+            }
+        };
+
+        // Page switching
+        function switchPage(page) {
+            document.getElementById('claimsPage').style.display = page === 'claims' ? 'block' : 'none';
+            document.getElementById('helpPage').style.display = page === 'help' ? 'block' : 'none';
+            
+            // Update breadcrumb
+            const breadcrumbText = document.getElementById('breadcrumbText');
+            if (page === 'claims') {
+                breadcrumbText.textContent = 'Home / Claims Management';
+            } else if (page === 'help') {
+                breadcrumbText.textContent = 'Home / Help Center';
+            }
+            
+            // Update active nav item
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            if (page === 'claims') {
+                document.querySelector('.nav-item[onclick="switchPage(\'claims\')"]').classList.add('active');
+            } else if (page === 'help') {
+                document.querySelector('.help-item').classList.add('active');
+            }
+        }
+
+        function openHelpPage() {
+            switchPage('help');
+        }
+
+        // Tooltip functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const helpIcons = document.querySelectorAll('.help-icon');
+            const tooltip = document.getElementById('tooltip');
+
+            helpIcons.forEach(icon => {
+                icon.addEventListener('mouseenter', function(e) {
+                    const tooltipKey = this.getAttribute('data-tooltip');
+                    const data = tooltipData[tooltipKey];
+                    
+                    if (data) {
+                        tooltip.innerHTML = `
+                            <h4>${data.title}</h4>
+                            <div>${data.content}</div>
+                        `;
+                        
+                        const rect = this.getBoundingClientRect();
+                        tooltip.style.left = rect.left + 'px';
+                        tooltip.style.top = (rect.bottom + 10) + 'px';
+                        tooltip.classList.add('show');
+                    }
+                });
+
+                icon.addEventListener('mouseleave', function() {
+                    tooltip.classList.remove('show');
+                });
+            });
+        });
+
+        // Help panel functions
+        function openHelpPanel() {
+            document.getElementById('helpPanel').classList.add('open');
+        }
+
+        function closeHelpPanel() {
+            document.getElementById('helpPanel').classList.remove('open');
+        }
+
+        // Data toggle functions
+        function toggleData() {
+            const dataContent = document.getElementById('dataContent');
+            const emptyState = document.getElementById('emptyState');
+            
+            if (dataContent.style.display === 'none') {
+                dataContent.style.display = 'block';
+                emptyState.style.display = 'none';
+            } else {
+                dataContent.style.display = 'none';
+                emptyState.style.display = 'block';
+            }
+        }
+
+        function clearFilters() {
+            const inputs = document.querySelectorAll('.filter-input');
+            inputs.forEach(input => {
+                if (input.type === 'text') {
+                    input.value = '';
+                } else if (input.tagName === 'SELECT') {
+                    input.selectedIndex = 0;
+                }
+            });
+            
+            setTimeout(() => {
+                document.getElementById('dataContent').style.display = 'block';
+                document.getElementById('emptyState').style.display = 'none';
+            }, 500);
+        }
+
+        function refreshData() {
+            const emptyState = document.getElementById('emptyState');
+            emptyState.innerHTML = `
+                <div style="font-size: 3rem; margin-bottom: 1rem;">⏳</div>
+                <h3 style="color: #1e293b; margin-bottom: 1rem;">Refreshing Data...</h3>
+                <p>Please wait while we fetch your latest claims.</p>
+            `;
+            
+            setTimeout(() => {
+                document.getElementById('dataContent').style.display = 'block';
+                document.getElementById('emptyState').style.display = 'none';
+            }, 2000);
+        }
+
+        function showUploadDemo() {
+            alert('This would open the claim upload interface. In a real implementation, this would be a modal or separate page for uploading claim documents.');
+        }
+
+        // Guided tour functions
+        let tourStep = 0;
+        const tourSteps = [
+            {
+                element: '.page-title',
+                title: 'Claims Overview',
+                content: 'This shows your total number of claims. The help icon (?) provides quick tips for any feature!',
+                position: 'right'
+            },
+            {
+                element: '.action-buttons',
+                title: 'Quick Actions',
+                content: 'Use these buttons to get help, upload new claims, or take a guided tour.',
+                position: 'bottom'
+            },
+            {
+                element: '.filters-section',
+                title: 'Filter Your Claims',
+                content: 'Use these filters to find specific claims. Each filter has a help icon for guidance.',
+                position: 'bottom'
+            },
+            {
+                element: '.data-table',
+                title: 'Your Claims List',
+                content: 'Here you can see all your claims with their current status and progress.',
+                position: 'top'
+            },
+            {
+                element: '.status-guide',
+                title: 'Status Reference',
+                content: 'This quick reference helps you understand what each status means.',
+                position: 'top'
+            }
+        ];
+
+        function startTour() {
+            document.getElementById('tourOverlay').style.display = 'block';
+            tourStep = 0;
+            showTourStep(0);
+        }
+
+        function showTourStep(step) {
+            const tourData = tourSteps[step];
+            const element = document.querySelector(tourData.element);
+            const highlight = document.getElementById('tourHighlight');
+            const tooltip = document.getElementById('tourTooltip');
+            
+            console.log(`Tour step ${step + 1}:`, tourData.element, element); // Debug log
+            
+            if (element) {
+                const rect = element.getBoundingClientRect();
+                const scrollY = window.scrollY;
+                const scrollX = window.scrollX;
+                
+                // Position highlight
+                highlight.style.left = (rect.left + scrollX) + 'px';
+                highlight.style.top = (rect.top + scrollY) + 'px';
+                highlight.style.width = rect.width + 'px';
+                highlight.style.height = rect.height + 'px';
+                
+                // Position tooltip based on specified position
+                let tooltipX, tooltipY;
+                
+                switch(tourData.position) {
+                    case 'right':
+                        tooltipX = rect.right + scrollX + 20;
+                        tooltipY = rect.top + scrollY;
+                        break;
+                    case 'left':
+                        tooltipX = rect.left + scrollX - 370;
+                        tooltipY = rect.top + scrollY;
+                        break;
+                    case 'bottom':
+                        tooltipX = rect.left + scrollX;
+                        tooltipY = rect.bottom + scrollY + 20;
+                        break;
+                    case 'top':
+                        tooltipX = rect.left + scrollX;
+                        tooltipY = rect.top + scrollY - 200;
+                        break;
+                    default:
+                        tooltipX = rect.right + scrollX + 20;
+                        tooltipY = rect.top + scrollY;
+                }
+                
+                // Ensure tooltip stays on screen
+                const tooltipWidth = 350;
+                const tooltipHeight = 200;
+                
+                if (tooltipX + tooltipWidth > window.innerWidth + scrollX) {
+                    tooltipX = rect.left + scrollX - tooltipWidth - 20;
+                }
+                if (tooltipX < scrollX) {
+                    tooltipX = scrollX + 20;
+                }
+                if (tooltipY + tooltipHeight > window.innerHeight + scrollY) {
+                    tooltipY = rect.top + scrollY - tooltipHeight - 20;
+                }
+                if (tooltipY < scrollY) {
+                    tooltipY = scrollY + 20;
+                }
+                
+                tooltip.style.left = tooltipX + 'px';
+                tooltip.style.top = tooltipY + 'px';
+                tooltip.style.position = 'absolute';
+                tooltip.style.display = 'block';
+                tooltip.style.zIndex = '2001';
+                
+                tooltip.innerHTML = `
+                    <h3>${tourData.title}</h3>
+                    <p>${tourData.content}</p>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+                        <span style="font-size: 0.85rem; color: #64748b;">Step ${step + 1} of ${tourSteps.length}</span>
+                        <div style="display: flex; gap: 1rem;">
+                            <button class="tour-btn tour-btn-secondary" onclick="skipTour()" style="pointer-events: auto; cursor: pointer;">Skip Tour</button>
+                            <button class="tour-btn tour-btn-primary" onclick="nextStep()" style="pointer-events: auto; cursor: pointer;">${step < tourSteps.length - 1 ? 'Next' : 'Finish'}</button>
+                        </div>
+                    </div>
+                `;
+                
+                // Scroll element into view if needed
+                element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Extra positioning check for last step
+                if (step === tourSteps.length - 1) {
+                    setTimeout(() => {
+                        tooltip.style.left = Math.max(20, Math.min(tooltipX, window.innerWidth - tooltipWidth - 20)) + 'px';
+                        tooltip.style.top = Math.max(20, tooltipY) + 'px';
+                    }, 100);
+                }
+            } else {
+                console.error(`Element not found for step ${step + 1}:`, tourData.element);
+                // Skip to next step if element not found
+                if (step < tourSteps.length - 1) {
+                    tourStep++;
+                    showTourStep(tourStep);
+                } else {
+                    skipTour();
+                }
+            }
+        }
+
+        function nextStep() {
+            console.log('Current step:', tourStep, 'Next step:', tourStep + 1);
+            tourStep++;
+            if (tourStep < tourSteps.length) {
+                showTourStep(tourStep);
+            } else {
+                console.log('Tour completed!');
+                skipTour();
+            }
+        }
+
+        function skipTour() {
+            console.log('Skipping/ending tour');
+            document.getElementById('tourOverlay').style.display = 'none';
+            tourStep = 0;
+            localStorage.setItem('tourCompleted', 'true');
+        }
+
+        function showHelpCategory(category) {
+            alert(`This would show detailed help content for ${category}. In a real implementation, this would expand or navigate to specific help articles.`);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auto-show help panel for demo after 3 seconds
+            setTimeout(() => {
+                if (!localStorage.getItem('helpShown')) {
+                    openHelpPanel();
+                    localStorage.setItem('helpShown', 'true');
+                }
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
