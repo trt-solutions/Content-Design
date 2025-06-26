@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Partner Portal - Enhanced Version</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafc;
+            color: #334155;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 100;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            border-radius: 8px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-item {
+            color: #64748b;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .nav-item.active {
+            color: #1e40af;
+            background: #eff6ff;
+            border-bottom: 2px solid #1e40af;
+        }
+
+        .nav-item.help-item {
+            background: #f0f9ff;
+            color: #0369a1;
+            font-weight: 500;
+        }
+
+        .nav-item.help-item:hover {
+            background: #0369a1;
+            color: white;
+        }
+
+        /* Language Selector */
+        .language-selector {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s;
+        }
+
+        .language-selector:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+        .language-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            min-width: 200px;
+            z-index: 1000;
+            display: none;
+        }
+
+        .language-dropdown.show {
+            display: block;
+            animation: fadeIn 0.2s ease;
+        }
+
+        .language-option {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: background 0.2s;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .language-option:last-child {
+            border-bottom: none;
+        }
+
+        .language-option:hover {
+            background: #f8fafc;
+        }
+
+        .language-option.active {
+            background: #eff6ff;
+            color: #1e40af;
+            font-weight: 500;
+        }
+
+        /* Notifications */
+        .notification-bell {
+            position: relative;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: all 0.2s;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+        }
+
+        .notification-bell:hover {
+            background: #f1f5f9;
+            transform: scale(1.05);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ef4444;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .notification-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            width: 380px;
+            max-height: 500px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+        }
+
+        .notification-dropdown.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .notification-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .notification-item {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #f8fafc;
+            cursor: pointer;
+            transition: background 0.2s;
+            position: relative;
+        }
+
+        .notification-item:hover {
+            background: #f8fafc;
+        }
+
+        .notification-item.unread {
+            background: #f0f9ff;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .notification-item.unread::before {
+            content: '';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 8px;
+            height: 8px;
+            background: #3b82f6;
+            border-radius: 50%;
+        }
+
+        .notification-content {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .notification-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .notification-success { background: #dcfce7; color: #166534; }
+        .notification-warning { background: #fef3c7; color: #92400e; }
+        .notification-info { background: #dbeafe; color: #1e40af; }
+        .notification-error { background: #fee2e2; color: #dc2626; }
+
+        .notification-text {
+            flex: 1;
+        }
+
+        .notification-title {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+
+        .notification-message {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-bottom: 0.5rem;
+        }
+
+        .notification-time {
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+
+        /* AI Chatbot */
+        .chatbot-trigger {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            animation: chatbotPulse 3s infinite;
+        }
+
+        .chatbot-trigger:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 30px rgba(16, 185, 129, 0.4);
+        }
+
+        @keyframes chatbotPulse {
+            0%, 100% { box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3); }
+            50% { box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3), 0 0 0 10px rgba(16, 185, 129, 0.1); }
+        }
+
+        .chatbot-container {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 380px;
+            height: 500px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+            display: none;
+            flex-direction: column;
+            z-index: 1001;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+
+        .chatbot-container.show {
+            display: flex;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .chatbot-header {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chatbot-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #4ade80;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .message {
+            display: flex;
+            gap: 0.75rem;
+            align-items: flex-start;
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .bot-avatar {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+        }
+
+        .user-avatar {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .message-content {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 0.75rem 1rem;
+            max-width: 80%;
+            position: relative;
+        }
+
+        .message.user .message-content {
+            background: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+
+        .message.bot .message-content::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 12px;
+            width: 12px;
+            height: 12px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-right: none;
+            border-bottom: none;
+            transform: rotate(-45deg);
+        }
+
+        .message.user .message-content::before {
+            content: '';
+            position: absolute;
+            right: -6px;
+            top: 12px;
+            width: 12px;
+            height: 12px;
+            background: #3b82f6;
+            transform: rotate(45deg);
+        }
+
+        .quick-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .quick-action {
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .quick-action:hover {
+            background: #e2e8f0;
+            border-color: #cbd5e1;
+        }
+
+        .chatbot-input {
+            padding: 1rem;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .chatbot-input input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 25px;
+            outline: none;
+            font-size: 0.9rem;
+        }
+
+        .chatbot-input input:focus {
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+
+        .send-button {
+            background: #10b981;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .send-button:hover {
+            background: #059669;
+            transform: scale(1.05);
+        }
+
+        .send-button:disabled {
+            background: #d1d5db;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #64748b;
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 2px;
+        }
+
+        .typing-dot {
+            width: 4px;
+            height: 4px;
+            background: #64748b;
+            border-radius: 50%;
+            animation: typingDot 1.4s infinite;
+        }
+
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typingDot {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-8px); }
+        }
+
+        /* Enhanced existing styles */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .breadcrumb {
+            background: #10b981;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .page-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .page-title h1 {
+            color: #1e293b;
+            font-size: 1.8rem;
+        }
+
+        .help-icon {
+            width: 20px;
+            height: 20px;
+            background: #3b82f6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .help-icon:hover {
+            background: #1d4ed8;
+            transform: scale(1.1);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary { background: #10b981; color: white; }
+        .btn-primary:hover { background: #059669; }
+
+        .btn-secondary { background: #3b82f6; color: white; }
+        .btn-secondary:hover { background: #1d4ed8; }
+
+        .btn-help { background: #f59e0b; color: white; }
+        .btn-help:hover { background: #d97706; }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                gap: 1rem;
+            }
+            
+            .language-selector {
+                padding: 0.5rem;
+            }
+            
+            .notification-dropdown {
+                width: 300px;
+                right: -50px;
+            }
+            
+            .chatbot-container {
+                width: 90vw;
+                height: 80vh;
+                right: 5vw;
+                bottom: 1rem;
+            }
+            
+            .chatbot-trigger {
+                right: 1rem;
+                bottom: 1rem;
+            }
+        }
+
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Smart suggestions */
+        .smart-suggestions {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border: 1px solid #bae6fd;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .smart-suggestions h3 {
+            color: #0c4a6e;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .suggestion-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .suggestion-card {
+            background: white;
+            border: 1px solid #e0f2fe;
+            border-radius: 8px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .suggestion-card:hover {
+            border-color: #0284c7;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo-section">
+            <div class="logo">E</div>
+            <span style="color: #1e293b; font-weight: 600;">Enterprise Partner Portal</span>
+        </div>
+        <nav class="nav-menu">
+            <a href="#" class="nav-item" onclick="switchPage('home')">Home</a>
+            <a href="#" class="nav-item" onclick="switchPage('pricing')">Pricing</a>
+            <a href="#" class="nav-item active" onclick="switchPage('claims')">Claims</a>
+            <a href="#" class="nav-item" onclick="switchPage('contracts')">Contracts</a>
+            <a href="#" class="nav-item" onclick="switchPage('analytics')">Analytics</a>
+            <a href="#" class="nav-item help-item" onclick="switchPage('help')">Help</a>
+            
+            <!-- Notifications -->
+            <div class="notification-bell" onclick="toggleNotifications()">
+                🔔
+                <div class="notification-badge" id="notificationBadge">3</div>
+                <div class="notification-dropdown" id="notificationDropdown">
+                    <div class="notification-header">
+                        <h3 style="font-size: 1.1rem; color: #1e293b;">Notifications</h3>
+                        <button style="background: none; border: none; color: #64748b; cursor: pointer;" onclick="markAllAsRead()">Mark all as read</button>
+                    </div>
+                    <div class="notification-item unread" onclick="handleNotificationClick(this)">
+                        <div class="notification-content">
+                            <div class="notification-icon notification-success">✅</div>
+                            <div class="notification-text">
+                                <div class="notification-title">Claim Approved</div>
+                                <div class="notification-message">Your claim CLM_2025_001 has been approved for payment of $8,247.50</div>
+                                <div class="notification-time">2 hours ago</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="notification-item unread" onclick="handleNotificationClick(this)">
+                        <div class="notification-content">
+                            <div class="notification-icon notification-warning">⚠️</div>
+                            <div class="notification-text">
+                                <div class="notification-title">Action Required</div>
+                                <div class="notification-message">Claim CLM_2025_004 needs additional documentation</div>
+                                <div class="notification-time">5 hours ago</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="notification-item unread" onclick="handleNotificationClick(this)">
+                        <div class="notification-content">
+                            <div class="notification-icon notification-info">📋</div>
+                            <div class="notification-text">
+                                <div class="notification-title">New Contract Available</div>
+                                <div class="notification-message">Q3 2025 pricing agreement is ready for review</div>
+                                <div class="notification-time">1 day ago</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="notification-item" onclick="handleNotificationClick(this)">
+                        <div class="notification-content">
+                            <div class="notification-icon notification-success">💰</div>
+                            <div class="notification-text">
+                                <div class="notification-title">Payment Processed</div>
+                                <div class="notification-message">$5,440.00 payment for CLM_2025_003 has been processed</div>
+                                <div class="notification-time">2 days ago</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; padding: 1rem;">
+                        <button style="color: #3b82f6; background: none; border: none; cursor: pointer; font-weight: 500;">View All Notifications</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Language Selector -->
+            <div class="language-selector" onclick="toggleLanguageDropdown()">
+                <span id="currentLanguage">🇺🇸</span>
+                <span id="currentLanguageText">EN</span>
+                <span style="font-size: 12px;">▼</span>
+                <div class="language-dropdown" id="languageDropdown">
+                    <div class="language-option active" onclick="changeLanguage('en', '🇺🇸', 'EN')">
+                        <span>🇺🇸</span>
+                        <div>
+                            <div style="font-weight: 500;">English</div>
+                            <div style="font-size: 0.8rem; color: #64748b;">United States</div>
+                        </div>
+                    </div>
+                    <div class="language-option" onclick="changeLanguage('es', '🇪🇸', 'ES')">
+                        <span>🇪🇸</span>
+                        <div>
+                            <div style="font-weight: 500;">Español</div>
+                            <div style="font-size: 0.8rem; color: #64748b;">España</div>
+                        </div>
+                    </div>
+                    <div class="language-option" onclick="changeLanguage('fr', '🇫🇷', 'FR')">
+                        <span>🇫🇷</span>
+                        <div>
+                            <div style="font-weight: 500;">Français</div>
+                            <div style="font-size: 0.8rem; color: #64748b;">France</div>
+                        </div>
+                    </div>
+                    <div class="language-option" onclick="changeLanguage('de', '🇩🇪', 'DE')">
+                        <span>🇩🇪</span>
+                        <div>
+                            <div style="font-weight: 500;">Deutsch</div>
+                            <div style="font-size: 0.8rem; color: #64748b;">Deutschland</div>
+                        </div>
+                    </div>
+                    <div class="language-option" onclick="changeLanguage('pt', '🇧🇷', 'PT')">
+                        <span>🇧🇷</span>
+                        <div>
+                            <div style="font-weight: 500;">Português</div>
+                            <div style="font-size: 0.8rem; color: #64748b;">Brasil</div>
+                        </div>
+                    </div>
+                    <div class="language-option" onclick="changeLanguage('zh', '🇨🇳', 'ZH')">
+                        <span>🇨🇳</span>
+                        <div>
+                            <div style="font-weight: 500;">中文</div>
+                            <div style="font-size: 0.8rem; color: #64748b;">简体中文</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="background: #10b981; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">U</div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="breadcrumb">
+            <span id="breadcrumbText">Home / Claims Management</span>
+        </div>
+
+        <!-- Smart Suggestions -->
+        <div class="smart-suggestions">
+            <h3>🧠 AI-Powered Suggestions for You</h3>
+            <div class="suggestion-grid">
+                <div class="suggestion-card" onclick="handleSuggestion('upload')">
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                        <span style="font-size: 1.2rem;">📤</span>
+                        <span style="font-weight: 600; color: #1e293b;">Upload June Claims</span>
+                    </div>
+                    <p style="font-size: 0.9rem; color: #64748b;">You typically submit claims by the 25th. June claims are due in 1 day.</p>
+                </div>
+                <div class="suggestion-card" onclick="handleSuggestion('review')">
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                        <span style="font-size: 1.2rem;">⚠️</span>
+                        <span style="font-weight: 600; color: #1e293b;">Review Pending Actions</span>
+                    </div>
+                    <p style="font-size: 0.9rem; color: #64748b;">CLM_2025_004 has been waiting for your review for 2 days.</p>
+                </div>
+                <div class="suggestion-card" onclick="handleSuggestion('contract')">
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                        <span style="font-size: 1.2rem;">📋</span>
+                        <span style="font-weight: 600; color: #1e293b;">New Contract Ready</span>
+                    </div>
+                    <p style="font-size: 0.9rem; color: #64748b;">Q3 2025 pricing agreement is ready for your review and approval.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-header">
+            <div class="page-title">
+                <h1 id="pageTitle">Claims Management (1,247)</h1>
+                <div class="help-icon" onclick="showContextualHelp()">?</div>
+            </div>
+            <div class="action-buttons">
+                <button class="btn btn-help" onclick="openAIAssistant()">
+                    🤖 AI Assistant
+                </button>
+                <button class="btn btn-primary" onclick="showUploadDemo()">
+                    📤 Upload Claim
+                </button>
+                <button class="btn btn-secondary" onclick="generateReport()">
+                    📊 Smart Report
+                </button>
+            </div>
+        </div>
+
+        <!-- Claims content would go here (simplified for demo) -->
+        <div style="background: white; border-radius: 12px; padding: 2rem; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+            <h2 style="color: #1e293b; margin-bottom: 1rem;">Enhanced Portal Features Demo</h2>
+            <p style="color: #64748b; margin-bottom: 2rem;">This is a mockup showing the future version of your portal with multilingual support, notifications, and AI assistance.</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                <div style="background: #f8fafc; border-radius: 8px; padding: 1.5rem; text-align: left;">
+                    <h3 style="color: #1e293b; margin-bottom: 1rem;">🌍 Multi-Language Support</h3>
+                    <ul style="color: #64748b; line-height: 1.8;">
+                        <li>6 languages supported</li>
+                        <li>Real-time content translation</li>
+                        <li>Localized help content</li>
+                        <li>Regional formatting</li>
+                    </ul>
+                </div>
+                
+                <div style="background: #f8fafc; border-radius: 8px; padding: 1.5rem; text-align: left;">
+                    <h3 style="color: #1e293b; margin-bottom: 1rem;">🔔 Smart Notifications</h3>
+                    <ul style="color: #64748b; line-height: 1.8;">
+                        <li>Real-time claim updates</li>
+                        <li>Action reminders</li>
+                        <li>System announcements</li>
+                        <li>Personalized alerts</li>
+                    </ul>
+                </div>
+                
+                <div style="background: #f8fafc; border-radius: 8px; padding: 1.5rem; text-align: left;">
+                    <h3 style="color: #1e293b; margin-bottom: 1rem;">🤖 AI Assistant</h3>
+                    <ul style="color: #64748b; line-height: 1.8;">
+                        <li>24/7 instant help</li>
+                        <li>Contextual guidance</li>
+                        <li>Process automation</li>
+                        <li>Proactive suggestions</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Chatbot -->
+    <div class="chatbot-trigger" id="chatbotTrigger" onclick="toggleChatbot()">
+        🤖
+    </div>
+
+    <div class="chatbot-container" id="chatbotContainer">
+        <div class="chatbot-header">
+            <div>
+                <h3 style="margin: 0; font-size: 1.1rem;">Enterprise AI Assistant</h3>
+                <div class="chatbot-status">
+                    <div class="status-dot"></div>
+                    <span>Online</span>
+                </div>
+            </div>
+            <button style="background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer;" onclick="toggleChatbot()">&times;</button>
+        </div>
+        
+        <div class="chatbot-messages" id="chatbotMessages">
+            <div class="message bot">
+                <div class="message-avatar bot-avatar">🤖</div>
+                <div class="message-content">
+                    <div>Hi! I'm your Enterprise AI Assistant. I can help you with:</div>
+                    <div class="quick-actions">
+                        <div class="quick-action" onclick="sendQuickMessage('How do I submit a claim?')">Submit Claims</div>
+                        <div class="quick-action" onclick="sendQuickMessage('Check my claim status')">Claim Status</div>
+                        <div class="quick-action" onclick="sendQuickMessage('Upload documents')">Upload Docs</div>
+                        <div class="quick-action" onclick="sendQuickMessage('Contract help')">Contracts</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="chatbot-input">
+            <input type="text" id="chatInput" placeholder="Type your question..." onkeypress="handleChatKeyPress(event)">
+            <button class="send-button" id="sendButton" onclick="sendMessage()">
+                ▶
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Language translations
+        const translations = {
+            en: {
+                pageTitle: "Claims Management (1,247)",
+                breadcrumb: "Home / Claims Management",
+                uploadClaim: "📤 Upload Claim",
+                smartReport: "📊 Smart Report",
+                aiAssistant: "🤖 AI Assistant",
+                notifications: "Notifications",
+                markAllRead: "Mark all as read",
+                viewAll: "View All Notifications"
+            },
+            es: {
+                pageTitle: "Gestión de Reclamaciones (1,247)",
+                breadcrumb: "Inicio / Gestión de Reclamaciones",
+                uploadClaim: "📤 Subir Reclamación",
+                smartReport: "📊 Informe Inteligente",
+                aiAssistant: "🤖 Asistente IA",
+                notifications: "Notificaciones",
+                markAllRead: "Marcar todo como leído",
+                viewAll: "Ver Todas las Notificaciones"
+            },
+            fr: {
+                pageTitle: "Gestion des Réclamations (1,247)",
+                breadcrumb: "Accueil / Gestion des Réclamations",
+                uploadClaim: "📤 Télécharger Réclamation",
+                smartReport: "📊 Rapport Intelligent",
+                aiAssistant: "🤖 Assistant IA",
+                notifications: "Notifications",
+                markAllRead: "Tout marquer comme lu",
+                viewAll: "Voir Toutes les Notifications"
+            },
+            de: {
+                pageTitle: "Anspruchsverwaltung (1,247)",
+                breadcrumb: "Startseite / Anspruchsverwaltung",
+                uploadClaim: "📤 Anspruch Hochladen",
+                smartReport: "📊 Intelligenter Bericht",
+                aiAssistant: "🤖 KI-Assistent",
+                notifications: "Benachrichtigungen",
+                markAllRead: "Alle als gelesen markieren",
+                viewAll: "Alle Benachrichtigungen anzeigen"
+            },
+            pt: {
+                pageTitle: "Gestão de Reivindicações (1,247)",
+                breadcrumb: "Início / Gestão de Reivindicações",
+                uploadClaim: "📤 Enviar Reivindicação",
+                smartReport: "📊 Relatório Inteligente",
+                aiAssistant: "🤖 Assistente IA",
+                notifications: "Notificações",
+                markAllRead: "Marcar todas como lidas",
+                viewAll: "Ver Todas as Notificações"
+            },
+            zh: {
+                pageTitle: "索赔管理 (1,247)",
+                breadcrumb: "首页 / 索赔管理",
+                uploadClaim: "📤 上传索赔",
+                smartReport: "📊 智能报告",
+                aiAssistant: "🤖 AI助手",
+                notifications: "通知",
+                markAllRead: "全部标记为已读",
+                viewAll: "查看所有通知"
+            }
+        };
+
+        let currentLanguage = 'en';
+        let unreadNotifications = 3;
+
+        // Language functionality
+        function toggleLanguageDropdown() {
+            const dropdown = document.getElementById('languageDropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        function changeLanguage(lang, flag, code) {
+            currentLanguage = lang;
+            document.getElementById('currentLanguage').textContent = flag;
+            document.getElementById('currentLanguageText').textContent = code;
+            
+            // Update UI text
+            const t = translations[lang];
+            document.getElementById('pageTitle').textContent = t.pageTitle;
+            document.getElementById('breadcrumbText').textContent = t.breadcrumb;
+            
+            // Update buttons
+            const buttons = document.querySelectorAll('.action-buttons .btn');
+            if (buttons[0]) buttons[0].innerHTML = t.aiAssistant;
+            if (buttons[1]) buttons[1].innerHTML = t.uploadClaim;
+            if (buttons[2]) buttons[2].innerHTML = t.smartReport;
+            
+            // Close dropdown
+            document.getElementById('languageDropdown').classList.remove('show');
+            
+            // Show language change notification
+            showLanguageChangeNotification(lang);
+            
+            // Update language options
+            document.querySelectorAll('.language-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            event.target.closest('.language-option').classList.add('active');
+        }
+
+        function showLanguageChangeNotification(lang) {
+            const messages = {
+                en: "Language changed to English",
+                es: "Idioma cambiado a Español", 
+                fr: "Langue changée en Français",
+                de: "Sprache geändert zu Deutsch",
+                pt: "Idioma alterado para Português",
+                zh: "语言已更改为中文"
+            };
+            
+            // This would typically show a toast notification
+            console.log(messages[lang]);
+        }
+
+        // Notifications functionality
+        function toggleNotifications() {
+            const dropdown = document.getElementById('notificationDropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        function handleNotificationClick(element) {
+            element.classList.remove('unread');
+            updateNotificationBadge();
+        }
+
+        function markAllAsRead() {
+            document.querySelectorAll('.notification-item.unread').forEach(item => {
+                item.classList.remove('unread');
+            });
+            updateNotificationBadge();
+        }
+
+        function updateNotificationBadge() {
+            const unreadCount = document.querySelectorAll('.notification-item.unread').length;
+            const badge = document.getElementById('notificationBadge');
+            if (unreadCount > 0) {
+                badge.textContent = unreadCount;
+                badge.style.display = 'flex';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        // Chatbot functionality
+        function toggleChatbot() {
+            const container = document.getElementById('chatbotContainer');
+            const trigger = document.getElementById('chatbotTrigger');
+            
+            if (container.classList.contains('show')) {
+                container.classList.remove('show');
+                trigger.style.display = 'flex';
+            } else {
+                container.classList.add('show');
+                trigger.style.display = 'none';
+                document.getElementById('chatInput').focus();
+            }
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (message) {
+                addMessage(message, 'user');
+                input.value = '';
+                
+                // Show typing indicator
+                showTypingIndicator();
+                
+                // Simulate AI response
+                setTimeout(() => {
+                    hideTypingIndicator();
+                    handleAIResponse(message);
+                }, 1500);
+            }
+        }
+
+        function sendQuickMessage(message) {
+            addMessage(message, 'user');
+            showTypingIndicator();
+            
+            setTimeout(() => {
+                hideTypingIndicator();
+                handleAIResponse(message);
+            }, 1000);
+        }
+
+        function addMessage(content, sender) {
+            const messagesContainer = document.getElementById('chatbotMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            
+            const avatar = sender === 'user' ? 
+                '<div class="message-avatar user-avatar">U</div>' :
+                '<div class="message-avatar bot-avatar">🤖</div>';
+            
+            messageDiv.innerHTML = `
+                ${avatar}
+                <div class="message-content">${content}</div>
+            `;
+            
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            const messagesContainer = document.getElementById('chatbotMessages');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message bot';
+            typingDiv.id = 'typingIndicator';
+            typingDiv.innerHTML = `
+                <div class="message-avatar bot-avatar">🤖</div>
+                <div class="message-content">
+                    <div class="typing-indicator">
+                        <span>AI is typing</span>
+                        <div class="typing-dots">
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            messagesContainer.appendChild(typingDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            const indicator = document.getElementById('typingIndicator');
+            if (indicator) {
+                indicator.remove();
+            }
+        }
+
+        function handleAIResponse(userMessage) {
+            const responses = {
+                'How do I submit a claim?': {
+                    text: "To submit a claim, follow these steps:",
+                    actions: [
+                        "📤 Click 'Upload Claim' button",
+                        "📋 Fill required information", 
+                        "📎 Attach supporting documents",
+                        "✅ Review and submit"
+                    ]
+                },
+                'Check my claim status': {
+                    text: "I can help you check your claim status. Here are your recent claims:",
+                    actions: [
+                        "CLM_2025_001: ✅ Approved ($8,247.50)",
+                        "CLM_2025_002: ⏳ In Progress ($12,890.75)",
+                        "CLM_2025_004: ⚠️ Action Required"
+                    ]
+                },
+                'Upload documents': {
+                    text: "You can upload documents in several ways:",
+                    actions: [
+                        "📱 Mobile app camera scan",
+                        "💻 Desktop file upload",
+                        "📧 Email to uploads@portal.com",
+                        "☁️ Cloud storage integration"
+                    ]
+                },
+                'Contract help': {
+                    text: "I can assist with contract-related questions:",
+                    actions: [
+                        "📄 View active contracts",
+                        "📅 Check renewal dates",
+                        "💰 Pricing information",
+                        "📞 Contact account manager"
+                    ]
+                }
+            };
+
+            const response = responses[userMessage] || {
+                text: "I understand you're asking about: " + userMessage + ". Let me help you with that.",
+                actions: [
+                    "📞 Contact Support",
+                    "📚 View Help Articles", 
+                    "🎯 Schedule Training",
+                    "💬 Speak to Human Agent"
+                ]
+            };
+
+            let responseHTML = response.text;
+            if (response.actions) {
+                responseHTML += '<div class="quick-actions">';
+                response.actions.forEach(action => {
+                    responseHTML += `<div class="quick-action">${action}</div>`;
+                });
+                responseHTML += '</div>';
+            }
+
+            addMessage(responseHTML, 'bot');
+        }
+
+        function handleChatKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        // Suggestion handlers
+        function handleSuggestion(type) {
+            const suggestions = {
+                upload: "Opening claim upload interface...",
+                review: "Navigating to pending claims...",
+                contract: "Opening new contract for review..."
+            };
+            
+            alert(suggestions[type]);
+        }
+
+        // Other functionality
+        function openAIAssistant() {
+            toggleChatbot();
+        }
+
+        function showUploadDemo() {
+            alert('Enhanced upload interface would open with AI-powered document recognition and validation.');
+        }
+
+        function generateReport() {
+            alert('AI would generate a smart report based on your data patterns and preferences.');
+        }
+
+        function showContextualHelp() {
+            addMessage("I noticed you clicked the help icon! I can provide contextual help for any feature on this page. What would you like to know about?", 'bot');
+            if (!document.getElementById('chatbotContainer').classList.contains('show')) {
+                toggleChatbot();
+            }
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.language-selector')) {
+                document.getElementById('languageDropdown').classList.remove('show');
+            }
+            if (!event.target.closest('.notification-bell')) {
+                document.getElementById('notificationDropdown').classList.remove('show');
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Simulate some real-time notifications
+            setTimeout(() => {
+                console.log('Portal loaded with enhanced features!');
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
