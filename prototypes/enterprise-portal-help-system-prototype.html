@@ -1021,7 +1021,7 @@
                 <h3>🚀 Quick Start</h3>
                 <p>New to claims? Start here for the basics.</p>
                 <ul class="help-links">
-                    <li><a href="#">📝 How to submit your first claim</a></li>
+                    <li><a href="#" onclick="openHelpArticle('help-article-submit-first-claim.html'); return false;">📝 How to submit your first claim</a></li>
                     <li><a href="#">📊 Understanding claim statuses</a></li>
                     <li><a href="#">📋 Required documentation</a></li>
                     <li><a href="#">💡 Common claim mistakes to avoid</a></li>
@@ -1238,32 +1238,26 @@
         const tourSteps = [
             {
                 element: '.page-title',
-                title: 'Claims Overview',
-                content: 'This shows your total number of claims. The help icon (?) provides quick tips for any feature!',
+                title: 'Welcome to Claims!',
+                content: 'This page shows all your claims and their current status. The help icon (?) provides quick tips for any feature!',
                 position: 'right'
             },
             {
                 element: '.action-buttons',
                 title: 'Quick Actions',
-                content: 'Use these buttons to get help, upload new claims, or take a guided tour.',
+                content: 'Use these buttons to get help, upload new claims, or take this guided tour whenever you need assistance.',
                 position: 'bottom'
             },
             {
                 element: '.filters-section',
-                title: 'Filter Your Claims',
-                content: 'Use these filters to find specific claims. Each filter has a help icon for guidance.',
+                title: 'Smart Filtering',
+                content: 'Use these filters to find specific claims quickly. Each filter has a help icon (?) for detailed guidance on what each option means.',
                 position: 'bottom'
             },
             {
                 element: '.data-table',
-                title: 'Your Claims List',
-                content: 'Here you can see all your claims with their current status and progress.',
-                position: 'top'
-            },
-            {
-                element: '.status-guide',
-                title: 'Status Reference',
-                content: 'This quick reference helps you understand what each status means.',
+                title: 'Your Claims Dashboard',
+                content: 'Here you can see all your claims with status, progress, and amounts. Click any claim to view detailed information and take action.',
                 position: 'top'
             }
         ];
@@ -1356,12 +1350,21 @@
                 // Scroll element into view if needed
                 element.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 
-                // Extra positioning check for last step
-                if (step === tourSteps.length - 1) {
-                    setTimeout(() => {
-                        tooltip.style.left = Math.max(20, Math.min(tooltipX, window.innerWidth - tooltipWidth - 20)) + 'px';
-                        tooltip.style.top = Math.max(20, tooltipY) + 'px';
-                    }, 100);
+                // Extra positioning for step 5 (status guide)
+                if (step === 4) { // Step 5 (index 4)
+                    // Force position above the status guide
+                    tooltipY = rect.top + scrollY - 250;
+                    tooltipX = rect.left + scrollX + 50;
+                    
+                    // Ensure it's visible on screen
+                    if (tooltipY < scrollY + 20) {
+                        tooltipY = rect.bottom + scrollY + 20;
+                    }
+                    if (tooltipX + tooltipWidth > window.innerWidth + scrollX) {
+                        tooltipX = rect.right + scrollX - tooltipWidth;
+                    }
+                    
+                    console.log('Step 5 positioning:', { tooltipX, tooltipY, rect });
                 }
             } else {
                 console.error(`Element not found for step ${step + 1}:`, tourData.element);
@@ -1395,6 +1398,16 @@
 
         function showHelpCategory(category) {
             alert(`This would show detailed help content for ${category}. In a real implementation, this would expand or navigate to specific help articles.`);
+        }
+
+        function openHelpArticle(filename) {
+            // Try to open the help article
+            try {
+                window.open(filename, '_blank');
+            } catch (error) {
+                // Fallback: show a message
+                alert('Help article would open here. Make sure both HTML files are in the same folder.');
+            }
         }
 
         // Initialize
