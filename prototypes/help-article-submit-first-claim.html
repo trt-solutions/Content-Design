@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Submit Your First Claim - Enterprise Portal Help</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafc;
+            color: #334155;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            border-radius: 8px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-item {
+            color: #64748b;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .nav-item.active {
+            color: #1e40af;
+            background: #eff6ff;
+            border-bottom: 2px solid #1e40af;
+        }
+
+        .help-trigger {
+            background: #f59e0b;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .help-trigger:hover {
+            background: #d97706;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            position: relative;
+        }
+
+        .main-content {
+            background: white;
+            border-radius: 12px;
+            padding: 3rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+
+        .breadcrumb a {
+            color: #3b82f6;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .article-header {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .article-title {
+            font-size: 2.5rem;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 2rem;
+            color: #64748b;
+            font-size: 0.9rem;
+            align-items: center;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .article-content h2 {
+            color: #1e293b;
+            margin: 2.5rem 0 1rem 0;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .article-content h3 {
+            color: #1e293b;
+            margin: 2rem 0 1rem 0;
+            font-size: 1.2rem;
+        }
+
+        .article-content p {
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .article-content ul,
+        .article-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+
+        .article-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .step-box {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: 2rem;
+            background: #3b82f6;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .step-title {
+            color: #1e293b;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            padding-left: 1rem;
+        }
+
+        .step-content {
+            color: #64748b;
+        }
+
+        .warning-box {
+            background: #fef3c7;
+            border: 2px solid #f59e0b;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .warning-icon {
+            color: #f59e0b;
+            font-size: 1.5rem;
+            margin-top: 0.25rem;
+        }
+
+        .tip-box {
+            background: #dcfce7;
+            border: 2px solid #10b981;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .tip-icon {
+            color: #10b981;
+            font-size: 1.5rem;
+            margin-top: 0.25rem;
+        }
+
+        .screenshot {
+            width: 100%;
+            max-width: 600px;
+            height: 300px;
+            background: #f1f5f9;
+            border: 2px dashed #cbd5e1;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem 0;
+            color: #64748b;
+            font-style: italic;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #64748b;
+            border: 2px solid #e2e8f0;
+        }
+
+        .btn-secondary:hover {
+            background: #e2e8f0;
+        }
+
+        .related-articles {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .related-articles h3 {
+            color: #1e293b;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .related-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .related-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+
+        .related-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .related-item a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .related-item a:hover {
+            text-decoration: underline;
+        }
+
+        .related-item p {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .feedback-section {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .feedback-section h3 {
+            color: #1e293b;
+            margin-bottom: 1rem;
+        }
+
+        .feedback-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+
+        .feedback-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid #e2e8f0;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .feedback-btn:hover {
+            border-color: #3b82f6;
+            color: #3b82f6;
+        }
+
+        .toc {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .toc h4 {
+            color: #1e293b;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .toc li {
+            margin-bottom: 0.5rem;
+        }
+
+        .toc a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .toc a:hover {
+            text-decoration: underline;
+        }
+
+        /* Help Panel - Same as main prototype */
+        .help-panel {
+            position: fixed;
+            right: -450px;
+            top: 0;
+            width: 450px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+            z-index: 1001;
+            transition: right 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .help-panel.open {
+            right: 0;
+        }
+
+        .help-panel-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .help-panel-content {
+            padding: 1.5rem;
+        }
+
+        .help-section {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .help-section:last-child {
+            border-bottom: none;
+        }
+
+        .help-section h3 {
+            color: #1e293b;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .help-section p {
+            color: #64748b;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .help-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .help-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .help-links a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.25rem 0;
+        }
+
+        .help-links a:hover {
+            color: #1d4ed8;
+            text-decoration: underline;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .close-btn:hover {
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+            
+            .main-content {
+                padding: 2rem;
+            }
+            
+            .article-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo-section">
+            <div class="logo">E</div>
+            <span style="color: #1e293b; font-weight: 600;">Enterprise Portal Help</span>
+        </div>
+        <nav class="nav-menu">
+            <a href="#" class="nav-item" onclick="goBack()">← Back to Portal</a>
+            <a href="#" class="nav-item">Help Home</a>
+            <a href="#" class="nav-item active">Claims</a>
+            <button class="help-trigger" onclick="openHelpPanel()">💡 Need Help?</button>
+            <div style="background: #10b981; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">U</div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main class="main-content">
+            <div class="breadcrumb">
+                <a href="#">Help Center</a> > <a href="#">Claims Management</a> > How to Submit Your First Claim
+            </div>
+
+            <div class="article-header">
+                <h1 class="article-title">How to Submit Your First Claim</h1>
+                <div class="article-meta">
+                    <div class="meta-item">
+                        <span>📅</span>
+                        <span>Last updated: June 20, 2025</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>⏱️</span>
+                        <span>5 min read</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>👥</span>
+                        <span>For: New Users</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="toc">
+                <h4>📖 In This Article</h4>
+                <ul>
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#before-you-start">Before You Start</a></li>
+                    <li><a href="#step-by-step">Step-by-Step Instructions</a></li>
+                    <li><a href="#after-submission">After Submission</a></li>
+                    <li><a href="#troubleshooting">Troubleshooting</a></li>
+                </ul>
+            </div>
+
+            <div class="article-content">
+                <section id="overview">
+                    <h2>📋 Overview</h2>
+                    <p>Submitting your first claim in the Enterprise Portal is straightforward once you understand the process. This guide will walk you through every step, from preparing your documentation to tracking your claim's progress.</p>
+                    
+                    <p>A <strong>claim</strong> is a request for rebate payment based on your sales activities during a specific period. Claims typically include volume rebates, performance bonuses, or special promotional incentives.</p>
+                </section>
+
+                <div class="tip-box">
+                    <div class="tip-icon">💡</div>
+                    <div>
+                        <strong>Pro Tip:</strong> Before starting your first claim, take a moment to review your contract terms and rebate structure. This will help you understand what you're eligible to claim.
+                    </div>
+                </div>
+
+                <section id="before-you-start">
+                    <h2>🎯 Before You Start</h2>
+                    <p>Make sure you have the following information ready:</p>
+                    
+                    <ul>
+                        <li><strong>Sales data</strong> for the claim period (invoices, purchase orders)</li>
+                        <li><strong>Contract reference numbers</strong> and applicable rebate rates</li>
+                        <li><strong>Supporting documentation</strong> (delivery receipts, customer confirmations)</li>
+                        <li><strong>End-customer information</strong> (if applicable to your agreement)</li>
+                    </ul>
+
+                    <h3>Required File Formats</h3>
+                    <p>The portal accepts the following file formats for documentation:</p>
+                    <ul>
+                        <li>PDF files (preferred for invoices and contracts)</li>
+                        <li>Excel spreadsheets (.xlsx, .xls)</li>
+                        <li>Images (.jpg, .png) for receipts or photos</li>
+                        <li>CSV files for bulk data uploads</li>
+                    </ul>
+                </section>
+
+                <div class="warning-box">
+                    <div class="warning-icon">⚠️</div>
+                    <div>
+                        <strong>Important:</strong> Claims must be submitted within 90 days of the end of the claim period. Late submissions may not be processed.
+                    </div>
+                </div>
+
+                <section id="step-by-step">
+                    <h2>🚀 Step-by-Step Instructions</h2>
+                    
+                    <div class="step-box">
+                        <div class="step-number">1</div>
+                        <div class="step-title">Navigate to Claims Section</div>
+                        <div class="step-content">
+                            <p>From the main portal dashboard, click on <strong>"Claims"</strong> in the top navigation menu. This will take you to your claims overview page.</p>
+                        </div>
+                    </div>
+
+                    <div class="screenshot">
+                        [Screenshot: Claims navigation menu highlighted]
+                    </div>
+
+                    <div class="step-box">
+                        <div class="step-number">2</div>
+                        <div class="step-title">Start New Claim</div>
+                        <div class="step-content">
+                            <p>Click the <strong>"Upload Claim"</strong> button in the top-right corner of the claims page. This will open the claim submission form.</p>
+                        </div>
+                    </div>
+
+                    <div class="step-box">
+                        <div class="step-number">3</div>
+                        <div class="step-title">Fill in Basic Information</div>
+                        <div class="step-content">
+                            <p>Complete the following required fields:</p>
+                            <ul>
+                                <li><strong>Claim Period:</strong> Select the month/quarter you're claiming for</li>
+                                <li><strong>Location:</strong> Choose your business location</li>
+                                <li><strong>Contract Reference:</strong> Select the applicable agreement</li>
+                                <li><strong>Claim Type:</strong> Choose volume rebate, performance bonus, etc.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="step-box">
+                        <div class="step-number">4</div>
+                        <div class="step-title">Add Line Items</div>
+                        <div class="step-content">
+                            <p>For each product or service you're claiming:</p>
+                            <ul>
+                                <li>Enter the <strong>SKU/Product Code</strong></li>
+                                <li>Specify the <strong>Quantity</strong> sold</li>
+                                <li>Input the <strong>Unit Price</strong></li>
+                                <li>Select the <strong>End Customer</strong> (if required)</li>
+                            </ul>
+                            <p>The system will automatically calculate rebate amounts based on your contract terms.</p>
+                        </div>
+                    </div>
+
+                    <div class="step-box">
+                        <div class="step-number">5</div>
+                        <div class="step-title">Upload Supporting Documents</div>
+                        <div class="step-content">
+                            <p>Attach relevant documentation to support your claim:</p>
+                            <ul>
+                                <li>Click <strong>"Add Document"</strong></li>
+                                <li>Select files from your computer</li>
+                                <li>Add a brief description for each document</li>
+                                <li>Ensure all files are under 10MB each</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="step-box">
+                        <div class="step-number">6</div>
+                        <div class="step-title">Review and Submit</div>
+                        <div class="step-content">
+                            <p>Before submitting:</p>
+                            <ul>
+                                <li>Review all line items for accuracy</li>
+                                <li>Verify calculated amounts match your expectations</li>
+                                <li>Ensure all required documents are attached</li>
+                                <li>Add any additional comments or notes</li>
+                            </ul>
+                            <p>Click <strong>"Submit Claim"</strong> to send for processing.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="after-submission">
+                    <h2>✅ After Submission</h2>
+                    <p>Once you've submitted your claim:</p>
+                    
+                    <ol>
+                        <li><strong>Confirmation:</strong> You'll receive a confirmation email with your claim reference number</li>
+                        <li><strong>Initial Review:</strong> Our team will conduct an initial review within 2-3 business days</li>
+                        <li><strong>Processing:</strong> Complete processing typically takes 5-10 business days</li>
+                        <li><strong>Approval:</strong> Approved claims are processed for payment within 15 business days</li>
+                    </ol>
+
+                    <h3>Tracking Your Claim</h3>
+                    <p>You can track your claim's progress at any time:</p>
+                    <ul>
+                        <li>Go to the Claims section of the portal</li>
+                        <li>Find your claim in the list</li>
+                        <li>Check the Status column for current progress</li>
+                        <li>Click on the claim reference for detailed information</li>
+                    </ul>
+                </section>
+
+                <section id="troubleshooting">
+                    <h2>🔧 Troubleshooting</h2>
+                    
+                    <h3>Common Issues and Solutions</h3>
+                    
+                    <div style="margin: 1.5rem 0;">
+                        <strong>❌ "Missing Required Field" Error</strong>
+                        <p style="margin-left: 1rem; color: #64748b;">Ensure all mandatory fields are completed. Required fields are marked with a red asterisk (*).</p>
+                    </div>
+                    
+                    <div style="margin: 1.5rem 0;">
+                        <strong>❌ "File Upload Failed" Error</strong>
+                        <p style="margin-left: 1rem; color: #64748b;">Check that your file is under 10MB and in an accepted format. Try refreshing the page and uploading again.</p>
+                    </div>
+                    
+                    <div style="margin: 1.5rem 0;">
+                        <strong>❌ "Invalid SKU" Warning</strong>
+                        <p style="margin-left: 1rem; color: #64748b;">Verify the product code against your contract or price list. Use the SKU search feature to find the correct code.</p>
+                    </div>
+                    
+                    <div style="margin: 1.5rem 0;">
+                        <strong>❌ "Calculation Error" Message</strong>
+                        <p style="margin-left: 1rem; color: #64748b;">Double-check quantities and prices. Ensure you're using the correct contract terms and rebate rates.</p>
+                    </div>
+                </section>
+
+                <div class="action-buttons">
+                    <a href="#" class="btn btn-primary">📤 Start Your First Claim</a>
+                    <a href="#" class="btn btn-secondary">📋 View Sample Claim</a>
+                    <a href="#" class="btn btn-secondary">📞 Contact Support</a>
+                </div>
+
+                <div class="related-articles">
+                    <h3>🔗 Related Articles</h3>
+                    <div class="related-list">
+                        <div class="related-item">
+                            <a href="#">Understanding Claim Statuses</a>
+                            <p>Learn what each status means and what actions you may need to take.</p>
+                        </div>
+                        <div class="related-item">
+                            <a href="#">Required Documentation Guide</a>
+                            <p>Complete list of documents needed for different types of claims.</p>
+                        </div>
+                        <div class="related-item">
+                            <a href="#">Common Claim Mistakes to Avoid</a>
+                            <p>Tips to prevent delays and rejections in your claim submissions.</p>
+                        </div>
+                        <div class="related-item">
+                            <a href="#">Contract Terms and Rebate Rates</a>
+                            <p>How to understand your agreement terms and calculate expected rebates.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feedback-section">
+                    <h3>Was this article helpful?</h3>
+                    <p>Help us improve our documentation by letting us know how we did.</p>
+                    <div class="feedback-buttons">
+                        <button class="feedback-btn" onclick="giveFeedback('yes')">👍 Yes, this helped</button>
+                        <button class="feedback-btn" onclick="giveFeedback('no')">👎 No, needs improvement</button>
+                        <button class="feedback-btn" onclick="giveFeedback('suggestion')">💡 I have a suggestion</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Help Panel - Same as main prototype -->
+    <div class="help-panel" id="helpPanel">
+        <div class="help-panel-header">
+            <h2>Claims Help</h2>
+            <button class="close-btn" onclick="closeHelpPanel()">&times;</button>
+        </div>
+        <div class="help-panel-content">
+            <div class="help-section">
+                <h3>🚀 Quick Start</h3>
+                <p>New to claims? Start here for the basics.</p>
+                <ul class="help-links">
+                    <li><a href="#">📝 How to submit your first claim</a></li>
+                    <li><a href="#">📊 Understanding claim statuses</a></li>
+                    <li><a href="#">📋 Required documentation</a></li>
+                    <li><a href="#">💡 Common claim mistakes to avoid</a></li>
+                </ul>
+            </div>
+
+            <div class="help-section">
+                <h3>📋 Common Tasks</h3>
+                <p>Step-by-step guides for frequent actions.</p>
+                <ul class="help-links">
+                    <li><a href="#">📤 Upload supporting documents</a></li>
+                    <li><a href="#">✏️ Edit claim line items</a></li>
+                    <li><a href="#">📥 Download claim reports</a></li>
+                    <li><a href="#">🔍 Track claim progress</a></li>
+                    <li><a href="#">🔄 Resubmit rejected claims</a></li>
+                </ul>
+            </div>
+
+            <div class="help-section">
+                <h3>⚠️ Troubleshooting</h3>
+                <p>Resolve common issues quickly.</p>
+                <ul class="help-links">
+                    <li><a href="#">❌ Claim rejected - what to do?</a></li>
+                    <li><a href="#">📝 Missing required fields</a></li>
+                    <li><a href="#">📁 File upload problems</a></li>
+                    <li><a href="#">⏰ Deadline and timing issues</a></li>
+                </ul>
+            </div>
+
+            <div class="help-section">
+                <h3>📞 Need More Help?</h3>
+                <p>Contact our support team for assistance.</p>
+                <ul class="help-links">
+                    <li><a href="#">📞 Call: 1-800-SUPPORT</a></li>
+                    <li><a href="#">📧 Email: partnersupport@company.com</a></li>
+                    <li><a href="#">💬 Start live chat</a></li>
+                    <li><a href="#">🎯 Request personalized training</a></li>
+                </ul>
+            </div>
+
+            <div style="background: #f8fafc; border-radius: 8px; padding: 1rem; margin-top: 1rem;">
+                <h4 style="color: #1e293b; margin-bottom: 0.5rem;">💡 Pro Tip</h4>
+                <p style="font-size: 0.9rem; color: #64748b;">Use the "?" icons throughout the portal for instant contextual help on any feature.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            // In a real implementation, this would navigate back to the main portal
+            window.close(); // Close the help page tab
+        }
+
+        function openHelpPanel() {
+            document.getElementById('helpPanel').classList.add('open');
+        }
+
+        function closeHelpPanel() {
+            document.getElementById('helpPanel').classList.remove('open');
+        }
+
+        function giveFeedback(type) {
+            const messages = {
+                'yes': 'Thank you for your feedback! We\'re glad this article was helpful.',
+                'no': 'Thank you for your feedback. We\'ll work on improving this article.',
+                'suggestion': 'Thank you! Please feel free to contact our support team with your suggestions.'
+            };
+            
+            alert(messages[type]);
+        }
+
+        // Smooth scrolling for table of contents links
+        document.addEventListener('DOMContentLoaded', function() {
+            const tocLinks = document.querySelectorAll('.toc a');
+            tocLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
