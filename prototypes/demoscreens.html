@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solenis Quote Creation Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+            overflow: hidden;
+        }
+
+        .prototype-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            background: white;
+        }
+
+        /* Screen containers */
+        .screen {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        .screen img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: top left;
+        }
+
+        /* Clickable hotspots */
+        .hotspot {
+            position: absolute;
+            cursor: pointer;
+            border: 3px solid #ff4444;
+            border-radius: 6px;
+            background: rgba(255, 68, 68, 0.1);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+            z-index: 100;
+        }
+
+        .hotspot:hover {
+            background: rgba(255, 68, 68, 0.2);
+            border-color: #ff0000;
+            transform: scale(1.02);
+        }
+
+        @keyframes pulse {
+            0% { 
+                box-shadow: 0 0 0 0 rgba(255, 68, 68, 0.7);
+            }
+            70% { 
+                box-shadow: 0 0 0 15px rgba(255, 68, 68, 0);
+            }
+            100% { 
+                box-shadow: 0 0 0 0 rgba(255, 68, 68, 0);
+            }
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: absolute;
+            background: #333;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            z-index: 200;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .tooltip::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 6px solid #333;
+        }
+
+        .hotspot:hover .tooltip {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Loading overlay */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .loading-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #0176d3;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Demo controls */
+        .demo-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+            padding: 1rem;
+            z-index: 500;
+            min-width: 250px;
+        }
+
+        .demo-controls h4 {
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .step-info {
+            background: #e1f5fe;
+            padding: 0.5rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            font-size: 13px;
+            color: #0277bd;
+            font-weight: 600;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .nav-btn {
+            flex: 1;
+            padding: 6px 12px;
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+
+        .nav-btn.active {
+            background: #0176d3;
+            color: white;
+            border-color: #0176d3;
+        }
+
+        .nav-btn:hover {
+            background: #e0e0e0;
+        }
+
+        .nav-btn.active:hover {
+            background: #0158a3;
+        }
+
+        .auto-btn {
+            width: 100%;
+            padding: 8px 16px;
+            background: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .auto-btn:hover {
+            background: #45a049;
+        }
+
+        /* Success message */
+        .success {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            z-index: 1000;
+            display: none;
+            text-align: center;
+            max-width: 400px;
+        }
+
+        .success-icon {
+            font-size: 48px;
+            margin-bottom: 1rem;
+        }
+
+        /* Instructions panel */
+        .instructions {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 1rem;
+            max-width: 300px;
+            z-index: 600;
+        }
+
+        .instructions h4 {
+            color: #856404;
+            margin-bottom: 0.5rem;
+        }
+
+        .instructions p {
+            color: #856404;
+            font-size: 13px;
+            line-height: 1.4;
+            margin-bottom: 0.5rem;
+        }
+
+        .close-instructions {
+            background: none;
+            border: none;
+            color: #856404;
+            cursor: pointer;
+            float: right;
+            font-size: 18px;
+            margin-top: -5px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .demo-controls {
+                bottom: 10px;
+                right: 10px;
+                left: 10px;
+                min-width: auto;
+            }
+            
+            .instructions {
+                position: relative;
+                top: auto;
+                left: auto;
+                margin: 10px;
+                max-width: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="prototype-container">
+        
+        <!-- Instructions Panel -->
+        <div class="instructions" id="instructions">
+            <button class="close-instructions" onclick="closeInstructions()">&times;</button>
+            <h4>📸 Add Your Screenshots</h4>
+            <p><strong>Step 1:</strong> Replace the placeholder images below with your actual screenshots</p>
+            <p><strong>Step 2:</strong> Adjust hotspot coordinates if needed</p>
+            <p><strong>Step 3:</strong> Test by clicking the highlighted areas</p>
+        </div>
+
+        <!-- Screen 1: Search Results -->
+        <div class="screen active" id="screen1">
+            <!-- 
+                REPLACE THIS IMAGE SRC WITH YOUR FIRST SCREENSHOT
+                Save your screenshot and replace "placeholder1.jpg" with your filename
+            -->
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='800'%3E%3Crect width='100%25' height='100%25' fill='%23f0f8ff'/%3E%3Ctext x='50%25' y='40%25' font-family='Arial' font-size='24' fill='%23666' text-anchor='middle'%3EReplace with your first screenshot%3C/text%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='16' fill='%23888' text-anchor='middle'%3E(Search results showing D AND I BRIDGEMAN AND SON LTD)%3C/text%3E%3Crect x='20%25' y='60%25' width='60%25' height='10%25' fill='%23e1f5fe' stroke='%23ff4444' stroke-width='3' stroke-dasharray='5,5'/%3E%3Ctext x='50%25' y='67%25' font-family='Arial' font-size='14' fill='%23333' text-anchor='middle'%3EClick area: Account search result%3C/text%3E%3C/svg%3E" alt="Search Results">
+            
+            <!-- Hotspot for clicking on search result -->
+            <!-- Adjust these coordinates based on where the account appears in your screenshot -->
+            <div class="hotspot" 
+                 style="top: 60%; left: 20%; width: 60%; height: 10%;"
+                 onclick="goToScreen(2)">
+                <div class="tooltip" style="top: -40px; left: 50%; transform: translateX(-50%);">
+                    Click on "D AND I BRIDGEMAN AND SON LTD" to open account
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 2: Account Details -->
+        <div class="screen" id="screen2">
+            <!-- 
+                REPLACE THIS IMAGE SRC WITH YOUR SECOND SCREENSHOT
+                Save your screenshot and replace "placeholder2.jpg" with your filename
+            -->
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='800'%3E%3Crect width='100%25' height='100%25' fill='%23f8f9fa'/%3E%3Ctext x='50%25' y='40%25' font-family='Arial' font-size='24' fill='%23666' text-anchor='middle'%3EReplace with your second screenshot%3C/text%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='16' fill='%23888' text-anchor='middle'%3E(Account details with New Quote button)%3C/text%3E%3Crect x='75%25' y='15%25' width='20%25' height='8%25' fill='%23e1f5fe' stroke='%23ff4444' stroke-width='3' stroke-dasharray='5,5'/%3E%3Ctext x='85%25' y='20%25' font-family='Arial' font-size='12' fill='%23333' text-anchor='middle'%3EClick area:%3C/text%3E%3Ctext x='85%25' y='22%25' font-family='Arial' font-size='12' fill='%23333' text-anchor='middle'%3ENew Quote button%3C/text%3E%3C/svg%3E" alt="Account Details">
+            
+            <!-- Hotspot for New Quote button -->
+            <!-- Adjust these coordinates based on where the New Quote button appears in your screenshot -->
+            <div class="hotspot" 
+                 style="top: 15%; right: 5%; width: 20%; height: 8%;"
+                 onclick="goToScreen(3)">
+                <div class="tooltip" style="top: -40px; right: 0;">
+                    Click "New Quote" to create a new quote
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 3: Create Quote Modal -->
+        <div class="screen" id="screen3">
+            <!-- 
+                REPLACE THIS IMAGE SRC WITH YOUR THIRD SCREENSHOT
+                Save your screenshot and replace "placeholder3.jpg" with your filename
+            -->
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='800'%3E%3Crect width='100%25' height='100%25' fill='%23f1f3f4'/%3E%3Ctext x='50%25' y='40%25' font-family='Arial' font-size='24' fill='%23666' text-anchor='middle'%3EReplace with your third screenshot%3C/text%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='16' fill='%23888' text-anchor='middle'%3E(Create Quote modal with Save button)%3C/text%3E%3Crect x='65%25' y='70%25' width='15%25' height='6%25' fill='%23e1f5fe' stroke='%23ff4444' stroke-width='3' stroke-dasharray='5,5'/%3E%3Ctext x='72.5%25' y='74%25' font-family='Arial' font-size='12' fill='%23333' text-anchor='middle'%3EClick area: Save button%3C/text%3E%3C/svg%3E" alt="Create Quote Modal">
+            
+            <!-- Hotspot for Save button -->
+            <!-- Adjust these coordinates based on where the Save button appears in your screenshot -->
+            <div class="hotspot" 
+                 style="bottom: 24%; right: 20%; width: 15%; height: 6%;"
+                 onclick="showSuccess()">
+                <div class="tooltip" style="top: -40px; right: 0;">
+                    Click "Save" to create the quote
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading" id="loading">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <div id="loadingText">Loading...</div>
+        </div>
+    </div>
+
+    <!-- Success Message -->
+    <div class="success" id="success">
+        <div class="success-icon">🎉</div>
+        <h3>Quote Created Successfully!</h3>
+        <p>You've completed the workflow! The quote for D AND I BRIDGEMAN AND SON LTD has been created.</p>
+        <br>
+        <button onclick="restart()" style="background: #0176d3; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">Try Again</button>
+        <button onclick="closeSuccess()" style="background: #f5f5f5; color: #333; border: 1px solid #ddd; padding: 8px 16px; border-radius: 4px; cursor: pointer; margin-left: 0.5rem;">Close</button>
+    </div>
+
+    <!-- Demo Controls -->
+    <div class="demo-controls">
+        <h4>Demo Navigation</h4>
+        <div class="step-info" id="stepInfo">
+            Step 1: Click on search result
+        </div>
+        <div class="nav-buttons">
+            <button class="nav-btn active" onclick="goToStep(1)">Step 1</button>
+            <button class="nav-btn" onclick="goToStep(2)">Step 2</button>
+            <button class="nav-btn" onclick="goToStep(3)">Step 3</button>
+        </div>
+        <button class="auto-btn" onclick="autoDemo()">▶ Auto Demo</button>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        let isAutoRunning = false;
+
+        const stepData = {
+            1: "Step 1: Click on search result",
+            2: "Step 2: Click New Quote button", 
+            3: "Step 3: Click Save to create quote"
+        };
+
+        function goToScreen(screenNumber) {
+            if (isAutoRunning) return;
+
+            showLoading("Loading next screen...");
+            
+            setTimeout(() => {
+                // Hide all screens
+                document.querySelectorAll('.screen').forEach(screen => {
+                    screen.classList.remove('active');
+                });
+                
+                // Show target screen
+                document.getElementById(`screen${screenNumber}`).classList.add('active');
+                
+                // Update controls
+                updateControls(screenNumber);
+                currentStep = screenNumber;
+                
+                hideLoading();
+            }, 800);
+        }
+
+        function goToStep(stepNumber) {
+            if (isAutoRunning) return;
+            goToScreen(stepNumber);
+        }
+
+        function updateControls(step) {
+            // Update navigation buttons
+            document.querySelectorAll('.nav-btn').forEach((btn, index) => {
+                btn.classList.toggle('active', index + 1 === step);
+            });
+            
+            // Update step info
+            document.getElementById('stepInfo').textContent = stepData[step];
+        }
+
+        function showSuccess() {
+            showLoading("Creating quote...");
+            
+            setTimeout(() => {
+                hideLoading();
+                document.getElementById('success').style.display = 'block';
+            }, 1500);
+        }
+
+        function closeSuccess() {
+            document.getElementById('success').style.display = 'none';
+        }
+
+        function restart() {
+            closeSuccess();
+            goToScreen(1);
+        }
+
+        function autoDemo() {
+            if (isAutoRunning) return;
+            
+            isAutoRunning = true;
+            const autoBtn = document.querySelector('.auto-btn');
+            autoBtn.textContent = '⏸ Running...';
+            autoBtn.style.background = '#ccc';
+            
+            // Reset to step 1
+            goToScreen(1);
+            
+            // Auto progression
+            setTimeout(() => goToScreen(2), 2500);
+            setTimeout(() => goToScreen(3), 5000);
+            setTimeout(() => showSuccess(), 7500);
+            
+            // Reset button
+            setTimeout(() => {
+                isAutoRunning = false;
+                autoBtn.textContent = '▶ Auto Demo';
+                autoBtn.style.background = '#4caf50';
+            }, 10000);
+        }
+
+        function showLoading(text) {
+            document.getElementById('loadingText').textContent = text;
+            document.getElementById('loading').style.display = 'flex';
+        }
+
+        function hideLoading() {
+            document.getElementById('loading').style.display = 'none';
+        }
+
+        function closeInstructions() {
+            document.getElementById('instructions').style.display = 'none';
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (isAutoRunning) return;
+            
+            if (e.key === 'ArrowRight' && currentStep < 3) {
+                goToScreen(currentStep + 1);
+            } else if (e.key === 'ArrowLeft' && currentStep > 1) {
+                goToScreen(currentStep - 1);
+            } else if (e.key === ' ') {
+                e.preventDefault();
+                autoDemo();
+            }
+        });
+
+        // Initialize
+        updateControls(1);
+    </script>
+</body>
+</html>
