@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Submit Your First Claim - Enterprise Portal Help</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafc;
+            color: #334155;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            border-radius: 8px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-item {
+            color: #64748b;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .nav-item.active {
+            color: #1e40af;
+            background: #eff6ff;
+            border-bottom: 2px solid #1e40af;
+        }
+
+        /* Language Selector */
+        .language-selector {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s;
+        }
+
+        .language-selector:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+        .language-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            min-width: 200px;
+            z-index: 1000;
+            display: none;
+        }
+
+        .language-dropdown.show {
+            display: block;
+            animation: fadeIn 0.2s ease;
+        }
+
+        .language-option {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: background 0.2s;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .language-option:last-child {
+            border-bottom: none;
+        }
+
+        .language-option:hover {
+            background: #f8fafc;
+        }
+
+        .language-option.active {
+            background: #eff6ff;
+            color: #1e40af;
+            font-weight: 500;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .main-content {
+            background: white;
+            border-radius: 12px;
+            padding: 3rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+
+        .breadcrumb a {
+            color: #3b82f6;
+            text-decoration: none;
+        }
+
+        .article-header {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .article-title {
+            font-size: 2.5rem;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 2rem;
+            color: #64748b;
+            font-size: 0.9rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .article-content h2 {
+            color: #1e293b;
+            margin: 2.5rem 0 1rem 0;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .article-content p {
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .article-content ul {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+
+        .article-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .step-box {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: 2rem;
+            background: #3b82f6;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .step-title {
+            color: #1e293b;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            padding-left: 1rem;
+        }
+
+        .step-content {
+            color: #64748b;
+        }
+
+        .tip-box {
+            background: #dcfce7;
+            border: 2px solid #10b981;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .tip-icon {
+            color: #10b981;
+            font-size: 1.5rem;
+            margin-top: 0.25rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            margin-right: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .btn-primary {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        /* Language change notification */
+        .language-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+            animation: slideIn 0.3s ease;
+        }
+
+        .language-notification.show {
+            display: flex;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Translation indicator */
+        .translation-indicator {
+            background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .main-content {
+                padding: 2rem;
+            }
+            
+            .article-title {
+                font-size: 2rem;
+            }
+
+            .language-dropdown {
+                right: -50px;
+                width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo-section">
+            <div class="logo">E</div>
+            <span style="color: #1e293b; font-weight: 600;" data-i18n="portal-title">Enterprise Portal Help</span>
+        </div>
+        <nav class="nav-menu">
+            <a href="#" class="nav-item" onclick="goBack()" data-i18n="nav-back">← Back to Portal</a>
+            <a href="#" class="nav-item" data-i18n="nav-help-home">Help Home</a>
+            <a href="#" class="nav-item active" data-i18n="nav-claims">Claims</a>
+            
+            <!-- Language Selector -->
+            <div class="language-selector" onclick="toggleLanguageDropdown()">
+                <span id="currentLanguageFlag">🇺🇸</span>
+                <span id="currentLanguageCode">EN</span>
+                <span style="font-size: 12px;">▼</span>
+                <div class="language-dropdown" id="languageDropdown">
+                    <div class="language-option active" onclick="changeLanguage('en', '🇺🇸', 'EN')">
+                        <span>🇺🇸</span>
+                        <div>
+                            <div style="font-weight: 500;">English</div>
+                            <div style="font-size: 0.8rem; color: #64748b;">United States</div>
+                        </div>
+                    </div>
+                    <div class="language-option" onclick="changeLanguage('de', '🇩🇪', 'DE')">
+                        <span>🇩🇪</span>
+                        <div>
+                            <div style="font-weight: 500;">Deutsch</div>
+                            <div style="font-size: 0.8rem; color: #64748b;">Deutschland</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="background: #10b981; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">U</div>
+        </nav>
+    </header>
+
+    <!-- Language Change Notification -->
+    <div class="language-notification" id="languageNotification">
+        <span>🌍</span>
+        <span id="notificationText">Language changed successfully!</span>
+    </div>
+
+    <div class="container">
+        <main class="main-content">
+            <div class="breadcrumb">
+                <a href="#" data-i18n="breadcrumb-help">Help Center</a> > 
+                <a href="#" data-i18n="breadcrumb-claims">Claims Management</a> > 
+                <span data-i18n="breadcrumb-current">How to Submit Your First Claim</span>
+            </div>
+
+            <!-- Translation Indicator (shown when content is in German) -->
+            <div class="translation-indicator" id="translationIndicator" style="display: none;">
+                <span class="pulse">🌍</span>
+                <span data-i18n="translation-notice">This content has been translated to German.</span>
+            </div>
+
+            <div class="article-header">
+                <h1 class="article-title" data-i18n="page-title">How to Submit Your First Claim</h1>
+                <div class="article-meta">
+                    <div class="meta-item">
+                        <span>📅</span>
+                        <span data-i18n="last-updated">Last updated: June 20, 2025</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>⏱️</span>
+                        <span data-i18n="reading-time">3 min read</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>👥</span>
+                        <span data-i18n="target-audience">For: New Users</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="article-content">
+                <section>
+                    <h2 data-i18n="section-overview">📋 Overview</h2>
+                    <p data-i18n="overview-text">Submitting your first claim is simple. This guide walks you through the process step by step.</p>
+                </section>
+
+                <div class="tip-box">
+                    <div class="tip-icon">💡</div>
+                    <div>
+                        <strong data-i18n="tip-title">Pro Tip:</strong>
+                        <span data-i18n="tip-content">Review your contract terms before starting your first claim.</span>
+                    </div>
+                </div>
+
+                <section>
+                    <h2 data-i18n="section-steps">🚀 Quick Steps</h2>
+                    
+                    <div class="step-box">
+                        <div class="step-number">1</div>
+                        <div class="step-title" data-i18n="step1-title">Navigate to Claims</div>
+                        <div class="step-content">
+                            <p data-i18n="step1-content">Click "Claims" in the main navigation menu.</p>
+                        </div>
+                    </div>
+
+                    <div class="step-box">
+                        <div class="step-number">2</div>
+                        <div class="step-title" data-i18n="step2-title">Upload Claim</div>
+                        <div class="step-content">
+                            <p data-i18n="step2-content">Click "Upload Claim" button and fill in the required information.</p>
+                        </div>
+                    </div>
+
+                    <div class="step-box">
+                        <div class="step-number">3</div>
+                        <div class="step-title" data-i18n="step3-title">Add Documents</div>
+                        <div class="step-content">
+                            <p data-i18n="step3-content">Attach supporting documents like invoices and receipts.</p>
+                        </div>
+                    </div>
+
+                    <div class="step-box">
+                        <div class="step-number">4</div>
+                        <div class="step-title" data-i18n="step4-title">Submit</div>
+                        <div class="step-content">
+                            <p data-i18n="step4-content">Review everything and click "Submit Claim" to send for processing.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 data-i18n="section-next">✅ What's Next?</h2>
+                    <p data-i18n="next-text">You'll receive a confirmation email and can track progress in the Claims section.</p>
+                    <ul>
+                        <li data-i18n="next-item1">Initial review: 2-3 business days</li>
+                        <li data-i18n="next-item2">Processing: 5-10 business days</li>
+                        <li data-i18n="next-item3">Payment: 15 business days after approval</li>
+                    </ul>
+                </section>
+
+                <div style="margin-top: 3rem;">
+                    <a href="#" class="btn btn-primary" data-i18n="btn-start">📤 Start Your First Claim</a>
+                    <a href="#" class="btn btn-primary" data-i18n="btn-help">💬 Get Help</a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Simplified translations
+        const translations = {
+            en: {
+                'portal-title': 'Enterprise Portal Help',
+                'nav-back': '← Back to Portal',
+                'nav-help-home': 'Help Home',
+                'nav-claims': 'Claims',
+                'breadcrumb-help': 'Help Center',
+                'breadcrumb-claims': 'Claims Management',
+                'breadcrumb-current': 'How to Submit Your First Claim',
+                'translation-notice': 'This content has been translated to German.',
+                'page-title': 'How to Submit Your First Claim',
+                'last-updated': 'Last updated: June 20, 2025',
+                'reading-time': '3 min read',
+                'target-audience': 'For: New Users',
+                'section-overview': '📋 Overview',
+                'overview-text': 'Submitting your first claim is simple. This guide walks you through the process step by step.',
+                'tip-title': 'Pro Tip:',
+                'tip-content': 'Review your contract terms before starting your first claim.',
+                'section-steps': '🚀 Quick Steps',
+                'step1-title': 'Navigate to Claims',
+                'step1-content': 'Click "Claims" in the main navigation menu.',
+                'step2-title': 'Upload Claim',
+                'step2-content': 'Click "Upload Claim" button and fill in the required information.',
+                'step3-title': 'Add Documents',
+                'step3-content': 'Attach supporting documents like invoices and receipts.',
+                'step4-title': 'Submit',
+                'step4-content': 'Review everything and click "Submit Claim" to send for processing.',
+                'section-next': '✅ What\'s Next?',
+                'next-text': 'You\'ll receive a confirmation email and can track progress in the Claims section.',
+                'next-item1': 'Initial review: 2-3 business days',
+                'next-item2': 'Processing: 5-10 business days',
+                'next-item3': 'Payment: 15 business days after approval',
+                'btn-start': '📤 Start Your First Claim',
+                'btn-help': '💬 Get Help'
+            },
+            de: {
+                'portal-title': 'Enterprise Portal Hilfe',
+                'nav-back': '← Zurück zum Portal',
+                'nav-help-home': 'Hilfe Startseite',
+                'nav-claims': 'Ansprüche',
+                'breadcrumb-help': 'Hilfe-Center',
+                'breadcrumb-claims': 'Anspruchsverwaltung',
+                'breadcrumb-current': 'Wie Sie Ihren ersten Anspruch einreichen',
+                'translation-notice': 'Dieser Inhalt wurde ins Deutsche übersetzt.',
+                'page-title': 'Wie Sie Ihren ersten Anspruch einreichen',
+                'last-updated': 'Zuletzt aktualisiert: 20. Juni 2025',
+                'reading-time': '3 Min. Lesezeit',
+                'target-audience': 'Für: Neue Benutzer',
+                'section-overview': '📋 Überblick',
+                'overview-text': 'Die Einreichung Ihres ersten Anspruchs ist einfach. Diese Anleitung führt Sie Schritt für Schritt durch den Prozess.',
+                'tip-title': 'Profi-Tipp:',
+                'tip-content': 'Überprüfen Sie Ihre Vertragsbedingungen, bevor Sie Ihren ersten Anspruch starten.',
+                'section-steps': '🚀 Schnelle Schritte',
+                'step1-title': 'Zu Ansprüchen navigieren',
+                'step1-content': 'Klicken Sie auf "Ansprüche" im Hauptnavigationsmenü.',
+                'step2-title': 'Anspruch hochladen',
+                'step2-content': 'Klicken Sie auf "Anspruch hochladen" und füllen Sie die erforderlichen Informationen aus.',
+                'step3-title': 'Dokumente hinzufügen',
+                'step3-content': 'Fügen Sie unterstützende Dokumente wie Rechnungen und Belege bei.',
+                'step4-title': 'Einreichen',
+                'step4-content': 'Überprüfen Sie alles und klicken Sie auf "Anspruch einreichen" zum Versenden zur Bearbeitung.',
+                'section-next': '✅ Was kommt als Nächstes?',
+                'next-text': 'Sie erhalten eine Bestätigungs-E-Mail und können den Fortschritt im Ansprüche-Bereich verfolgen.',
+                'next-item1': 'Erstprüfung: 2-3 Werktage',
+                'next-item2': 'Bearbeitung: 5-10 Werktage',
+                'next-item3': 'Zahlung: 15 Werktage nach Genehmigung',
+                'btn-start': '📤 Ihren ersten Anspruch starten',
+                'btn-help': '💬 Hilfe erhalten'
+            }
+        };
+
+        let currentLanguage = 'en';
+
+        function toggleLanguageDropdown() {
+            const dropdown = document.getElementById('languageDropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        function changeLanguage(lang, flag, code) {
+            if (currentLanguage === lang) return;
+            
+            if (!translations[lang]) {
+                console.error(`No translations available for language: ${lang}`);
+                return;
+            }
+            
+            currentLanguage = lang;
+            document.getElementById('currentLanguageFlag').textContent = flag;
+            document.getElementById('currentLanguageCode').textContent = code;
+            
+            // Show translation indicator for German
+            const indicator = document.getElementById('translationIndicator');
+            if (lang === 'de') {
+                indicator.style.display = 'block';
+            } else {
+                indicator.style.display = 'none';
+            }
+            
+            // Update all translatable content
+            updateContent(lang);
+            
+            // Close dropdown
+            document.getElementById('languageDropdown').classList.remove('show');
+            
+            // Update active language option
+            document.querySelectorAll('.language-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            
+            const clickedOption = event && event.target ? event.target.closest('.language-option') : null;
+            if (clickedOption) {
+                clickedOption.classList.add('active');
+            }
+            
+            // Show notification
+            showLanguageNotification(lang);
+        }
+
+        function updateContent(lang) {
+            const elements = document.querySelectorAll('[data-i18n]');
+            const t = translations[lang];
+            
+            if (!t) {
+                console.warn(`Translations not found for language: ${lang}`);
+                return;
+            }
+            
+            elements.forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (key && t[key]) {
+                    element.innerHTML = t[key];
+                }
+            });
+            
+            document.documentElement.lang = lang;
+        }
+
+        function showLanguageNotification(lang) {
+            const notification = document.getElementById('languageNotification');
+            const notificationText = document.getElementById('notificationText');
+            
+            const messages = {
+                en: "Language changed to English",
+                de: "Sprache geändert zu Deutsch"
+            };
+            
+            notificationText.textContent = messages[lang];
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        function goBack() {
+            window.close();
+        }
+
+        // Close language dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.language-selector')) {
+                document.getElementById('languageDropdown').classList.remove('show');
+            }
+        });
+
+        // Keyboard shortcut for language switching
+        document.addEventListener('keydown', function(event) {
+            if ((event.ctrlKey || event.metaKey) && event.shiftKey && event.key === 'L') {
+                event.preventDefault();
+                const newLang = currentLanguage === 'en' ? 'de' : 'en';
+                const flag = newLang === 'en' ? '🇺🇸' : '🇩🇪';
+                const code = newLang === 'en' ? 'EN' : 'DE';
+                
+                changeLanguage(newLang, flag, code);
+                
+                setTimeout(() => {
+                    document.querySelectorAll('.language-option').forEach((option, index) => {
+                        option.classList.remove('active');
+                        if ((newLang === 'en' && index === 0) || (newLang === 'de' && index === 1)) {
+                            option.classList.add('active');
+                        }
+                    });
+                }, 50);
+            }
+        });
+    </script>
+</body>
+</html>
